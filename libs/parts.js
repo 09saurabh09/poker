@@ -27,6 +27,46 @@ exports.loadJquery = function () {
     ]
   };
 }
+
+exports.loadOtherModules = function (argument) {
+  return {
+    module: {
+      loaders: [{
+        test: /\.html$/,
+        include: [/\/app\/|\/assets\//],
+        loader: 'file?name=[name].html'
+      }, {
+        test: /\.(png|jpg|mp4)$/,
+        loader: 'file?name=[name].[ext]' // inline base64 URLs for <=10kb images, direct URLs for the rest
+      }, {
+        test: /\.css$/,
+        exclude: [/\/plugin\//],
+        loader: "style-loader!css-loader"
+      }, {
+        test: /\.scss$/,
+        exclude: [/\/plugin\//, /node_modules/],
+        loader: 'style!css!autoprefixer!sass!text-transform'
+      }, {
+        test: /plugin\/[a-zA-Z-.]*.js$/,
+        loader: 'file?name=[name].[ext]'
+      }, {
+        test: /plugin\/[a-zA-Z-.]*.css$/,
+        loader: 'file?name=[name].[ext]'
+      }, {
+        test: /\.(jsx|js)$/,
+        exclude: [/(node_modules)/, /\/plugin\//],
+        loader: "babel"
+      }, {
+        test: [/fontawesome-webfont\.svg/, /fontawesome-webfont\.eot/, /fontawesome-webfont\.ttf/, /fontawesome-webfont\.woff/, /fontawesome-webfont\.woff2/],
+        loader: 'file?name=fonts/[name].[ext]'
+      }, {
+        test: [/\.(woff|woff2|eot|ttf|svg)$/],
+        loader: 'url-loader?limit=100000'
+      }]
+    }
+  }
+}
+
 exports.loadJSX = function(include) {
   return {
     module: {

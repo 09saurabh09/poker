@@ -1,100 +1,116 @@
-'use strict';
-let path = require('path'),
-  fs = require('fs'),
-  webpack = require("webpack"),
-  appPath = path.join(__dirname, 'client/src'),
-  wwwPath = path.join(__dirname, 'public'),
-  pkg = require('./package.json'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  environment = process.env.NODE_ENV;
+const path = require('path');
+const merge = require('webpack-merge');
+const validate = require('webpack-validator');
 
-let config = {
-  entry: {
-    vendor : ['react', 'react-dom'],
-    app: appPath
-  },
-  output: {
-    path: path.join(wwwPath),
-    filename: '[name].js'
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  module: {
-    loaders: [{
-      test: /\.html$/,
-      include: [/\/app\/|\/assets\//],
-      loader: 'file?name=[name].html'
-    }, {
-      test: /\.(png|jpg|mp4)$/,
-      loader: 'file?name=[name].[ext]' // inline base64 URLs for <=10kb images, direct URLs for the rest
-    }, {
-      test: /\.css$/,
-      exclude: [/\/plugin\//],
-      loader: "style-loader!css-loader"
-    }, {
-      test: /\.scss$/,
-      exclude: [/\/plugin\//, /node_modules/],
-      loader: 'style!css!autoprefixer!sass!text-transform'
-    }, {
-      test: /plugin\/[a-zA-Z-.]*.js$/,
-      loader: 'file?name=[name].[ext]'
-    }, {
-      test: /plugin\/[a-zA-Z-.]*.css$/,
-      loader: 'file?name=[name].[ext]'
-    }, {
-      test: /\.(jsx|js)$/,
-      exclude: [/(node_modules)/, /\/plugin\//],
-      loader: "babel"
-    }, {
-      test: [/fontawesome-webfont\.svg/, /fontawesome-webfont\.eot/, /fontawesome-webfont\.ttf/, /fontawesome-webfont\.woff/, /fontawesome-webfont\.woff2/],
-      loader: 'file?name=fonts/[name].[ext]'
-    }, {
-      test: [/\.(woff|woff2|eot|ttf|svg)$/],
-      loader: 'url-loader?limit=100000'
-    }]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      env: JSON.stringify(environment)
-    }),
+const parts = require('./libs/parts');
 
-    new webpack.optimize.CommonsChunkPlugin({
-        name: ['vendor'],
-
-        // options.name modules only
-        minChunks: Infinity
-    }),
-
-    new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery"
-    }),
-    // HtmlWebpackPlugin: Simplifies creation of HTML files to serve your webpack bundles : https://www.npmjs.com/package/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      template: require('html-webpack-template'),
-        title: pkg.title,
-        appMountId: 'root',
-        inject: false
-    }),
-    // OccurenceOrderPlugin: Assign the module and chunk ids by occurrence count. : https://webpack.github.io/docs/list-of-plugins.html#occurenceorderplugin
-    new webpack.optimize.OccurenceOrderPlugin(),
-
-    // Deduplication: find duplicate dependencies & prevents duplicate inclusion : https://github.com/webpack/docs/wiki/optimization#deduplication
-    new webpack.optimize.DedupePlugin()
-  ]
+const TARGET = process.env.npm_lifecycle_event;
+const ENABLE_POLLING = process.env.ENABLE_POLLING;
+const PATHS = {
+  app: path.join(__dirname, 'client/src/'),
+  style: [
+    path.join(__dirname, 'client', 'src', 'main.css')
+  ],
+  build: path.join(__dirname, 'build'),
+  test: path.join(__dirname, 'tests')
 };
 
-if (environment != 'development') {
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
+process.env.BABEL_ENV = TARGET;
+
+const common = merge(
+  {
+    // Entry accepts a path or an object of entries.
+    // We'll be using the latter form given it's
+    // convenient with more complex configurations.
+    entry: {
+      app: PATHS.app
+    },
+    output: {
+      path: PATHS.build,
+      filename: '[name].js'
+      // TODO: Set publicPath to match your GitHub project name
+      // E.g., '/kanban-demo/'. Webpack will alter asset paths
+      // based on this. You can even use an absolute path here
+      // or even point to a CDN.
+      //publicPath: ''
+    },
+    resolve: {
+      extensions: ['', '.js', '.jsx']
+    }
+  },
+  parts.indexTemplate({
+    title: 'Play',
+    appMountId: 'root'
+  }),
+  parts.loadOtherModules(),
+  parts.loadJquery(),
+  parts.loadJSX(PATHS.app),
+  parts.lintJSX(PATHS.app)
+);
+
+var config;
+
+// Detect how npm is run and branch based on that
+switch(TARGET) {
+  case 'build':
+  case 'stats':
+    config = merge(
+      common,
+      {
+        devtool: 'source-map',
+        entry: {
+          style: PATHS.style
+        },
+        output: {
+          path: PATHS.build,
+          filename: '[name].[chunkhash].js',
+          chunkFilename: '[chunkhash].js'
+        }
       },
-      sourceMap: true,
-      beautify: true
-    })
-  );
+      parts.clean(PATHS.build),
+      parts.setFreeVariable(
+        'process.env.NODE_ENV',
+        'production'
+      ),
+      parts.extractBundle({
+        name: 'vendor',
+        entries: ['react', 'react-dom']
+      }),
+      parts.extractCSS(PATHS.style),
+      parts.minify()
+    );
+    break;
+  case 'test':
+  case 'test:tdd':
+    config = merge(
+      common,
+      {
+        devtool: 'inline-source-map'
+      },
+      parts.loadIsparta(PATHS.app),
+      parts.loadJSX(PATHS.test)
+    );
+    break;
+  default:
+    config = merge(
+      common,
+      {
+        devtool: 'eval-source-map',
+        entry: {
+          style: PATHS.style
+        }
+      },
+      parts.devServer({
+        // Customize host/port here if needed
+        host: process.env.HOST,
+        port: process.env.PORT,
+        poll: ENABLE_POLLING
+      }),
+      parts.enableReactPerformanceTools(),
+      parts.npmInstall()
+    );
 }
 
-module.exports = config;
+module.exports = validate(config, {
+  quiet: true
+});
