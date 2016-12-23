@@ -62,6 +62,9 @@ exports.loadOtherModules = function (argument) {
       }, {
         test: [/\.(woff|woff2|eot|ttf|svg)$/],
         loader: 'url-loader?limit=100000'
+      },{
+        test: /\.svg$/, 
+        loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
       }]
     }
   }

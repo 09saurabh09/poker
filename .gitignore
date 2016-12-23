@@ -49,5 +49,7 @@ jspm_packages
 #build files
 build
 
+DS_Store
+
 
 

@@ -2,15 +2,17 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 // Layouts
-import MainLayout from './components/layouts/main-layout';
+import GameLayout from './components/layouts/game-layout';
 
 // Pages
-import Loby from './components/containers/loby-container';
+import Loby from './components/containers/loby/loby-container';
+import CashGameContainer from './components/containers/game/cash-game/cash-game-container';
 
 export default (
-  <Route path="/">
-    <Route component={MainLayout}>
-      <IndexRoute component={Loby} />
-    </Route>
-  </Route>
+	<Route>
+		<Route path="/" component={Loby} />
+		<Route path="game" component={GameLayout} >
+			<Route path="cash-games" component={CashGameContainer} />
+		</Route>
+	</Route>
 );

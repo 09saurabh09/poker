@@ -74,7 +74,7 @@ switch(TARGET) {
       ),
       parts.extractBundle({
         name: 'vendor',
-        entries: ['react', 'react-dom']
+        entries: ['react', 'react-dom', 'redux']
       }),
       parts.extractCSS(PATHS.style),
       parts.minify()
