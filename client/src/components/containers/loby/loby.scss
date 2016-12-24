@@ -32,11 +32,11 @@ aside {
     transform: translateY(-50%);
 }
 .logout-container {
-	width: 150px;
-    height: 150px;
+	width: calc(100% - 16px);
+    height: 166px;
     position: absolute;
-    bottom: -147px;
-    border-radius: 50%;
+    bottom: -150px;
+    border-radius: 100px;
     background-color: #3a3a3a;
 }
 main {
