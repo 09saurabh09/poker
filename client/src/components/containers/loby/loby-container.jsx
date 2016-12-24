@@ -25,45 +25,32 @@ export default class Loby extends React.Component {
   }
 
   render() {
-    /*console.log(yogaPlay);
-    const yogaPlayStyle = {
-      backgroundImage: 'url(' + yogaPlay + ')'
-    };*/
     return (
       <div className="ui grid">
         <aside className="two wide column">
-          <ul>
-            <li>
-              <Link to="/game/cash-games" activeClassName="active">
+          <div className="icon-bar">
+              <div className="play-icon">
                 <PlayIcon />
+              </div>
+              <Link className="home-icone-wrapper" to="/">
+                <div className="active"></div>
+                <div className="home-icon">
+                  <HomePageIcon />
+                </div>
               </Link>
-            </li>
-            <li>
-              <Link to="/" activeClassName="active">
-                <HomePageIcon />
-              </Link>
-            </li>
-            <li>
-              <Link to="/" activeClassName="active">
+              <Link to="/analytics">
                 <AnalyticsIcon />
               </Link>
-            </li>
-            <li>
-              <Link to="/" activeClassName="active">
+              <Link to="/support">
                 <SupportIcon />
               </Link>
-            </li>
-            <li>
-              <Link to="/" activeClassName="active">
+              <Link to="/settings">
                 <SettingsIcon />
               </Link>
-            </li>
-            <li>
-              <Link to="/" activeClassName="active">
+              <Link to="/logout" className="logout-container">
                 <LogoutIcon />
               </Link>
-            </li>
-          </ul>
+          </div>
         </aside>
         <main className="fourteen wide column">
           <div className="ui grid">
@@ -130,7 +117,7 @@ export default class Loby extends React.Component {
           <div className="game-types">
             <div className="ui grid">
             <div className="eight wide column">
-              <div className="ui grid game cash-game">
+              <Link to="/game/cash-games" className="ui grid game cash-game">
                 <div className="seven wide column">
                   <div className="cash-game-icon-container">
                     <CashGameIcon />
@@ -146,8 +133,8 @@ export default class Loby extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="ui grid game sit-and-go">
+              </Link>
+              <Link to="/game/sit-and-go"  className="ui grid game sit-and-go">
                 <div className="seven wide column">
                   <div className="sit-go-game-icon-container">
                     <SitGoIcon />
@@ -163,10 +150,10 @@ export default class Loby extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
             <div className="eight wide column">
-              <div  className="ui grid game tournament">
+              <Link to="/game/tournament" className="ui grid game tournament">
                 <div className="seven wide column">
                   <div className="tournament-icon-container">
                     <TournamentIcon />
@@ -182,8 +169,8 @@ export default class Loby extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="ui grid game my-tournamet">
+              </Link>
+              <Link to="/game/my-tournament" className="ui grid game my-tournamet">
                 <div className="seven wide column">
                   <div className="my-tournament-icon-container">
                     <MyTournamentIcon />
@@ -199,7 +186,7 @@ export default class Loby extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
             </div>
           </div>

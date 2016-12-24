@@ -1,3 +1,44 @@
+aside {
+	background-color: #232323;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+	box-shadow: 0 2px 4px 0 var(--black-50);
+    position: relative;
+    overflow: hidden;
+}
+.icon-bar {
+    text-align: center;
+    margin-right: -1rem;
+}
+.icon-bar a,.play-icon{
+    padding: 32px 0;
+    display: block;
+    transition: all 0.3s ease;
+    font-size: 36px;
+    margin-bottom: 64px;
+}
+.icon-bar a:hover {
+    background-color: #000;
+}
+.home-icone-wrapper {
+    position: relative;
+}
+.active {
+    width: 6px;
+    height: 99px;
+    border-radius: 100px;
+    background-color: #3de689;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.logout-container {
+	width: 150px;
+    height: 150px;
+    position: absolute;
+    bottom: -147px;
+    border-radius: 50%;
+    background-color: #3a3a3a;
+}
 main {
 	background-color: black;
 }
