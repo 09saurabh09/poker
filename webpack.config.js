@@ -58,9 +58,6 @@ switch(TARGET) {
       common,
       {
         devtool: 'source-map',
-        entry: {
-          style: PATHS.style
-        },
         output: {
           path: PATHS.build,
           filename: '[name].[chunkhash].js',
@@ -74,9 +71,8 @@ switch(TARGET) {
       ),
       parts.extractBundle({
         name: 'vendor',
-        entries: ['react', 'react-dom', 'redux']
+        entries: ['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'react-router-redux', 'redux-thunk']
       }),
-      parts.extractCSS(PATHS.style),
       parts.minify()
     );
     break;
@@ -95,10 +91,7 @@ switch(TARGET) {
     config = merge(
       common,
       {
-        devtool: 'eval-source-map',
-        entry: {
-          style: PATHS.style
-        }
+        devtool: 'eval-source-map'
       },
       parts.devServer({
         // Customize host/port here if needed

@@ -1,3 +1,139 @@
-.item {
-	display: block;
+main {
+	background-color: black;
+}
+.photo {
+	height: 160px;
+	width: 160px;
+	margin-left: -1rem;
+}
+.user-details {
+	background-color: #1d1d1d;
+	height: 174px;
+}
+.user {
+	padding: 40px 4px;
+}
+.user-name {
+
+	font-size: 24px;
+	letter-spacing: 1px;
+	color: #ffffff;
+}
+.balance {
+	font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.9px;
+    color: #ffffff;
+    padding-top: 24px;
+    padding-bottom: 4px;
+}
+.money-search-container {
+	height: 235px;
+	background-color: #1b1b1b;
+}
+.money {
+    padding: 10px;
+    margin: 32px 0;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.14);
+    display: flex;
+    align-items: center;
+    .text {
+    	text-transform: uppercase;
+	    font-size: 20px;
+	    font-weight: 300;
+	    letter-spacing: 0.6px;
+	    color: #ffffff;
+	    padding: 6px;
+	    display: inline-table;
+    }
+    .value {
+    	font-weight: 600;
+    }
+}
+.review-icon {
+	padding: 27px 20px;
+}
+.video-container {
+	position: relative;
+    margin-left: -1rem;
+	.promo-video {
+		height: 397px;
+		width: 640px;
+	}
+	.video-overlay {
+		position: absolute;
+		bottom: 0;
+	}	
+}
+.search-container {
+	width: 100%;
+	& >div {
+		width: 100%;
+	}
+}
+#search-input {
+	width: 602px;
+	border-radius: 100px;
+	background-color: #000000;
+	border: solid 2px #3b3b44;
+	color: white;
+}
+.search-icon {
+    position: absolute;
+    right: 24px;
+    top: 25%;
+}
+.game-types {
+    padding: 78px 24px 32px 30px;
+}
+.game {
+   	height: 246px;
+   	width: 100%;
+    background-color: #232327;
+	margin-bottom: 1rem !important;
+	.seven.wide.column {
+	    padding-top: 0px !important;
+	    padding-bottom: 0px !important;
+	}
+}
+.game-title {
+	font-family: ProximaNovaT;
+	font-size: 40px;
+	font-weight: 100;
+	color: #ffffff;
+    padding: 60px 0 48px 0;
+}
+.play-with-friends {
+	font-family: ProximaNova;
+	font-size: 20px;
+	color: #ffffff;
+}
+.cash-game-icon-container {
+	background-image: linear-gradient(42deg, #27bd25, #17eb98);
+    padding: 49px 21px 34px 32px;
+    width: 216px;
+    height: 246px;
+    margin-left: -1rem;
+}
+.sit-go-game-icon-container {
+    width: 216px;
+    height: 246px;
+    margin-left: -1rem;
+    background-image: linear-gradient(41deg, #547bf3, #38dbfd);
+    padding: 44px 51px;
+}
+.tournament-icon-container {
+    width: 216px;
+    height: 246px;
+    margin-left: -1rem;
+    background-image: linear-gradient(41deg, #5983ff, #fb68f8);
+    padding: 42px 26px 41px 26px;
+}
+.my-tournament-icon-container {
+	width: 216px;
+	height: 246px;
+	margin-left: -1rem;
+	background-image: linear-gradient(41deg, #ff599e, #ffab68);
+	padding: 65px 46px 64px 47px;
 }
