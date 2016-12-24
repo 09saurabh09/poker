@@ -11,8 +11,8 @@ require('es6-promise').polyfill();
 // the Router. We pass it a reference to the store so we can use react-redux's
 // connect() method for Component Containers.
 
-import 'semantic-ui/dist/semantic.min.js';
-import 'semantic-ui/dist/semantic.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(

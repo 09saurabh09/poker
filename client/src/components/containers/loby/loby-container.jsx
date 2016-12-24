@@ -26,43 +26,43 @@ export default class Loby extends React.Component {
 
   render() {
     return (
-      <div className="ui grid">
-        <aside className="two wide column">
-          <div className="icon-bar">
-              <div className="play-icon">
-                <PlayIcon />
-              </div>
-              <Link className="home-icone-wrapper" to="/">
-                <div className="active"></div>
-                <div className="home-icon">
-                  <HomePageIcon />
+      <div className="container-fluid">
+        <div className="row loby-container">
+          <aside className="col-lg-1 col-xs-2 aside">
+            <div className="icon-bar" style={{minHeight: 1003}}>
+                <div className="play-icon">
+                  <PlayIcon />
                 </div>
-              </Link>
-              <Link to="/analytics">
-                <AnalyticsIcon />
-              </Link>
-              <Link to="/support">
-                <SupportIcon />
-              </Link>
-              <Link to="/settings">
-                <SettingsIcon />
-              </Link>
-              <Link to="/logout" className="logout-container">
-                <LogoutIcon />
-              </Link>
-          </div>
-        </aside>
-        <main className="fourteen wide column">
-          <div className="ui grid">
-            <div className="eight wide column">
-              <div className="ui grid user-details">
-                <div className="five wide column profile-photo">
-                  <img className="photo"/>
-                </div>
-                <div className="eleven wide column">
-                  <div className="ui grid user-details">
-                    <div className="nine wide column">
-                      <div className="user">
+                <Link className="home-icone-wrapper" to="/">
+                  <div className="active"></div>
+                  <div className="home-icon">
+                    <HomePageIcon />
+                  </div>
+                </Link>
+                <Link to="/analytics">
+                  <AnalyticsIcon />
+                </Link>
+                <Link to="/support">
+                  <SupportIcon />
+                </Link>
+                <Link to="/settings">
+                  <SettingsIcon />
+                </Link>
+                <Link to="/logout" className="logout-container">
+                  <LogoutIcon />
+                </Link>
+            </div>
+          </aside>
+          <main className="col-lg-11 col-xs-10 main">
+            <div className="row">
+              <div className="col-lg-6 col-xs-12">
+                <div className="row user-container">
+                  <div className="col-lg-4 col-xs-12 profile-photo">
+                    <img className="photo"/>
+                  </div>
+                  <div className="col-lg-8 col-xs-12">
+                    <div className="row user-details">
+                      <div className="col-lg-7 col-xs-6">
                         <div className="user-name">
                           Adeline Daniel
                         </div>
@@ -70,127 +70,138 @@ export default class Loby extends React.Component {
                           Balance : $6218 
                         </div>
                       </div>
-                    </div>
-                    <div className="seven wide column">
-                      <div className="review-icon">
-                        <ReviewTouchPointIcon/>
+                      <div className="col-lg-5 col-xs-6">
+                        <div className="pull-right">
+                          <ReviewTouchPointIcon/>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-              </div>
-              <div className="ui grid money-search-container">
-                <div className="ui grid stackable">
-                  <div className="eight wide column">
-                    <div className="money">
-                      <RealMoneyIcon /> 
-                      <span className="text">Real Money:</span> <span className="text value">$784</span>
+                <div className="row money-search-container">
+                  <div className="row">
+                    <div className="col-lg-6 col-xs-12">
+                      <div className="money">
+                        <RealMoneyIcon /> 
+                        <span className="text">Real Money:</span> <span className="text value">$784</span>
+                      </div>
+                    </div>
+                    <div className="col-lg-6 col-xs-12">
+                      <div className="money">
+                        <PlayMoneyIcon />
+                        <span className="text">Play Money:</span> <span className="text value"> $784</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="eight wide column">
-                    <div className="money">
-                      <PlayMoneyIcon />
-                      <span className="text">Play Money:</span> <span className="text value"> $784</span>
+                  <div className="search-container">
+                    <div className="form-group">
+                      <input type="text" className="form-control" id="search-input" placeholder="Search tournament, player, table"/>
+                      <div className="search-icon">
+                        <SearchIcon />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="search-container">
-                  <div className="ui input">
-                    <input type="text" id="search-input" placeholder="Search tournament, player, table"/>
-                    <div className="search-icon">
-                      <SearchIcon />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="eight wide column review-section">
-              <div className="video-container">
-                <video className="promo-video"></video>
-                <div className="video-overlay">
-                  <VideoOverlayIcon />
                 </div>
               </div>
+              <div className="col-lg-6 col-xs-12 review-section">
+                <div className="video-container">
+                  <video className="promo-video"></video>
+                  <div className="video-overlay">
+                    <VideoOverlayIcon />
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="game-types">
-            <div className="ui grid">
-            <div className="eight wide column">
-              <Link to="/game/cash-games" className="ui grid game cash-game">
-                <div className="seven wide column">
-                  <div className="cash-game-icon-container">
-                    <CashGameIcon />
-                  </div>
-                </div>
-                <div className="nine wide column">
-                  <div className="game-box">
-                    <div className="game-title">
-                      Cash Games
+            <div className="game-type">
+              <div className="col-lg-6 col-xs-12">
+                <Link to="/game/cash-games" className="cash-game">
+                  <div className="game">
+                    <div className="col-lg-5 col-xs-5">
+                      <div className="cash-game-icon-container">
+                        <CashGameIcon />
+                      </div>
                     </div>
-                    <div className="play-with-friends">
-                      Play with your friends
-                    </div>
-                  </div>
-                </div>
-              </Link>
-              <Link to="/game/sit-and-go"  className="ui grid game sit-and-go">
-                <div className="seven wide column">
-                  <div className="sit-go-game-icon-container">
-                    <SitGoIcon />
-                  </div>
-                </div>
-                <div className="nine wide column">
-                  <div className="game-box">
-                    <div className="game-title">
-                      Sit and Go
-                    </div>
-                    <div className="play-with-friends">
-                      Play with your friends
+                    <div className="col-lg-7 col-xs-7">
+                      <div className="game-box">
+                        <div className="game-title">
+                          Cash Games
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
+              <div className="col-lg-6 col-xs-12">
+                <Link to="/game/tournament" className="tournament">
+                  <div className="game">
+                    <div className="col-lg-5 col-xs-5">
+                      <div className="tournament-icon-container">
+                        <TournamentIcon />
+                      </div>
+                    </div>
+                    <div className="col-lg-7 col-xs-7">
+                      <div className="game-box">
+                        <div className="game-title">
+                          Tournament
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </div>
-            <div className="eight wide column">
-              <Link to="/game/tournament" className="ui grid game tournament">
-                <div className="seven wide column">
-                  <div className="tournament-icon-container">
-                    <TournamentIcon />
-                  </div>
-                </div>
-                <div className="nine wide column">
-                  <div className="game-box">
-                    <div className="game-title">
-                      Tournament
+            <div className="">
+              <div className="col-lg-6 col-xs-12">
+                <Link to="/game/sit-and-go" className="sit-and-go">
+                  <div className="game">
+                    <div className="col-lg-5 col-xs-5">
+                      <div className="sit-go-game-icon-container">
+                        <SitGoIcon />
+                      </div>
                     </div>
-                    <div className="play-with-friends">
-                      Play with your friends
-                    </div>
-                  </div>
-                </div>
-              </Link>
-              <Link to="/game/my-tournament" className="ui grid game my-tournamet">
-                <div className="seven wide column">
-                  <div className="my-tournament-icon-container">
-                    <MyTournamentIcon />
-                  </div>
-                </div>
-                <div className="nine wide column">
-                  <div className="game-box">
-                    <div className="game-title">
-                      My Tournament
-                    </div>
-                    <div className="play-with-friends">
-                      Play with your friends
+                    <div className="col-lg-7 col-xs-7">
+                      <div className="game-box">
+                        <div className="game-title">
+                          Sit and Go
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
+              <div className="col-lg-6 col-xs-12">
+                <Link to="/game/my-tournament" className="my-tournamet">
+                  <div className="game">
+                    <div className="col-lg-5 col-xs-5">
+                      <div className="my-tournament-icon-container">
+                        <MyTournamentIcon />
+                      </div>
+                    </div>
+                    <div className="col-lg-7 col-xs-7">
+                      <div className="game-box">
+                        <div className="game-title">
+                          My Tournament
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </div>
-            </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
     )
   }

@@ -71,7 +71,7 @@ switch(TARGET) {
       ),
       parts.extractBundle({
         name: 'vendor',
-        entries: ['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'react-router-redux', 'redux-thunk']
+        entries: ['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'react-router-redux', 'redux-thunk', 'bootstrap']
       }),
       parts.minify()
     );
