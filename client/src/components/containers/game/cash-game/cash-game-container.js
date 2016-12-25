@@ -38,7 +38,7 @@ export default class CashGameContainer extends React.Component{
      blinds: '$441',
      buyIn: '$50/$200',
      players: '2/9',
-     action: 'hot',
+     action: 'cold',
      join: true
     }];
     return (

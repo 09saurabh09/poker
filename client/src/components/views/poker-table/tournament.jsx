@@ -4,6 +4,11 @@ import './poker-table.scss';
 
 var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
 var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
+var SelectRoundIcon = require('babel!svg-react!../../../../assets/img/table/svg/select-round.svg?name=SelectRoundIcon');
+var TickIcon = require('babel!svg-react!../../../../assets/img/table/svg/tick.svg?name=TickIcon');
+var HotIcon = require('babel!svg-react!../../../../assets/img/table/svg/hot.svg?name=HotIcon');
+var ColdIcon = require('babel!svg-react!../../../../assets/img/table/svg/cold.svg?name=ColdIcon');
+
 
 export default class TournamentTable extends React.Component{
 
@@ -45,17 +50,17 @@ export default class TournamentTable extends React.Component{
   }
 
   getSortingIcon(index, sortOrder) {
-    return this.currentSortIndex === index ? this.sortIcons[sortOrder]: null;
+    return this.currentSortIndex === index ? this.sortIcons[sortOrder]: <span style={{paddingLeft: 14}}>&nbsp;</span>;
   }
 
   render() {
     return (
-         <div className="table-responsive poker-table">
-          <table className="table">
+        <div className="table-responsive poker-table">
+          <table className="table borderless">
             <thead className="table-head">
               <tr>{this.tableHeaders.map(({text, key, sortOrder}, index) =>
                 <th className="table-header" key={index} >
-                  <div href="#" className="table-header-container" onClick={this.sortTable.bind(this, index)}>
+                  <div className="table-header-container" onClick={this.sortTable.bind(this, index)}>
                     <span className="sort-icon-container">
                       {this.getSortingIcon.call(this, index, sortOrder)}
                     </span>
@@ -68,9 +73,15 @@ export default class TournamentTable extends React.Component{
               </tr>
             </thead>
             <tbody>
-              <tr className="table-row">
-                <td className="table-column">Mark</td>
-              </tr>
+              {this.props.tableContents.map(({name, buyIn, enrolled, startTime, join}, index)=> 
+                <tr className="table-row" key={index}>
+                  <td className="table-column text-left lg-text">{name}</td>
+                  <td className="table-column text-left lg-text">{buyIn}</td>
+                  <td className="table-column text-center lg-text">{enrolled}</td>
+                  <td className="table-column text-center lg-text">{startTime}</td>
+                  <td className="table-column text-center">{join ?<TickIcon /> : <SelectRoundIcon/>}</td>
+                </tr>
+                )}
             </tbody>
           </table>
         </div>

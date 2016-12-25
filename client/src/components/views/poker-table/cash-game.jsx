@@ -6,6 +6,8 @@ var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-a
 var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
 var SelectRoundIcon = require('babel!svg-react!../../../../assets/img/table/svg/select-round.svg?name=SelectRoundIcon');
 var TickIcon = require('babel!svg-react!../../../../assets/img/table/svg/tick.svg?name=TickIcon');
+var HotIcon = require('babel!svg-react!../../../../assets/img/table/svg/hot.svg?name=HotIcon');
+var ColdIcon = require('babel!svg-react!../../../../assets/img/table/svg/cold.svg?name=ColdIcon');
 
 export default class CashGameTable extends React.Component{
 
@@ -77,11 +79,11 @@ export default class CashGameTable extends React.Component{
             <tbody>
               {this.props.tableContents.map(({name, blinds, buyIn, players, action, join}, index)=> 
                 <tr className="table-row" key={index}>
-                  <td className="table-column text-left">{name}</td>
-                  <td className="table-column text-left">{blinds}</td>
-                  <td className="table-column text-left">{buyIn}</td>
-                  <td className="table-column text-center">{players}</td>
-                  <td className="table-column text-center">{action}</td>
+                  <td className="table-column text-left lg-text">{name}</td>
+                  <td className="table-column text-left lg-text">{blinds}</td>
+                  <td className="table-column text-left lg-text">{buyIn}</td>
+                  <td className="table-column text-center lg-text">{players}</td>
+                  <td className="table-column text-center">{action=='hot'? <HotIcon /> : <ColdIcon />}</td>
                   <td className="table-column text-center">{join ?<TickIcon /> : <SelectRoundIcon/>}</td>
                 </tr>
                 )}

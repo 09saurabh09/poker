@@ -17,8 +17,29 @@ export default class CashGameContainer extends React.Component{
   }
 
   render() {
+    let tableData = [{
+     name: 'Amar',
+     buyIn: '$50/$200',
+     enrolled: '2/9',
+     startTime: '18 Jun 11:31AM',
+     join: true
+    },
+    {
+     name: 'Amar',
+     buyIn: '$50/$200',
+     enrolled: '2/9',
+     startTime: '18 Jun 11:31AM',
+     join: false
+    },
+    {
+     name: 'Amar',
+     buyIn: '$50/$200',
+     enrolled: '2/9',
+     startTime: '18 Jun 11:31AM',
+     join: true
+    }];
     return (
-      <TournamentTable tableContents={''} />
+      <TournamentTable tableContents={tableData} />
     );
   }
 }
