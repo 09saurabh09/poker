@@ -4,30 +4,45 @@ import * as widgetApi from '../../../../api/widget-api';
 import { loadSearchLayout } from '../../../../actions/search-layout-actions';
 import SearchForm from '../../../views/search-form';
 
-const SearchFormContainer = React.createClass({
+import CashGameTable from '../../../views/poker-table/cash-game'
 
-  search: function(event) {
-    event.preventDefault();
+export default class CashGameContainer extends React.Component{
 
-    // By assigning a "child" ref to <SearchForm />, we
-    // can use that reference to gain access to the
-    // .getQuery() method. See the code for
-    // <SearchForm /> to see how it returns a value.
-    let query = this.refs.child.getQuery();
-
-    if (this.props.searchType === 'users') {
-      userApi.searchUsers(query);
-    } else if (this.props.searchType === 'widgets') {
-      widgetApi.searchWidgets(query);
-    }
-  },
-
-  render: function() {
-    return (
-      <SearchForm search={this.search} ref="child" />
-    );
+  constructor(props) {
+    super(props);
   }
 
-});
+  componentDidMount() {
+   
+  }
 
-export default SearchFormContainer;
+  render() {
+    let tableData = [{
+     name: 'Amar',
+     blinds: '$441',
+     buyIn: '$50/$200',
+     players: '2/9',
+     action: 'hot',
+     join: true
+    },
+    {
+     name: 'Amar',
+     blinds: '$441',
+     buyIn: '$50/$200',
+     players: '2/9',
+     action: 'hot',
+     join: false
+    },
+    {
+     name: 'Amar',
+     blinds: '$441',
+     buyIn: '$50/$200',
+     players: '2/9',
+     action: 'hot',
+     join: true
+    }];
+    return (
+      <CashGameTable tableContents={tableData} />
+    );
+  }
+}

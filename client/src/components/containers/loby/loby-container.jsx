@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import Login from '../../views/login/login';
+
 var PlayIcon = require('babel!svg-react!../../../../assets/img/loby/svg/yoga-play.svg?name=PlayIcon');
 var HomePageIcon = require('babel!svg-react!../../../../assets/img/loby/svg/home-page.svg?name=HomePageIcon');
 var AnalyticsIcon = require('babel!svg-react!../../../../assets/img/loby/svg/analytics.svg?name=AnalyticsIcon');
@@ -26,7 +28,8 @@ export default class Loby extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid loby">
+        <Login />
         <div className="row loby-container">
           <aside className="col-lg-1 col-xs-2 aside">
             <div className="icon-bar" style={{minHeight: 1003}}>
@@ -48,9 +51,9 @@ export default class Loby extends React.Component {
                 <Link to="/settings">
                   <SettingsIcon />
                 </Link>
-                <Link to="/logout" className="logout-container">
+                <a data-toggle="modal" data-target="#login" className="logout-container">
                   <LogoutIcon />
-                </Link>
+                </a>
             </div>
           </aside>
           <main className="col-lg-11 col-xs-10 main">
@@ -71,22 +74,22 @@ export default class Loby extends React.Component {
                         </div>
                       </div>
                       <div className="col-lg-5 col-xs-6">
-                        <div className="pull-right">
+                        <Link to="/review" className="pull-right">
                           <ReviewTouchPointIcon/>
-                        </div>
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="row money-search-container">
                   <div className="row">
-                    <div className="col-lg-6 col-xs-12">
+                    <div className="col-lg-6 col-xs-6">
                       <div className="money">
                         <RealMoneyIcon /> 
                         <span className="text">Real Money:</span> <span className="text value">$784</span>
                       </div>
                     </div>
-                    <div className="col-lg-6 col-xs-12">
+                    <div className="col-lg-6 col-xs-6">
                       <div className="money">
                         <PlayMoneyIcon />
                         <span className="text">Play Money:</span> <span className="text value"> $784</span>
@@ -114,7 +117,7 @@ export default class Loby extends React.Component {
             </div>
             <div className="game-type">
               <div className="col-lg-6 col-xs-12">
-                <Link to="/game/cash-games" className="cash-game">
+                <Link to="/cash-game" className="cash-game">
                   <div className="game">
                     <div className="col-lg-5 col-xs-5">
                       <div className="cash-game-icon-container">
@@ -135,7 +138,7 @@ export default class Loby extends React.Component {
                 </Link>
               </div>
               <div className="col-lg-6 col-xs-12">
-                <Link to="/game/tournament" className="tournament">
+                <Link to="/tournament" className="tournament">
                   <div className="game">
                     <div className="col-lg-5 col-xs-5">
                       <div className="tournament-icon-container">
@@ -158,7 +161,7 @@ export default class Loby extends React.Component {
             </div>
             <div className="">
               <div className="col-lg-6 col-xs-12">
-                <Link to="/game/sit-and-go" className="sit-and-go">
+                <Link to="/sit-and-go" className="sit-and-go">
                   <div className="game">
                     <div className="col-lg-5 col-xs-5">
                       <div className="sit-go-game-icon-container">
@@ -179,7 +182,7 @@ export default class Loby extends React.Component {
                 </Link>
               </div>
               <div className="col-lg-6 col-xs-12">
-                <Link to="/game/my-tournament" className="my-tournamet">
+                <Link to="/my-tournament" className="my-tournamet">
                   <div className="game">
                     <div className="col-lg-5 col-xs-5">
                       <div className="my-tournament-icon-container">

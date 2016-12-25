@@ -13,6 +13,7 @@ require('es6-promise').polyfill();
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import './main.css';
 
 const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
