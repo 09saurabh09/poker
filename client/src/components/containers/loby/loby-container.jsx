@@ -51,7 +51,7 @@ export default class Loby extends React.Component {
                 <Link to="/settings">
                   <SettingsIcon />
                 </Link>
-                <a data-toggle="modal" data-target="#login" className="logout-container">
+                <a data-toggle="modal" data-target="#login" className="logout-container" href="#">
                   <LogoutIcon />
                 </a>
             </div>

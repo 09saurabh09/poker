@@ -1,0 +1,101 @@
+/* The Modal (background) */
+#cash-game-filter.bottom-sheet {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+.border-right {
+    border-right: solid 1px #979797
+}
+.margin-b-32 {
+    margin-bottom : 32px;
+}
+
+.margin-b-16 {
+    margin-bottom : 16px;
+}
+/* Modal Content */
+#cash-game-filter .bottom-sheet-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #1b1b1b;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+    padding: 16px;
+}
+
+/* The Close Button */
+#cash-game-filter .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#cash-game-filter .close:hover,
+#cash-game-filter .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#cash-game-filter .bottom-sheet-header {
+    font-family: ProximaNova;
+	font-size: 28.9px;
+	font-weight: bold;
+    padding: 16px;
+}
+
+#cash-game-filter .bottom-sheet-body {
+    padding: 8px 16px;
+}
+
+#cash-game-filter .bottom-sheet-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.margin-20 {
+    margin: 20px 0;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
