@@ -8,26 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 require('./server/config/globalConstant');
-var Sequelize = require('sequelize');
-
-var sequelize = new Sequelize(DB_CREDENTIALS.DB_NAME, DB_CREDENTIALS.DB_USERNAME, DB_CREDENTIALS.DB_PASSWORD, {
-    host: DB_CREDENTIALS.DB_HOST,
-    dialect: 'postgres',
-    pool: {
-        max: 5,
-        min: 0,
-        idle: 10000
-    }
-});
-
-sequelize
-    .authenticate()
-    .then(function(err) {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(function (err) {
-        console.log('Unable to connect to the database:', err);
-    });
 
 var app = express();
 
@@ -43,9 +23,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
-
-app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
