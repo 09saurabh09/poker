@@ -6,6 +6,7 @@
 var fs        = require("fs");
 var path      = require("path");
 var Sequelize = require("sequelize");
+let glob      = require("glob");
 //if (process.env.DATABASE_URL) {
 //    var sequelize = new Sequelize(process.env.DATABASE_URL);
 //} else {
@@ -52,8 +53,17 @@ var db        = {};
 //    }
 //});
 
-console.log(__dirname);
-db.user = sequelize.import("../user/userModel");
+// Load all services
+glob.sync('server/**/*Model.js' ).forEach( function( file ) {
+    let modelName = file.substring(file.lastIndexOf("/")+1, file.lastIndexOf("Model")).titalize();
+    db[modelName] = sequelize.import(path.resolve( file ));
+});
+
+Object.keys(db).forEach(function(modelName) {
+    if ("associate" in db[modelName]) {
+        db[modelName].associate(db);
+    }
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
