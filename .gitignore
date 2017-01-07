@@ -51,6 +51,7 @@ jspm_packages
 build
 
 DS_Store
+/.DS_Store
 
 
 
