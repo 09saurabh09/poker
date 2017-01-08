@@ -9,7 +9,7 @@ import AnalyticsIcon from '../../../../assets/img/loby/svg/analytics.svg';
 import SupportIcon from '../../../../assets/img/loby/svg/support.svg';
 import SettingsIcon from '../../../../assets/img/loby/svg/settings.svg';
 import LogoutIcon from '../../../../assets/img/loby/svg/logout.svg';
-var ReviewTouchPointIcon = require('babel!svg-react!../../../../assets/img/loby/svg/review-touch-point.svg?name=ReviewTouchPointIcon');
+import ReviewTouchPointIcon from '../../../../assets/img/loby/svg/review-touch-point.svg';
 var VideoOverlayIcon = require('babel!svg-react!../../../../assets/img/loby/svg/video-overlay.svg?name=VideoOverlayIcon');
 var RealMoneyIcon = require('babel!svg-react!../../../../assets/img/loby/svg/real-money-icon.svg?name=RealMoneyIcon');
 var PlayMoneyIcon = require('babel!svg-react!../../../../assets/img/loby/svg/play-money-icon.svg?name=PlayMoneyIcon');
@@ -73,6 +73,18 @@ export default class Loby extends React.Component {
               <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
             </div>
             <div className="name-balance-review">
+              <div className="name-balance-container">
+                <div className="user-name">
+                  Adeline Daniel
+                </div>
+                <div className="balance">
+                  Balance : $6218 
+                </div>
+              </div>
+              <div className="review-icon-container">
+                <div className="review-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${ReviewTouchPointIcon})`}}></div>
+              </div>
+
             </div>
           </div>
           <div className="video-section">
