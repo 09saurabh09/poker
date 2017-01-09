@@ -11,9 +11,9 @@ import SettingsIcon from '../../../../assets/img/loby/svg/settings.svg';
 import LogoutIcon from '../../../../assets/img/loby/svg/logout.svg';
 import ReviewTouchPointIcon from '../../../../assets/img/loby/svg/review-touch-point.svg';
 var VideoOverlayIcon = require('babel!svg-react!../../../../assets/img/loby/svg/video-overlay.svg?name=VideoOverlayIcon');
-var RealMoneyIcon = require('babel!svg-react!../../../../assets/img/loby/svg/real-money-icon.svg?name=RealMoneyIcon');
-var PlayMoneyIcon = require('babel!svg-react!../../../../assets/img/loby/svg/play-money-icon.svg?name=PlayMoneyIcon');
-var SearchIcon = require('babel!svg-react!../../../../assets/img/loby/svg/search-icon.svg?name=SearchIcon');
+import RealMoneyIcon from '../../../../assets/img/loby/svg/real-money-icon.svg';
+import PlayMoneyIcon from '../../../../assets/img/loby/svg/play-money-icon.svg';
+import SearchIcon from '../../../../assets/img/loby/svg/search-icon.svg';
 //var CashGameIcon = require('babel!svg-react!../../../../assets/img/loby/svg/cash-games.svg?name=CashGameIcon');
 import cashGameIcon from '../../../../assets/img/loby/svg/cash-games.svg';
 //var SitGoIcon = require('babel!svg-react!../../../../assets/img/loby/svg/sit-and-go.svg?name=SitGoIcon');
@@ -69,22 +69,47 @@ export default class Loby extends React.Component {
         </nav>
         <section id="main">
           <div className="user-detail-section">
-            <div id="dp-container" className="profile-photo">
-              <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
+            <div className="user-detail-container">
+              <div id="dp-container" className="profile-photo">
+                <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
+              </div>
+              <div className="name-balance-review">
+                <div className="name-balance-container">
+                  <div className="user-name">
+                    Adeline Daniel
+                  </div>
+                  <div className="balance">
+                    Balance : $6218 
+                  </div>
+                </div>
+                <div className="review-icon-container">
+                  <div className="review-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${ReviewTouchPointIcon})`}}></div>
+                </div>
+              </div>
             </div>
-            <div className="name-balance-review">
-              <div className="name-balance-container">
-                <div className="user-name">
-                  Adeline Daniel
+            <div className="money-search-container">
+              <div className="money-container">
+                <div className="money">
+                  <div className="money-icon-container">
+                    <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${RealMoneyIcon})`}}></div>
+                  </div>
+                  <span className="text">Real Money:</span> <span className="text value">$784</span>
                 </div>
-                <div className="balance">
-                  Balance : $6218 
+                <div className="money">
+                  <div className="money-icon-container">
+                    <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayMoneyIcon})`}}></div>
+                  </div>
+                  <span className="text">Play Money:</span> <span className="text value"> $784</span>
                 </div>
               </div>
-              <div className="review-icon-container">
-                <div className="review-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${ReviewTouchPointIcon})`}}></div>
+              <div className="search-container">
+                <div className="form-group">
+                  <input type="text" className="form-control" id="search-input" placeholder="Search tournament, player, table"/>
+                  <div className="search-icon">
+                    <div className="search-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${SearchIcon})`}}></div>
+                  </div>
+                </div>
               </div>
-
             </div>
           </div>
           <div className="video-section">

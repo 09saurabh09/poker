@@ -37,6 +37,9 @@ section#main{
     width: 50%;
     float: left;
 }
+.user-detail-container {
+    background-color: #1d1d1d;
+}
 .video-section {
     width: 50%;
     float: left;
@@ -75,4 +78,71 @@ section#main{
     padding: 16px;
     font-size: 16px;
     font-weight: bold;
+}
+.user-detail-container {
+    float: left;
+    width: 100%;
+}
+.money-search-container {
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 0px 18px 12px;
+    background-color: #1b1b1b;
+}
+.money {
+    width: 46%;
+    float: left;
+    margin-right: 2%;
+    padding: 4px 14px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.14);
+    display: flex;
+    align-items: center;
+    .text {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 300;
+        letter-spacing: 0.3px;
+        padding: 6px;
+    }
+    .value {
+        font-weight: 600;
+    }
+}
+.money-icon-container {
+    width: 20%;
+    float: left;
+}
+.money-icon-wrapper {
+    padding-top: 50%;
+}
+.money-container {
+    width: 100%;
+    float: left;
+}
+.search-container {
+    width: 100%;
+    float: left;
+    margin-top: 6%;
+}
+.search-container .form-group{
+    position: relative;
+    width: 95%;
+}
+#search-input {
+    border-radius: 100px;
+    background-color: #000000;
+    border: solid 2px #3b3b44;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2% 10% 2% 3%;
+}
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5%;
 }
