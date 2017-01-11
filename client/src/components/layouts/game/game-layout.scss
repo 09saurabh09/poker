@@ -1,9 +1,10 @@
 .game-layout {
+	position: relative;
 	.play-icon-container {
 		margin-top: 26px;
 	}
 	.game-header {
-	    padding: 28px;
+	    padding: 18px;
 	    background-color: #151515;
 	}
 	.game-type-name {
@@ -17,6 +18,11 @@
 	    font-size: 30px;
 	    font-weight: 300;
 	    color: #3de689;
+	}
+	.filter-icon-container {
+	    position: absolute;
+	    right: 18px;
+	    bottom: 0;
 	}
 }
 .padding-right-10 {

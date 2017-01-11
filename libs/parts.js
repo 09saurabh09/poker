@@ -57,15 +57,15 @@ exports.loadOtherModules = function (argument) {
         exclude: [/(node_modules)/, /\/plugin\//],
         loader: "babel"
       }, {
-        test: [/fontawesome-webfont\.svg/, /fontawesome-webfont\.eot/, /fontawesome-webfont\.ttf/, /fontawesome-webfont\.woff/, /fontawesome-webfont\.woff2/],
+        test: [/ProximaNova-\/[a-zA-Z]*-webfont\.ttf/],
         loader: 'file?name=fonts/[name].[ext]'
       }, {
         test: [/\.(woff|woff2|eot|ttf|svg)$/],
         loader: 'url-loader?limit=100000'
-      },{
+      }/*,{
         test: /\.svg$/, 
         loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
-      }]
+      }*/]
     }
   }
 }
