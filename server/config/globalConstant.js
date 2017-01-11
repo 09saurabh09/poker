@@ -17,4 +17,10 @@ DB_CREDENTIALS.DB_PASSWORD = env.DB_PASSWORD;
 DB_CREDENTIALS.REDIS_HOST = env.REDIS_HOST;
 DB_CREDENTIALS.REDIS_PORT = env.REDIS_PORT;
 
+// Create DB connection, do not change position as it require above variables
+var database = require('../config/database');
+
 // Set endpoints
+
+// Set important gloabls
+global.DB_MODELS = database;
