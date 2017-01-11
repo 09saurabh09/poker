@@ -6,6 +6,7 @@
 let env = process.env;
 
 require('dotenv').config({path: `${__dirname}/environments/${env.NODE_ENV}.env`});
+var Promise = require("bluebird");
 
 
 // Set DB credentials
@@ -24,3 +25,4 @@ var database = require('../config/database');
 
 // Set important gloabls
 global.DB_MODELS = database;
+global.BLUEBIRD_PROMISE = Promise;

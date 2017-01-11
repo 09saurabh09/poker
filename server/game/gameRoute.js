@@ -5,9 +5,27 @@ let gameController = require('./gameController');
 
 let router = express.Router();
 
-router.get('/add-money-to-game', (req, res, next) => {
+router.post('/add-money-to-game', (req, res, next) => {
 
     gameController.addMoneyToTable(req, res);
+
+});
+
+router.get('/tables', (req, res, next) => {
+
+    gameController.listTables(req, res);
+
+});
+
+router.post('/join-game', (req, res, next) => {
+
+    gameController.joinGame(req, res);
+
+});
+
+router.post('/spawn-table', (req, res, next) => {
+
+    gameController.spawnTable(req, res);
 
 });
 
