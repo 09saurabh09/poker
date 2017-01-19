@@ -31,9 +31,9 @@ export default class Loby extends React.Component {
   }
 
   render() {
-    setTimeout(()=>{
+    $('document').ready(()=>{
       document.getElementById('dp').height = document.getElementById('dp').width;
-    }, 1000);
+    });
     return (
       <div className="loby">
         <nav role="main">
@@ -68,52 +68,144 @@ export default class Loby extends React.Component {
           </a>
         </nav>
         <section id="main">
-          <div className="user-detail-section">
-            <div className="user-detail-container">
-              <div id="dp-container" className="profile-photo">
-                <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
-              </div>
-              <div className="name-balance-review">
-                <div className="name-balance-container">
-                  <div className="user-name">
-                    Adeline Daniel
+          <div className="upper-section">
+            <div className="user-detail-section">
+              <div className="user-detail-container">
+                <div id="dp-container" className="profile-photo">
+                  <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
+                </div>
+                <div className="name-balance-review">
+                  <div className="name-balance-container">
+                    <div className="user-name">
+                      Adeline Daniel
+                    </div>
+                    <div className="balance">
+                      Balance : $6218 
+                    </div>
                   </div>
-                  <div className="balance">
-                    Balance : $6218 
+                  <div className="review-icon-container">
+                    <div className="review-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${ReviewTouchPointIcon})`}}></div>
                   </div>
                 </div>
-                <div className="review-icon-container">
-                  <div className="review-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${ReviewTouchPointIcon})`}}></div>
+              </div>
+              <div className="money-search-container">
+                <div className="money-container">
+                  <div className="money">
+                    <div className="money-icon-container">
+                      <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${RealMoneyIcon})`}}></div>
+                    </div>
+                    <span className="text">Real Money:</span> <span className="text value">$784</span>
+                  </div>
+                  <div className="money">
+                    <div className="money-icon-container">
+                      <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayMoneyIcon})`}}></div>
+                    </div>
+                    <span className="text">Play Money:</span> <span className="text value"> $784</span>
+                  </div>
+                </div>
+                <div className="search-container">
+                  <div className="form-group">
+                    <input type="text" className="form-control" id="search-input" placeholder="Search tournament, player, table"/>
+                    <div className="search-icon">
+                      <div className="search-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${SearchIcon})`}}></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="money-search-container">
-              <div className="money-container">
-                <div className="money">
-                  <div className="money-icon-container">
-                    <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${RealMoneyIcon})`}}></div>
-                  </div>
-                  <span className="text">Real Money:</span> <span className="text value">$784</span>
-                </div>
-                <div className="money">
-                  <div className="money-icon-container">
-                    <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayMoneyIcon})`}}></div>
-                  </div>
-                  <span className="text">Play Money:</span> <span className="text value"> $784</span>
-                </div>
-              </div>
-              <div className="search-container">
-                <div className="form-group">
-                  <input type="text" className="form-control" id="search-input" placeholder="Search tournament, player, table"/>
-                  <div className="search-icon">
-                    <div className="search-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${SearchIcon})`}}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className="video-section">
+              Hello
+            </div>  
           </div>
-          <div className="video-section">
-            Hello
+          <div className="lower-section">
+            <div className="width-100">
+              <div className="width-50">
+                <Link to="/cash-game" className="cash-game">
+                  <div className="game">
+                    <div className="game-icon">
+                      <div className="cash-game-icon-container game-icon-container">
+                        <div className="game-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${cashGameIcon})`}}></div>
+                      </div>
+                    </div>
+                    <div className="game-text">
+                      <div className="game-box">
+                        <div className="game-title">
+                          Cash Games
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <div className="width-50">
+                <Link to="/cash-game" className="cash-game">
+                  <div className="game">
+                    <div className="game-icon">
+                      <div className="game-icon-container tournament-icon-container">
+                        <div className="game-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${TournamentIcon})`}}></div>
+                      </div>
+                    </div>
+                    <div className="game-text">
+                      <div className="game-box">
+                        <div className="game-title">
+                          Tournament
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+            <div className="width-100">
+              <div className="width-50">
+                <Link to="/cash-game" className="cash-game">
+                  <div className="game">
+                    <div className="game-icon">
+                      <div className="game-icon-container sit-game-icon-container">
+                        <div className="game-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${SitGoIcon})`}}></div>
+                      </div>
+                    </div>
+                    <div className="game-text">
+                      <div className="game-box">
+                        <div className="game-title">
+                          Sit and go
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <div className="width-50">
+                <Link to="/cash-game" className="cash-game">
+                  <div className="game">
+                    <div className="game-icon">
+                      <div className="game-icon-container mytourn-game-icon-container">
+                        <div className="game-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${MyTournamentIcon})`}}></div>
+                      </div>
+                    </div>
+                    <div className="game-text">
+                      <div className="game-box">
+                        <div className="game-title">
+                          My tournament
+                        </div>
+                        <div className="play-with-friends">
+                          Play with your friends
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </div>
