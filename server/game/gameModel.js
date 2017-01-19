@@ -6,7 +6,7 @@
 module.exports = function(sequelize, DataTypes) {
     var Game = sequelize.define("Game", {
         pokerTableId: DataTypes.BIGINT,
-        gameState: DataTypes.JSONB,
+        // gameState: DataTypes.JSONB,
         city: DataTypes.STRING,
         country: DataTypes.STRING
     }, {

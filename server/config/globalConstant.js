@@ -6,6 +6,7 @@
 let env = process.env;
 
 require('dotenv').config({path: `${__dirname}/environments/${env.NODE_ENV}.env`});
+var Promise = require("bluebird");
 
 
 // Set DB credentials
@@ -17,4 +18,11 @@ DB_CREDENTIALS.DB_PASSWORD = env.DB_PASSWORD;
 DB_CREDENTIALS.REDIS_HOST = env.REDIS_HOST;
 DB_CREDENTIALS.REDIS_PORT = env.REDIS_PORT;
 
+// Create DB connection, do not change position as it require above variables
+var database = require('../config/database');
+
 // Set endpoints
+
+// Set important gloabls
+global.DB_MODELS = database;
+global.BLUEBIRD_PROMISE = Promise;
