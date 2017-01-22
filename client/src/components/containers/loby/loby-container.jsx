@@ -61,7 +61,7 @@ export default class Loby extends React.Component {
               <div className="other-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${SettingsIcon})`}}></div>
             </div>
           </Link>
-          <a className="nav-link" href="#">
+          <a className="nav-link" href="#" id="logout-link">
             <div className="logout-icon">
               <div className="other-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${LogoutIcon})`}}></div>
             </div>
@@ -208,6 +208,7 @@ export default class Loby extends React.Component {
             </div>
           </div>
         </section>
+        <Login />
       </div>
     )
   }

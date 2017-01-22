@@ -21,10 +21,13 @@
 		text-align: center;
 	}
 	.play-icon-container {
-		margin: 60px 0;
+		margin: 0 auto;
+	    width: 30%;
+	    margin-top: 10%;
+        margin-bottom: 10%;
 	}
 	.bottom-button-container {
-		margin: 60px 0 30px 0;
+		
 	}
 	.vertical-alignment-helper {
 	    display:table;
@@ -48,27 +51,34 @@
 	}
 
 	#inputUsername, #inputPassword {
-		padding: 30px;
-		border-radius: 140px;
+		padding: 14px 0;
+		width: 100%;
+		border-radius: 70px;
 		background-color: #151515;
 		color: white;
 	    text-align: center;
-		border: solid 2.8px #3b3b44;
+		border: solid 1.4px #3b3b44;
 	}
 
 	#sign-up, #facebook-login {
-		padding: 16px;
-		border-radius: 100px;
+		padding: 8px 16px;
+		border-radius: 50px;
 		background-color: #262626;
+		color: white;
 	}
-
+	.form-group {
+		width: 50%;
+		margin: 0 auto;
+	    margin-bottom: 10%;
+	}
 	.login-button {
-	    position: absolute;
+   		position: absolute;
 	    bottom: 0px;
-	    right: 16px;
+	    right: 0px;
 	    background-color: #3de689;
-	    padding: 18px 12px 14px 12px;
-	    border-radius: 50px;
+	    padding: 18px 8px 6px 10px;
+	    border-radius: 70px;
+	    width: 30px;
 	    border: 1px solid #3de689;
 	}
 
@@ -77,7 +87,13 @@
 	    color: white !important;
 	}
 
-	input:-webkit-autofill, input:-webkit-autofill:focus {
-	    -webkit-box-shadow: 0 0 0px 1000px white inset;
+	.password-container {
+		position: relative;
+	}
+	.sign-up-button-container {
+	    float: left;
+	}
+	.facebook-login-button-container {
+	    float: right;
 	}
 }
