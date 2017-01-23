@@ -11,6 +11,12 @@ router.post('/add-money-to-game', (req, res, next) => {
 
 });
 
+router.post('/request-money', (req, res, next) => {
+
+    gameController.requestMoney(req, res);
+
+});
+
 router.get('/tables', (req, res, next) => {
 
     gameController.listTables(req, res);

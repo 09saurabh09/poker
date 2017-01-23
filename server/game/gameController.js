@@ -27,5 +27,15 @@ module.exports = {
 
     spawnTable: function(req, res) {
 
+    },
+
+    requestMoney: function (req, res) {
+        let params = req.body.params;
+        let user = {
+            id: 1
+        }
+        gameService.requestMoney(params, user, function(err, data, statusCode) {
+            responseHelper(err, res, data, statusCode);
+        });
     }
 };
