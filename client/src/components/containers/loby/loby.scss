@@ -7,6 +7,8 @@ nav{
     margin: 0;
     padding: 0;
     height: 100vh;
+    background-color: #232323;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
 section#main{
     float: left;
@@ -145,4 +147,82 @@ section#main{
     top: 50%;
     transform: translateY(-50%);
     width: 5%;
+}
+.upper-section {
+    width: 100%;
+    float: left;
+    height: 48vh;
+}
+.lower-section {
+    width: 100%;
+    float: left;
+    height: 50vh;
+    overflow: hidden;
+}
+.width-100 {
+    width: 100%;
+    float: left;
+    height: 50%;
+}
+.width-50 {
+    width: 47%;
+    float: left;
+    height: 90%;
+    margin: 1% 1%;
+}
+
+.game-icon-container {
+    /* padding: 24px 0 16px 0px; */
+    height: 100%;
+    padding: 13% 0 7% 0px;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.cash-game-icon-container {
+    background-image: linear-gradient(42deg, #27bd25, #17eb98);
+}
+.tournament-icon-container {
+    background-image: linear-gradient(41deg, #5983ff, #fb68f8);
+}
+.sit-game-icon-container {
+    background-image: linear-gradient(41deg, #547bf3, #38dbfd);
+}
+.mytourn-game-icon-container {
+    background-image: linear-gradient(41deg, #ff599e, #ffab68);
+}
+.game-icon-wrapper {
+    mix-blend-mode: luminosity;
+    width: 65%;
+    padding-top: 65%;
+}
+.game {
+    width: 100%;
+    float: left;
+    display: flex;
+    height: 100%;
+}
+.game-box {
+    padding-left: 5%;
+}
+.game-icon {
+    width: 35%;
+    height: 100%;
+    float: left;
+}
+.game-text {
+    width: 65%;
+    display: flex;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+    background-color: #232327;
+}
+.game-title {
+    font-size: 24px;
+    padding: 10% 0;
+}
+.play-with-friends {
+    font-size: 13px;
+    padding: 10% 0;
 }

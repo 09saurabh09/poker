@@ -1,13 +1,30 @@
 import React from 'react';
 import './login.scss';
 
-var PlayIcon = require('babel!svg-react!../../../../assets/img/loby/svg/yoga-play.svg?name=PlayIcon');
-var LoginIcon = require('babel!svg-react!../../../../assets/img/loby/svg/login-button.svg?name=LoginIcon');
+import PlayIcon from '../../../../assets/img/loby/svg/yoga-play.svg';
+import LoginIcon from '../../../../assets/img/loby/svg/login-button.svg';
 
 export default class Login extends React.Component {
 	constructor(props) {
 			super(props);
       this.login = this.login.bind(this);
+      $(document).ready(()=>{
+        var modal = document.getElementsByClassName('modal')[0];
+        // Get the button that opens the modal
+        var btn = document.getElementById('logout-link');
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = 'block';
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+      })
 	}
 
   login() {
@@ -22,33 +39,36 @@ export default class Login extends React.Component {
                 <div id="login-content" className="modal-content">
                     <div className="modal-body">
                       <div className="modal-container">
-                        <div className="play-icon-container"><PlayIcon /></div>
+                        {/*<div className="play-icon-container"><PlayIcon /></div>*/}
+                        <div className="play-icon-container">
+                          <div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>
+                        </div>
                         <form className="form-horizontal form-container">
                           <div className="form-group">
                             <label htmlFor="inputUsername" className="sr-only">User name</label>
-                            <div className="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
+                            <div className="">
                               <input autoComplete="off" type="email" className="form-control" id="inputUsername" placeholder="User name" />
                             </div>
                           </div>
                           <div className="form-group">
                             <label htmlFor="inputPassword" className="sr-only">Password</label>
-                            <div className="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
+                            <div className="password-container">
                               <input type="password" className="form-control" id="inputPassword" placeholder="Password" />
                               <div className="login-button">
-                                <LoginIcon onClick={this.login}/>  
+                                <div className="login-icon-container">
+                                  <div onClick={this.login} className="login-icon-wrapper icon-wrapper" 
+                                    style={{backgroundImage: `url(${LoginIcon})`}}>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div className="form-group">
-                            <div className="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
-                              <div className="row bottom-button-container">
-                                <div className="col-lg-6">
-                                  <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
-                                </div>
-                                <div className="col-lg-6">
-                                  <button id="facebook-login" type="button" className="btn btn-block">Facebook login</button>
-                                </div>
-                              </div>
+                            <div className="sign-up-button-container">
+                              <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
+                            </div>
+                            <div className="facebook-login-button-container">
+                              <button id="facebook-login" type="button" className="btn btn-block">Facebook login</button>
                             </div>
                           </div>
                         </form>
