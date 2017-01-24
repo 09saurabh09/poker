@@ -1,23 +1,57 @@
 .game-layout {
 	position: relative;
 	.play-icon-container {
-		margin-top: 26px;
+		width: 20%;
+		float: left;
+		padding-top: 13px;
 	}
-	.game-header {
-	    padding: 18px;
-	    background-color: #151515;
+	.left-half, .right-half {
+		width: 50%;
+		float: left;
 	}
+	.user-detail-container {
+		width: 80%;
+		float: left;
+	}
+	.game-layout-header {
+		width: 100%;
+		float: left;
+	    background-color: #1d1d1d;
+	}
+	.money-container {
+	    margin-top: 6%;
+	}	
 	.game-type-name {
 	    text-transform: uppercase;
-	    opacity: 0.87;
-	    font-size: 26px;
+	    opacity: 0.5;
+	    font-size: 16px;
 	    font-weight: bold;
+	    float: left;
+	    padding: 20px 36px;
+	}
+	.active-game-type {
+		border-bottom: 8px solid #3de689;
+		opacity: 1;
+	}
+	.game-header {
+		width: 100%;
+		float: left;
+		background-color: #151515;
+	}
+	.type-name, .opened-tables, .cash-game-open, .tournament-open {
+		width: 50%;
+		float: left;
 	}
 	.opened {
-	    /* font-family: ProximaNova; */
-	    font-size: 30px;
+	    font-size: 18px;
 	    font-weight: 300;
+	    color: white;
+	    padding: 20px;
+        opacity: 0.4;
+	}
+	.active-opened {
 	    color: #3de689;
+        opacity: 1;
 	}
 	.filter-icon-container {
 	    position: absolute;
