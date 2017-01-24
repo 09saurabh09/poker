@@ -141,7 +141,7 @@ export default class Loby extends React.Component {
                 </Link>
               </div>
               <div className="width-50">
-                <Link to="/cash-game" className="cash-game">
+                <Link to="/tournament" className="cash-game">
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container tournament-icon-container">

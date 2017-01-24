@@ -55,21 +55,21 @@ export default (props) => {
       <div>
         <div className="game-header">
           <div className="type-name">
-            <div className="game-type-name active-game-type">
+            <Link className="game-type-name no-decor" to="/cash-game" activeClassName="active-game-type">
               Cash games
-            </div>
-            <div className="game-type-name">
+            </Link>
+            <Link className="game-type-name no-decor" to="/tournament" activeClassName="active-game-type">
               Tournament
-            </div>
+            </Link>
           </div>
           <div className="opened-tables">
             <div className="cash-game-open">
-              <Link to="cash-game"> 
-                <div className="opened active-opened">Opened Table (0)</div>
+              <Link to="/cash-game" activeClassName="active-opened" className="no-decor"> 
+                <div className="opened">Opened Table (0)</div>
               </Link>
             </div>
             <div className="tournament-open">
-              <Link to="tournament">
+              <Link to="/tournament" activeClassName="active-opened" className="no-decor">
                 <div className="opened">Opened Tournament (0)</div>
               </Link>
             </div>

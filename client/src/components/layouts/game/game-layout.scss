@@ -28,6 +28,10 @@
 	    font-weight: bold;
 	    float: left;
 	    padding: 20px 36px;
+	    color: white;
+	}
+	.no-decor {
+		text-decoration: none;
 	}
 	.active-game-type {
 		border-bottom: 8px solid #3de689;
@@ -48,10 +52,15 @@
 	    color: white;
 	    padding: 20px;
         opacity: 0.4;
+        color: white;
+        
 	}
 	.active-opened {
-	    color: #3de689;
-        opacity: 1;
+		.opened {
+	    	color: #3de689;
+        	opacity: 1;
+        	text-decoration: none;
+        }
 	}
 	.filter-icon-container {
 	    position: absolute;
