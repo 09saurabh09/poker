@@ -53,5 +53,6 @@ build
 DS_Store
 /.DS_Store
 /.vscode/
-
+server/.DS_Store
+server/utils/.DS_Store
 

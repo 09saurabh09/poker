@@ -29,3 +29,6 @@ global.DB_MODELS = database;
 global.PROMISE = Promise;
 global._ = lodash;
 global.async = async;
+
+global.GlobalConstant = {};
+GlobalConstant.tokenSecret = env.TOKEN_SECRET;

@@ -7,5 +7,9 @@ module.exports = {
 
     GenericFailureMessage: function(){
         this.code = 400;
+    },
+
+    dataNotPresent: {
+        code: 404
     }
 }
