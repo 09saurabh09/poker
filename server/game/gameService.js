@@ -101,5 +101,22 @@ module.exports = {
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })
+    },
+
+    /**
+ * This will add request for adding money on particular table
+ * @param {Object} params for new table 
+ */
+    spawnTable: function (params) {
+        return new PROMISE(function (resolve, reject) {
+            return PokerTable.create(params)
+                .then(function (table) {
+                    resolve(table);
+                })
+                .catch(function (err) {
+                    reject(err)
+                })
+        })
+
     }
 };

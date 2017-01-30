@@ -26,7 +26,19 @@ module.exports = {
     },
 
     spawnTable: function(req, res) {
-
+        let params = req.body.tableParams;
+        let response;
+        gameService.spawnTable(params)
+            .then(function(table){
+                response = new responseMessage.GenericSuccessMessage();
+                response.data = table;
+                responseHelper(null, res, response, response.code);
+            })
+            .catch(function(err) {
+                response = new responseMessage.GenericFailureMessage();
+                response.message = err.message;
+                responseHelper(null, res, response, response.code);
+            });
     },
 
     requestMoney: function (req, res) {
