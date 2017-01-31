@@ -23,9 +23,9 @@ router.get('/tables', (req, res, next) => {
 
 });
 
-router.post('/join-game', (req, res, next) => {
+router.post('/join-table', (req, res, next) => {
 
-    gameController.joinGame(req, res);
+    gameController.joinTable(req, res);
 
 });
 

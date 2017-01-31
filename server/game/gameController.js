@@ -21,7 +21,7 @@ module.exports = {
         });
     },
 
-    joinGame: function(req, res) {
+    joinTable: function(req, res) {
 
     },
 

@@ -6,6 +6,10 @@ let pokerTableConfig = require("./pokerTableConfig").pokerTableConfig;
 
 module.exports = function (sequelize, DataTypes) {
     var PokerTable = sequelize.define("PokerTable", {
+        uniqueId: {
+            type: DataTypes.UUIDV4,
+            defaultValue: DataTypes.UUIDV4
+        },
         gameState: { 
             type: DataTypes.JSONB, 
             defaultValue: {} 
