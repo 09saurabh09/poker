@@ -6,8 +6,9 @@
 let env = process.env;
 
 require('dotenv').config({path: `${__dirname}/environments/${env.NODE_ENV}.env`});
-var Promise = require("bluebird");
-
+let Promise = require("bluebird");
+let lodash = require("lodash");
+let async = require("async");
 
 // Set DB credentials
 global.DB_CREDENTIALS = {};
@@ -25,4 +26,9 @@ var database = require('../config/database');
 
 // Set important gloabls
 global.DB_MODELS = database;
-global.BLUEBIRD_PROMISE = Promise;
+global.PROMISE = Promise;
+global._ = lodash;
+global.async = async;
+
+global.GlobalConstant = {};
+GlobalConstant.tokenSecret = env.TOKEN_SECRET;
