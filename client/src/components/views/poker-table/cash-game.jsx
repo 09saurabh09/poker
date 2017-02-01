@@ -1,4 +1,5 @@
 import React from 'react';
+import { Router, browserHistory } from 'react-router';
 
 import './poker-table.scss';
 
@@ -73,6 +74,10 @@ export default class CashGameTable extends React.Component{
     this.currentSortIndex = arrayIndex;
   }
 
+  openTable(id) {
+    browserHistory.push(`/cash-game/${id}`);
+  }
+
   getSortingIcon(index, sortOrder) {
     return this.currentSortIndex === index ? this.sortIcons[sortOrder]: null;
   }
@@ -97,25 +102,12 @@ export default class CashGameTable extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.props.tableContents.map(({name, blinds, buyIn, players, action, join}, index)=> 
-                <tr className="table-row" key={index}>
+              {this.props.tableContents.map(({tableId, name, blinds, buyIn, players, action, join}, index)=> 
+                <tr className="table-row" key={index} onClick={this.openTable.bind(this, tableId)}>
                   <td className="table-column ">{name}</td>
                   <td className="table-column ">{blinds}</td>
                   <td className="table-column ">{buyIn}</td>
-                  <td className="table-column ">
-                    <div className="players">
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <div className="dots"></div>
-                      <span className="player-count">{players}</span>
-                    </div>
-                  </td>
+                  <td className="table-column ">{players}</td>
                   <td className="table-column ">
                     {action=='hot'? this.hotIcon : this.coldIcon}
                   </td>

@@ -8,14 +8,16 @@ import GameLayout from './components/layouts/game/game-layout';
 import Loby from './components/containers/loby/loby-container';
 import CashGameContainer from './components/containers/game/cash-game/cash-game-container';
 import TournamentContainer from './components/containers/game/tournament/tournament-container';
+import TableContainer from './components/containers/game-table/table-container';
 
 export default (
 	<Route>
 		<Route path="/" component={Loby} />
-		<Route path="cash-game">
+		<Route path="/cash-game">
 			<Route component={GameLayout} >
 				<IndexRoute component={CashGameContainer} />
 			</Route>
+			<Route path=":tableId" component={TableContainer} />
 		</Route>
 		<Route path="tournament">
 			<Route component={GameLayout} >

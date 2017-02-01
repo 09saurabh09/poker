@@ -27,6 +27,7 @@ export default class CashGameContainer extends React.Component{
 
   render(props) {
     let tableData = [{
+     tableId: 1,
      name: 'Amar',
      blinds: '$441',
      buyIn: '$50/$200',
@@ -35,6 +36,7 @@ export default class CashGameContainer extends React.Component{
      join: true
     },
     {
+     tableId: 2,
      name: 'Amar',
      blinds: '$441',
      buyIn: '$50/$200',
@@ -43,6 +45,7 @@ export default class CashGameContainer extends React.Component{
      join: false
     },
     {
+     tableId: 3,
      name: 'Amar',
      blinds: '$441',
      buyIn: '$50/$200',
