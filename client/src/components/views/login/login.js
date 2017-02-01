@@ -63,7 +63,7 @@ export default class Login extends React.Component {
                               </div>
                             </div>
                           </div>
-                          <div className="form-group">
+                          <div className="form-group bottom-button-container">
                             <div className="sign-up-button-container">
                               <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
                             </div>

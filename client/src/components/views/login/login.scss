@@ -90,10 +90,9 @@
 	.password-container {
 		position: relative;
 	}
-	.sign-up-button-container {
-	    float: left;
+	.bottom-button-container {
+		display: flex;
+    	justify-content: space-between;
 	}
-	.facebook-login-button-container {
-	    float: right;
-	}
+	
 }
