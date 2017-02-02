@@ -1,13 +1,14 @@
 import React from 'react';
+import { Router, browserHistory } from 'react-router';
 
 import './poker-table.scss';
 
 var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
 var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
-var SelectRoundIcon = require('babel!svg-react!../../../../assets/img/table/svg/select-round.svg?name=SelectRoundIcon');
-var TickIcon = require('babel!svg-react!../../../../assets/img/table/svg/tick.svg?name=TickIcon');
-var HotIcon = require('babel!svg-react!../../../../assets/img/table/svg/hot.svg?name=HotIcon');
-var ColdIcon = require('babel!svg-react!../../../../assets/img/table/svg/cold.svg?name=ColdIcon');
+import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
+import TickIcon from '../../../../assets/img/table/svg/tick.svg';
+import HotIcon from '../../../../assets/img/table/svg/hot.svg';
+import ColdIcon from '../../../../assets/img/table/svg/cold.svg';
 
 export default class CashGameTable extends React.Component{
 
@@ -43,6 +44,26 @@ export default class CashGameTable extends React.Component{
     this.sortType = ['asc', 'desc'];
     this.sortIcons = [<DownArrowIcon />, <UpArrowIcon />];
     this.currentSortIndex = 0;
+    this.hotIcon = <div className="hot-icon-container">
+                      <div className="action-icon-wrapper icon-wrapper" 
+                        style={{backgroundImage: `url(${HotIcon})`}}>
+                      </div>
+                    </div> ;
+    this.coldIcon = <div className="cold-icon-container">
+                      <div className="action-icon-wrapper icon-wrapper" 
+                        style={{backgroundImage: `url(${ColdIcon})`}}>
+                      </div>
+                    </div> ;
+    this.TickIcon = <div className="join-icon-container">
+                      <div className="join-icon-wrapper icon-wrapper" 
+                        style={{backgroundImage: `url(${TickIcon})`}}>
+                      </div>
+                    </div> ;
+    this.SelectRoundIcon = <div className="join-icon-container">
+                      <div className="join-icon-wrapper icon-wrapper" 
+                        style={{backgroundImage: `url(${SelectRoundIcon})`}}>
+                      </div>
+                    </div> ;
   }
 
   sortTable(arrayIndex) {
@@ -53,8 +74,12 @@ export default class CashGameTable extends React.Component{
     this.currentSortIndex = arrayIndex;
   }
 
+  openTable(id) {
+    browserHistory.push(`/cash-game/${id}`);
+  }
+
   getSortingIcon(index, sortOrder) {
-    return this.currentSortIndex === index ? this.sortIcons[sortOrder]: <span style={{paddingLeft: 14}}>&nbsp;</span>;
+    return this.currentSortIndex === index ? this.sortIcons[sortOrder]: null;
   }
 
   render() {
@@ -77,14 +102,16 @@ export default class CashGameTable extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.props.tableContents.map(({name, blinds, buyIn, players, action, join}, index)=> 
-                <tr className="table-row" key={index}>
-                  <td className="table-column text-left lg-text">{name}</td>
-                  <td className="table-column text-left lg-text">{blinds}</td>
-                  <td className="table-column text-left lg-text">{buyIn}</td>
-                  <td className="table-column text-center lg-text">{players}</td>
-                  <td className="table-column text-center">{action=='hot'? <HotIcon /> : <ColdIcon />}</td>
-                  <td className="table-column text-center">{join ?<TickIcon /> : <SelectRoundIcon/>}</td>
+              {this.props.tableContents.map(({tableId, name, blinds, buyIn, players, action, join}, index)=> 
+                <tr className="table-row" key={index} onClick={this.openTable.bind(this, tableId)}>
+                  <td className="table-column ">{name}</td>
+                  <td className="table-column ">{blinds}</td>
+                  <td className="table-column ">{buyIn}</td>
+                  <td className="table-column ">{players}</td>
+                  <td className="table-column ">
+                    {action=='hot'? this.hotIcon : this.coldIcon}
+                  </td>
+                  <td className="table-column ">{join ?this.TickIcon : this.SelectRoundIcon}</td>
                 </tr>
                 )}
             </tbody>

@@ -27,6 +27,7 @@ export default class CashGameContainer extends React.Component{
 
   render(props) {
     let tableData = [{
+     tableId: 1,
      name: 'Amar',
      blinds: '$441',
      buyIn: '$50/$200',
@@ -35,6 +36,7 @@ export default class CashGameContainer extends React.Component{
      join: true
     },
     {
+     tableId: 2,
      name: 'Amar',
      blinds: '$441',
      buyIn: '$50/$200',
@@ -43,6 +45,7 @@ export default class CashGameContainer extends React.Component{
      join: false
     },
     {
+     tableId: 3,
      name: 'Amar',
      blinds: '$441',
      buyIn: '$50/$200',
@@ -52,31 +55,12 @@ export default class CashGameContainer extends React.Component{
     }];
     return (
       <div>
-        <div className="row game-header">
-            <div className="col-lg-5 game-type-name">
-              cash game
-            </div>
-            <div className="col-lg-7">
-              <div className="row">
-                <div className="col-lg-6">
-                  <Link to="cash-game"> 
-                    <div className="opened">Opened Table ({this.props.openCashGames || 0})</div>
-                  </Link>
-                </div>
-                <div className="col-lg-6">
-                  <Link to="tournament">
-                    <div className="opened">Opened Tournament ({this.props.openTournaments || 0})</div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-        </div>
         <CashGameTable tableContents={tableData} />
-        <div className="filter-icon-container">
+        {/*<div className="filter-icon-container">
           <a onClick={this.openCashGameFilter} className="filter-icon-wrapper">
             <FilterIcon className="filter-icon"/>
           </a>
-        </div>
+        </div>*/}
         <CashGameFilterContainer />
       </div>
     );

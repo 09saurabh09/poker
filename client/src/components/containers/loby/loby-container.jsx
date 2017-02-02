@@ -94,13 +94,13 @@ export default class Loby extends React.Component {
                     <div className="money-icon-container">
                       <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${RealMoneyIcon})`}}></div>
                     </div>
-                    <span className="text">Real Money:</span> <span className="text value">$784</span>
+                    <span className="text">On Table:</span> <span className="text value">$784</span>
                   </div>
                   <div className="money">
                     <div className="money-icon-container">
                       <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayMoneyIcon})`}}></div>
                     </div>
-                    <span className="text">Play Money:</span> <span className="text value"> $784</span>
+                    <span className="text">Off Table:</span> <span className="text value"> $784</span>
                   </div>
                 </div>
                 <div className="search-container">
@@ -141,7 +141,7 @@ export default class Loby extends React.Component {
                 </Link>
               </div>
               <div className="width-50">
-                <Link to="/cash-game" className="cash-game">
+                <Link to="/tournament" className="cash-game">
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container tournament-icon-container">

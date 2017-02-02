@@ -4,10 +4,8 @@ import './poker-table.scss';
 
 var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
 var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
-var SelectRoundIcon = require('babel!svg-react!../../../../assets/img/table/svg/select-round.svg?name=SelectRoundIcon');
-var TickIcon = require('babel!svg-react!../../../../assets/img/table/svg/tick.svg?name=TickIcon');
-var HotIcon = require('babel!svg-react!../../../../assets/img/table/svg/hot.svg?name=HotIcon');
-var ColdIcon = require('babel!svg-react!../../../../assets/img/table/svg/cold.svg?name=ColdIcon');
+import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
+import TickIcon from '../../../../assets/img/table/svg/tick.svg';
 
 
 export default class TournamentTable extends React.Component{
@@ -16,7 +14,7 @@ export default class TournamentTable extends React.Component{
     super(props);
     this.tableHeaders = [
     {
-      text: 'Tourny Name',
+      text: 'Tourney Name',
       key: 'name',
       sortOrder: 1
     },
@@ -33,12 +31,22 @@ export default class TournamentTable extends React.Component{
       key: 'startTime',
       sortOrder: 0
     },{
-      text: 'JOIN Tourny',
+      text: 'JOIN Tourney',
       key: 'join'
     }];
     this.sortType = ['asc', 'desc'];
     this.sortIcons = [<DownArrowIcon />, <UpArrowIcon />];
     this.currentSortIndex = 0;
+    this.TickIcon = <div className="join-icon-container">
+                      <div className="join-icon-wrapper icon-wrapper" 
+                        style={{backgroundImage: `url(${TickIcon})`}}>
+                      </div>
+                    </div> ;
+    this.SelectRoundIcon = <div className="join-icon-container">
+                      <div className="join-icon-wrapper icon-wrapper" 
+                        style={{backgroundImage: `url(${SelectRoundIcon})`}}>
+                      </div>
+                    </div> ;
   }
 
   sortTable(arrayIndex) {
@@ -75,11 +83,11 @@ export default class TournamentTable extends React.Component{
             <tbody>
               {this.props.tableContents.map(({name, buyIn, enrolled, startTime, join}, index)=> 
                 <tr className="table-row" key={index}>
-                  <td className="table-column text-left lg-text">{name}</td>
-                  <td className="table-column text-left lg-text">{buyIn}</td>
-                  <td className="table-column text-center lg-text">{enrolled}</td>
-                  <td className="table-column text-center lg-text">{startTime}</td>
-                  <td className="table-column text-center">{join ?<TickIcon /> : <SelectRoundIcon/>}</td>
+                  <td className="table-column">{name}</td>
+                  <td className="table-column">{buyIn}</td>
+                  <td className="table-column">{enrolled}</td>
+                  <td className="table-column">{startTime}</td>
+                  <td className="table-column">{join ? this.TickIcon :  this.SelectRoundIcon}</td>
                 </tr>
                 )}
             </tbody>

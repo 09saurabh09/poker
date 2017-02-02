@@ -4,51 +4,77 @@ import { Link } from 'react-router';
 import './game-layout.scss';
 
 
-var PlayIcon = require('babel!svg-react!../../../../assets/img/table/svg/yoga-play.svg?name=PlayIcon');
-var RealMoneyIcon = require('babel!svg-react!../../../../assets/img/table/svg/real-money-icon.svg?name=RealMoneyIcon');
-var PlayMoneyIcon = require('babel!svg-react!../../../../assets/img/table/svg/play-money-icon.svg?name=PlayMoneyIcon');
+import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
+import RealMoneyIcon from '../../../../assets/img/table/svg/real-money-icon.svg';
+import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg';
 
 // Using "Stateless Functional Components"
 export default (props) => {
   return (
-    <div className="container-fluid game-layout">
-      <div className="row user-container">
-        <div className="col-lg-5 col-sm-12">
-          <div className="row">
-            <div className="col-lg-3 col-sm-3">
-              <Link to="/" className="play-icon-container">
-                <PlayIcon />
+    <div className="game-layout">
+      <div className="game-layout-header">
+        <div className="left-half">
+          <Link to="/" >
+            <div className="play-icon-container">
+              <div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>
+            </div>
+          </Link>
+          <div className="user-detail-container">
+            <div id="dp-container" className="profile-photo">
+              <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
+            </div>
+            <div className="name-balance-review">
+              <div className="name-balance-container">
+                <div className="user-name">
+                  Adeline Daniel
+                </div>
+                <div className="balance">
+                  Balance : $6218 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="right-half">
+          <div className="money-container">
+            <div className="money">
+              <div className="money-icon-container">
+                <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${RealMoneyIcon})`}}></div>
+              </div>
+              <span className="text">On Table:</span> <span className="text value">$784</span>
+            </div>
+            <div className="money">
+              <div className="money-icon-container">
+                <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayMoneyIcon})`}}></div>
+              </div>
+              <span className="text">Off Table:</span> <span className="text value"> $784</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="game-header">
+          <div className="type-name">
+            <Link className="game-type-name no-decor" to="/cash-game" activeClassName="active-game-type">
+              Cash games
+            </Link>
+            <Link className="game-type-name no-decor" to="/tournament" activeClassName="active-game-type">
+              Tournament
+            </Link>
+          </div>
+          <div className="opened-tables">
+            <div className="cash-game-open">
+              <Link to="/cash-game" activeClassName="active-opened" className="no-decor"> 
+                <div className="opened">Opened Table (0)</div>
               </Link>
             </div>
-            <div className="col-lg-4 col-sm-3">
-              <img className="photo"/>
-            </div>
-            <div className="col-lg-5 col-sm-6 user-details">
-              <div className="user-name">
-                Adeline Daniel
-              </div>
-              <div className="balance">
-                Balance : $6218 
-              </div>
+            <div className="tournament-open">
+              <Link to="/tournament" activeClassName="active-opened" className="no-decor">
+                <div className="opened">Opened Tournament (0)</div>
+              </Link>
             </div>
           </div>
-        </div>
-        <div className="col-lg-6 col-sm-12">
-          <div className="row">
-            <div className="col-lg-6 col-xs-6">
-              <div className="money">
-                <RealMoneyIcon /> 
-                <span className="text">Real Money:</span> <span className="text value">$784</span>
-              </div>
-            </div>
-            <div className="col-lg-6 col-xs-6">
-              <div className="money">
-                <PlayMoneyIcon />
-                <span className="text">Play Money:</span> <span className="text value"> $784</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
       </div>
       {props.children}
     </div>
