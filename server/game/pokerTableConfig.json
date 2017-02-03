@@ -12,7 +12,7 @@
         "accessType": {
             "values": ["open", "private", "anonymous"]
         },
-        "runType": {
+        "runTimeType": {
             "values": ["once", "thrice"]
         },
         "nOfPlayers":{

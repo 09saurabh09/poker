@@ -30,5 +30,10 @@ global.PROMISE = Promise;
 global._ = lodash;
 global.async = async;
 
+
+// Do not change the position
+let io = require('../socket/socketRoute');
+global.SOCKET_IO = io;
+
 global.GlobalConstant = {};
 GlobalConstant.tokenSecret = env.TOKEN_SECRET;

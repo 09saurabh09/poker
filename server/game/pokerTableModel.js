@@ -51,19 +51,40 @@ module.exports = function (sequelize, DataTypes) {
                  isIn: [pokerTableConfig.accessType.values], 
             }
         },
-        runType: {
+        runTimeType: {
             type: DataTypes.STRING,
             validate: {
-                 isIn: [pokerTableConfig.runType.values], 
+                 isIn: [pokerTableConfig.runTimeType.values], 
             }
         },
-        nOfPlayers: {
+        maxPlayer: {
             type: DataTypes.INTEGER,
             validate: {
                  min: [pokerTableConfig.nOfPlayers.min], 
                  max: [pokerTableConfig.nOfPlayers.max],
             }
-        }
+        },
+        minAmount: { 
+            type: DataTypes.FLOAT 
+        },
+        maxAmount: { 
+            type: DataTypes.FLOAT 
+        },
+        maxSitOutTIme: { 
+            type: DataTypes.INTEGER 
+        },
+        annyomousGame: { 
+            type: DataTypes.BOOLEAN 
+        },
+        rakeX: { 
+            type: DataTypes.FLOAT 
+        },
+        rakeY: { 
+            type: DataTypes.FLOAT 
+        },
+        rakeZ: { 
+            type: DataTypes.FLOAT 
+        },
     });
 
     return PokerTable;
