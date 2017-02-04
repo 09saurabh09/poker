@@ -1,11 +1,16 @@
 import React from 'react';
 import './player.scss';
 
+import PlayerCards from '../player-cards/player-cards';
+
 export default class Player extends React.Component {
 
   render() {
     return (
       <div className="player">
+        <div className="player-card-wrapper">
+          <PlayerCards cards={[{suit: "diams", value: "A"},{suit: "diams", value: "Q"},{suit: "diams", value: 3},{suit: "diams", value: 2}]}/>
+        </div>
         <div className="player-container">
           <div className="player-wrapper">
             <div className="player-dp">

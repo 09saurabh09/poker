@@ -1,7 +1,12 @@
-$player-container-width: 130px;
+$player-container-width: 150px;
 $skew-angle : -10deg;
 $dp-size : 24px;
 .player {
+  .player-card-wrapper {
+    position: absolute;
+    top: -15%;
+    left: 35%;
+  }
   .player-container {
     width: $player-container-width;
     height: $player-container-width / 2 - 10px;

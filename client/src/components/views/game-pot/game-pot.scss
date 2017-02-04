@@ -1,0 +1,56 @@
+$pot-height: 60px;
+$pot-side: 25px;
+.pot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  .triangle-bottomleft {
+    position: absolute;
+    z-index: 10;
+    width: 0;
+    height: 0;
+    border-bottom: $pot-height solid #262626;
+    border-right: $pot-side solid transparent;
+  }
+  .pot-filled {
+    border-top: $pot-height solid rgba(61, 230, 137, 0.04);
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
+    height: 0;
+    width: 0px;
+    border-top-left-radius: 2.5px;
+    border-top-right-radius: 2.5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .pot-container {
+    border-top: $pot-height solid #38383b;
+    border-left: $pot-side solid transparent;
+    border-right: $pot-side solid transparent;
+    height: 0;
+    width: $pot-height;
+    border-top-left-radius: 2.5px;
+    border-top-right-radius: 2.5px;
+  }
+  .pot-text{
+    position: absolute;
+    top: 4px;
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 13px;
+    .pot-value {
+      padding-top: 4px;
+      letter-spacing: 0.3px;
+      color: #3de689;
+    }
+    .pot-percentage {
+      padding-top: 4px;
+      font-family: ProximaNovaT;
+      font-weight: 100;
+    }
+  }
+}
