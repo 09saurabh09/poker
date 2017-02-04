@@ -21,12 +21,16 @@ export default class GameTable extends React.Component{
         $(window).resize(function() {
           if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
             $('.main-table').width( $(window).width() * .70 );
-            $('.main-table').height( $('.main-table').width() * 0.5 );
+            $('.main-table').height( $('.main-table').width() * 0.45 );
           } else {
             $('.main-table').height( $(window).height() * .65);
-            $('.main-table').width( $('.main-table').height() * 2 );
+            $('.main-table').width( $('.main-table').height() * 2.22 );
           }
-          $('.game-table').height( $('.main-table').height() + 250);
+          if($('.main-table').height() + 250 <= $(window).height()) {
+            $('.game-table').height( $('.main-table').height() + 250);
+          } else {
+            $('.game-table').height( $(window).height());
+          }
         }).resize();
     });
   }
@@ -34,7 +38,7 @@ export default class GameTable extends React.Component{
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
-      1000
+      250
     );
   }
 
@@ -48,9 +52,19 @@ export default class GameTable extends React.Component{
       return;
     }
     let tableCards = [{suit: "diams", value: "A"},{suit: "diams", value: "Q"},{suit: "diams", value: 3},{suit: "diams", value: 2}, {suit: "diams", value: 10}];
+    if (this.state.potValue <= 50) {
+      tableCards = []
+    } else if(this.state.potValue >= 99) {
+      debugger;
+      tableCards = tableCards;
+    } else if(this.state.potValue >= 75) {
+      tableCards.splice(3, 1);
+    } else if(this.state.potValue >= 50) {
+      tableCards.splice(2, 2);
+    } 
     this.setState({
       potValue: this.state.potValue + 1,
-      flopCards: tableCards.slice(0, this.state.potValue+1)
+      flopCards: tableCards
     });
   }
 
@@ -76,7 +90,7 @@ export default class GameTable extends React.Component{
             </div>
            {allPlayers.map((element, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              <Player />
+              <Player player={{active: this.state.potValue % 9 == index ? true: false }}/>
               <PlayerChips chipsValue={index + 100}/>
             </div>
             )}

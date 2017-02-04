@@ -75,7 +75,7 @@ export default class GameActions extends React.Component{
               <a onClick={this.onFoldClick.bind(this)} className="button">Fold</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onCallClick.bind(this)} className="button">Call {`${this.state.value}`}</a>
+              <a onClick={this.onCallClick.bind(this)} className="button"><span>Call</span> <span>{this.state.value}</span></a>
             </div>
             <div className="button-container">
               <a onClick={this.onRaiseClick.bind(this)} className="button">Raise</a>

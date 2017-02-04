@@ -12,7 +12,7 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 0 30px 30px 0;
+    margin: 0 18px 18px 0;
     width: 30%;
   }
   .main-table {
@@ -102,7 +102,8 @@
     transform: translate(-50%, -120%);
     .player-chips{
       bottom: -100%;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
   .player5 {
@@ -112,7 +113,8 @@
     transform: translate(-50%, -120%);
     .player-chips{
       bottom: -100%;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
   .player6 {
@@ -121,9 +123,8 @@
     right: 8%;
     transform: translateX(50%);
     .player-chips{
-      top: 50%;
+      bottom: -35%;
       left: -35%;
-      transform: translateY(-50%);
     }
   }
   .player7 {

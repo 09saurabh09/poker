@@ -10,10 +10,10 @@ export default class GamePot extends React.Component {
       borderLeft = potValue;
     } else if(potValue > 25 && potValue <= 75) {
       borderLeft = 25;
-      width = 80* (potValue - 25)/50;
+      width = 60* (potValue - 25)/50;
     } else if(potValue > 75 && potValue <= 100) {
       borderLeft = 25;
-      width = 80;
+      width = 60;
       borderRight = potValue - 75;
     }
     $(document).ready(function() {

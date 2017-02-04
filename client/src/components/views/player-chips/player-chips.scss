@@ -2,10 +2,11 @@
 	position: absolute;
 	color: white;
 	.chips {
-		padding: 10px;
+	    padding: 4px 10px 0 0;
 	    display: inline-flex;
-		width: 100px;
-		box-sizing: content-box;
+	    box-sizing: content-box;
+	    border-radius: 10px;
+	    background-color: #333333;
 	}
 	.coin-icon-container {
 	  width: 25px;
