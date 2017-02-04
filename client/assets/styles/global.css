@@ -47,5 +47,8 @@ input:focus {
     transition: .2s ease-out;
     cursor: pointer;
     border-radius: 40px;
+    background-color: #3c3c3c;
+}
+.button:hover {
     background-color: #3de689;
 }

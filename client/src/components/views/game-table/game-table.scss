@@ -9,10 +9,10 @@
     margin: 20px;
   }
   .game-actions-container {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     right: 0;
-    margin: 30px;
+    margin: 0 30px 30px 0;
     width: 30%;
   }
   .main-table {

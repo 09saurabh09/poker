@@ -11,7 +11,7 @@ export default class TableContainer extends React.Component{
 
   render(props) {
     return (
-      <div>
+      <div className="table-container">
         <GameTable />
       </div>
     );

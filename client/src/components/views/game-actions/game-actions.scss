@@ -1,6 +1,6 @@
 .range-field {
 	width: 100%;
-	margin: 16px 0;
+	margin: 6px 0;
 	input {
 		width: 100%;	
 	}
@@ -14,12 +14,13 @@
     	border-radius: 52px;
     	background-color: #8b8b8b;
     	width: 60px;
-        padding-left: 6px;
+        padding: 4px 0px;
     	text-align: center;	
 	}
 	.button {
 	    height: initial;
 	    padding: 6px 13px;
+	    font-size: 11px;
 	    line-height: initial;
 	}
 }

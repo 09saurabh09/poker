@@ -26,7 +26,7 @@ export default class GameTable extends React.Component{
             $('.main-table').height( $(window).height() * .65);
             $('.main-table').width( $('.main-table').height() * 2 );
           }
-          $('.game-table').height( $('.main-table').height() + 230);
+          $('.game-table').height( $('.main-table').height() + 250);
         }).resize();
     });
   }
@@ -56,14 +56,14 @@ export default class GameTable extends React.Component{
 
   render() {
     let allPlayers = Array.apply(null, Array(9)).map(Number.prototype.valueOf,0);
-    
+    let range = {min: 100, max: 1000, value: 0, potValue: 800, step: 1}
     return (
       <div className="game-table">
         <div className="game-controls-container">
           <GameControls />  
         </div>
         <div className="game-actions-container">
-          <GameActions />
+          <GameActions range={range}/>
         </div>
         <div className="main-table">
             <GamePot potFilled={this.state.potValue}/>
