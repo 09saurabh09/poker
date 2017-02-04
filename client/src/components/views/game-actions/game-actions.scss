@@ -1,0 +1,29 @@
+.range-field {
+	width: 100%;
+	margin: 16px;
+	input {
+		width: 100%;	
+	}
+}
+.space-between {
+	display: flex;
+	justify-content: space-between;
+}
+.values{
+	input {
+    	border-radius: 52px;
+    	background-color: #8b8b8b;
+    	width: 60px;
+        padding-left: 6px;
+    	text-align: center;	
+	}
+	.button {
+	    height: initial;
+	    padding: 6px 13px;
+	    line-height: initial;
+	}
+}
+	
+.button-container{
+
+}

@@ -8,12 +8,19 @@
     width: 15%;
     margin: 20px;
   }
+  .game-actions-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 30px;
+    width: 30%;
+  }
   .main-table {
     position: relative;
     top: 100px;
     box-sizing: content-box;
-    width: 75vw;
-    height: 45vw;
+    width: 70vw;
+    height: 35vw;
     margin: 0 auto;
     border-radius: 50%;
     color: rgba(0,0,0,1);
@@ -47,7 +54,7 @@
   }
   .player0 {
     position: absolute;
-    bottom: -10px;
+    bottom: -8%;
     left: 50%;
     transform: translateX(-50%);
     .player-chips {
@@ -58,7 +65,7 @@
   }
   .player1 {
     position: absolute;
-    bottom: 0;
+    bottom: 6%;
     left: 15%;
     transform: translateX(-15%);
     .player-chips{
@@ -68,7 +75,7 @@
   }
   .player2 {
     position: absolute;
-    bottom: 30%;
+    bottom: 40%;
     left: 0;
     transform: translateX(-50%);
     .player-chips{
@@ -79,8 +86,8 @@
   }
   .player3 {
     position: absolute;
-    top: 10%;
-    left: 0;
+    top: 0;
+    left: 8%;
     transform: translateX(-60%);
     .player-chips{
       bottom: -20%;
@@ -110,8 +117,8 @@
   }
   .player6 {
     position: absolute;
-    top: 10%;
-    right: 0;
+    top: 0;
+    right: 8%;
     transform: translateX(50%);
     .player-chips{
       top: 50%;
@@ -121,7 +128,7 @@
   }
   .player7 {
     position: absolute;
-    bottom: 30%;
+    bottom: 40%;
     right: 0;
     transform: translateX(50%);
     .player-chips{
@@ -131,7 +138,7 @@
   }
   .player8 {
     position: absolute;
-    bottom: 0;
+    bottom: 6%;
     right: 15%;
     transform: translateX(15%);
     .player-chips{

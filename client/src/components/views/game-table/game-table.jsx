@@ -19,13 +19,14 @@ export default class GameTable extends React.Component{
     };
     $(document).ready(function() {
         $(window).resize(function() {
-          if($('.main-table').height() <= ($(window).height() * .65) || $('.main-table').width() >= $(window).width() * .80 ){
-            $('.main-table').width( $(window).width() * .75 );
-            $('.main-table').height( $(window).width() * .40 );
+          if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
+            $('.main-table').width( $(window).width() * .70 );
+            $('.main-table').height( $('.main-table').width() * 0.5 );
           } else {
-            $('.main-table').height( $(window).height() * .70);
+            $('.main-table').height( $(window).height() * .65);
             $('.main-table').width( $('.main-table').height() * 2 );
           }
+          $('.game-table').height( $('.main-table').height() + 230);
         }).resize();
     });
   }
@@ -61,8 +62,9 @@ export default class GameTable extends React.Component{
         <div className="game-controls-container">
           <GameControls />  
         </div>
-        
-        <GameActions />
+        <div className="game-actions-container">
+          <GameActions />
+        </div>
         <div className="main-table">
             <GamePot potFilled={this.state.potValue}/>
             <div className="table-center">
