@@ -1,6 +1,7 @@
 import React from 'react';
 import './player.scss';
 
+import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
 import PlayerCards from '../player-cards/player-cards';
 
 export default class Player extends React.Component {

@@ -4,6 +4,8 @@ import './game-table.scss';
 
 import Player from '../player/player';
 import GamePot from '../game-pot/game-pot';
+import GameControls from '../game-controls/game-controls';
+import GameActions from '../game-actions/game-actions';
 import PlayerChips from '../player-chips/player-chips';
 import Card from '../card/card'
 
@@ -11,10 +13,13 @@ export default class GameTable extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = {potValue: 0};
+    this.state = {
+      potValue: 0,
+      flopCards: []
+    };
     $(document).ready(function() {
         $(window).resize(function() {
-          if($('.main-table').height() <= ($(window).height() * .65) ){
+          if($('.main-table').height() <= ($(window).height() * .65) || $('.main-table').width() >= $(window).width() * .80 ){
             $('.main-table').width( $(window).width() * .75 );
             $('.main-table').height( $(window).width() * .40 );
           } else {
@@ -26,10 +31,10 @@ export default class GameTable extends React.Component{
   }
 
   componentDidMount() {
-    /*this.timerID = setInterval(
+    this.timerID = setInterval(
       () => this.tick(),
-      500
-    );*/
+      1000
+    );
   }
 
   componentWillUnmount() {
@@ -41,20 +46,27 @@ export default class GameTable extends React.Component{
       clearInterval(this.timerID);
       return;
     }
+    let tableCards = [{suit: "diams", value: "A"},{suit: "diams", value: "Q"},{suit: "diams", value: 3},{suit: "diams", value: 2}, {suit: "diams", value: 10}];
     this.setState({
-      potValue: this.state.potValue + 1
+      potValue: this.state.potValue + 1,
+      flopCards: tableCards.slice(0, this.state.potValue+1)
     });
   }
 
   render() {
     let allPlayers = Array.apply(null, Array(9)).map(Number.prototype.valueOf,0);
-    let tableCards = [{suit: "diams", value: "A"},{suit: "diams", value: "Q"},{suit: "diams", value: 3},{suit: "diams", value: 2}, {suit: "diams", value: 10}];
+    
     return (
       <div className="game-table">
+        <div className="game-controls-container">
+          <GameControls />  
+        </div>
+        
+        <GameActions />
         <div className="main-table">
             <GamePot potFilled={this.state.potValue}/>
             <div className="table-center">
-              {tableCards.map((element, index)=> 
+              {this.state.flopCards.map((element, index)=> 
                 <div key={index} className="game-cards-container">
                   <Card card={element}/>
                 </div>

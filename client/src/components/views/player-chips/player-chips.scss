@@ -3,6 +3,12 @@
 	color: white;
 	.chips {
 		padding: 10px;
+	    display: inline-flex;
+		width: 100px;
+		box-sizing: content-box;
+	}
+	.coin-icon-container {
+	  width: 25px;
 	}
 	.chips-value {
 		font-size: 13px;
