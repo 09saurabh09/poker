@@ -50,3 +50,6 @@ input:focus {
 .button:hover {
     background-color: #3de689;
 }
+.hide {
+    display: none !important;
+}

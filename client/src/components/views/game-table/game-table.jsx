@@ -38,7 +38,7 @@ export default class GameTable extends React.Component{
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
-      250
+      20000
     );
   }
 
@@ -55,7 +55,6 @@ export default class GameTable extends React.Component{
     if (this.state.potValue <= 50) {
       tableCards = []
     } else if(this.state.potValue >= 99) {
-      debugger;
       tableCards = tableCards;
     } else if(this.state.potValue >= 75) {
       tableCards.splice(3, 1);
@@ -69,7 +68,19 @@ export default class GameTable extends React.Component{
   }
 
   render() {
-    let allPlayers = Array.apply(null, Array(9)).map(Number.prototype.valueOf,0);
+    let allPlayers = Array.apply(null, Array(9)).map((ele, index)=>{
+      if(index %2 == 0) {
+        return {seatOpen: false,
+          name: 'Amar Nath Saha',
+          balance: '$123',
+          bbValue: 25,
+          timer : 20
+        }
+      }
+      return {
+        seatOpen: true
+      }
+    });
     let range = {min: 100, max: 1000, value: 0, potValue: 800, step: 1}
     return (
       <div className="game-table">
@@ -90,8 +101,10 @@ export default class GameTable extends React.Component{
             </div>
            {allPlayers.map((element, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              <Player player={{active: this.state.potValue % 9 == index ? true: false }}/>
-              <PlayerChips chipsValue={index + 100}/>
+              <Player player={{...element, active: this.state.potValue % 9 == index ? true: false}}/>
+              <div className={element.seatOpen? 'hide' : ''}>
+                <PlayerChips chipsValue={index + 100} />
+              </div>
             </div>
             )}
         </div>

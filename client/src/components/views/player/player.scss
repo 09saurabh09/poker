@@ -9,7 +9,50 @@ $dp-size : 24px;
   }
   .active {
     box-shadow: 0 3px 12px 0 rgba(61, 230, 137, 0.73), 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    .timer {
+      //border: 4px solid #3de689;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+    .timer-top {
+      border-top: 4px solid #3de689;
+    }
+    .timer-right {
+      border-right: 4px solid #3de689;
+      right: 0;
+      height: 0;
+    }
+    .timer-bottom {
+      border-bottom: 4px solid #3de689;
+      right: 0;
+    }
+    .timer-left {
+      border-left: 4px solid #3de689;
+      top: initial;
+    }
   }
+  .seat-open .player-dp {
+    background-color: #3e3e3e !important;
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.21) !important;
+    border: solid 1.2px #969696 !important;
+  }
+  .open-seat-icon-container{
+      width: 25%;
+      position: relative;
+      left: 35px;
+  }
+  .join {
+    display: inline-flex;
+    width: 100%;
+    position: relative;
+    left: 35px;
+    padding-top: 8px;
+  }
+  .join-seat-icon-container {
+      width: 20%;
+  }
+  
   .player-container {
     width: $player-container-width;
     height: $player-container-width / 2 - 10px;
