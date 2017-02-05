@@ -13,9 +13,22 @@ export default class GameTable extends React.Component{
 
   constructor(props) {
     super(props);
+    this.numberOfPlayer = 9;
+    let allPlayers = Array.apply(null, Array(this.numberOfPlayer)).map((ele, index)=>{
+      return {
+        name: 'Amar Nath Saha',
+        balance: `${100*index}`,
+        bbValue: 25 + index,
+        timer : 20,
+        seat: index,
+        seatOpen: false,
+        onTable: true
+      }
+    });
     this.state = {
       potValue: 0,
-      flopCards: []
+      flopCards: [],
+      players : allPlayers
     };
     $(document).ready(function() {
         $(window).resize(function() {
@@ -51,14 +64,12 @@ export default class GameTable extends React.Component{
       clearInterval(this.timerID);
       return;
     }
-    let tableCards = [{suit: "diams", value: "A"},{suit: "diams", value: "Q"},{suit: "diams", value: 3},{suit: "diams", value: 2}, {suit: "diams", value: 10}];
+    let tableCards = [{suit: 'diams', value: 'A'},{suit: 'diams', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}, {suit: 'diams', value: 10}];
     if (this.state.potValue <= 50) {
-      tableCards = []
-    } else if(this.state.potValue >= 99) {
-      tableCards = tableCards;
-    } else if(this.state.potValue >= 75) {
+      tableCards = [];
+    } else if(this.state.potValue >= 75 && this.state.potValue <99) {
       tableCards.splice(3, 1);
-    } else if(this.state.potValue >= 50) {
+    } else if(this.state.potValue >= 50 && this.state.potValue < 75) {
       tableCards.splice(2, 2);
     } 
     this.setState({
@@ -67,41 +78,55 @@ export default class GameTable extends React.Component{
     });
   }
 
+  rotatePlayers(array, baseIndex) {
+    if(isNaN(baseIndex) || baseIndex < 0) {
+      throw "provide valid order";
+    }
+
+    if(array.length == 0) {
+      throw "provide valid array";
+    }
+
+    let leftSideArray = array.slice(0, baseIndex);
+    let rightSideArray = array.slice(baseIndex);
+    return [...rightSideArray, ...leftSideArray];
+  }
+
+  joinSeat(seat) {
+    let allPlayers = this.state.players;
+    allPlayers.forEach((player)=>{
+      if(player.seat == seat) {
+        player.seatOpen = false;
+        player.name = 'ITS ME!! Bitch'
+      }
+    }); 
+    this.setState({
+      players : this.rotatePlayers(allPlayers, seat)
+    })
+  }
+
   render() {
-    let allPlayers = Array.apply(null, Array(9)).map((ele, index)=>{
-      if(index %2 == 0) {
-        return {seatOpen: false,
-          name: 'Amar Nath Saha',
-          balance: '$123',
-          bbValue: 25,
-          timer : 20
-        }
-      }
-      return {
-        seatOpen: true
-      }
-    });
     let range = {min: 100, max: 1000, value: 0, potValue: 800, step: 1}
     return (
-      <div className="game-table">
-        <div className="game-controls-container">
+      <div className='game-table'>
+        <div className='game-controls-container'>
           <GameControls />  
         </div>
-        <div className="game-actions-container">
+        <div className='game-actions-container'>
           <GameActions range={range}/>
         </div>
-        <div className="main-table">
+        <div className='main-table'>
             <GamePot potFilled={this.state.potValue}/>
-            <div className="table-center">
+            <div className='table-center'>
               {this.state.flopCards.map((element, index)=> 
-                <div key={index} className="game-cards-container">
+                <div key={index} className='game-cards-container'>
                   <Card card={element}/>
                 </div>
               )}
             </div>
-           {allPlayers.map((element, index)=> 
+           {this.state.players.map((element, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              <Player player={{...element, active: this.state.potValue % 9 == index ? true: false}}/>
+              <Player player={{...element, active: this.state.potValue % this.numberOfPlayer == element.seat ? true: false}} onJoinSeat={this.joinSeat.bind(this)}/>
               <div className={element.seatOpen? 'hide' : ''}>
                 <PlayerChips chipsValue={index + 100} />
               </div>

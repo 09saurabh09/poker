@@ -1,6 +1,10 @@
 import React from 'react';
 import './game-actions.scss';
 
+import '../../../plugins/nouislider.min.css';
+
+import Nouislider from 'react-nouislider';
+
 export default class GameActions extends React.Component{
   constructor(props) {
     super(props);
@@ -34,6 +38,13 @@ export default class GameActions extends React.Component{
     this.setState({value: event.target.value});
   }
 
+  onUpdate(val) {
+    let value = val[0];
+    if(value != this.state.value) {
+      this.setState({value}); 
+    }
+  }
+
   onFoldClick(event) {
     
   }
@@ -64,11 +75,21 @@ export default class GameActions extends React.Component{
               <a onClick={this.onMaxClick.bind(this)} className="button">Max</a>
             </div>
             <div className="button-container">
-              <input type="number" id="call-value" name="call-value" step={this.props.range.step} min={this.props.range.min} max={this.props.range.max} value={this.state.value} onChange={this.handleChange.bind(this)}/>
+              <input type="number" id="call-value" name="call-value" step={this.props.range.step} 
+              min={this.props.range.min} max={this.props.range.max} value={this.state.value} 
+              onChange={this.handleChange.bind(this)}/>
             </div>
           </div>
-          <div className="range-field">
-            <input type="range" id="range-slider" step={this.props.range.step} min={this.props.range.min} max={this.props.range.max} value={this.state.value} onChange={this.handleChange.bind(this)}/>
+          {/*<RangeSlide range={this.props.range} value={this.state.value} handleChange={this.handleChange.bind(this)} onUpdate={this.onUpdate.bind(this)} />*/}
+          <div id="slider-range" className="range-field">
+          <Nouislider
+            range={{min: this.props.range.min, max: this.props.range.max}}
+            start={[parseFloat(this.state.value)]}
+            connect="lower"
+            behaviour='tap'
+            step={this.props.range.step}
+            onUpdate={this.onUpdate.bind(this)}
+          />
           </div>
           <div className="actions space-between">
             <div className="button-container">

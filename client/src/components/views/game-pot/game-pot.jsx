@@ -17,9 +17,9 @@ export default class GamePot extends React.Component {
       borderRight = potValue - 75;
     }
     $(document).ready(function() {
-      $(".pot-filled").css({"border-left": borderLeft + 'px solid transparent',
-                            "width": width + 'px',
-                            "border-right": borderRight + 'px solid transparent', })
+      $('.pot-filled').css({'border-left': borderLeft + 'px solid transparent',
+                            'width': width + 'px',
+                            'border-right': borderRight + 'px solid transparent'})
     });
     return (
       <div className="pot">

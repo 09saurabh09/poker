@@ -1,30 +1,51 @@
 .range-field {
-	width: 100%;
-	margin: 6px 0;
-	input {
-		width: 100%;	
-	}
+  width: 100%;
+  margin: 6px 0;
+  input {
+    width: 100%;  
+  }
 }
 .space-between {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .values{
-	input {
-    	border-radius: 52px;
-    	background-color: #8b8b8b;
-    	width: 60px;
-        padding: 4px 0px;
-    	text-align: center;	
-	}
-	.button {
-	    height: initial;
-	    padding: 6px 13px;
-	    font-size: 11px;
-	    line-height: initial;
-	}
+  input {
+      border-radius: 52px;
+      background-color: #8b8b8b;
+      width: 60px;
+      padding: 4px 0px;
+      text-align: center; 
+  }
+  .button {
+      height: initial;
+      padding: 6px 13px;
+      font-size: 11px;
+      line-height: initial;
+  }
 }
-	
+  
 .button-container{
 
+}
+
+#slider-range {
+  .noUi-horizontal {
+      height: 8px;
+  }
+  .noUi-connect {
+    background: #3de689;
+    position: relative;
+  }
+  .noUi-handle {
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -33%);
+    border-radius: 50%;
+    &:before, &:after {
+      content: none;
+    }
+  } 
 }

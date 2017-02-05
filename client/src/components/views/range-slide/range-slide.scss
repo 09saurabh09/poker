@@ -1,0 +1,17 @@
+#slider-range {
+  height: 8px;
+  .noUi-connect {
+    background: #3de689;
+  }
+  .noUi-handle {
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -33%);
+    border-radius: 50%;
+    &:before, &:after {
+      content: none;
+    }
+  } 
+}

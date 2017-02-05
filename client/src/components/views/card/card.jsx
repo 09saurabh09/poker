@@ -5,7 +5,7 @@ export default class PlayerCards extends React.Component{
 
   render() {
     return (
-      <div className={"card rank-a " + this.props.card.suit}>
+      <div className={'card rank-a ' + this.props.card.suit}>
         <span className="rank">{this.props.card.value}</span>
         <span className="suit"></span>
       </div>
