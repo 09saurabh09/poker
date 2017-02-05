@@ -113,6 +113,7 @@ export default class Player extends React.Component {
             <PlayerCards cards={[{suit: 'diams', value: 'A'},{suit: 'diams', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}]}/>
           </div>
           <div className={'player-container ' + activeClassName}>
+            <div className="timer-count">{this.props.player.timer - this.state.timeElapsed}</div>
             <div className='timer timer-top' style={{width: timerTopWidth}}></div>
             <div className='timer timer-right' style={{height: timerRightHeight}}></div>
             <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>
@@ -123,9 +124,7 @@ export default class Player extends React.Component {
               </div>
               <div className='player-name'>{this.props.player.name}</div>
               <div className='player-color-container'>
-                <div className='color-dot'>
-                  
-                </div>
+                <div className='color-dot'></div>
               </div>
               <div className='player-money'>
                 <div className='player-balance'>
