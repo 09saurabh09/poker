@@ -21,8 +21,8 @@ export default class GameTable extends React.Component{
         bbValue: 25 + index,
         timer : 20,
         seat: index,
-        seatOpen: false,
-        onTable: true
+        seatOpen: index % 2 == 0,
+        onTable: index%3 == 0
       }
     });
     this.state = {
