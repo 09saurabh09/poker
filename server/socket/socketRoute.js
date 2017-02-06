@@ -31,7 +31,7 @@ io.on('connection', function (socket) {
         console.log(data, socket.user);
     });
 
-    socket.on('disconnect', function (socker) {
+    socket.on('disconnect', function (socket) {
         console.log(`Player disconnected`);
     });
 });
