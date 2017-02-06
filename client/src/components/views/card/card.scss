@@ -1,0 +1,29 @@
+.card {
+  display: inline-block;
+  width: 100%;
+  height: inherit;
+  border: 1px solid #666;
+  border-radius: .3em;
+  padding: .25em;
+  text-align: center;
+  font-size: 1.2em;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0.2em 0.2em 0.5em #333;
+  .rank, .suit {
+    display: block;
+    line-height: 1;
+    text-align: left;
+    transform: rotate(1deg);
+    font-family: ProductSans;
+    font-size: 9.6px;
+    color: #343f44;
+  }
+  .suit{
+    line-height: .7;
+  }
+  .diams .suit:after, .suit:after {
+    content: "\2666";
+    right: .4em;
+  }
+}

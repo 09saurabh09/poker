@@ -17,7 +17,7 @@ export default (
 			<Route component={GameLayout} >
 				<IndexRoute component={CashGameContainer} />
 			</Route>
-			{/*<Route path=":tableId" component={TableContainer} />*/}
+			
 		</Route>
 		<Route path="/cash-game-tableId" component={TableContainer} />
 		<Route path="tournament">

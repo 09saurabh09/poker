@@ -1,7 +1,98 @@
-$player-container-width: 130px;
+$player-container-width: 150px;
 $skew-angle : -10deg;
 $dp-size : 24px;
 .player {
+  .timer-count {
+    /* position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%,-50%);
+    z-index: 100;
+    font-size: 10px;
+    line-height: 22.5px;
+    width: 20.5px;
+    height: 20.5px;
+    background-color: #2b2b2b;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 50%; */
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    transform: skew(-1 * $skew-angle);
+    z-index: 100;
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    line-height: 22.5px;
+    width: 22.5px;
+    height: 22.5px;
+    background-color: #2b2b2b;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: none;
+  }
+  .player-card-wrapper {
+    position: absolute;
+    top: -15%;
+    left: 35%;
+  }
+  .sitting-player.on-table {
+    border-radius: 30%;
+    box-shadow: 0px 16px 50px 50px rgba(228, 228, 228, 0.38);
+    background-color: rgba(255, 255, 255, 0.34);
+  }
+  .active {
+    box-shadow: 0 3px 12px 0 rgba(61, 230, 137, 0.73), 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    .timer-count {
+      display: block;
+    }
+    .timer {
+      //border: 4px solid #3de689;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 10;
+    }
+    .timer-top {
+      border-top: 4px solid #3de689;
+    }
+    .timer-right {
+      border-right: 4px solid #3de689;
+      right: 0;
+      height: 0;
+    }
+    .timer-bottom {
+      border-bottom: 4px solid #3de689;
+      right: 0;
+    }
+    .timer-left {
+      border-left: 4px solid #3de689;
+      top: initial;
+    }
+  }
+  .seat-open .player-dp {
+    background-color: #3e3e3e !important;
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.21) !important;
+    border: solid 1.2px #969696 !important;
+  }
+  .open-seat-icon-container{
+      width: 25%;
+      position: relative;
+      left: 35px;
+      padding-top: 8px;
+  }
+  .join {
+    display: inline-flex;
+    width: 100%;
+    position: relative;
+    left: 35px;
+    padding-top: 8px;
+    font-size: 11px;
+  }
+  .join-seat-icon-container {
+      width: 15%;
+  }
+  
   .player-container {
     width: $player-container-width;
     height: $player-container-width / 2 - 10px;
@@ -72,6 +163,7 @@ $dp-size : 24px;
       left: -4px;
       width: 100%;
       float: left;
+      background-color: #484848;
     }
     .hands-played {
       width: 30%;

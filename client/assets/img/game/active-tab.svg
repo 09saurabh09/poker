@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="159px" height="51px" viewBox="0 0 159 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>F47339E2-C0F3-40CB-AC97-E806C5A9BC12</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M0,50 L0,25 L0,25 C0,11.1928813 11.1966,0 25.0072771,0 L131.992723,0 C145.803861,0 157,11.1898454 157,25 L157,50" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Table-basic-version" transform="translate(-176.000000, -101.000000)">
+            <g id="Group-9-Copy-2" transform="translate(177.000000, 102.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Active-tab" stroke="#3DE689" stroke-width="2" fill="#2E2E30" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
