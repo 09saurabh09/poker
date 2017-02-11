@@ -1,5 +1,7 @@
-#slider-range {
-  height: 8px;
+.range-slide {
+  &.noUi-horizontal {
+    height: 8px;
+  }
   .noUi-connect {
     background: #3de689;
   }
@@ -13,5 +15,10 @@
     &:before, &:after {
       content: none;
     }
-  } 
+  }
+  .noUi-tooltip {
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    background-color: #3de689;
+  }
 }

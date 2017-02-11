@@ -63,9 +63,13 @@
         }
 	}
 	.filter-icon-container {
-	    position: absolute;
+	    position: fixed;
 	    right: 18px;
 	    bottom: 0;
+        width: 10%;
+	}
+	.filter-icon {
+	    width: 90%;
 	}
 }
 .padding-right-10 {

@@ -7,6 +7,7 @@
     right: 0;
     width: 15%;
     margin: 20px;
+    z-index: 1;
   }
   .game-actions-container {
     position: absolute;
@@ -14,6 +15,7 @@
     right: 0;
     margin: 0 18px 18px 0;
     width: 30%;
+    z-index: 1;
   }
   .main-table {
     position: relative;

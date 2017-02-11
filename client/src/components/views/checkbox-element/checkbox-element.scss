@@ -9,9 +9,7 @@
     padding-left: 35px;
     cursor: pointer;
     display: inline-block;
-    height: 25px;
-    line-height: 25px;
-    font-size: 2.5rem;
+    font-size: 15px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -121,20 +119,20 @@
 }
 
 [type="checkbox"].filled-in:not(:checked)+label:after {
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     background-color: transparent;
     border: 2px solid #5a5a5a;
-    top: 4px;
+    top: 0;
     z-index: 0;
     border-radius: 50%;
 }
 
 [type="checkbox"].filled-in:checked+label:before {
-    top: 5px;
+    top: 1px;
     left: 1px;
-    width: 8px;
-    height: 13px;
+    width: 3px;
+    height: 8px;
     border-top: 2px solid transparent;
     border-left: 2px solid transparent;
     border-right: 2px solid #fff;
@@ -146,9 +144,9 @@
 }
 
 [type="checkbox"].filled-in:checked+label:after {
-    top: 4px;
-    width: 20px;
-    height: 20px;
+    top: 0;
+    width: 15px;
+    height: 15px;
     border: 2px solid #3de689;
     background-color: #3de689;
     z-index: 0;

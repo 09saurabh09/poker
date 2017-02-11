@@ -8,7 +8,7 @@ import SearchForm from '../../../views/search-form';
 import CashGameTable from '../../../views/poker-table/cash-game'
 
 import CashGameFilterContainer from '../../filter/cash-game/cash-game-filter-container'
-var FilterIcon = require('babel!svg-react!../../../../../assets/img/table/svg/filter.svg?name=FilterIcon');
+import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
 
 
 export default class CashGameContainer extends React.Component{
@@ -56,11 +56,13 @@ export default class CashGameContainer extends React.Component{
     return (
       <div>
         <CashGameTable tableContents={tableData} />
-        {/*<div className="filter-icon-container">
+        <div className="filter-icon-container">
           <a onClick={this.openCashGameFilter} className="filter-icon-wrapper">
-            <FilterIcon className="filter-icon"/>
+            <div className="filter-icon">
+              <div className="filter-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${FilterIcon})`}}></div>
+            </div>
           </a>
-        </div>*/}
+        </div>
         <CashGameFilterContainer />
       </div>
     );
