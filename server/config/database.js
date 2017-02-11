@@ -53,7 +53,7 @@ var db        = {};
 //    }
 //});
 
-// Load all services
+// Load all Models
 glob.sync('server/**/*Model.js' ).forEach( function( file ) {
     let modelName = file.substring(file.lastIndexOf("/")+1, file.lastIndexOf("Model")).titalize();
     db[modelName] = sequelize.import(path.resolve( file ));

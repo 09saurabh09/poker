@@ -8,7 +8,8 @@
 
 GAME_QUEUE.process('gameOverMoneyTransaction', function (job, done) {
     console.log(`INFO ::: Picked up job gameOverMoneyTransaction with data ${JSON.stringify(job)}`);
-    let pots = job.data;
+    let pots = job.data.pots;
+    let gameId= job.data.gameId;
     let rakeMoney = 0;
     let moneyDistribution = {};
     pots.forEach(function (pot) {
@@ -27,7 +28,7 @@ GAME_QUEUE.process('gameOverMoneyTransaction', function (job, done) {
         }
     });
 
-    let moneyDistributionQuery = '';
+    let moneyDistributionQuery = `Update "Games" SET "rake" = ${rakeMoney} where id = ${gameId};`;
     Object.keys(moneyDistribution).forEach(function (userId) {
         moneyDistributionQuery += `UPDATE "Users" SET "currentBalance" = "currentBalance" + ${moneyDistribution[userId] || 0} WHERE id = ${userId};`
     });
