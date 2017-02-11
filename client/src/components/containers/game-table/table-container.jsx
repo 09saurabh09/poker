@@ -5,26 +5,23 @@ import store from '../../../store';
 
 import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table';
+import io from 'socket.io-client';
 
+const socket = io.connect(`${location.protocol}`);
+/*
 class TableContainer extends React.Component{
-
-  constructor(props) {
-    super(props);
-    /*this.runningGame = [
-    {cards: [{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'spades', value: 3},{suit: 'clubs', value: 2}], active:true},
-    {cards: [{suit: 'diams', value: 'A'},{suit: 'clubs', value: 'J'},{suit: 'hearts', value: 10},{suit: 'clubs', value: 2}], active:false}];*/
-  }
 
   componentDidMount() {
     let tableId = this.props.params.id;
     gameStateApi.getGameState(tableId);
   }
 
-  render(props) {
+  render() {
+    debugger;
     return (
       <div className="table-container">
-        <TopNavContainer runningGames={this.props.runningGame}/>
-        <GameTable gameData={this.props.gameData}/>
+        <TopNavContainer runningGames={this.props.runningGames} socket={socket}/>
+        <GameTable gameData={this.props.gameData} socket={socket}/>
       </div>
     );
   }
@@ -32,10 +29,41 @@ class TableContainer extends React.Component{
 
 export default connect(
   (state)=>{
-    runningGames : state.table.runningGames
-    gameData: state.table.gameData
+    return {
+      runningGames : state.gameState.runningGames,
+      gameData: state.gameState.gameData
+    }
   }
-)(TableContainer);
+)(TableContainer);*/
+
+const TableContainer = React.createClass({
+
+  componentDidMount: function() {
+    let tableId = this.props.params.id;
+    gameStateApi.getGameState(tableId);
+  },
+
+  render: function() {
+    debugger;
+    return (
+      <div className="table-container">
+        <TopNavContainer runningGames={this.props.runningGames} socket={socket}/>
+        <GameTable gameData={this.props.gameData} socket={socket}/>
+      </div>
+    );
+  }
+
+});
+
+const mapStateToProps = function(store) {
+  return {
+    runningGames : store.gameState.runningGames,
+    gameData: store.gameState.gameData
+  };
+};
+
+export default connect(mapStateToProps)(TableContainer);
+
 
 
 
