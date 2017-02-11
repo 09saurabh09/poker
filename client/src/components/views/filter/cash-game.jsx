@@ -16,7 +16,6 @@ export default class CashGameFilter extends React.Component {
 			super(props);
       this.login = this.login.bind(this);
       window.onclick = (event) => {
-        console.log(event);
         var modal = document.getElementById('cash-game-filter');
         if (event.target == modal) {
             modal.style.display = 'none';
