@@ -9,3 +9,9 @@ export const DELETE_WIDGET_SUCCESS = 'DELETE_WIDGET_SUCCESS';
 
 // Search Layout
 export const LOAD_SEARCH_LAYOUT = 'LOAD_SEARCH_LAYOUT';
+
+//Poker
+
+//GameState
+export const GET_GAMESTATE_SUCCESS = 'GET_GAMESTATE_SUCCESS';
+

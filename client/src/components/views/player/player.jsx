@@ -110,7 +110,7 @@ export default class Player extends React.Component {
         </div>
         <div className={'sitting-player ' + seatOpen + ' '+ onTableClassName}>
           <div className='player-card-wrapper'>
-            <PlayerCards cards={[{suit: 'diams', value: 'A'},{suit: 'diams', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}]}/>
+            <PlayerCards cards={[{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'spades', value: 3},{suit: 'clubs', value: 2}]}/>
           </div>
           <div className={'player-container ' + activeClassName}>
             <div className="timer-count">{this.props.player.timer - this.state.timeElapsed}</div>
