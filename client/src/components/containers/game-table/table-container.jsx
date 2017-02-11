@@ -8,33 +8,6 @@ import GameTable from '../../views/game-table/game-table';
 import io from 'socket.io-client';
 
 const socket = io.connect(`${location.protocol}`);
-/*
-class TableContainer extends React.Component{
-
-  componentDidMount() {
-    let tableId = this.props.params.id;
-    gameStateApi.getGameState(tableId);
-  }
-
-  render() {
-    debugger;
-    return (
-      <div className="table-container">
-        <TopNavContainer runningGames={this.props.runningGames} socket={socket}/>
-        <GameTable gameData={this.props.gameData} socket={socket}/>
-      </div>
-    );
-  }
-}
-
-export default connect(
-  (state)=>{
-    return {
-      runningGames : state.gameState.runningGames,
-      gameData: state.gameState.gameData
-    }
-  }
-)(TableContainer);*/
 
 const TableContainer = React.createClass({
 
@@ -44,7 +17,6 @@ const TableContainer = React.createClass({
   },
 
   render: function() {
-    debugger;
     return (
       <div className="table-container">
         <TopNavContainer runningGames={this.props.runningGames} socket={socket}/>
