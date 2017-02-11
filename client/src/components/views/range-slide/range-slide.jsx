@@ -1,53 +1,112 @@
 import React from 'react';
 import './range-slide.scss';
 
-import noUiSlider from '../../../plugins/nouislider.js';
+import noUiSlider from '../../../plugins/nouislider.min.js';
 import '../../../plugins/nouislider.min.css';
+import '../../../plugins/wNumb.js';
 
-export default class RangeSlide extends React.Component{
-
-  constructor(props) {
-    super(props);
-    this.state = {value: this.props.value};
-    $(document).ready(()=>{
-
-      var rangeSlider = document.getElementById('slider-range');
-
-      noUiSlider.create(rangeSlider, {
-        start: [ this.props.range.value],
-        connect: [true, false],
-        behaviour: 'tap',
-        step: this.props.range.step,
-        range: {
-          'min': [  this.props.range.min ],
-          'max': [ this.props.range.max ]
-        }
-      });
-      rangeSlider.noUiSlider.on('update', this.props.onUpdate.bind(this));
-    })
+class RangeSlider extends React.Component {
+  componentDidMount() {
+    if (this.props.disabled) this.sliderContainer.setAttribute('disabled', true);
+    else this.sliderContainer.removeAttribute('disabled');
+    this.createSlider();
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    debugger;
-    if(nextProps.value != this.props.value) {
-      var rangeSlider = document.getElementById('slider-range');
-      rangeSlider.noUiSlider.off('update');
-      rangeSlider.noUiSlider.set(nextProps.value);
-      setTimeout(()=>{
-        rangeSlider.noUiSlider.on('update', this.props.onUpdate.bind(this));  
-      }, 1000)
-      
+  componentDidUpdate() {
+    if (this.props.disabled) this.sliderContainer.setAttribute('disabled', true);
+    else this.sliderContainer.removeAttribute('disabled');
+    this.slider.destroy();
+    this.createSlider();
+  }
+
+  componentWillUnmount() {
+    this.slider.destroy();
+  }
+
+  createSlider() {
+    var slider = this.slider = noUiSlider.create(this.sliderContainer, {...this.props});
+
+    if (this.props.onUpdate) {
+      slider.on('update', this.props.onUpdate);
+    }
+
+    if (this.props.onChange) {
+      slider.on('change', this.props.onChange);
+    }
+
+    if (this.props.onSlide) {
+      slider.on('slide', this.props.onSlide);
+    }
+
+    if (this.props.onStart) {
+      slider.on('start', this.props.onStart);
+    }
+
+    if (this.props.onEnd) {
+      slider.on('end', this.props.onEnd);
+    }
+
+    if (this.props.onSet) {
+      slider.on('set', this.props.onSet);
     }
   }
 
   render() {
-    debugger;
-    return (
-      <div className="range-field">
-        {/*<input type="range" id="slider-range" step={this.props.range.step} min={this.props.range.min} 
-          max={this.props.range.max} value={this.props.value} onChange={this.props.handleChange.bind(this)}/>*/}
-          <div className="range-slider" id="slider-range"></div>
-      </div>
-    );
+    return <div className="range-slide" ref={slider => {this.sliderContainer = slider;}} />;
   }
 }
+
+RangeSlider.propTypes = {
+  // http://refreshless.com/nouislider/slider-options/#section-animate
+  animate: React.PropTypes.bool,
+  // http://refreshless.com/nouislider/behaviour-option/
+  behaviour: React.PropTypes.string,
+  // http://refreshless.com/nouislider/slider-options/#section-Connect
+  connect: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.bool),
+    React.PropTypes.bool
+  ]),
+  // http://refreshless.com/nouislider/slider-options/#section-cssPrefix
+  cssPrefix: React.PropTypes.string,
+  // http://refreshless.com/nouislider/slider-options/#section-orientation
+  direction: React.PropTypes.oneOf(['ltr', 'rtl']),
+  // http://refreshless.com/nouislider/more/#section-disable
+  disabled: React.PropTypes.bool,
+  // http://refreshless.com/nouislider/slider-options/#section-limit
+  limit: React.PropTypes.number,
+  // http://refreshless.com/nouislider/slider-options/#section-margin
+  margin: React.PropTypes.number,
+  // http://refreshless.com/nouislider/events-callbacks/#section-change
+  onChange: React.PropTypes.func,
+  // http://refreshless.com/nouislider/events-callbacks/
+  onEnd: React.PropTypes.func,
+  // http://refreshless.com/nouislider/events-callbacks/#section-set
+  onSet: React.PropTypes.func,
+  // http://refreshless.com/nouislider/events-callbacks/#section-slide
+  onSlide: React.PropTypes.func,
+  // http://refreshless.com/nouislider/events-callbacks/
+  onStart: React.PropTypes.func,
+  // http://refreshless.com/nouislider/events-callbacks/#section-update
+  onUpdate: React.PropTypes.func,
+  // http://refreshless.com/nouislider/slider-options/#section-orientation
+  orientation: React.PropTypes.oneOf(['horizontal', 'vertical']),
+  // http://refreshless.com/nouislider/pips/
+  pips: React.PropTypes.object,
+  // http://refreshless.com/nouislider/slider-values/#section-range
+  range: React.PropTypes.object.isRequired,
+  // http://refreshless.com/nouislider/slider-options/#section-start
+  start: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  // http://refreshless.com/nouislider/slider-options/#section-step
+  step: React.PropTypes.number,
+  // http://refreshless.com/nouislider/slider-options/#section-tooltips
+  tooltips: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        to: React.PropTypes.func
+      })
+    )
+  ])
+};
+
+module.exports = RangeSlider;

@@ -1,19 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import * as gameStateApi from '../../../api/game-state-api';
+import store from '../../../store';
 
-import GameTable from '../../views/game-table/game-table'
+import TopNavContainer from '../top-navigation/top-navigation';
+import GameTable from '../../views/game-table/game-table';
+import io from 'socket.io-client';
 
-export default class TableContainer extends React.Component{
+const socket = io.connect(`${location.protocol}`);
 
-  constructor(props) {
-    super(props);
+class TableContainer extends React.Component{
+
+  componentDidMount() {
+    let tableId = this.props.params.id;
+    gameStateApi.getGameState(tableId);
   }
 
-  render(props) {
+  render() {
     return (
       <div className="table-container">
-        <GameTable />
+        <TopNavContainer runningGames={this.props.runningGames} socket={socket}/>
+        <GameTable gameData={this.props.gameData} socket={socket}/>
       </div>
     );
   }
 }
+
+const mapStateToProps = function(store) {
+  return {
+    runningGames : store.gameState.runningGames,
+    gameData: store.gameState.gameData
+  };
+};
+
+export default connect(mapStateToProps)(TableContainer);

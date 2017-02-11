@@ -1,9 +1,7 @@
 import React from 'react';
 import './game-actions.scss';
 
-import '../../../plugins/nouislider.min.css';
-
-import Nouislider from 'react-nouislider';
+import RangeSlider from '../range-slide/range-slide';
 
 export default class GameActions extends React.Component{
   constructor(props) {
@@ -82,10 +80,10 @@ export default class GameActions extends React.Component{
           </div>
           {/*<RangeSlide range={this.props.range} value={this.state.value} handleChange={this.handleChange.bind(this)} onUpdate={this.onUpdate.bind(this)} />*/}
           <div id="slider-range" className="range-field">
-          <Nouislider
+          <RangeSlider
             range={{min: this.props.range.min, max: this.props.range.max}}
             start={[parseFloat(this.state.value)]}
-            connect="lower"
+            connect={[true, false]}
             behaviour='tap'
             step={this.props.range.step}
             onUpdate={this.onUpdate.bind(this)}

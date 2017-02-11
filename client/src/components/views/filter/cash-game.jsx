@@ -1,11 +1,15 @@
 import React from 'react';
 import './filter.scss';
 
+import '../../../plugins/nouislider.min.css';
+
+import HoldemIcon from '../../../../assets/img/table/svg/2-cards.svg';
+import OmahaIcon from '../../../../assets/img/table/svg/4-cards.svg';
+
+import RangeSlider from '../range-slide/range-slide';
 import CheckboxElement from '../checkbox-element/checkbox-element';
 import SwitchElement from '../switch-element/switch-element';
 import RadioElement from '../radio-element/radio-element';
-var PlayIcon = require('babel!svg-react!../../../../assets/img/loby/svg/yoga-play.svg?name=PlayIcon');
-var LoginIcon = require('babel!svg-react!../../../../assets/img/loby/svg/login-button.svg?name=LoginIcon');
 
 export default class CashGameFilter extends React.Component {
 	constructor(props) {
@@ -31,19 +35,25 @@ export default class CashGameFilter extends React.Component {
       <div id="cash-game-filter" className="bottom-sheet">
 
         <div className="bottom-sheet-content">
-          <div className="bottom-sheet-header">
-            <div className="uppercase">Select your filter</div>
+          <div className="bottom-sheet-header margin-b-16">
+            <div className="uppercase select-filter">Select your filter</div>
+            <div className="already-open-container">
+              <CheckboxElement label="Already On" checkboxId="already-open"/>
+            </div>
+            <div className="join-now">
+              <CheckboxElement label="Join Now" checkboxId="join-now"/>
+            </div>
           </div>
           <div className="bottom-sheet-body">
             <div className="row">
               <div className="col-lg-2 border-right">
-                <div className="margin-b-32">
+                <div className="">
                   <div className="margin-b-16 text-uppercase">Money Type</div>
-                  <div className="row">
-                    <div className="col-lg-3">
+                  <div className="row margin-b-32">
+                    <div className="col-lg-4">
                       Play
                     </div>
-                    <div className="col-lg-5">
+                    <div className="col-lg-4">
                       <SwitchElement /> 
                     </div>
                     <div className="col-lg-3 text-right">
@@ -51,47 +61,71 @@ export default class CashGameFilter extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="margin-b-32">
-                  <div className="margin-b-16 text-uppercase">Buy In</div>
-                  <div className="row">
-                    <div className="col-lg-3">
-                      Stakes
-                    </div>
-                    <div className="col-lg-5">
-                      <SwitchElement /> 
-                    </div>
-                    <div className="col-lg-3 text-right">
-                      Blinds
-                    </div>
+                <div className="row margin-b-32">
+                  <div className="col-lg-11">
+                    <div className="margin-b-16 text-uppercase">Buy In ( Blinds )</div>
+                      <RangeSlider 
+                      range={{min: 0, max: 200}}
+                      start={[50, 100]}
+                      connect={true}
+                      />
                   </div>
                 </div>
               </div>
-              <div className="col-lg-2 border-right">
-                <div className="margin-b-32">
+              <div className="col-lg-2">
+                <div className="margin-b-32 game-type">
                   <div className="margin-b-16 text-uppercase">Game Type</div>
                   <div className="radio">
                     <div className="margin-20">
-                      <RadioElement groupName="radio1" label="Hold’Em (2 cards)" inputId="holdem"/>
+                      <RadioElement groupName="radio1" icon={HoldemIcon} label="Hold’Em" inputId="holdem"/>
                     </div>
                     <div className="margin-20">
-                      <RadioElement groupName="radio1" label="Omaha (4 cards)" inputId="omaha"/>
+                      <RadioElement groupName="radio1" icon={OmahaIcon} label="Omaha" inputId="omaha"/>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-2 border-right">
-                <div className="margin-b-32">
+              <div className="col-lg-2 border-right border-left">
+                <div className="margin-b-32 access-type">
                   <div className="margin-b-16 text-uppercase">Access Type</div>
-                  <CheckboxElement label="Open" checkboxId="open"/>
-                  <CheckboxElement label="Private" checkboxId="Private"/>
-                  <CheckboxElement label="Anonymous" checkboxId="Anonymous"/>
+                  <div className="margin-20">
+                    <CheckboxElement label="Open" checkboxId="open"/>
+                  </div>
+                  <div className="margin-20">
+                    <CheckboxElement label="Private" checkboxId="Private"/>
+                  </div>
+                  <div className="margin-20">
+                    <CheckboxElement label="Anonymous" checkboxId="Anonymous"/>
+                  </div>
                 </div>
               </div>
-              <div className="col-lg-4">
-                
+              <div className="col-lg-3 border-right">
+                <div className="margin-b-32 run-type">
+                  <div className="margin-b-16 text-uppercase">Run Type</div>
+                  <div className="radio margin-20">
+                    <RadioElement groupName="radio-run" label="Once" inputId="once-run"/>
+                    <RadioElement groupName="radio-run" label="Thrice" inputId="thrice-run"/>
+                  </div>
+                  <div className="margin-20">
+                    <div className="margin-b-32 text-uppercase">number of players</div>
+                      <RangeSlider 
+                      range={{min: 0, max: 9}}
+                      start={6}
+                      step={1}
+                      connect={[true, false]}
+                      tooltips={wNumb({ decimals: 0 })}
+                      />
+                  </div>
+                </div>
               </div>
-              <div className="col-lg-1">
-                
+              <div className="col-lg-2 ">
+                <div className="result-container">
+                  <div className="text-uppercase result-text">Result</div>
+                  <div className="result-value">13</div>
+                  <div className="button-container">
+                    <a className="button text-uppercase" href> Apply </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

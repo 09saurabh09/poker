@@ -21,9 +21,24 @@
   }
   .suit{
     line-height: .7;
+    &:after {
+      top: 4px;
+      left: 0px;
+      position: relative;
+    }
   }
-  .diams .suit:after, .suit:after {
+  &.diams .suit:after{
     content: "\2666";
-    right: .4em;
+    color: red;
+  }
+  &.hearts .suit:after {
+    content: "\2665";
+    color: red;
+  }
+  &.spades .suit:after {
+    content: "\2660";
+  }
+  &.clubs .suit:after {
+    content: "\2663";
   }
 }

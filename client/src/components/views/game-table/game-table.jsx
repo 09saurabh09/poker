@@ -64,7 +64,7 @@ export default class GameTable extends React.Component{
       clearInterval(this.timerID);
       return;
     }
-    let tableCards = [{suit: 'diams', value: 'A'},{suit: 'diams', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}, {suit: 'diams', value: 10}];
+    let tableCards = [{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}, {suit: 'diams', value: 10}];
     if (this.state.potValue <= 50) {
       tableCards = [];
     } else if(this.state.potValue >= 75 && this.state.potValue <99) {
