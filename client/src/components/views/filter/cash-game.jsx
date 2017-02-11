@@ -122,7 +122,7 @@ export default class CashGameFilter extends React.Component {
                   <div className="text-uppercase result-text">Result</div>
                   <div className="result-value">13</div>
                   <div className="button-container">
-                    <a className="button text-uppercase" href> Apply </a>
+                    <button className="button text-uppercase" href> Apply </button>
                   </div>
                 </div>
               </div>

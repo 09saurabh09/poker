@@ -1,8 +1,8 @@
 import React from 'react';
 import './login.scss';
 
-import PlayIcon from '../../../../assets/img/loby/svg/yoga-play.svg';
-import LoginIcon from '../../../../assets/img/loby/svg/login-button.svg';
+import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
+import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
 
 export default class Login extends React.Component {
 	constructor(props) {

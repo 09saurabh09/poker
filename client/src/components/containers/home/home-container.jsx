@@ -3,27 +3,27 @@ import { Link } from 'react-router';
 
 import Login from '../../views/login/login';
 
-import PlayIcon from '../../../../assets/img/loby/svg/yoga-play.svg';
-import HomePageIcon from '../../../../assets/img/loby/svg/home-page.svg';
-import AnalyticsIcon from '../../../../assets/img/loby/svg/analytics.svg';
-import SupportIcon from '../../../../assets/img/loby/svg/support.svg';
-import SettingsIcon from '../../../../assets/img/loby/svg/settings.svg';
-import LogoutIcon from '../../../../assets/img/loby/svg/logout.svg';
-import ReviewTouchPointIcon from '../../../../assets/img/loby/svg/review-touch-point.svg';
-var VideoOverlayIcon = require('babel!svg-react!../../../../assets/img/loby/svg/video-overlay.svg?name=VideoOverlayIcon');
-import RealMoneyIcon from '../../../../assets/img/loby/svg/real-money-icon.svg';
-import PlayMoneyIcon from '../../../../assets/img/loby/svg/play-money-icon.svg';
-import SearchIcon from '../../../../assets/img/loby/svg/search-icon.svg';
-//var CashGameIcon = require('babel!svg-react!../../../../assets/img/loby/svg/cash-games.svg?name=CashGameIcon');
-import cashGameIcon from '../../../../assets/img/loby/svg/cash-games.svg';
-//var SitGoIcon = require('babel!svg-react!../../../../assets/img/loby/svg/sit-and-go.svg?name=SitGoIcon');
-import SitGoIcon from '../../../../assets/img/loby/svg/sit-and-go.svg';
-//var TournamentIcon = require('babel!svg-react!../../../../assets/img/loby/svg/tournament.svg?name=TournamentIcon');
-import TournamentIcon from '../../../../assets/img/loby/svg/tournament.svg';
-//var MyTournamentIcon = require('babel!svg-react!../../../../assets/img/loby/svg/my-tournament.svg?name=MyTournamentIcon');
-import MyTournamentIcon from '../../../../assets/img/loby/svg/my-tournament.svg';
+import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
+import HomePageIcon from '../../../../assets/img/home/svg/home-page.svg';
+import AnalyticsIcon from '../../../../assets/img/home/svg/analytics.svg';
+import SupportIcon from '../../../../assets/img/home/svg/support.svg';
+import SettingsIcon from '../../../../assets/img/home/svg/settings.svg';
+import LogoutIcon from '../../../../assets/img/home/svg/logout.svg';
+import ReviewTouchPointIcon from '../../../../assets/img/home/svg/review-touch-point.svg';
+var VideoOverlayIcon = require('babel!svg-react!../../../../assets/img/home/svg/video-overlay.svg?name=VideoOverlayIcon');
+import RealMoneyIcon from '../../../../assets/img/home/svg/real-money-icon.svg';
+import PlayMoneyIcon from '../../../../assets/img/home/svg/play-money-icon.svg';
+import SearchIcon from '../../../../assets/img/home/svg/search-icon.svg';
+//var CashGameIcon = require('babel!svg-react!../../../../assets/img/home/svg/cash-games.svg?name=CashGameIcon');
+import cashGameIcon from '../../../../assets/img/home/svg/cash-games.svg';
+//var SitGoIcon = require('babel!svg-react!../../../../assets/img/home/svg/sit-and-go.svg?name=SitGoIcon');
+import SitGoIcon from '../../../../assets/img/home/svg/sit-and-go.svg';
+//var TournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/tournament.svg?name=TournamentIcon');
+import TournamentIcon from '../../../../assets/img/home/svg/tournament.svg';
+//var MyTournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/my-tournament.svg?name=MyTournamentIcon');
+import MyTournamentIcon from '../../../../assets/img/home/svg/my-tournament.svg';
 
-import './loby.scss';
+import './home.scss';
 
 export default class Loby extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export default class Loby extends React.Component {
       document.getElementById('dp').height = document.getElementById('dp').width;
     });
     return (
-      <div className="loby">
+      <div className="home">
         <nav role="main">
           <div className="play-icon nav-link">
             <div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>
