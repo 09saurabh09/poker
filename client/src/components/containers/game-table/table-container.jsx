@@ -9,14 +9,14 @@ import io from 'socket.io-client';
 
 const socket = io.connect(`${location.protocol}`);
 
-const TableContainer = React.createClass({
+class TableContainer extends React.Component{
 
-  componentDidMount: function() {
+  componentDidMount() {
     let tableId = this.props.params.id;
     gameStateApi.getGameState(tableId);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="table-container">
         <TopNavContainer runningGames={this.props.runningGames} socket={socket}/>
@@ -24,8 +24,7 @@ const TableContainer = React.createClass({
       </div>
     );
   }
-
-});
+}
 
 const mapStateToProps = function(store) {
   return {
@@ -35,7 +34,3 @@ const mapStateToProps = function(store) {
 };
 
 export default connect(mapStateToProps)(TableContainer);
-
-
-
-
