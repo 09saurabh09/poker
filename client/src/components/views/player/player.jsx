@@ -91,7 +91,7 @@ export default class Player extends React.Component {
 
     return (
       <div className='player'>
-        <div className={'seat-open '+ playing} onClick={this.props.onJoinSeat.bind(this, this.props.player.seat)}>
+        <div className={'seat-open '+ playing} onClick={this.props.onJoinSeat.bind(this)}>
           <div className='player-container'>
             <div className='player-wrapper'>
               <div className='player-dp'>
@@ -110,7 +110,7 @@ export default class Player extends React.Component {
         </div>
         <div className={'sitting-player ' + seatOpen + ' '+ onTableClassName}>
           <div className='player-card-wrapper'>
-            <PlayerCards cards={[{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'spades', value: 3},{suit: 'clubs', value: 2}]}/>
+            <PlayerCards cards={this.props.player.cards}/>
           </div>
           <div className={'player-container ' + activeClassName}>
             <div className="timer-count">{this.props.player.timer - this.state.timeElapsed}</div>

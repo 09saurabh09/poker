@@ -109,7 +109,7 @@ export default class CashGameFilter extends React.Component {
                     <div className="margin-b-32 text-uppercase">number of players</div>
                       <RangeSlider 
                       range={{min: 0, max: 9}}
-                      start={6}
+                      start={[6]}
                       step={1}
                       connect={[true, false]}
                       tooltips={wNumb({ decimals: 0 })}

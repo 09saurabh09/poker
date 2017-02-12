@@ -1,5 +1,6 @@
 "use strict";
 
+var Sequelize = require('sequelize');
 module.exports = function (sequelize, DataTypes) {
     var UserGame = sequelize.define("UserGame", {
         id: {

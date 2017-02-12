@@ -7,7 +7,7 @@ import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table';
 import io from 'socket.io-client';
 
-const socket = io.connect('localhost:3100/poker-game-unauthorized');
+const unAuthorizedSocket = io.connect('localhost:3100/poker-game-unauthorized');
 
 class TableContainer extends React.Component{
 
@@ -19,8 +19,8 @@ class TableContainer extends React.Component{
   componentDidMount() {
     let tableId = this.props.params.id;
     gameStateApi.getGameState(tableId);
-    socket.emit('game-subscribe-gameState', {tableUniqueId: tableId} ); 
-    socket.on('player-joined', (msg)=>{
+    unAuthorizedSocket.emit('game-subscribe-gameState', {tableUniqueId: tableId} ); 
+    unAuthorizedSocket.on('player-joined', (msg)=>{
       console.log(msg);
     } );
   }
@@ -29,8 +29,8 @@ class TableContainer extends React.Component{
   render() {
     return (
       <div className="table-container">
-        <TopNavContainer runningGames={this.props.runningGames} socket={socket}/>
-        <GameTable gameData={this.props.gameData} socket={socket}/>
+        <TopNavContainer runningGames={this.props.runningGames} unAuthorizedSocket={unAuthorizedSocket}/>
+        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} unAuthorizedSocket={unAuthorizedSocket}/>
       </div>
     );
   }

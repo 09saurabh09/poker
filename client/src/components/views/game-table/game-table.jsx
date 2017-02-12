@@ -2,6 +2,7 @@ import React from 'react';
 
 import './game-table.scss';
 
+import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import Player from '../player/player';
 import GamePot from '../game-pot/game-pot';
 import GameControls from '../game-controls/game-controls';
@@ -13,23 +14,7 @@ export default class GameTable extends React.Component{
 
   constructor(props) {
     super(props);
-    this.numberOfPlayer = 9;
-    let allPlayers = Array.apply(null, Array(this.numberOfPlayer)).map((ele, index)=>{
-      return {
-        name: 'Amar Nath Saha',
-        balance: `${100*index}`,
-        bbValue: 25 + index,
-        timer : 20,
-        seat: index,
-        seatOpen: index % 2 == 0,
-        onTable: index%3 == 0
-      }
-    });
-    this.state = {
-      potValue: 0,
-      flopCards: [],
-      players : allPlayers
-    };
+    
     $(document).ready(function() {
         $(window).resize(function() {
           if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
@@ -46,36 +31,67 @@ export default class GameTable extends React.Component{
           }
         }).resize();
     });
+    
+    this.game = this.props.gameData[this.props.tableId] || {
+      numberOfPlayer: 0,
+      potValue: 0,
+      totalPot: 0,
+      range : {min: 0, max: 1, value: 0, potValue: 0, step: 1},
+      flopCards: [],
+      players: []
+    };
+    this.state = {
+      players : this.game.players
+    };
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    this.game = nextProps.gameData[nextProps.tableId] || {
+      numberOfPlayer: 0,
+      potValue: 0,
+      totalPot: 0,
+      range : {min: 0, max: 1, value: 0, potValue: 0, step: 1},
+      tableCards: [],
+      flopCards: [],
+      players: []
+    };
+    this.setState({
+      players : this.game.players
+    })
+  }
+
+  componentWillMount() {
+    
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
+    /*this.timerID = setInterval(
       () => this.tick(),
       20000
-    );
+    );*/
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerID);
+    //clearInterval(this.timerID);
   }
 
   tick() {
-    if(this.state.potValue >= 100) {
+    /*if(this.game.potValue >= 100) {
       clearInterval(this.timerID);
       return;
     }
-    let tableCards = [{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}, {suit: 'diams', value: 10}];
-    if (this.state.potValue <= 50) {
+    let tableCards = this.game.tableCards;//[{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}, {suit: 'diams', value: 10}];
+    if (this.game.potValue <= 50) {
       tableCards = [];
-    } else if(this.state.potValue >= 75 && this.state.potValue <99) {
+    } else if(this.game.potValue >= 75 && this.game.potValue <99) {
       tableCards.splice(3, 1);
-    } else if(this.state.potValue >= 50 && this.state.potValue < 75) {
+    } else if(this.game.potValue >= 50 && this.game.potValue < 75) {
       tableCards.splice(2, 2);
     } 
     this.setState({
-      potValue: this.state.potValue + 1,
+      potValue: this.game.potValue + 1,
       flopCards: tableCards
-    });
+    });*/
   }
 
   rotatePlayers(array, baseIndex) {
@@ -92,47 +108,57 @@ export default class GameTable extends React.Component{
     return [...rightSideArray, ...leftSideArray];
   }
 
-  joinSeat(seat) {
+  openBuyinPref(seat) {
+    this.selectedSeat = seat;
+    var modal = document.getElementById('buyin-pref');
+    modal.style.display = 'block';
+  }
+
+  joinSeat() {
+    let seat = this.selectedSeat;
     let allPlayers = this.state.players;
-    allPlayers.forEach((player)=>{
-      if(player.seat == seat) {
+    allPlayers.forEach((player, index)=>{
+      if(index == seat) {
         player.seatOpen = false;
-        player.name = 'ITS ME!! Bitch'
+        player.name = 'ITS ME!! Bitch';
+        player.onTable = true;
       }
     }); 
     this.setState({
       players : this.rotatePlayers(allPlayers, seat)
     })
+    var modal = document.getElementById('buyin-pref');
+    modal.style.display = 'none';
   }
 
   render() {
-    let range = {min: 100, max: 1000, value: 0, potValue: 800, step: 1}
     return (
       <div className='game-table'>
         <div className='game-controls-container'>
           <GameControls />  
         </div>
         <div className='game-actions-container'>
-          <GameActions range={range}/>
+          <GameActions range={this.game.range}/>
         </div>
         <div className='main-table'>
-            <GamePot potFilled={this.state.potValue}/>
+            <GamePot potValue={this.game.potValue} totalPot={this.game.totalPot}/>
             <div className='table-center'>
-              {this.state.flopCards.map((element, index)=> 
+              {this.game.flopCards.map((element, index)=> 
                 <div key={index} className='game-cards-container'>
                   <Card card={element}/>
                 </div>
               )}
             </div>
-           {this.state.players.map((element, index)=> 
+           {this.state.players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              <Player player={{...element, active: this.state.potValue % this.numberOfPlayer == element.seat ? true: false}} onJoinSeat={this.joinSeat.bind(this)}/>
-              <div className={element.seatOpen? 'hide' : ''}>
-                <PlayerChips chipsValue={index + 100} />
+              <Player player={player} onJoinSeat={this.openBuyinPref.bind(this, index)}/>
+              <div className={player.seatOpen? 'hide' : ''}>
+                <PlayerChips chipsValue={player.chipsValue} />
               </div>
             </div>
             )}
         </div>
+        <BuyinPref bbValue={{min:0, max:100, value:60, step:1}} onSet={this.joinSeat.bind(this)}/>
       </div>
     );
   }
