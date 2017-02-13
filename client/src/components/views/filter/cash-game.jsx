@@ -16,7 +16,6 @@ export default class CashGameFilter extends React.Component {
 			super(props);
       this.login = this.login.bind(this);
       window.onclick = (event) => {
-        console.log(event);
         var modal = document.getElementById('cash-game-filter');
         if (event.target == modal) {
             modal.style.display = 'none';
@@ -110,7 +109,7 @@ export default class CashGameFilter extends React.Component {
                     <div className="margin-b-32 text-uppercase">number of players</div>
                       <RangeSlider 
                       range={{min: 0, max: 9}}
-                      start={6}
+                      start={[6]}
                       step={1}
                       connect={[true, false]}
                       tooltips={wNumb({ decimals: 0 })}
@@ -123,7 +122,7 @@ export default class CashGameFilter extends React.Component {
                   <div className="text-uppercase result-text">Result</div>
                   <div className="result-value">13</div>
                   <div className="button-container">
-                    <a className="button text-uppercase" href> Apply </a>
+                    <button className="button text-uppercase" href> Apply </button>
                   </div>
                 </div>
               </div>

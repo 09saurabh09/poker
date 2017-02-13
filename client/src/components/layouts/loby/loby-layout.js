@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import './game-layout.scss';
+import './loby-layout.scss';
 
 
 import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
@@ -11,8 +11,8 @@ import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg'
 // Using "Stateless Functional Components"
 export default (props) => {
   return (
-    <div className="game-layout">
-      <div className="game-layout-header">
+    <div className="loby-layout">
+      <div className="loby-layout-header">
         <div className="left-half">
           <Link to="/" >
             <div className="play-icon-container">
@@ -53,7 +53,7 @@ export default (props) => {
         </div>
       </div>
       <div>
-        <div className="game-header">
+        <div className="loby-header">
           <div className="type-name">
             <Link className="game-type-name no-decor" to="/cash-game" activeClassName="active-game-type">
               Cash games

@@ -111,3 +111,41 @@ input:focus {
 .text-right {
     text-align: right;
 }
+.valign-wrapper {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.valign-wrapper .valign {
+    display: block;
+}
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+.center, .center-align {
+    text-align: center;
+}
+
+.margin-b-48 {
+    margin-bottom : 48px;
+}
+
+.margin-b-32 {
+    margin-bottom : 32px;
+}
+
+.margin-b-16 {
+    margin-bottom : 16px;
+}
+
+.margin-20 {
+    margin: 20px 0;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}

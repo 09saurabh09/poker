@@ -5,7 +5,7 @@ export default class GamePot extends React.Component {
 
   render() {
     let borderLeft = 0, borderRight = 0, width = 0;
-    let potValue = this.props.potFilled;
+    let potValue = this.props.potValue;
     if(potValue >= 0 && potValue <= 25) {
       borderLeft = potValue;
     } else if(potValue > 25 && potValue <= 75) {
@@ -27,7 +27,7 @@ export default class GamePot extends React.Component {
         <div className="pot-container"><div className="pot-filled"></div></div>
         <div className="pot-text">
           <div>Total Pot</div>
-          <div className="pot-value">$124</div>
+          <div className="pot-value">{this.props.totalPot}</div>
           <div className="pot-percentage">{potValue}%</div>
         </div>
       </div>

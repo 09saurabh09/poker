@@ -52,7 +52,6 @@ export default class TournamentTable extends React.Component{
   sortTable(arrayIndex) {
     let header = this.tableHeaders[arrayIndex];
     let newSortOrder = 1 - header.sortOrder ;
-    console.log('Call api with sortType', this.sortType[newSortOrder]);
     this.tableHeaders[arrayIndex].sortOrder = newSortOrder;
     this.currentSortIndex = arrayIndex;
   }

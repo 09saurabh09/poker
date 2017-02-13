@@ -44,6 +44,11 @@
       height: 60px;
       width: 40px;
       margin-right: 5%;
+      .rank {
+        font-family: ProductSans;
+        font-size: 11.2px;
+        color: #343f44;
+      }
     }
     @media only screen and (max-width: 720px) {
       .game-cards-container {
