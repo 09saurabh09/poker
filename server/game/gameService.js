@@ -63,7 +63,7 @@ module.exports = {
                 });
             })
             .catch(function (err) {
-                console.log(`ERROR ::: ${err.message}`);
+                console.log(`ERROR ::: ${err.message}, stack: ${err.stack}`);
             })
 
     },
@@ -104,9 +104,9 @@ module.exports = {
     },
 
     /**
- * This will add request for adding money on particular table
- * @param {Object} params for new table 
- */
+     * This will add request for adding money on particular table
+     * @param {Object} params for new table 
+     */
     spawnTable: function (params) {
         return new PROMISE(function (resolve, reject) {
             return PokerTable.create(params)
@@ -118,5 +118,61 @@ module.exports = {
                 })
         })
 
+    },
+
+    getCommonGameState: function (gameState) {
+        let commonGameState = {
+            turnPos: gameState.turnPos,
+            minRaise: gameState.minRaise,
+            maxRaise: gameState.maxRaise,
+            callValue: gameState.callValue,
+            gamePots: gameState.gamePots,
+            lastRaise: gameState.lastRaise,
+            currentTotalPlayer: gameState.currentTotalPlayer,
+            communityCards: gameState.communityCards,
+            maxPlayer: gameState.maxPlayer,
+            bigBlind: gameState.bigBlind,
+            dealerPos: gameState.dealerPos,
+            players: []
+        };
+
+        gameState.players.forEach(function (player) {
+            if (player) {
+                let pl = {
+                    chips: player.chips,
+                    bet: player.bet,
+                    lastAction: player.lastAction,
+                    hasDone: player.hasDone,
+                    idleForHand: player.idleForHand
+                }
+                commonGameState.players.push(pl);
+            } else {
+                commonGameState.players.push(null);
+            }
+
+        });
+        return commonGameState;
+    },
+
+    getGameState: function (params, callback) {
+        let self = this;
+        let response;
+        let query = {
+            where: {
+                id: params.id
+            }
+        }
+        return PokerTable.findOne(query)
+            .then(function (table) {
+                let commonGameState = self.getCommonGameState(table.gameState);
+                table.gameState = commonGameState;
+                response = new responseMessage.GenericSuccessMessage();
+                response.data = table;
+                callback(null, response, response.code);
+            })
+            .catch(function () {
+                response = new responseMessage.GenericFailureMessage();
+                callback(null, response, response.code);
+            })
     }
 };

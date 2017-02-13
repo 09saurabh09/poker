@@ -35,4 +35,10 @@ router.post('/spawn-table', (req, res, next) => {
 
 });
 
+router.get('/:id', (req, res, next) => {
+
+    gameController.getGameState(req, res);
+
+});
+
 module.exports = router;

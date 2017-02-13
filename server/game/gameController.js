@@ -49,5 +49,11 @@ module.exports = {
         gameService.requestMoney(params, user, function(err, data, statusCode) {
             responseHelper(err, res, data, statusCode);
         });
+    },
+
+    getGameState: function(req, res) {
+        gameService.getGameState(req.params, function(err, data, statusCode) {
+            responseHelper(err, res, data, statusCode);
+        });
     }
 };

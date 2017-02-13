@@ -16,13 +16,13 @@ module.exports = {
                         callback(null, response, response.code);
                     })
                     .catch(function (err) {
-                        console.log(`ERROR ::: Unable to create user, error: ${err.message}`);
+                        console.log(`ERROR ::: Unable to create user, error: ${err.message}, stack: ${err.stack}`);
                         response = new responseMessage.GenericFailureMessage();
                         callback(null, response, response.code);
                     })
             })
             .catch(function (err) {
-                console.log(`ERROR ::: Unable to create password hash, error: ${err.message}`);
+                console.log(`ERROR ::: Unable to create password hash, error: ${err.message}, stack: ${err.stack}`);
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })
@@ -63,7 +63,7 @@ module.exports = {
                             }
                         })
                         .catch(function (err) {
-                            console.log(`ERROR ::: Unable to match password for email: ${params.email}, error: ${err.message}`);
+                            console.log(`ERROR ::: Unable to match password for email: ${params.email}, error: ${err.message}, stack: ${err.stack}`);
                             response = new responseMessage.GenericFailureMessage();
                             callback(null, response, response.code);
                         })
@@ -76,7 +76,7 @@ module.exports = {
 
             })
             .catch(function (err) {
-                console.log(`ERROR ::: Unable to match password for email: ${params.email}, error: ${err.message}`);
+                console.log(`ERROR ::: Unable to match password for email: ${params.email}, error: ${err.message}, stack: ${err.stack}`);
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })
