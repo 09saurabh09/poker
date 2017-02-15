@@ -4,6 +4,7 @@ let express = require('express');
 let gameController = require('./gameController');
 
 let router = express.Router();
+let publicRouter = express.Router();
 
 router.post('/add-money-to-game', (req, res, next) => {
 
@@ -17,7 +18,7 @@ router.post('/request-money', (req, res, next) => {
 
 });
 
-router.get('/tables', (req, res, next) => {
+publicRouter.get('/tables', (req, res, next) => {
 
     gameController.listTables(req, res);
 
@@ -41,4 +42,4 @@ router.get('/:id', (req, res, next) => {
 
 });
 
-module.exports = router;
+module.exports = {router, publicRouter};

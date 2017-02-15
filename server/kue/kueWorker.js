@@ -1,5 +1,7 @@
 "use strict";
 
+let GameModel = DB_MODELS.GameModel;
+
 /**
  * This job will be created after hand will be over from game server
  * @param {Object} job: will contain data for pots related to table 
@@ -9,7 +11,7 @@
 GAME_QUEUE.process('gameOverMoneyTransaction', function (job, done) {
     console.log(`INFO ::: Picked up job gameOverMoneyTransaction with data ${JSON.stringify(job)}`);
     let pots = job.data.pots;
-    let gameId= job.data.gameId;
+    let gameId = job.data.gameId;
     let rakeMoney = 0;
     let moneyDistribution = {};
     pots.forEach(function (pot) {
@@ -40,4 +42,21 @@ GAME_QUEUE.process('gameOverMoneyTransaction', function (job, done) {
     }).catch(function (err) {
         done(err);
     })
+});
+
+GAME_QUEUE.process('gameOverUpdateGame', function (job, done) {
+    let data = job.data;
+    let updateObject = {
+        rake: data.rakeEarning,
+        finalGameState: data.gameState,
+        earnings: data.earnings,
+        status: 'finished'
+    }
+    GameModel.update(updateObject, { where: { id: data.gameState.currentGameId } }).then(function (game) {
+        console.log(`SUCCESS ::: Game with id ${data.gameState.currentGameId} updated`);
+        done();
+    }).catch(function () {
+        console.log(`ERROR ::: Unable to update game with id: ${data.gameState.currentGameId}, error: ${err.message}, stack: ${err.stack}`);
+        done(err);
+    });
 });
