@@ -69,15 +69,24 @@ module.exports = {
     },
 
     listTables: function (callback) {
+        let self = this;
         let response;
-        PokerTable.findAll()
+        PokerTable.findAll({raw: true, attributes: { exclude: ['gameState'] }})
             .then(function (tables) {
                 response = new responseMessage.GenericSuccessMessage();
+                // if(tables && tables.length) {
+                //     tables.forEach(function(table) {
+                //         table.gameState = self.getCommonGameState(table.gameState);
+                //     });
+                // }
+
                 response.data = tables;
                 callback(null, response, response.code);
             })
-            .catch(function () {
-
+            .catch(function (err) {
+                console.log(`ERROR ::: Unable to fetch list of tables, error: ${err.message}, stack: ${err.stack}`);
+                response = new responseMessage.GenericFailureMessage();
+                callback(null, response, response.code);
             })
     },
 
@@ -135,7 +144,8 @@ module.exports = {
             dealerPos: gameState.dealerPos,
             players: []
         };
-
+        
+        gameState.players = gameState.players || [];
         gameState.players.forEach(function (player) {
             if (player) {
                 let pl = {
@@ -160,7 +170,8 @@ module.exports = {
         let query = {
             where: {
                 id: params.id
-            }
+            },
+            raw: true
         }
         return PokerTable.findOne(query)
             .then(function (table) {
