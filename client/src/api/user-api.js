@@ -1,18 +1,49 @@
 import axios from 'axios';
 import store from '../store';
-import { getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actions/user-actions';
+import { authenticateUserSuccess, signupUserSuccess, getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actions/user-actions';
+import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
+
 
 /**
- * Get all users
+ * Unauthorized user
  */
 
-export function getUsers() {
-  return axios.get('http://localhost:3001/users')
+export function connectUnauthorizedSocketApi() {
+  store.dispatch(connectUnauthorizedSocket());
+}
+
+export function connectAauthorizedSocketApi(token) {
+  store.dispatch(connectAuthorizedSocket(token));
+}
+
+/**
+ * Authenticate user login
+ */
+
+export function login(email, password) {
+  return axios.post('http://localhost:7100/api/user/authenticate', {
+    user: {email, password}
+  })
     .then(response => {
-      store.dispatch(getUsersSuccess(response.data));
+      connectAauthorizedSocketApi(response.data.data.token);
+      store.dispatch(authenticateUserSuccess(response.data));
       return response;
     });
 }
+
+/**
+ * User Sign up
+ */
+
+export function signup(email, password) {
+  return axios.post('http://localhost:7100/api/user', {
+    user: {email, password}
+  })
+    .then(response => {
+      store.dispatch(signupUserSuccess(response.data));
+      return response;
+    });
+} 
 
 /**
  * Search users

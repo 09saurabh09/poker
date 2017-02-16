@@ -1,13 +1,21 @@
 import React from 'react';
 import './login.scss';
 
+import * as userApi from '../../../api/user-api';
+
 import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
 import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
+import io from 'socket.io-client';
+
+
 
 export default class Login extends React.Component {
 	constructor(props) {
 			super(props);
-      this.login = this.login.bind(this);
+      this.state = {
+        email: '',
+        password: ''
+      };
       $(document).ready(()=>{
         var modal = document.getElementsByClassName('modal')[0];
         // Get the button that opens the modal
@@ -27,9 +35,39 @@ export default class Login extends React.Component {
       })
 	}
 
-  login() {
-    alert('login');
+  onEmailChange(event) {
+    this.setState({
+      email: event.target.value
+    })
   }
+
+  onPasswordChange(event) {
+    this.setState({
+      password: event.target.value
+    })
+  }
+
+  login() {
+    userApi.login(this.state.email, this.state.password).then((data)=>{
+      if(data.status == 200) {
+        let token = data.data.data.token;
+        localStorage.setItem('userToken', token);
+        var modal = document.getElementById('login');
+        modal.style.display = 'none';
+      }
+    });
+  }
+
+  signup() {
+    userApi.signup(this.state.email, this.state.password).then((data)=>{
+      if(data.status == 200) {
+        var modal = document.getElementById('login');
+        modal.style.display = 'none';
+      }
+    });
+  }
+
+
 
 	render() {
 		return (
@@ -47,16 +85,18 @@ export default class Login extends React.Component {
                           <div className="form-group">
                             <label htmlFor="inputUsername" className="sr-only">User name</label>
                             <div className="">
-                              <input autoComplete="off" type="email" className="form-control" id="inputUsername" placeholder="User name" />
+                              <input autoComplete="off" type="email" className="form-control" id="inputUsername" placeholder="User name" 
+                              value={this.state.email} onChange={this.onEmailChange.bind(this)}/>
                             </div>
                           </div>
                           <div className="form-group">
                             <label htmlFor="inputPassword" className="sr-only">Password</label>
                             <div className="password-container">
-                              <input type="password" className="form-control" id="inputPassword" placeholder="Password" />
-                              <div className="login-button">
+                              <input type="password" className="form-control" id="inputPassword" placeholder="Password" 
+                              value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
+                              <div className="login-button" onClick={this.login.bind(this)}>
                                 <div className="login-icon-container">
-                                  <div onClick={this.login} className="login-icon-wrapper icon-wrapper" 
+                                  <div className="login-icon-wrapper icon-wrapper" 
                                     style={{backgroundImage: `url(${LoginIcon})`}}>
                                   </div>
                                 </div>
@@ -64,7 +104,7 @@ export default class Login extends React.Component {
                             </div>
                           </div>
                           <div className="form-group bottom-button-container">
-                            <div className="sign-up-button-container">
+                            <div className="sign-up-button-container" onClick={this.signup.bind(this)}>
                               <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
                             </div>
                             <div className="facebook-login-button-container">

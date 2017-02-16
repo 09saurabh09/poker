@@ -1,5 +1,21 @@
 import * as types from '../actions/action-types';
 
+export function authenticateUserSuccess(data) {
+  return {
+    type: types.AUTHENTICATE_USER_SUCCESS,
+    userToken: data.token
+  };
+}
+
+export function signupUserSuccess(data) {
+  return {
+    type: types.SIGNUP_USER_SUCCESS,
+    code: data.code
+  };
+}
+
+
+
 export function getUsersSuccess(users) {
   return {
     type: types.GET_USERS_SUCCESS,

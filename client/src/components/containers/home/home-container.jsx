@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { Link } from 'react-router';
 
 import Login from '../../views/login/login';
@@ -25,9 +27,16 @@ import MyTournamentIcon from '../../../../assets/img/home/svg/my-tournament.svg'
 
 import './home.scss';
 
-export default class Loby extends React.Component {
+import * as userApi from '../../../api/user-api';
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    userApi.connectUnauthorizedSocketApi();
+    userApi.connectAauthorizedSocketApi(localStorage.getItem('userToken'));
   }
 
   render() {
@@ -213,3 +222,14 @@ export default class Loby extends React.Component {
     )
   }
 }
+
+const mapStateToProps = function(store) {
+  return {
+    socket: store.socket,
+    userData: store.userData,
+    runningGames : store.gameState.runningGames,
+    gameData: store.gameState.gameData
+  };
+};
+
+export default connect(mapStateToProps)(Home);

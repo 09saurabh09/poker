@@ -109,12 +109,18 @@ export default class GameTable extends React.Component{
   }
 
   openBuyinPref(seat) {
-    this.selectedSeat = seat;
-    var modal = document.getElementById('buyin-pref');
-    modal.style.display = 'block';
+    if(localStorage.getItem('userToken')) {
+      this.selectedSeat = seat;
+      var modal = document.getElementById('buyin-pref');
+      modal.style.display = 'block';
+    } else {
+      var modal = document.getElementById('login');
+      modal.style.display = 'block';
+    }
+    
   }
 
-  joinSeat() {
+  joinSeat(bbValue, maintainStack, autoPost) {
     let seat = this.selectedSeat;
     let allPlayers = this.state.players;
     allPlayers.forEach((player, index)=>{
@@ -129,6 +135,15 @@ export default class GameTable extends React.Component{
     })
     var modal = document.getElementById('buyin-pref');
     modal.style.display = 'none';
+    this.props.authorizedSocket.emit('table-join', {
+      "tableId": this.props.tableId,
+      "playerInfo": {
+          "chips": 1000,
+          "isMaintainChips": maintainStack,
+          "maintainChips": bbValue,
+          "seat": this.selectedSeat
+      }
+    } );
   }
 
   render() {

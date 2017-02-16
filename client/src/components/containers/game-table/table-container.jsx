@@ -5,9 +5,9 @@ import store from '../../../store';
 
 import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 
-const unAuthorizedSocket = io.connect('localhost:3100/poker-game-unauthorized');
+//const unAuthorizedSocket = io.connect('localhost:3100/poker-game-unauthorized');
 
 class TableContainer extends React.Component{
 
@@ -19,8 +19,8 @@ class TableContainer extends React.Component{
   componentDidMount() {
     let tableId = this.props.params.id;
     gameStateApi.getGameState(tableId);
-    unAuthorizedSocket.emit('game-subscribe-gameState', {tableUniqueId: tableId} ); 
-    unAuthorizedSocket.on('player-joined', (msg)=>{
+    this.props.socket.unAuthorizedSocket.emit('game-subscribe-gameState', {tableUniqueId: tableId} ); 
+    this.props.socket.unAuthorizedSocket.on('player-joined', (msg)=>{
       console.log(msg);
     } );
   }
@@ -29,8 +29,10 @@ class TableContainer extends React.Component{
   render() {
     return (
       <div className="table-container">
-        <TopNavContainer runningGames={this.props.runningGames} unAuthorizedSocket={unAuthorizedSocket}/>
-        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} unAuthorizedSocket={unAuthorizedSocket}/>
+        <TopNavContainer runningGames={this.props.runningGames} 
+          unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
+        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} 
+        unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket}/>
       </div>
     );
   }
@@ -38,6 +40,7 @@ class TableContainer extends React.Component{
 
 const mapStateToProps = function(store) {
   return {
+    socket: store.socket,
     runningGames : store.gameState.runningGames,
     gameData: store.gameState.gameData
   };

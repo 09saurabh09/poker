@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { Link } from 'react-router';
+import * as gameTableApi from '../../../../api/game-table-api';
 import * as userApi from '../../../../api/user-api';
-import * as widgetApi from '../../../../api/widget-api';
 import { loadSearchLayout } from '../../../../actions/search-layout-actions';
 import SearchForm from '../../../views/search-form';
 
@@ -11,7 +13,7 @@ import CashGameFilterContainer from '../../filter/cash-game/cash-game-filter-con
 import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
 
 
-export default class CashGameContainer extends React.Component{
+class CashGameContainer extends React.Component{
 
   constructor(props) {
     super(props);
@@ -21,8 +23,13 @@ export default class CashGameContainer extends React.Component{
     document.getElementById('cash-game-filter').style.display = 'block';
   }
 
+  componentWillMount() {
+    gameTableApi.getGameTables();
+  }
+
   componentDidMount() {
-   
+    userApi.connectUnauthorizedSocketApi();
+    userApi.connectAauthorizedSocketApi(localStorage.getItem('userToken'));
   }
 
   render(props) {
@@ -55,7 +62,7 @@ export default class CashGameContainer extends React.Component{
     }];
     return (
       <div>
-        <CashGameTable tableContents={tableData} />
+        <CashGameTable tableContents={this.props.tableData.tables} />
         <div className="filter-icon-container">
           <a onClick={this.openCashGameFilter} className="filter-icon-wrapper">
             <div className="filter-icon">
@@ -68,3 +75,16 @@ export default class CashGameContainer extends React.Component{
     );
   }
 }
+
+
+const mapStateToProps = function(store) {
+  return {
+    tableData: store.gameTable,
+    socket: store.socket,
+    userData: store.userData,
+    runningGames : store.gameState.runningGames,
+    gameData: store.gameState.gameData
+  };
+};
+
+export default connect(mapStateToProps)(CashGameContainer);

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store';
+import utils from '../utils/utils';
 import { getGameStateSuccess } from '../actions/game-state-actions';
 
 /**
@@ -7,7 +8,7 @@ import { getGameStateSuccess } from '../actions/game-state-actions';
  */
 
 export function getGameState(tableId) {
-	let newState = {
+	/*let newState = {
 		  runningGames: [{cards: [{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'spades', value: 3},{suit: 'clubs', value: 2}], active:true},
 		    {cards: [{suit: 'diams', value: 'A'},{suit: 'clubs', value: 'J'},{suit: 'hearts', value: 10},{suit: 'clubs', value: 2}], active:false}],
 		  gameData: {
@@ -26,13 +27,13 @@ export function getGameState(tableId) {
           })
         }
       }
-		}
-  /*return axios.get('http://localhost:3001/tableId')
+		}*/
+  return axios.get(`http://localhost:7100/api/public/game/${tableId}`)
     .then(response => {
       store.dispatch(getGameStateSuccess(response.data));
       return response;
-    });*/
-    store.dispatch(getGameStateSuccess(newState));
+    });
+    //store.dispatch(getGameStateSuccess(newState));
 
 }
 

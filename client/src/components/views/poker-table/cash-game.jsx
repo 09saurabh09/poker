@@ -102,8 +102,8 @@ export default class CashGameTable extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.props.tableContents.map(({tableId, name, blinds, buyIn, players, action, join}, index)=> 
-                <tr className="table-row" key={index} onClick={this.openTable.bind(this, tableId)}>
+              {this.props.tableContents.map(({id, name, blinds, buyIn, players, action, join}, index)=> 
+                <tr className="table-row" key={index} onClick={this.openTable.bind(this, id)}>
                   <td className="table-column ">{name}</td>
                   <td className="table-column ">{blinds}</td>
                   <td className="table-column ">{buyIn}</td>

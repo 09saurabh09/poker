@@ -27,7 +27,7 @@
       position: relative;
     }
   }
-  &.diams .suit:after{
+  &.d .suit:after{
     content: "\2666";
     color: red;
   }
@@ -37,14 +37,14 @@
     transform: translateX(-50%);
     position: absolute;
   }
-  &.hearts .suit:after {
+  &.h .suit:after {
     content: "\2665";
     color: red;
   }
-  &.spades .suit:after {
+  &.s .suit:after {
     content: "\2660";
   }
-  &.clubs .suit:after {
+  &.c .suit:after {
     content: "\2663";
   }
 }

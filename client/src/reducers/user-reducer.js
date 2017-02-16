@@ -2,16 +2,19 @@ import * as types from '../actions/action-types';
 import _ from 'lodash';
 
 const initialState = {
-  users: [],
-  userProfile: {
-    repos: []
-  }
+  userToken: null
 };
 
 const userReducer = function(state = initialState, action) {
 
   switch(action.type) {
 
+    case types.AUTHENTICATE_USER_SUCCESS:
+      return Object.assign({}, state, { userToken: action.userToken });
+
+    case types.SIGNUP_USER_SUCCESS: 
+      return Object.assign({}, state, {});
+      
     case types.GET_USERS_SUCCESS:
       return Object.assign({}, state, { users: action.users });
 
