@@ -5,9 +5,6 @@ import store from '../../../store';
 
 import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table';
-//import io from 'socket.io-client';
-
-//const unAuthorizedSocket = io.connect('localhost:3100/poker-game-unauthorized');
 
 class TableContainer extends React.Component{
 

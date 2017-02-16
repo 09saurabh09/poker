@@ -3,19 +3,6 @@ import store from '../store';
 import { authenticateUserSuccess, signupUserSuccess, getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actions/user-actions';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
 
-
-/**
- * Unauthorized user
- */
-
-export function connectUnauthorizedSocketApi() {
-  store.dispatch(connectUnauthorizedSocket());
-}
-
-export function connectAauthorizedSocketApi(token) {
-  store.dispatch(connectAuthorizedSocket(token));
-}
-
 /**
  * Authenticate user login
  */
@@ -25,7 +12,7 @@ export function login(email, password) {
     user: {email, password}
   })
     .then(response => {
-      connectAauthorizedSocketApi(response.data.data.token);
+      store.dispatch(connectAuthorizedSocket(response.data.data.token));
       store.dispatch(authenticateUserSuccess(response.data));
       return response;
     });

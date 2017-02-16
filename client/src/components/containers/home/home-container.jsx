@@ -28,6 +28,7 @@ import MyTournamentIcon from '../../../../assets/img/home/svg/my-tournament.svg'
 import './home.scss';
 
 import * as userApi from '../../../api/user-api';
+import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
 
 class Home extends React.Component {
   constructor(props) {
@@ -35,13 +36,20 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    userApi.connectUnauthorizedSocketApi();
-    userApi.connectAauthorizedSocketApi(localStorage.getItem('userToken'));
+    this.props.dispatch(connectUnauthorizedSocket());
+    this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
   }
 
   render() {
     $('document').ready(()=>{
       document.getElementById('dp').height = document.getElementById('dp').width;
+        // Get the button that opens the modal
+      var btn = document.getElementById('logout-link');
+
+      // When the user clicks the button, open the modal 
+      btn.onclick = function() {
+          modal.style.display = 'block';
+      }
     });
     return (
       <div className="home">
