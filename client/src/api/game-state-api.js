@@ -30,7 +30,7 @@ export function getGameState(tableId) {
 		}*/
   return axios.get(`http://localhost:7100/api/public/game/${tableId}`)
     .then(response => {
-      store.dispatch(getGameStateSuccess(response.data));
+      store.dispatch(getGameStateSuccess(response.data.data));
       return response;
     });
     //store.dispatch(getGameStateSuccess(newState));

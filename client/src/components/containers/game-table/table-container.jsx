@@ -13,16 +13,15 @@ class TableContainer extends React.Component{
 
   componentWillMount() {
     let tableId = this.props.params.id;
-    
-  }
-
-  componentDidMount() {
-    let tableId = this.props.params.id;
     gameStateApi.getGameState(tableId);
     this.props.socket.unAuthorizedSocket.emit('game-subscribe-gameState', {tableUniqueId: tableId} ); 
     this.props.socket.unAuthorizedSocket.on('player-joined', (msg)=>{
       console.log(msg);
     } );
+  }
+
+  componentDidMount() {
+    
   }
 
 

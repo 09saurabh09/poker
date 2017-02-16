@@ -33,30 +33,46 @@ export default class GameTable extends React.Component{
     });
     
     this.game = this.props.gameData[this.props.tableId] || {
-      numberOfPlayer: 0,
+      maxPlayer: 0,
       potValue: 0,
       totalPot: 0,
       range : {min: 0, max: 1, value: 0, potValue: 0, step: 1},
-      flopCards: [],
-      players: []
+      communityCards: [],
+      gameState: {
+        players: []
+      }
     };
     this.state = {
-      players : this.game.players
-    };
+      players : Array.apply(null, Array(this.game.maxPlayer)).map((ele, index)=>{
+            return {
+              seat: index,
+              seatOpen: true,
+              onTable: false
+            }
+      })
+    }
   }
 
   componentWillReceiveProps(nextProps, nextState) {
     this.game = nextProps.gameData[nextProps.tableId] || {
-      numberOfPlayer: 0,
+      maxPlayer: 0,
       potValue: 0,
       totalPot: 0,
       range : {min: 0, max: 1, value: 0, potValue: 0, step: 1},
       tableCards: [],
-      flopCards: [],
-      players: []
+      communityCards: [],
+      gameState: {
+        players: []
+      }
     };
     this.setState({
-      players : this.game.players
+      players : Array.apply(null, Array(this.game.maxPlayer)).map((ele, index)=>{
+            return {
+          seat: index,
+          seatOpen: true,
+          onTable: false
+        }
+      })
     })
   }
 
@@ -90,7 +106,7 @@ export default class GameTable extends React.Component{
     } 
     this.setState({
       potValue: this.game.potValue + 1,
-      flopCards: tableCards
+      communityCards: tableCards
     });*/
   }
 
@@ -158,7 +174,7 @@ export default class GameTable extends React.Component{
         <div className='main-table'>
             <GamePot potValue={this.game.potValue} totalPot={this.game.totalPot}/>
             <div className='table-center'>
-              {this.game.flopCards.map((element, index)=> 
+              {this.game.communityCards && this.game.communityCards.map((element, index)=> 
                 <div key={index} className='game-cards-container'>
                   <Card card={element}/>
                 </div>
