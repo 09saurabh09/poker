@@ -18,7 +18,15 @@ router.post('/request-money', (req, res, next) => {
 
 });
 
+// API to return list of tables
 publicRouter.get('/tables', (req, res, next) => {
+
+    gameController.listTables(req, res);
+
+});
+
+// This API will include whether the requester is sitting on table or not
+router.get('/tables', (req, res, next) => {
 
     gameController.listTables(req, res);
 

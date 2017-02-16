@@ -71,7 +71,7 @@ module.exports = {
     listTables: function (callback) {
         let self = this;
         let response;
-        PokerTable.findAll({raw: true, attributes: { exclude: ['gameState'] }})
+        PokerTable.findAll({ raw: true, attributes: { exclude: ['gameState'] } })
             .then(function (tables) {
                 response = new responseMessage.GenericSuccessMessage();
                 // if(tables && tables.length) {
@@ -80,6 +80,34 @@ module.exports = {
                 //     });
                 // }
 
+                response.data = tables;
+                callback(null, response, response.code);
+            })
+            .catch(function (err) {
+                console.log(`ERROR ::: Unable to fetch list of tables, error: ${err.message}, stack: ${err.stack}`);
+                response = new responseMessage.GenericFailureMessage();
+                callback(null, response, response.code);
+            })
+    },
+
+    // Similar to listTables execpt it will include a flag whether requester is sitting on table or not
+    listTablesWithUserDetails: function (user, callback) {
+        let self = this;
+        let response;
+        PokerTable.findAll({ raw: true })
+            .then(function (tables) {
+                tables.forEach(function (table) {
+                    table.userJoined = false;
+                    if (table.gameState.players) {
+                        table.gameState.players.forEach(function (player) {
+                            if (player && player.id == user.id) {
+                                table.userJoined = true;
+                            }
+                        })
+                    }
+                    delete table.gameState;
+                });
+                response = new responseMessage.GenericSuccessMessage();
                 response.data = tables;
                 callback(null, response, response.code);
             })
@@ -147,7 +175,7 @@ module.exports = {
             maxAmount: gameState.maxAmount,
             players: []
         };
-        
+
         gameState.players = gameState.players || Array.apply(null, Array(gameState.maxPlayer));
         gameState.players.forEach(function (player) {
             if (player) {

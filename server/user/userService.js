@@ -42,7 +42,7 @@ module.exports = {
                     return userManager.comparePassword(params.password.toString(), user.password)
                         .then(function (isPasswordMatched) {
                             if (isPasswordMatched) {
-                                
+
                                 delete user.password;
                                 var token = jwt.sign(user, GlobalConstant.tokenSecret, {
                                     expiresIn: 24 * 60 * 60 // expires in 24 hours
@@ -80,5 +80,30 @@ module.exports = {
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })
+    },
+
+    getUserInfo: function (currentUser, callback) {
+        let userData = {};
+        let response;
+        UserModel.findOne({ where: { id: currentUser.id } }).then(function (user) {
+            user.getPokerTables({ raw: true }).then(function (pokerTables) {
+                pokerTables.forEach(function (pokerTable) {
+                    pokerTable.gameState.players.forEach(function (player) {
+                        if (player && player.id == currentUser.id) {
+                            userData["bet"] = (userData["bet"] || 0) + player.bet + player.chips;
+                            userData["totalBet"] = (userData["totalBet"] || 0) + player.totalBet + player.chips;
+                        }
+                    });
+                });
+                response = new responseMessage.GenericSuccessMessage();
+                response.data = _.assign(currentUser, userData);
+                callback(null, response, response.code);
+            }).catch(function (err) {
+                console.log(`ERROR ::: Unable to get table details for user: ${user.id}, error: ${err.message}, stack: ${err.stack}`);
+                response = new responseMessage.GenericFailureMessage();
+                callback(null, response, response.code);
+            })
+        })
     }
+
 }
