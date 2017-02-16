@@ -8,7 +8,8 @@ import GamePot from '../game-pot/game-pot';
 import GameControls from '../game-controls/game-controls';
 import GameActions from '../game-actions/game-actions';
 import PlayerChips from '../player-chips/player-chips';
-import Card from '../card/card'
+import Card from '../card/card';
+import Login from '../login/login';
 
 export default class GameTable extends React.Component{
 
@@ -128,8 +129,8 @@ export default class GameTable extends React.Component{
   }
 
   openBuyinPref(seat) {
+    this.selectedSeat = seat;
     if(localStorage.getItem('userToken')) {
-      this.selectedSeat = seat;
       var modal = document.getElementById('buyin-pref');
       modal.style.display = 'block';
     } else {
@@ -188,13 +189,12 @@ export default class GameTable extends React.Component{
            {this.state.players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
               <Player turnPos={this.state.turnPos} player={player} onJoinSeat={this.openBuyinPref.bind(this, index)}/>
-              <div className={player.seatOpen? 'hide' : ''}>
-                <PlayerChips chipsValue={player.chipsValue} />
-              </div>
+              {player.chipsValue ? <PlayerChips chipsValue={player.chipsValue} />: null}
             </div>
             )}
         </div>
         {this.game.minAmount!= this.game.maxAmount ? <BuyinPref bbValue={{min:this.game.minAmount, max:this.game.maxAmount, value:60, step:1}} onSet={this.joinSeat.bind(this)}/> : null }
+        <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)}/>
       </div>
     );
   }

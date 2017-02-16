@@ -18,13 +18,6 @@ export default class Login extends React.Component {
       };
       $(document).ready(()=>{
         var modal = document.getElementsByClassName('modal')[0];
-        // Get the button that opens the modal
-        var btn = document.getElementById('logout-link');
-
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = 'block';
-        }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
@@ -54,6 +47,7 @@ export default class Login extends React.Component {
         localStorage.setItem('userToken', token);
         var modal = document.getElementById('login');
         modal.style.display = 'none';
+        this.props.postLogin();
       }
     });
   }

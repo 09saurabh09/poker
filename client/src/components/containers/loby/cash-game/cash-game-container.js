@@ -12,6 +12,8 @@ import CashGameTable from '../../../views/poker-table/cash-game'
 import CashGameFilterContainer from '../../filter/cash-game/cash-game-filter-container'
 import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
 
+import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../../actions/socket-actions';
+
 
 class CashGameContainer extends React.Component{
 
@@ -28,8 +30,8 @@ class CashGameContainer extends React.Component{
   }
 
   componentDidMount() {
-    userApi.connectUnauthorizedSocketApi();
-    userApi.connectAauthorizedSocketApi(localStorage.getItem('userToken'));
+    this.props.dispatch(connectUnauthorizedSocket());
+    this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
   }
 
   render(props) {
