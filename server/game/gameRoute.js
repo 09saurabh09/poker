@@ -36,7 +36,7 @@ router.post('/spawn-table', (req, res, next) => {
 
 });
 
-publicRouter.get('/:id', (req, res, next) => {
+publicRouter.get('/table/:id', (req, res, next) => {
 
     gameController.getGameState(req, res);
 

@@ -136,24 +136,29 @@ module.exports = {
             maxRaise: gameState.maxRaise,
             callValue: gameState.callValue,
             gamePots: gameState.gamePots,
+            totalPot: gameState.totalPot,
             lastRaise: gameState.lastRaise,
             currentTotalPlayer: gameState.currentTotalPlayer,
             communityCards: gameState.communityCards,
             maxPlayer: gameState.maxPlayer,
             bigBlind: gameState.bigBlind,
             dealerPos: gameState.dealerPos,
+            minAmount: gameState.minAmount,
+            maxAmount: gameState.maxAmount,
             players: []
         };
         
-        gameState.players = gameState.players || [];
+        gameState.players = gameState.players || Array.apply(null, Array(gameState.maxPlayer));
         gameState.players.forEach(function (player) {
             if (player) {
                 let pl = {
+                    id: player.id,
                     chips: player.chips,
                     bet: player.bet,
                     lastAction: player.lastAction,
                     hasDone: player.hasDone,
-                    idleForHand: player.idleForHand
+                    idleForHand: player.idleForHand,
+                    betForRound: player.betForRound
                 }
                 commonGameState.players.push(pl);
             } else {
