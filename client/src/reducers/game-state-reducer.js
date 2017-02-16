@@ -10,9 +10,9 @@ const gameStateReducer = function(state = initialState, action) {
   switch(action.type) {
 
     case types.GET_GAMESTATE_SUCCESS:
-      return Object.assign({}, state, { gameData: Object.assign({}, state.gameData, {
-      	[action.gameState.id]: action.gameState
-      }) });
+      let oldGameData = state.gameData;
+      let newGameData = Object.assign({}, oldGameData, action.gameStateObject);
+      return Object.assign({}, state, {gameData: newGameData});
   }
 
   return state;

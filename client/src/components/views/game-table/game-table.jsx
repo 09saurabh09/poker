@@ -33,46 +33,49 @@ export default class GameTable extends React.Component{
     });
     
     this.game = this.props.gameData[this.props.tableId] || {
+      turnPos: 0,
+      minAmount: 0,
+      maxAmount: 0,
+      minRaise: 0,
+      maxRaise: 0,
       maxPlayer: 0,
       potValue: 0,
       totalPot: 0,
-      range : {min: 0, max: 1, value: 0, potValue: 0, step: 1},
       communityCards: [],
-      gameState: {
-        players: []
-      }
+      players: []
     };
     this.state = {
-      players : Array.apply(null, Array(this.game.maxPlayer)).map((ele, index)=>{
-            return {
-              seat: index,
-              seatOpen: true,
-              onTable: false
-            }
-      })
-    }
+      players : this.game.players.map((player, index)=>{
+        return Object.assign({}, player, {
+          seat: index,
+          seatOpen: player === null,
+          onTable: player !== null
+        })}),
+      turnPos: this.game.turnPos
+    };
   }
 
   componentWillReceiveProps(nextProps, nextState) {
     this.game = nextProps.gameData[nextProps.tableId] || {
+      turnPos: 0,
+      minAmount: 0,
+      maxAmount: 0,
+      minRaise: 0,
+      maxRaise: 0,
       maxPlayer: 0,
       potValue: 0,
       totalPot: 0,
-      range : {min: 0, max: 1, value: 0, potValue: 0, step: 1},
-      tableCards: [],
       communityCards: [],
-      gameState: {
-        players: []
-      }
+      players: []
     };
     this.setState({
-      players : Array.apply(null, Array(this.game.maxPlayer)).map((ele, index)=>{
-            return {
+      players : this.game.players.map((player, index)=>{
+        return Object.assign({}, player, {
           seat: index,
-          seatOpen: true,
-          onTable: false
-        }
-      })
+          seatOpen: player === null,
+          onTable: player !== null
+        })}),
+      turnPos: this.game.turnPos
     })
   }
 
@@ -141,9 +144,9 @@ export default class GameTable extends React.Component{
     let allPlayers = this.state.players;
     allPlayers.forEach((player, index)=>{
       if(index == seat) {
-        player.seatOpen = false;
         player.name = 'ITS ME!! Bitch';
-        player.onTable = true;
+        player.seatOpen = false;
+        player.onTable = player && !player.hasDone;
       }
     }); 
     this.setState({
@@ -154,23 +157,25 @@ export default class GameTable extends React.Component{
     this.props.authorizedSocket.emit('table-join', {
       "tableId": this.props.tableId,
       "playerInfo": {
-          "chips": 1000,
+          "chips": bbValue,
           "isMaintainChips": maintainStack,
-          "maintainChips": bbValue,
           "seat": this.selectedSeat
       }
     } );
   }
 
   render() {
+    
+    let myTurn = this.state.players[this.state.turnPos] && this.state.players[this.state.turnPos].id == this.props.userData.id;
+    let gameActionsElement = <div className="game-actions-container">
+          <GameActions range={{min: this.game.minRaise, max: this.game.maxRaise, potValue: this.game.totalPot, step: 1}} callValue={this.game.callValue}/>
+        </div> ;
     return (
       <div className='game-table'>
         <div className='game-controls-container'>
           <GameControls />  
         </div>
-        <div className='game-actions-container'>
-          <GameActions range={this.game.range}/>
-        </div>
+        {myTurn ? gameActionsElement : null}
         <div className='main-table'>
             <GamePot potValue={this.game.potValue} totalPot={this.game.totalPot}/>
             <div className='table-center'>
@@ -182,14 +187,14 @@ export default class GameTable extends React.Component{
             </div>
            {this.state.players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              <Player player={player} onJoinSeat={this.openBuyinPref.bind(this, index)}/>
+              <Player turnPos={this.state.turnPos} player={player} onJoinSeat={this.openBuyinPref.bind(this, index)}/>
               <div className={player.seatOpen? 'hide' : ''}>
                 <PlayerChips chipsValue={player.chipsValue} />
               </div>
             </div>
             )}
         </div>
-        <BuyinPref bbValue={{min:0, max:100, value:60, step:1}} onSet={this.joinSeat.bind(this)}/>
+        {this.game.minAmount!= this.game.maxAmount ? <BuyinPref bbValue={{min:this.game.minAmount, max:this.game.maxAmount, value:60, step:1}} onSet={this.joinSeat.bind(this)}/> : null }
       </div>
     );
   }

@@ -15,7 +15,7 @@ class TableContainer extends React.Component{
     let tableId = this.props.params.id;
     gameStateApi.getGameState(tableId);
     this.props.socket.unAuthorizedSocket.emit('game-subscribe-gameState', {tableUniqueId: tableId} ); 
-    this.props.socket.unAuthorizedSocket.on('player-joined', (msg)=>{
+    this.props.socket.authorizedSocket.on('player-joined', (msg)=>{
       console.log(msg);
     } );
   }
@@ -30,7 +30,7 @@ class TableContainer extends React.Component{
       <div className="table-container">
         <TopNavContainer runningGames={this.props.runningGames} 
           unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
-        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} 
+        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} userData={{id: 1}}
         unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket}/>
       </div>
     );
@@ -39,6 +39,7 @@ class TableContainer extends React.Component{
 
 const mapStateToProps = function(store) {
   return {
+    userData: store.userData,
     socket: store.socket,
     runningGames : store.gameState.runningGames,
     gameData: store.gameState.gameData
