@@ -62,5 +62,11 @@ module.exports = {
         gameService.getGameState(req.params, function (err, data, statusCode) {
             responseHelper(err, res, data, statusCode);
         });
+    },
+
+    listMyTables: function(req, res) {
+        gameService.listMyTables(req.user, function (err, data, statusCode) {
+            responseHelper(err, res, data, statusCode);
+        });
     }
 };

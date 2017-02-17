@@ -1,6 +1,7 @@
 "use strict";
 
 let GameModel = DB_MODELS.GameModel;
+let PokerTableModel = DB_MODELS.PokerTable;
 
 /**
  * This job will be created after hand will be over from game server
@@ -55,8 +56,28 @@ GAME_QUEUE.process('gameOverUpdateGame', function (job, done) {
     GameModel.update(updateObject, { where: { id: data.gameState.currentGameId } }).then(function (game) {
         console.log(`SUCCESS ::: Game with id ${data.gameState.currentGameId} updated`);
         done();
-    }).catch(function () {
+    }).catch(function (err) {
         console.log(`ERROR ::: Unable to update game with id: ${data.gameState.currentGameId}, error: ${err.message}, stack: ${err.stack}`);
+        done(err);
+    });
+});
+
+GAME_QUEUE.process('gameStateUpdated', function (job, done) {
+    let data = job.data;
+    let pokerTableId = data.pokerTableId;
+    let updateObject = {
+        gameState: data.gameState
+    }
+
+    // return DB_MODELS.sequelize.transaction(function (t) {
+    //     // Can update gameHistory status also in transaction
+    // });
+
+    PokerTableModel.update(updateObject, { where: { id: pokerTableId, updatedAt: {"$lte": data.createdAt} } }).then(function (game) {
+        console.log(`SUCCESS ::: poker table game state with id ${pokerTableId} updated`);
+        done();
+    }).catch(function (err) {
+        console.log(`ERROR ::: Unable to update poker table game state with id ${pokerTableId}, error: ${err.message}, stack: ${err.stack}`);
         done(err);
     });
 });

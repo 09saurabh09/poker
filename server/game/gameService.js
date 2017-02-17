@@ -7,7 +7,7 @@ let io = require("../socket/socketRoute");
 let GameModel = DB_MODELS.Game;
 let UserModel = DB_MODELS.User;
 let PokerTable = DB_MODELS.PokerTable;
-
+let UserPokerTableModel = DB_MODELS.UserPokerTable;
 
 //UPDATE "Users" SET "currentBalance"="currentBalance" + -500,"updatedAt"='2017-01-14 13:14:07.493 +00:00' WHERE "id" = 1 RETURNING *
 
@@ -102,6 +102,7 @@ module.exports = {
                         table.gameState.players.forEach(function (player) {
                             if (player && player.id == user.id) {
                                 table.userJoined = true;
+                                table.userCards = player.cards;
                             }
                         })
                     }
@@ -215,6 +216,35 @@ module.exports = {
                 callback(null, response, response.code);
             })
             .catch(function () {
+                response = new responseMessage.GenericFailureMessage();
+                callback(null, response, response.code);
+            })
+    },
+
+    listMyTables: function (user, callback) {
+        let response;
+        UserModel.findOne({ where: { id: user.id } })
+            .then(function (user) {
+                user.getPokerTables({raw: true})
+                    .then(function (tables) {
+                        tables.forEach(function (table) {
+                            if (table.gameState.players) {
+                                table.gameState.players.forEach(function (player) {
+                                    if (player && player.id == user.id) {
+                                        table.userCards = player.cards;
+                                    }
+                                })
+                            }
+                            delete table.gameState;
+                        });
+                        response = new responseMessage.GenericSuccessMessage();
+                        response.data = tables;
+                        callback(null, response, response.code);
+                    })
+
+            })
+            .catch(function (err) {
+                console.log(`ERROR ::: Unable to fetch list of my tables, error: ${err.message}, stack: ${err.stack}`);
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })

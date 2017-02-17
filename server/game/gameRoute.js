@@ -32,6 +32,12 @@ router.get('/tables', (req, res, next) => {
 
 });
 
+router.get('/list-my-tables', (req, res, next) => {
+
+    gameController.listMyTables(req, res);
+
+});
+
 router.post('/join-table', (req, res, next) => {
 
     gameController.joinTable(req, res);
