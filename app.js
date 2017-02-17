@@ -34,9 +34,8 @@ if (app.get('env') === 'development') {
         res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
         next();
     });
-}
 
-app.use(function(req, res, next) {
+  app.use(function(req, res, next) {
     var oneof = false;
     if(req.headers['access-control-request-method']) {
         res.header('Access-Control-Allow-Methods', req.headers['access-control-request-method']);
@@ -57,7 +56,8 @@ app.use(function(req, res, next) {
     else {
         next();
     }
-});
+  });
+}
 
 require('./routes')(app);
 
