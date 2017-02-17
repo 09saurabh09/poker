@@ -9,7 +9,7 @@ import SearchForm from '../../../views/search-form';
 
 import CashGameTable from '../../../views/poker-table/cash-game'
 
-import CashGameFilterContainer from '../../filter/cash-game/cash-game-filter-container'
+import CashGameFilter from '../../../views/filter/cash-game'
 import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
 
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../../actions/socket-actions';
@@ -21,58 +21,38 @@ class CashGameContainer extends React.Component{
     super(props);
   }
 
-  openCashGameFilter = () => {
+  openCashGameFilter() {
     document.getElementById('cash-game-filter').style.display = 'block';
   }
 
   componentWillMount() {
-    gameTableApi.getGameTables();
+    
   }
 
   componentDidMount() {
-    this.props.dispatch(connectUnauthorizedSocket());
-    this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
+    let { dispatch } = this.props;
+    dispatch(connectUnauthorizedSocket());  
+    let userToken = localStorage.getItem('userToken');
+    if(userToken) {
+      gameTableApi.getGameTables(userToken);
+      dispatch(connectAuthorizedSocket(userToken));
+    } else {
+      gameTableApi.getPublicGameTables();
+    }
   }
 
   render(props) {
-    let tableData = [{
-     tableId: 1,
-     name: 'Amar',
-     blinds: '$441',
-     buyIn: '$50/$200',
-     players: '2/9',
-     action: 'hot',
-     join: true
-    },
-    {
-     tableId: 2,
-     name: 'Amar',
-     blinds: '$441',
-     buyIn: '$50/$200',
-     players: '2/9',
-     action: 'hot',
-     join: false
-    },
-    {
-     tableId: 3,
-     name: 'Amar',
-     blinds: '$441',
-     buyIn: '$50/$200',
-     players: '2/9',
-     action: 'cold',
-     join: true
-    }];
     return (
       <div>
         <CashGameTable tableContents={this.props.tableData.tables} />
         <div className="filter-icon-container">
-          <a onClick={this.openCashGameFilter} className="filter-icon-wrapper">
+          <a onClick={this.openCashGameFilter.bind(this)} className="filter-icon-wrapper">
             <div className="filter-icon">
               <div className="filter-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${FilterIcon})`}}></div>
             </div>
           </a>
         </div>
-        <CashGameFilterContainer />
+        <CashGameFilter />
       </div>
     );
   }

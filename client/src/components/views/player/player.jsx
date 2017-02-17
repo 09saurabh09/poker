@@ -91,23 +91,6 @@ export default class Player extends React.Component {
 
     return (
       <div className='player'>
-        <div className={'seat-open '+ playing} onClick={this.props.onJoinSeat.bind(this)}>
-          <div className='player-container'>
-            <div className='player-wrapper'>
-              <div className='player-dp'>
-                <img src='' />
-              </div>
-              <div className='open-seat-icon-container'>
-                <div className='open-seat-icon-wrapper icon-wrapper' style={{backgroundImage: `url(${OpenSeatIcon})`}}></div>
-              </div>
-              <div className='join'>Seat Open
-                <div className='join-seat-icon-container'>
-                  <div className='join-seat-icon-wrapper icon-wrapper' style={{backgroundImage: `url(${JoinSeatIcon})`}}></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className={'sitting-player ' + seatOpen + ' '+ onTableClassName}>
           <div className='player-card-wrapper'>
             <PlayerCards cards={this.props.player.cards}/>

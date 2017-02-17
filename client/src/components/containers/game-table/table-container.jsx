@@ -8,17 +8,25 @@ import GameTable from '../../views/game-table/game-table';
 
 class TableContainer extends React.Component{
 
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
-    let tableId = this.props.params.id;
-    gameStateApi.getGameState(tableId);
-    this.props.socket.unAuthorizedSocket.emit('game-subscribe-gameState', {tableUniqueId: tableId} ); 
-    this.props.socket.authorizedSocket.on('player-joined', (msg)=>{
-      console.log(msg);
-    } );
+    
   }
 
   componentDidMount() {
-    
+    let { socket, dispatch, params } = this.props;
+    let tableId = params.id;
+    gameStateApi.getGameState(tableId);
+    socket.unAuthorizedSocket.emit('game-subscribe-gameState', { tableUniqueId: tableId }); 
+    socket.unAuthorizedSocket.on('player-joined', (data)=>{
+      console.log(data);
+    });
+    socket.unAuthorizedSocket.on('turn-completed', (data)=>{
+      console.log(data);
+    });
   }
 
 
@@ -27,19 +35,19 @@ class TableContainer extends React.Component{
       <div className="table-container">
         <TopNavContainer runningGames={this.props.runningGames} 
           unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
-        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} userData={{id: 1}}
+        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} userData={{name: 'Amar Nath Saha', id: 1}}
         unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket}/>
       </div>
     );
   }
 }
 
-const mapStateToProps = function(store) {
+const mapStateToProps = function(state) {
   return {
-    userData: store.userData,
-    socket: store.socket,
-    runningGames : store.gameState.runningGames,
-    gameData: store.gameState.gameData
+    userData: state.userData,
+    socket: state.socket,
+    runningGames : state.gameState.runningGames,
+    gameData: state.gameState.gameData
   };
 };
 

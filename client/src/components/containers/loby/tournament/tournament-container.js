@@ -7,7 +7,7 @@ import SearchForm from '../../../views/search-form';
 
 var FilterIcon = require('babel!svg-react!../../../../../assets/img/table/svg/filter.svg?name=FilterIcon');
 
-import TournamentFilterContainer from '../../filter/tournament/tournament-filter-container'
+import TournamentFilter from '../../../views/filter/tournament'
 import TournamentTable from '../../../views/poker-table/tournament'
 
 export default class CashGameContainer extends React.Component{
@@ -54,7 +54,7 @@ export default class CashGameContainer extends React.Component{
             <FilterIcon className="filter-icon"/>
           </a>
         </div>*/}
-        <TournamentFilterContainer />
+        <TournamentFilter />
       </div>
     );
   }
