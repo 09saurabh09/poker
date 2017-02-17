@@ -8,7 +8,7 @@ import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/s
  */
 
 export function login(email, password) {
-  return axios.post('http://localhost:7100/api/user/authenticate', {
+  return axios.post(`http://${window.location.hostname}:7100/api/user/authenticate`, {
     user: {email, password}
   })
     .then(response => {
@@ -23,7 +23,7 @@ export function login(email, password) {
  */
 
 export function signup(email, password) {
-  return axios.post('http://localhost:7100/api/user', {
+  return axios.post(`http://${window.location.hostname}:7100/api/user`, {
     user: {email, password}
   })
     .then(response => {
