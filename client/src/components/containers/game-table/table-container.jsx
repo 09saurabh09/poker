@@ -20,13 +20,27 @@ class TableContainer extends React.Component{
     let { socket, dispatch, params } = this.props;
     let tableId = params.id;
     gameStateApi.getGameState(tableId);
-    socket.unAuthorizedSocket.emit('game-subscribe-gameState', { tableUniqueId: tableId }); 
+    socket.unAuthorizedSocket.emit('game-subscribe-gameState', { tableUniqueId: tableId });
     socket.unAuthorizedSocket.on('player-joined', (data)=>{
-      console.log(data);
+      console.log('unAuthorizedSocket' + data);
     });
     socket.unAuthorizedSocket.on('turn-completed', (data)=>{
       console.log(data);
     });
+    socket.authorizedSocket && socket.authorizedSocket.on('game-started', (data)=>{
+      console.log(data);
+    });
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    let { socket, dispatch, params } = nextProps;
+    let tableId = params.id;
+    if(socket.authorizedSocket && !this.props.socket.authorizedSocket) {
+      socket.authorizedSocket.emit('game-subscribe-gameState', { tableUniqueId: tableId });
+      socket.authorizedSocket.on('game-started', (data)=>{
+        console.log(data);
+      });
+    }
   }
 
 
