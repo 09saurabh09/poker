@@ -11,6 +11,32 @@ let network = require("./server/utils/network");
 require("./server/config/prototype");
 require('./server/config/globalConstant');
 
+// ---- start of server side rendering ---
+
+import env from '../server/utils/environment';
+import {webpack as webPackCustomMiddleware, render} from './middleware';
+import compression from 'compression';
+
+const {isProduction, ssrEnabled, isDevelopment} = env;
+
+require.extensions['.scss'] = function() {
+    return;
+};
+
+// compile ES6 to 5
+require('babel-register')();
+
+/**
+ * Environment configuration
+ */
+delete process.env.BROWSER;
+
+if (!process.env.hasOwnProperty('feature')) {
+  process.env.feature = {};
+}
+
+// ---- end of server side rendering ---
+
 var app = express();
 
 // view engine setup
@@ -23,7 +49,31 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build')));
+
+// Environment setup
+if (isDevelopment) {
+  app.use(function (req, res, next) {
+    if (req.url !== '/') {
+      // if you're not the root url, pass throught the webpack middleware
+      webPackCustomMiddleware.WebPackMiddleware(req, res, next);
+    } else {
+      // Will pass through a middleware to server side render index.html
+      next();
+    }
+  });
+
+  app.use(webPackCustomMiddleware.HotReloadMiddleware);
+}
+
+
+// Other middlewares
+app.use(compression());
+if (ssrEnabled) {
+  app.use(render.route);
+} else {
+  app.use(render.index);
+}
+/*app.use(express.static(path.join(__dirname, 'build')));
 
 if (app.get('env') === 'development') {
     let ip = network()[0];
@@ -64,7 +114,7 @@ if (app.get('env') === 'development') {
         next();
     }
   });
-}
+}*/
 
 require('./routes')(app);
 
