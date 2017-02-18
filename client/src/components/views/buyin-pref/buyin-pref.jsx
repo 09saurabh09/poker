@@ -20,19 +20,24 @@ export default class BuyinPref extends React.Component {
     })
     this.state = {
       value: this.props.bbValue.value,
+      inputValue: this.props.bbValue.value * this.props.bigBlind,
       maintainStack: true,
       autoPost: true
     };
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleBlur(event) {
+    this.setState({value: event.target.value/this.props.bigBlind});
   }
 
-  onUpdate(val) {
+  handleChange(event) {
+    this.setState({inputValue: event.target.value, value: event.target.value/this.props.bigBlind});
+  }
+
+  onChange(val) {
     let value = val[0];
     if(value != this.state.value) {
-      this.setState({value}); 
+      this.setState({value, inputValue: value*this.props.bigBlind}); 
     }
   }
 
@@ -49,6 +54,13 @@ export default class BuyinPref extends React.Component {
   }
 
   render() {
+    let errorMessage;
+    if(this.state.inputValue < this.props.bbValue.min * this.props.bigBlind) {
+      errorMessage = 'Has to be more than minimum amount';
+    }
+    if(this.state.inputValue > this.props.bbValue.max * this.props.bigBlind) {
+      errorMessage = 'Has to be less than maximum amount';
+    }
     return (
       <div className="modal fade-scale" id="buyin-pref" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div className="vertical-alignment-helper">
@@ -66,7 +78,13 @@ export default class BuyinPref extends React.Component {
                           <div className="pref-label">Big Blind Preference</div>
                         </div>
                         <div className="text-right">
-                          <input type="text" id="pref" name="pref" className="pref-input" onChange={this.handleChange.bind(this)} value={parseInt(this.state.value)} /> 
+                          <input type="number" id="pref" name="pref" className="pref-input" 
+                          min={this.props.bbValue.min*this.props.bigBlind} 
+                          max={this.props.bbValue.max*this.props.bigBlind} 
+                          onChange={this.handleChange.bind(this)} 
+                          onBlur={this.handleBlur.bind(this)} 
+                          value={this.state.inputValue} /> 
+                          <p id="error-message" >{errorMessage}</p>
                         </div>
                       </div>
                       <div className="range-buyin-pref  margin-b-48">
@@ -77,7 +95,8 @@ export default class BuyinPref extends React.Component {
                           behaviour='tap'
                           step={this.props.bbValue.step}
                           tooltips={wNumb({ decimals: 0 })}
-                          onUpdate={this.onUpdate.bind(this)}
+                          onChange={this.onChange.bind(this)}
+
                           />
                       </div>
                       <div className="user-settings">
@@ -100,7 +119,7 @@ export default class BuyinPref extends React.Component {
                       </div>
                       <div className="button-container">
                         <button type="button" className="button text-uppercase" 
-                        onClick={this.props.onSet.bind(null, this.state.value, this.state.maintainStack, this.state.autoPost)}> Set </button>
+                        onClick={this.props.onSet.bind(null, this.state.inputValue, this.state.maintainStack, this.state.autoPost)}> Set </button>
                       </div>
                     </div>
                   </form>
