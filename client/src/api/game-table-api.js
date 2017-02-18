@@ -19,7 +19,7 @@ export function getGameTables(token) {
     store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
     return response;
   }, result => {
-    if(result.response.status == 401) {
+    if(result.response.status == 401 || result.response.status == 403 ) {
       localStorage.removeItem('userToken');
       return getPublicGameTables();
     }
@@ -31,7 +31,7 @@ export function getGameTables(token) {
  */
 
 export function getPublicGameTables() {
-  return axios.get(utils.getGameTableUrl())
+  return axios.get(utils.getPublicGameTableUrl())
     .then(response => {
       store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
       return response;
