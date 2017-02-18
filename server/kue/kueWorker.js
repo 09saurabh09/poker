@@ -63,6 +63,7 @@ GAME_QUEUE.process('gameOverUpdateGame', function (job, done) {
 });
 
 GAME_QUEUE.process('gameStateUpdated', function (job, done) {
+    console.log(`INFO ::: Job gameStateUpdated with data ${JSON.stringify(job.data)} is being picked up`);
     let data = job.data;
     let pokerTableId = data.pokerTableId;
     let updateObject = {
