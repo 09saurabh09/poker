@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "lint": "eslint ./src",
+    "start-server": "cross-env NODE_ENV=development babel-node ./server.js",
+    "build:prod": "rimraf dist && webpack --config ./webpack.config.prod.js",
+    "serve": "cross-env NODE_ENV=production babel-node ./server.js",
+
     "start": "node ./bin/www",
     "dev:start": "export NODE_ENV=development; PORT=7100 nodemon ./bin/www",
     "webserver": "webpack-dev-server --port 7000 --progress --colors --inline --hot --host 0.0.0.0 --content-base build/",
@@ -17,6 +22,15 @@
     "test:lint": "eslint ./app ./tests --ext .js --ext .jsx --ignore-path .gitignore --ignore-pattern dist --cache"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.7",
+    "babel-cli": "^6.10.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "copy-webpack-plugin": "^3.0.1",
+    "cross-env": "^2.0.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "postcss-loader": "^0.9.1",
+    "rimraf": "^2.5.4",
+
     "babel-core": "^6.9.0",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
