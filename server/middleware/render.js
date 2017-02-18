@@ -1,13 +1,13 @@
 /**
  * Created by mobinni on 08/12/15.
  */
-const webpackMw = require( './webpack' );
-const { match } = require( 'react-router' );
-const createLocation = require( 'history/lib/createLocation' );
-const env = require( '../server/utils/environment' );
-const {renderEngine, renderIndex : renderStatic} = require( '../engines' );
-const routes = require( '../../app/scripts/routes' );
-const storeBuilder = require( '../client/src/store/storeBuilder' );
+import webpackMw from './webpack';
+import { match } from 'react-router';
+import createLocation from 'history/lib/createLocation';
+import env from '../utils/environment';
+import {renderEngine, renderIndex as renderStatic} from '../engines';
+import routes from '../../client/src/router';
+import storeBuilder from '../../client/src/store/storeBuilder';
 
 const store = storeBuilder();
 
@@ -55,7 +55,7 @@ function index(req, res, next) {
   })
 }
 
-module.exports = {
+export default {
   route,
   index
 }

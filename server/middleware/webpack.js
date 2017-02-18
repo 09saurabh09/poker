@@ -1,14 +1,14 @@
-const WebPack = require('webpack');
-const path = require('path');
-const fs = require('fs');
-const env = require('../server/utils/environment');
-const {StringDecoder} = require('string_decoder');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const HotReload = require('webpack-hot-middleware');
-const chokidar = require('chokidar');
+import WebPack from 'webpack';
+import path from 'path';
+import fs from 'fs';
+import env from '../utils/environment';
+import {StringDecoder} from 'string_decoder';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import HotReload from 'webpack-hot-middleware';
+import chokidar from 'chokidar';
 
 let webpackConfig = require(
-  `${__dirname}/../webpack/webpack.${env.isProduction ? 'prod' : 'dev'}.js`
+  `${__dirname}/../../webpack/webpack.${env.isProduction ? 'prod' : 'dev'}.js`
 );
 
 let bundleStart = null;
@@ -82,14 +82,14 @@ function processRequests() {
 
   processRequests();
 }
-/*
+
 export {
   WebPackMiddleware,
   query,
   HotReloadMiddleware
-}*/
+}
 
-module.exports = {
+export default {
   WebPackMiddleware,
   query,
   HotReloadMiddleware

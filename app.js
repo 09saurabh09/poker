@@ -13,9 +13,9 @@ require('./server/config/globalConstant');
 
 // ---- start of server side rendering ---
 
-import env from '../server/utils/environment';
-import {webpack as webPackCustomMiddleware, render} from './middleware';
-import compression from 'compression';
+var env = require('./server/utils/environment');
+var {webpack : webPackCustomMiddleware, render} = require('./middleware');
+var compression = require('compression');
 
 const {isProduction, ssrEnabled, isDevelopment} = env;
 

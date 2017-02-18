@@ -1,12 +1,8 @@
-import webpack from './webpack';
-import render from './render';
+const webpack = require( './webpack' );
+const render = require( './render' );
 
-export default {
+module.exports = {
   render,
   webpack
 }
 
-export {
-  render,
-  webpack
-}

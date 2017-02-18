@@ -6,8 +6,11 @@
 	     url('../fonts/ProximaNova-Reg-webfont.svg#webfont') format('svg');
 }
 body {
-	background-color: black;
-	color: white;
+    font-family: ProximaNova;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
 }
 .sr-only {
     position: absolute;

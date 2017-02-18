@@ -3,8 +3,8 @@ import { Router, browserHistory } from 'react-router';
 
 import './poker-table.scss';
 
-var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
-var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
+import UpArrowIcon from '../../../../assets/img/table/svg/up-arrow.svg';
+import DownArrowIcon from '../../../../assets/img/table/svg/down-arrow.svg';
 import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
 import TickIcon from '../../../../assets/img/table/svg/tick.svg';
 import HotIcon from '../../../../assets/img/table/svg/hot.svg';

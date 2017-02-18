@@ -3,9 +3,10 @@
  */
 import ejs from 'ejs';
 import webpackMw from '../middleware/webpack';
-import storeBuilder from '../client/src/store/storeBuilder';
+import storeBuilder from '../../client/src/store/storeBuilder';
 
 const store = storeBuilder();
+
 
 export default function (callback) {
   webpackMw.query('index.html', function (err, body) {

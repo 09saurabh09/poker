@@ -1,8 +1,6 @@
 import React from 'react';
 import './filter.scss';
 
-import '../../../plugins/nouislider.min.css';
-
 import HoldemIcon from '../../../../assets/img/table/svg/2-cards.svg';
 import OmahaIcon from '../../../../assets/img/table/svg/4-cards.svg';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import '../login/login.scss';
 
-var PlayIcon = require('babel!svg-react!../../../../assets/img/home/svg/yoga-play.svg?name=PlayIcon');
-var LoginIcon = require('babel!svg-react!../../../../assets/img/home/svg/login-button.svg?name=LoginIcon');
+import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
+import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
 
 export default class TournamentFilter extends React.Component {
 	constructor(props) {

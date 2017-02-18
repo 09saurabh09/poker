@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '../store';
+//import store from '../store';
 import utils from '../utils/utils';
 import { getGameStateSuccess } from '../actions/game-state-actions';
 
@@ -8,11 +8,13 @@ import { getGameStateSuccess } from '../actions/game-state-actions';
  */
 
 export function getGameState(tableId) {
-  return axios.get(utils.getTableDetailsUrl(tableId))
-    .then(response => {
-      let gameState = response.data.data.gameState;
-      store.dispatch(getGameStateSuccess({[response.data.data.id]: gameState}));
-      return response;
-    });
+	return dispatch => {
+  		return axios.get(utils.getTableDetailsUrl(tableId))
+	    .then(response => {
+	      let gameState = response.data.data.gameState;
+	      dispatch(getGameStateSuccess({[response.data.data.id]: gameState}));
+	      return response;
+	    });
+	}
 }
 

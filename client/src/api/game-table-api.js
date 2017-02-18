@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '../store';
+//import store from '../store';
 import utils from '../utils/utils';
 import { getAllGameTablesSuccess } from '../actions/game-table-actions';
 
@@ -8,22 +8,24 @@ import { getAllGameTablesSuccess } from '../actions/game-table-actions';
  */
 
 export function getGameTables(token) {
-  return axios({
-    method: 'get',
-    url: utils.getGameTableUrl(),
-    headers: {
-        'X-Access-Token' : token
+  return dispatch => {
+    return axios({
+      method: 'get',
+      url: utils.getGameTableUrl(),
+      headers: {
+          'X-Access-Token' : token
+        }
+      })
+    .then(response => {
+      dispatch(getAllGameTablesSuccess(response.data && response.data.data));
+      return response;
+    }, result => {
+      if(result.response.status == 401) {
+        localStorage.removeItem('userToken');
+        return getPublicGameTables();
       }
-    })
-  .then(response => {
-    store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
-    return response;
-  }, result => {
-    if(result.response.status == 401) {
-      localStorage.removeItem('userToken');
-      return getPublicGameTables();
-    }
-  });
+    });
+  }
 }
 
 /**
@@ -31,10 +33,12 @@ export function getGameTables(token) {
  */
 
 export function getPublicGameTables() {
-  return axios.get(utils.getGameTableUrl())
+  return dispatch => {
+    return axios.get(utils.getGameTableUrl())
     .then(response => {
-      store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
+      dispatch(getAllGameTablesSuccess(response.data && response.data.data));
       return response;
     });
+  }  
 }
 

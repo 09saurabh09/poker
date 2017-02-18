@@ -1,7 +1,7 @@
-import renderEngine from './renderEngine';
-import renderIndex from './renderIndex';
+const renderEngine = require( './renderEngine' );
+const renderIndex = require( './renderIndex' );
 
-export {
+module.exports = {
   renderEngine,
   renderIndex
 }

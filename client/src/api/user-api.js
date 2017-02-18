@@ -1,5 +1,4 @@
 import axios from 'axios';
-import store from '../store';
 import utils from '../utils/utils';
 import { authenticateUserSuccess, signupUserSuccess, getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actions/user-actions';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
@@ -9,14 +8,16 @@ import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/s
  */
 
 export function login(email, password) {
-  return axios.post(utils.getAuthenticateUserUrl(), {
-    user: {email, password}
-  })
+  return dispatch => {
+    return axios.post(utils.getAuthenticateUserUrl(), {
+      user: {email, password}
+    })
     .then(response => {
-      store.dispatch(connectAuthorizedSocket(response.data.data.token));
-      store.dispatch(authenticateUserSuccess(response.data));
+      dispatch(connectAuthorizedSocket(response.data.data.token));
+      dispatch(authenticateUserSuccess(response.data));
       return response;
     });
+  }
 }
 
 /**
@@ -24,11 +25,13 @@ export function login(email, password) {
  */
 
 export function signup(email, password) {
-  return axios.post(utils.getPublicUserUrl(), {
-    user: {email, password}
-  })
+  return dispatch => {
+    return axios.post(utils.getPublicUserUrl(), {
+      user: {email, password}
+    })
     .then(response => {
-      store.dispatch(signupUserSuccess(response.data));
+      dispatch(signupUserSuccess(response.data));
       return response;
     });
+  }
 } 

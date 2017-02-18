@@ -5,14 +5,14 @@ import { Link } from 'react-router';
 
 import Login from '../../views/login/login';
 
-import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
+/*import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
 import HomePageIcon from '../../../../assets/img/home/svg/home-page.svg';
 import AnalyticsIcon from '../../../../assets/img/home/svg/analytics.svg';
 import SupportIcon from '../../../../assets/img/home/svg/support.svg';
 import SettingsIcon from '../../../../assets/img/home/svg/settings.svg';
-import LogoutIcon from '../../../../assets/img/home/svg/logout.svg';
+import LogoutIcon from '../../../../assets/img/home/svg/logout.svg';*/
 import ReviewTouchPointIcon from '../../../../assets/img/home/svg/review-touch-point.svg';
-var VideoOverlayIcon = require('babel!svg-react!../../../../assets/img/home/svg/video-overlay.svg?name=VideoOverlayIcon');
+import VideoOverlayIcon from '../../../../assets/img/home/svg/video-overlay.svg';
 import RealMoneyIcon from '../../../../assets/img/home/svg/real-money-icon.svg';
 import PlayMoneyIcon from '../../../../assets/img/home/svg/play-money-icon.svg';
 import SearchIcon from '../../../../assets/img/home/svg/search-icon.svg';
@@ -53,7 +53,7 @@ class Home extends React.Component {
     });
     return (
       <div className="home">
-        <nav role="main">
+        {/*<nav role="main">
           <div className="play-icon nav-link">
             <div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>
           </div>
@@ -83,7 +83,7 @@ class Home extends React.Component {
               <div className="other-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${LogoutIcon})`}}></div>
             </div>
           </a>
-        </nav>
+        </nav>*/}
         <section id="main">
           <div className="upper-section">
             <div className="user-detail-section">
