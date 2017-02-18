@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+let network = require("./server/utils/network");
 
 require("./server/config/prototype");
 require('./server/config/globalConstant');
@@ -25,13 +26,44 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
 
 if (app.get('env') === 'development') {
+    let ip = network()[0];
+    console.log(ip);
     app.use(function (req, res, next) {
-        res.setHeader("Access-Control-Allow-Origin", "http://localhost:7000");
-        res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, session-Id, source, okta_session_id, X-Access-Token, X-Session-Id, X-Device-Info, X-Os-Id, X-Request-Key, X-Application-License-Key, X-Client-Id, X-Transaction-Key, X-Custom-Driver-Id, X-Custom-operator_id, X-User-Roles, X-Auth-Msisdn");
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+      let allowedOrigins = ['http://127.0.0.1:7000', 'http://localhost:7000', `http://${ip}:7000`];
+      let origin = req.headers.origin;
+      if (allowedOrigins.indexOf(origin) > -1) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+      res.setHeader("Access-Control-Request-Headers", "X-Access-Token");
+      res.setHeader("Access-Control-Request-Method", "GET");
+      res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, session-Id, source, okta_session_id, X-Access-Token, X-Session-Id, X-Device-Info, X-Os-Id, X-Request-Key, X-Application-License-Key, X-Client-Id, X-Transaction-Key, X-Custom-Driver-Id, X-Custom-operator_id, X-User-Roles, X-Auth-Msisdn");
+      res.setHeader('Access-Control-Allow-Credentials', true);
+      res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+      next();
+  });
+
+  app.use(function(req, res, next) {
+    var oneof = false;
+    if(req.headers['access-control-request-method']) {
+        res.header('Access-Control-Allow-Methods', req.headers['access-control-request-method']);
+        oneof = true;
+    }
+    if(req.headers['access-control-request-headers']) {
+        res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
+        oneof = true;
+    }
+    if(oneof) {
+        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+    }
+
+    // intercept OPTIONS method
+    if (oneof && req.method == 'OPTIONS') {
+        res.send(200);
+    }
+    else {
         next();
-    });
+    }
+  });
 }
 
 require('./routes')(app);

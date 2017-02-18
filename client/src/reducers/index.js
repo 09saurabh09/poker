@@ -10,11 +10,11 @@ import searchLayoutReducer from './search-layout-reducer';
 import gameTableReducer from './game-table-reducer';
 import gameStateReducer from './game-state-reducer';
 import userReducer from './user-reducer';
-import socketReducer from './socket-reducer';
+import connectSocketReducer from './connect-socket-reducer';
 
 // Combine Reducers
 var reducers = combineReducers({
-	socket: socketReducer,
+	socket: connectSocketReducer,
     userState: userReducer,
     widgetState: widgetReducer,
     searchLayoutState: searchLayoutReducer,

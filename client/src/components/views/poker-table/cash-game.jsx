@@ -102,7 +102,7 @@ export default class CashGameTable extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.props.tableContents.map(({id, tableName, bigBlind, minAmount, maxAmount, currentlyPlaying, maxPlayer, action, join}, index)=> 
+              {this.props.tableContents.map(({id, tableName, bigBlind, minAmount, maxAmount, currentlyPlaying, maxPlayer, action, userJoined}, index)=> 
                 <tr className="table-row" key={index} onClick={this.openTable.bind(this, id)}>
                   <td className="table-column ">{tableName}</td>
                   <td className="table-column ">{bigBlind/2}/{bigBlind}</td>
@@ -111,7 +111,7 @@ export default class CashGameTable extends React.Component{
                   <td className="table-column ">
                     {action=='hot'? this.hotIcon : this.coldIcon}
                   </td>
-                  <td className="table-column ">{join ?this.TickIcon : this.SelectRoundIcon}</td>
+                  <td className="table-column ">{userJoined ?this.TickIcon : this.SelectRoundIcon}</td>
                 </tr>
                 )}
             </tbody>

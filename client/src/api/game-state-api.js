@@ -8,7 +8,7 @@ import { getGameStateSuccess } from '../actions/game-state-actions';
  */
 
 export function getGameState(tableId) {
-  return axios.get(`http://localhost:7100/api/public/game/table/${tableId}`)
+  return axios.get(utils.getTableDetailsUrl(tableId))
     .then(response => {
       let gameState = response.data.data.gameState;
       store.dispatch(getGameStateSuccess({[response.data.data.id]: gameState}));
