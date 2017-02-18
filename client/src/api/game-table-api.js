@@ -10,7 +10,7 @@ import { getAllGameTablesSuccess } from '../actions/game-table-actions';
 export function getGameTables(token) {
   return axios({
     method: 'get',
-    url: `http://${window.location.hostname}:7100/api/game/tables`,
+    url: utils.getGameTableUrl(),
     headers: {
         'X-Access-Token' : token
       }
@@ -18,6 +18,11 @@ export function getGameTables(token) {
   .then(response => {
     store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
     return response;
+  }, result => {
+    if(result.response.status == 401) {
+      localStorage.removeItem('userToken');
+      return getPublicGameTables();
+    }
   });
 }
 
@@ -26,7 +31,7 @@ export function getGameTables(token) {
  */
 
 export function getPublicGameTables() {
-  return axios.get(`http://${window.location.hostname}:7100/api/public/game/tables`)
+  return axios.get(utils.getGameTableUrl())
     .then(response => {
       store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
       return response;
