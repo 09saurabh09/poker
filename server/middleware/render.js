@@ -34,7 +34,29 @@ function route(req, res, next) {
       } else if (renderProps) {
         renderEngine(
           renderProps,
-          body,
+          `<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        window.__STORE__ = <%- store %>;
+    </script>
+</head>
+<body>
+
+<div id="root"><%- reactOutput %></div>
+<div id="devtools"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/app.js"
+        charset="utf-8"></script>
+<script src="/tools.js"
+        charset="utf-8"></script>
+<script src="/vendors.js"
+        charset="utf-8"></script>
+
+</body>
+</html>
+`,
           store
         ).then(function (html) {
           res.status(200).send(html);

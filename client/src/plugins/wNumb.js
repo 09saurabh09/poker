@@ -330,6 +330,6 @@ var
 	}
 
 	/** @export */
+	let window = window || {};
 	window.wNumb = wNumb;
-
 }());

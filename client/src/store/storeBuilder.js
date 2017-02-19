@@ -32,7 +32,7 @@ import DevTools from '../utils/devtools';
 
 function _buildStore(middlewares) {
   let functions = [applyMiddleware(...middlewares)];
-  if (process.env.feature.DEV) {
+  if (process.env.feature && process.env.feature.DEV) {
     functions.push(require('../utils/devtools').default.instrument());
   }
   return compose(

@@ -4,6 +4,7 @@
 
 // Imports
 import env from './utils/environment';
+var path = require('path');
 import express from 'express';
 import {webpack as webPackCustomMiddleware, render} from './middleware';
 import compression from 'compression';
@@ -32,7 +33,7 @@ export function boot() {
     app.use(webPackCustomMiddleware.HotReloadMiddleware);
   }
 
-
+app.use('/', express.static(path.join(__dirname, 'dist')));
   // Other middlewares
   app.use(compression());
   if (ssrEnabled) {

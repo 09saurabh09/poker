@@ -7,6 +7,10 @@ require.extensions['.scss'] = function() {
     return;
 };
 
+require.extensions['.css'] = function() {
+    return;
+};
+
 require.extensions['.svg'] = function() {
     return;
 };

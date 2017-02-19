@@ -9,18 +9,21 @@ import CheckboxElement from '../checkbox-element/checkbox-element';
 import SwitchElement from '../switch-element/switch-element';
 import RadioElement from '../radio-element/radio-element';
 
+import { wNumb } from '../../../plugins/wNumb';
 export default class CashGameFilter extends React.Component {
 	constructor(props) {
-			super(props);
-      this.login = this.login.bind(this);
-      window.onclick = (event) => {
+		super(props);
+    this.login = this.login.bind(this);
+	}
+
+  componentDidMount() {
+    window.onclick = (event) => {
         var modal = document.getElementById('cash-game-filter');
         if (event.target == modal) {
             modal.style.display = 'none';
         }
     }
-
-	}
+  }
 
   login() {
     alert('login');
@@ -110,7 +113,6 @@ export default class CashGameFilter extends React.Component {
                       start={[6]}
                       step={1}
                       connect={[true, false]}
-                      tooltips={wNumb({ decimals: 0 })}
                       />
                   </div>
                 </div>

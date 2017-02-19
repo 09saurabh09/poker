@@ -6,7 +6,7 @@ const { match } = require( 'react-router' );
 const createLocation = require( 'history/lib/createLocation' );
 const env = require( '../server/utils/environment' );
 const {renderEngine, renderIndex : renderStatic} = require( '../engines' );
-const routes = require( '../../app/scripts/routes' );
+const routes = require( '../client/src/router' );
 const storeBuilder = require( '../client/src/store/storeBuilder' );
 
 const store = storeBuilder();

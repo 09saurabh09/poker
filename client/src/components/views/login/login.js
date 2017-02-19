@@ -16,16 +16,6 @@ export default class Login extends React.Component {
         email: '',
         password: ''
       };
-      $(document).ready(()=>{
-        var modal = document.getElementsByClassName('modal')[0];
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-      })
 	}
 
   onEmailChange(event) {
@@ -61,6 +51,18 @@ export default class Login extends React.Component {
     });
   }
 
+  componentDidMount() {
+    $(document).ready(()=>{
+        var modal = document.getElementsByClassName('modal')[0];
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+      })
+  }
 
 
 	render() {

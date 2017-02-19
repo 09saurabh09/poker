@@ -22,7 +22,6 @@ module.exports = {
   },
   output: {
     path: __dirname + '/../dist',
-    publicPath: '/',
     filename: "[name].js",
     sourceMapFilename: "[name].js.map"
   },
@@ -49,6 +48,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: __dirname + '/../client/src/index.html',
       filename: 'index.html'
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
     }),
     new webpack.HotModuleReplacementPlugin()
   ],

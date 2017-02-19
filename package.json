@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev:build" : "export NODE_ENV=development; rm -rf dist/* && webpack --config webpack/webpack.dev.js -p",
-    "serve-ssr": "node ./server ssr",
-    "serve": "babel-node ./server",
+    "serve-ssr": "export NODE_ENV=development; babel-node ./bin/www ssr",
+    "serve": "export NODE_ENV=development; babel-node ./server ssr",
     "start": "node ./bin/www",
     "dev:start": "export NODE_ENV=development; PORT=7100 nodemon ./bin/www",
     "webserver": "webpack-dev-server --port 7000 --progress --colors --inline --hot --host 0.0.0.0 --content-base build/",

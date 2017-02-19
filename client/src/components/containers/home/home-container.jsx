@@ -38,9 +38,6 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.dispatch(connectUnauthorizedSocket());
     this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
-  }
-
-  render() {
     $('document').ready(()=>{
       document.getElementById('dp').height = document.getElementById('dp').width;
         // Get the button that opens the modal
@@ -51,6 +48,9 @@ class Home extends React.Component {
           modal.style.display = 'block';
       }
     });
+  }
+
+  render() {
     return (
       <div className="home">
         {/*<nav role="main">

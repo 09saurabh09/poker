@@ -42,7 +42,7 @@ export default class CashGameTable extends React.Component{
       key: 'join'
     }];
     this.sortType = ['asc', 'desc'];
-    this.sortIcons = [<DownArrowIcon />, <UpArrowIcon />];
+    this.sortIcons = [<div />, <div />];
     this.currentSortIndex = 0;
     this.hotIcon = <div className="hot-icon-container">
                       <div className="action-icon-wrapper icon-wrapper" 
@@ -83,6 +83,7 @@ export default class CashGameTable extends React.Component{
   }
 
   render() {
+    debugger;
     return (
          <div className="table-responsive poker-table">
           <table className="table borderless">
