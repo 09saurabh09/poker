@@ -1,8 +1,9 @@
 import React from 'react';
-import './player-chips.scss';
 
-import CoinIcon from '../../../../assets/img/game/coin.svg';
-
+if(process.env.WEBPACK) {
+  require ('./player-chips.scss');
+  var CoinIcon = require( '../../../../assets/img/game/coin.svg' );
+}
 export default class PlayerChips extends React.Component{
 
   render() {

@@ -1,9 +1,12 @@
 import React from 'react';
-import './open-seat.scss';
 
-import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
-import OpenSeatIcon from '../../../../assets/img/game/open-seat.svg';
-import JoinSeatIcon from '../../../../assets/img/game/join-seat.svg';
+if(process.env.WEBPACK) {
+  require( './open-seat.scss' );
+
+  var BasicUserCard = require( '../../../../assets/img/game/basic-user-card.svg' );
+  var OpenSeatIcon = require( '../../../../assets/img/game/open-seat.svg' );
+  var JoinSeatIcon = require( '../../../../assets/img/game/join-seat.svg' );
+}
 
 export default class OpenSeat extends React.Component {
   constructor(props) {

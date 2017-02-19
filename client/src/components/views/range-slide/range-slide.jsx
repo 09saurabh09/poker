@@ -1,9 +1,14 @@
 import React from 'react';
-import './range-slide.scss';
 
 import noUiSlider from '../../../plugins/nouislider.min.js';
-import '../../../plugins/nouislider.min.css';
-import '../../../plugins/wNumb.js';
+
+
+
+if(process.env.WEBPACK){
+  require( './range-slide.scss' );
+  require( '../../../plugins/nouislider.min.css' );
+  require( '../../../plugins/wNumb.js' );
+}
 
 class RangeSlider extends React.Component {
   componentDidMount() {

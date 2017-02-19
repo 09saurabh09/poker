@@ -1,0 +1,57 @@
+#login {
+	.play-icon-container {
+		margin: 0 auto;
+	    width: 30%;
+	    margin-top: 10%;
+        margin-bottom: 10%;
+	}
+	.bottom-button-container {
+		
+	}
+
+	#inputUsername, #inputPassword {
+		padding: 14px 0;
+		width: 100%;
+		border-radius: 70px;
+		background-color: #151515;
+		color: white;
+	    text-align: center;
+		border: solid 1.4px #3b3b44;
+	}
+
+	#sign-up, #facebook-login {
+		padding: 8px 16px;
+		border-radius: 50px;
+		background-color: #262626;
+		color: white;
+	}
+	.form-group {
+		width: 50%;
+		margin: 0 auto;
+	    margin-bottom: 10%;
+	}
+	.login-button {
+   		position: absolute;
+	    bottom: 0px;
+	    right: 0px;
+	    background-color: #3de689;
+	    padding: 18px 8px 6px 10px;
+	    border-radius: 70px;
+	    width: 30px;
+	    border: 1px solid #3de689;
+	}
+
+	.btn.focus, .btn:focus, .btn:hover {
+		background-color: #3de689 !important;
+	    color: white !important;
+	}
+
+	.password-container {
+		position: relative;
+	}
+	.bottom-button-container {
+		display: flex;
+    	justify-content: space-between;
+	}
+	
+}

@@ -49,7 +49,7 @@ var config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(jsx|js)$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         include: __dirname
@@ -65,8 +65,12 @@ var config = {
         test: [/ProximaNova-\/[a-zA-Z]*-webfont\.ttf/],
         loader: 'file?name=fonts/[name].[ext]'
       }, {
-        test: [/\.(woff|woff2|eot|ttf|svg)$/],
+        test: [/\.(woff|woff2|eot|ttf)$/],
         loader: 'url-loader?limit=100000'
+      }, {
+        test: /\.svg$/,
+        exclude: /(node_modules)/,
+        loaders: ['react-svg-inline-loader']
       }
     ]
   }
