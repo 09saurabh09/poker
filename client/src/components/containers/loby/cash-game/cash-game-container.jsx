@@ -7,10 +7,12 @@ import * as userApi from '../../../../api/user-api';
 import { loadSearchLayout } from '../../../../actions/search-layout-actions';
 import SearchForm from '../../../views/search-form';
 
-import CashGameTable from '../../../views/poker-table/cash-game'
+import CashGameTable from '../../../views/poker-table/cash-game.jsx'
 
-import CashGameFilter from '../../../views/filter/cash-game'
-import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
+import CashGameFilter from '../../../views/filter/cash-game.jsx'
+if(process.env.WEBPACK) {
+  var FilterIcon = require ('../../../../../assets/img/table/svg/filter.svg');
+}
 
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../../actions/socket-actions';
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import './switch-element.scss';
+if(process.env.WEBPACK) {
+	require( './switch-element.scss' );
+}
 
 export default class SwitchElement extends React.Component{
 

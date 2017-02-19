@@ -1,5 +1,7 @@
 import React from 'react';
-import './radio-element.scss';
+if(process.env.WEBPACK) {
+  require( './radio-element.scss' );
+}
 
 export default class SwitchElement extends React.Component {
 

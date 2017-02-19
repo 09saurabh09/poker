@@ -9,7 +9,7 @@ const configureStore = (preloadedState) => {
     applyMiddleware(thunk)
   )
 
-  if (module.hot) {
+  if (process.env.NODE_ENV == 'development' && module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('./reducers', () => {
       const nextRootReducer = require('./reducers').default

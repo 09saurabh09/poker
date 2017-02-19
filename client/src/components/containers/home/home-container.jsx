@@ -2,30 +2,31 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Link } from 'react-router';
+import Login from '../../views/login/login.jsx';
 
-import Login from '../../views/login/login';
+if(process.env.WEBPACK) {
+  var PlayIcon = require( '../../../../assets/img/home/svg/yoga-play.svg' );
+  var HomePageIcon = require( '../../../../assets/img/home/svg/home-page.svg' );
+  var AnalyticsIcon = require( '../../../../assets/img/home/svg/analytics.svg' );
+  var SupportIcon = require( '../../../../assets/img/home/svg/support.svg' );
+  var SettingsIcon = require( '../../../../assets/img/home/svg/settings.svg' );
+  var LogoutIcon = require( '../../../../assets/img/home/svg/logout.svg' );
+  var ReviewTouchPointIcon = require( '../../../../assets/img/home/svg/review-touch-point.svg' );
+  var VideoOverlayIcon = require( '../../../../assets/img/home/svg/video-overlay.svg' );
+  var RealMoneyIcon = require( '../../../../assets/img/home/svg/real-money-icon.svg' );
+  var PlayMoneyIcon = require( '../../../../assets/img/home/svg/play-money-icon.svg' );
+  var SearchIcon = require( '../../../../assets/img/home/svg/search-icon.svg' );
+  //var CashGameIcon = require('babel!svg-react!../../../../assets/img/home/svg/cash-games.svg?name=CashGameIcon');
+  var cashGameIcon = require( '../../../../assets/img/home/svg/cash-games.svg' );
+  //var SitGoIcon = require('babel!svg-react!../../../../assets/img/home/svg/sit-and-go.svg?name=SitGoIcon');
+  var SitGoIcon = require( '../../../../assets/img/home/svg/sit-and-go.svg' );
+  //var TournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/tournament.svg?name=TournamentIcon');
+  var TournamentIcon = require( '../../../../assets/img/home/svg/tournament.svg' );
+  //var MyTournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/my-tournament.svg?name=MyTournamentIcon');
+  var MyTournamentIcon = require( '../../../../assets/img/home/svg/my-tournament.svg' );
 
-import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
-import HomePageIcon from '../../../../assets/img/home/svg/home-page.svg';
-import AnalyticsIcon from '../../../../assets/img/home/svg/analytics.svg';
-import SupportIcon from '../../../../assets/img/home/svg/support.svg';
-import SettingsIcon from '../../../../assets/img/home/svg/settings.svg';
-import LogoutIcon from '../../../../assets/img/home/svg/logout.svg';
-import ReviewTouchPointIcon from '../../../../assets/img/home/svg/review-touch-point.svg';
-var VideoOverlayIcon = require('babel!svg-react!../../../../assets/img/home/svg/video-overlay.svg?name=VideoOverlayIcon');
-import RealMoneyIcon from '../../../../assets/img/home/svg/real-money-icon.svg';
-import PlayMoneyIcon from '../../../../assets/img/home/svg/play-money-icon.svg';
-import SearchIcon from '../../../../assets/img/home/svg/search-icon.svg';
-//var CashGameIcon = require('babel!svg-react!../../../../assets/img/home/svg/cash-games.svg?name=CashGameIcon');
-import cashGameIcon from '../../../../assets/img/home/svg/cash-games.svg';
-//var SitGoIcon = require('babel!svg-react!../../../../assets/img/home/svg/sit-and-go.svg?name=SitGoIcon');
-import SitGoIcon from '../../../../assets/img/home/svg/sit-and-go.svg';
-//var TournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/tournament.svg?name=TournamentIcon');
-import TournamentIcon from '../../../../assets/img/home/svg/tournament.svg';
-//var MyTournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/my-tournament.svg?name=MyTournamentIcon');
-import MyTournamentIcon from '../../../../assets/img/home/svg/my-tournament.svg';
-
-import './home.scss';
+  require('./home.scss');
+}
 
 import * as userApi from '../../../api/user-api';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
@@ -36,11 +37,6 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(connectUnauthorizedSocket());
-    this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
-  }
-
-  render() {
     $('document').ready(()=>{
       document.getElementById('dp').height = document.getElementById('dp').width;
         // Get the button that opens the modal
@@ -51,6 +47,12 @@ class Home extends React.Component {
           modal.style.display = 'block';
       }
     });
+    this.props.dispatch(connectUnauthorizedSocket());
+    this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
+  }
+
+  render() {
+    
     return (
       <div className="home">
         <nav role="main">

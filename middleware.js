@@ -4,6 +4,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
 import reducers from './client/src/reducers';
+import store from './client/src/store';
 import routes from './client/src/router';
 
 export default (req, res) => {
@@ -21,7 +22,7 @@ export default (req, res) => {
 							<title>My Universal App</title>
 						</header>
 						<body>
-							<div id='app'></div>
+							<div id='root'></div>
 							<script src='bundle.js'></script>
 						</body>
 					</html>
@@ -35,8 +36,8 @@ export default (req, res) => {
 							<link rel='stylesheet' href='bundle.css'>
 						</header>
 						<body>
-							<div id='app'>${renderToString(
-								<Provider store={createStore(reducers)}>
+							<div id='root'>${renderToString(
+								<Provider store={store}>
 									<RouterContext {...renderProps} />
 								</Provider>
 							)}</div>

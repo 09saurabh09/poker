@@ -1,5 +1,8 @@
 import React from 'react';
-import './checkbox-element.scss';
+if(process.env.WEBPACK) {
+	require( './checkbox-element.scss' );
+}
+
 
 export default class CheckboxElement extends React.Component{
 

@@ -3,14 +3,6 @@ import express from 'express';
 import webpack from 'webpack';
 import middleware from './middleware';
 
-require.extensions['.scss'] = function() {
-    return;
-};
-
-require.extensions['.svg'] = function() {
-    return;
-};
-
 const app = express();
 
 if(process.env.NODE_ENV === 'development') {
@@ -30,7 +22,7 @@ if(process.env.NODE_ENV === 'development') {
 		}
 	}));
 	app.use(require('webpack-hot-middleware')(compiler));
-	app.use(express.static(path.resolve(__dirname, 'src')));
+	app.use(express.static(path.resolve(__dirname, 'client')));
 } else if(process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.resolve(__dirname, 'dist')));
 }

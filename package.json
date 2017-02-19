@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint ./src",
     "start-server": "cross-env NODE_ENV=development babel-node ./server.js",
-    "build:prod": "rimraf dist && webpack --config ./webpack.config.prod.js",
+    "build:prod": "NODE_ENV=production; rimraf dist && webpack --config ./webpack.config.prod.js",
     "serve": "cross-env NODE_ENV=production babel-node ./server.js",
 
     "start": "node ./bin/www",

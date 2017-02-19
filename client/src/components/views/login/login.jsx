@@ -1,12 +1,12 @@
 import React from 'react';
-import './login.scss';
+
 
 import * as userApi from '../../../api/user-api';
-
-import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
-import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
-import io from 'socket.io-client';
-
+if(process.env.WEBPACK) {
+  require( './login.scss' );
+  var PlayIcon = require( '../../../../assets/img/home/svg/yoga-play.svg' );
+  var LoginIcon = require( '../../../../assets/img/home/svg/login-button.svg' );
+}
 
 
 export default class Login extends React.Component {
@@ -16,18 +16,20 @@ export default class Login extends React.Component {
         email: '',
         password: ''
       };
-      $(document).ready(()=>{
-        var modal = document.getElementsByClassName('modal')[0];
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-      })
 	}
 
+  componentDidMount() {
+    $(document).ready(()=>{
+      var modal = document.getElementsByClassName('modal')[0];
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = 'none';
+          }
+      }
+    });
+  }
   onEmailChange(event) {
     this.setState({
       email: event.target.value

@@ -18,9 +18,9 @@ import '../assets/styles/modal.scss';
 import globalStyles from '../assets/styles/global.css';
 
 
-window.addEventListener('orientationchange', (e)=>{
+/*window.addEventListener('orientationchange', (e)=>{
 	console.log(e);
-})
+})*/
 const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
 	<Provider store={store}>

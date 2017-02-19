@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import './loby-layout.scss';
-
-
-import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
-import RealMoneyIcon from '../../../../assets/img/table/svg/real-money-icon.svg';
-import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg';
+/*import './loby-layout.scss';*/
+if(process.env.WEBPACK) {
+  require('./loby-layout.scss');
+  var PlayIcon = require( '../../../../assets/img/table/svg/yoga-play.svg' );
+  var RealMoneyIcon = require( '../../../../assets/img/table/svg/real-money-icon.svg' );
+  var PlayMoneyIcon = require( '../../../../assets/img/table/svg/play-money-icon.svg' );
+}
 
 // Using "Stateless Functional Components"
 export default (props) => {
