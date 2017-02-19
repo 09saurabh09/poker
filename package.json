@@ -24,6 +24,7 @@
     "test:lint": "eslint ./app ./tests --ext .js --ext .jsx --ignore-path .gitignore --ignore-pattern dist --cache"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.7",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-rewire": "^1.0.0-beta-5",
     "babel-preset-react-hmre": "^1.0.1",

@@ -1,8 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 var AssetsPlugin = require('assets-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+/*const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');*/
 
 var DEBUG = !(process.env.NODE_ENV === 'production')
 
@@ -43,8 +43,8 @@ var config = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         WEBPACK: true
       }
-    }),
-    new ExtractTextPlugin('main.css')
+    })/*,
+    new ExtractTextPlugin('main.css')*/
   ],
   module: {
     rules: [
@@ -53,7 +53,7 @@ var config = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         include: __dirname
-      },{
+      },/*{
         test: /\.css$/,
         exclude: [/\/plugin\//],
         loader: "style-loader!css-loader"
@@ -61,7 +61,7 @@ var config = {
         test: /\.scss/,
         loader: ExtractTextPlugin.extract('style', 'css!sass!autoprefixer'),
         include: path.resolve(__dirname, 'client')
-      }, {
+      },*/ {
         test: [/ProximaNova-\/[a-zA-Z]*-webfont\.ttf/],
         loader: 'file?name=fonts/[name].[ext]'
       }, {
