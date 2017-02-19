@@ -8,14 +8,35 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let network = require("./server/utils/network");
 
+
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import { useRouterHistory, RouterContext, match } from 'react-router'
+
+import { createMemoryHistory, useQueries } from 'history'
+import compression from 'compression'
+import Promise from 'bluebird'
+
+import configureStore from './client/src/store/configureStore'
+import createRoutes from './client/src/routes/index'
+
+import { Provider } from 'react-redux'
+
+import Helmet from 'react-helmet'
+
+
 require("./server/config/prototype");
 require('./server/config/globalConstant');
 
 var app = express();
 
+let scriptSrcs;
+process.env.ON_SERVER = true
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -23,7 +44,35 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build')));
+
+
+let styleSrc
+if ( process.env.NODE_ENV === 'production' ) {
+  let refManifest = require('../rev-manifest.json')
+  scriptSrcs = [
+    `/${refManifest['vendor.js']}`,
+    `/${refManifest['app.js']}`,
+  ]
+  styleSrc = `/${refManifest['main.css']}`
+} else {
+  scriptSrcs = [
+    'http://localhost:7000/static/vendor.js',
+    'http://localhost:7000/static/dev.js',
+    'http://localhost:7000/static/app.js'
+  ]
+  styleSrc = '/main.css'
+}
+
+app.use(compression())
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '..', 'public')))
+} else {
+  app.use('/assets', express.static(path.join(__dirname, 'client/assets')))
+  app.use(express.static(path.join(__dirname, 'dist')))
+}
+
+/*app.use(express.static(path.join(__dirname, 'build')));
 
 if (app.get('env') === 'development') {
     let ip = network()[0];
@@ -64,9 +113,73 @@ if (app.get('env') === 'development') {
         next();
     }
   });
-}
+}*/
 
 require('./routes')(app);
+
+
+app.get('*', (req, res, next)=> {
+  let history = useRouterHistory(useQueries(createMemoryHistory))()
+  let store = configureStore()
+  let routes = createRoutes(history)
+  let location = history.createLocation(req.url)
+
+  match({ routes, location }, (error, redirectLocation, renderProps) => {
+    if (redirectLocation) {
+      res.redirect(301, redirectLocation.pathname + redirectLocation.search)
+    } else if (error) {
+      res.status(500).send(error.message)
+    } else if (renderProps == null) {
+      res.status(404).send('Not found')
+    } else {
+      let [ getCurrentUrl, unsubscribe ] = subscribeUrl()
+      let reqUrl = location.pathname + location.search
+
+      getReduxPromise().then(()=> {
+        let reduxState = escape(JSON.stringify(store.getState()))
+        let html = ReactDOMServer.renderToString(
+          <Provider store={store}>
+            { <RouterContext {...renderProps}/> }
+          </Provider>
+        )
+        let metaHeader = Helmet.rewind();
+
+        if ( getCurrentUrl() === reqUrl ) {          res.render('index', { metaHeader, html, scriptSrcs, reduxState, styleSrc })
+        } else {
+          res.redirect(302, getCurrentUrl())
+        }
+        unsubscribe()
+      })
+      .catch((err)=> {
+        Helmet.rewind();
+        unsubscribe()
+        next(err)
+      })
+      function getReduxPromise () {
+        let { query, params } = renderProps
+        let comp = renderProps.components[renderProps.components.length - 1].WrappedComponent
+        let promise = comp.fetchData ?
+          comp.fetchData({ query, params, store, history }) :
+          Promise.resolve()
+
+        return promise
+      }
+    }
+  })
+  function subscribeUrl () {
+    let currentUrl = location.pathname + location.search
+    let unsubscribe = history.listen((newLoc)=> {
+      if (newLoc.action === 'PUSH' || newLoc.action === 'REPLACE') {
+        currentUrl = newLoc.pathname + newLoc.search
+      }
+    })
+    return [
+      ()=> currentUrl,
+      unsubscribe
+    ]
+  }
+})
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

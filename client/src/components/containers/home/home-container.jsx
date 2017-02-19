@@ -12,7 +12,7 @@ import SupportIcon from '../../../../assets/img/home/svg/support.svg';
 import SettingsIcon from '../../../../assets/img/home/svg/settings.svg';
 import LogoutIcon from '../../../../assets/img/home/svg/logout.svg';
 import ReviewTouchPointIcon from '../../../../assets/img/home/svg/review-touch-point.svg';
-var VideoOverlayIcon = require('babel!svg-react!../../../../assets/img/home/svg/video-overlay.svg?name=VideoOverlayIcon');
+import VideoOverlayIcon from '../../../../assets/img/home/svg/video-overlay.svg';
 import RealMoneyIcon from '../../../../assets/img/home/svg/real-money-icon.svg';
 import PlayMoneyIcon from '../../../../assets/img/home/svg/play-money-icon.svg';
 import SearchIcon from '../../../../assets/img/home/svg/search-icon.svg';
@@ -25,7 +25,7 @@ import TournamentIcon from '../../../../assets/img/home/svg/tournament.svg';
 //var MyTournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/my-tournament.svg?name=MyTournamentIcon');
 import MyTournamentIcon from '../../../../assets/img/home/svg/my-tournament.svg';
 
-import './home.scss';
+/*import './home.scss';*/
 
 import * as userApi from '../../../api/user-api';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';

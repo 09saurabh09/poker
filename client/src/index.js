@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
@@ -13,7 +13,7 @@ require('es6-promise').polyfill();
 
 /*import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';*/
-import './main.css';
+/*import './main.css';
 import '../assets/styles/modal.scss';
 import globalStyles from '../assets/styles/global.css';
 
@@ -28,5 +28,35 @@ ReactDOM.render(
 	</Provider>,
   document.getElementById('root')
 );
+*/
 
+import 'babel-polyfill'
 
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { browserHistory } from 'react-router'
+
+import configureStore from 'store/configureStore'
+import createRoutes from 'routes/index'
+import { Provider } from 'react-redux'
+import Immutable from 'immutable'
+import _ from 'lodash'
+
+let reduxState = {}
+if (window.__REDUX_STATE__) {
+  try {
+    let plain = JSON.parse(unescape(__REDUX_STATE__))
+    _.each(plain, (val, key)=> {
+      reduxState[key] = Immutable.fromJS(val)
+    })
+  } catch (e) {
+  }
+}
+
+const store = configureStore(reduxState)
+
+ReactDOM.render((
+  <Provider store={store}>
+    { createRoutes(browserHistory) }
+  </Provider>
+), document.getElementById('root'))

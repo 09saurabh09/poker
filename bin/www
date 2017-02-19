@@ -3,7 +3,10 @@
 /**
  * Module dependencies.
  */
-
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+require('babel-register')
 var app = require('../app');
 var debug = require('debug')('poker:server');
 var http = require('http');
@@ -13,7 +16,7 @@ var redis = require('socket.io-redis');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '7100');
 app.set('port', port);
 
 /**
