@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 var AssetsPlugin = require('assets-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 var DEBUG = !(process.env.NODE_ENV === 'production')
 
@@ -31,7 +33,18 @@ var config = {
     filename: '[name].js'
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['NODE_ENV', 'API_BASE_URL'])
+    new webpack.EnvironmentPlugin(['NODE_ENV', 'API_BASE_URL']),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        WEBPACK: true
+      }
+    }),
+    new ExtractTextPlugin('main.css')
   ],
   module: {
     rules: [
@@ -40,6 +53,20 @@ var config = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         include: __dirname
+      },{
+        test: /\.css$/,
+        exclude: [/\/plugin\//],
+        loader: "style-loader!css-loader"
+      }, {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass!autoprefixer'),
+        include: path.resolve(__dirname, 'client')
+      }, {
+        test: [/ProximaNova-\/[a-zA-Z]*-webfont\.ttf/],
+        loader: 'file?name=fonts/[name].[ext]'
+      }, {
+        test: [/\.(woff|woff2|eot|ttf|svg)$/],
+        loader: 'url-loader?limit=100000'
       }
     ]
   }
@@ -53,16 +80,8 @@ if (DEBUG) {
   ]
 
   config.plugins = config.plugins.concat([
-    new webpack.ProvidePlugin({
-          $: "jquery",
-          jQuery: "jquery"
-        }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development'),
-        WEBPACK: true
-      }
-    }),
+    
+    
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -79,12 +98,6 @@ if (DEBUG) {
   }
 } else {
   config.plugins = config.plugins.concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-        WEBPACK: true
-      }
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filname: '[name].[chunkhash].js'
