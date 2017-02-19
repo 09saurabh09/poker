@@ -53,6 +53,16 @@ if (DEBUG) {
   ]
 
   config.plugins = config.plugins.concat([
+    new webpack.ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery"
+        }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+        WEBPACK: true
+      }
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -69,6 +79,12 @@ if (DEBUG) {
   }
 } else {
   config.plugins = config.plugins.concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+        WEBPACK: true
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filname: '[name].[chunkhash].js'
