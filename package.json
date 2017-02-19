@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start": "concurrently 'npm run build:prod' 'npm run server:prod'",
+    "dev:ssr": "concurrently 'npm run start-devserver' 'npm run serve'",
     "lint": "eslint ./src",
-    "start-server": "cross-env NODE_ENV=development babel-node ./server.js",
     "build:prod": "NODE_ENV=production; rimraf dist && webpack --config ./webpack.config.prod.js",
-    "serve": "cross-env NODE_ENV=production babel-node ./server.js",
-
-    "start": "node ./bin/www",
+    "serve": "cross-env NODE_ENV=development PORT=7000 babel-node ./server.js",
+    "start-devserver" : "cross-env NODE_ENV=development PORT=7100 babel-node ./bin/www",
+    "server:prod" : "cross-env NODE_ENV=production PORT=7100 babel-node ./bin/www",
     "dev:start": "export NODE_ENV=development; PORT=7100 nodemon ./bin/www",
     "webserver": "webpack-dev-server --port 7000 --progress --colors --inline --hot --host 0.0.0.0 --content-base build/",
     "dev": "concurrently 'npm run dev:start' 'npm run webserver'",

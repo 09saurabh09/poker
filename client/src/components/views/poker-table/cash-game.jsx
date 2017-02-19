@@ -18,7 +18,7 @@ export default class CashGameTable extends React.Component{
     super(props);
     this.tableHeaders = [
     {
-      text: 'Table Name',
+      text: 'Table Name12',
       key: 'name',
       sortOrder: 1
     },

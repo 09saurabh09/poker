@@ -13,7 +13,7 @@ var redis = require('socket.io-redis');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '7100');
 app.set('port', port);
 
 /**

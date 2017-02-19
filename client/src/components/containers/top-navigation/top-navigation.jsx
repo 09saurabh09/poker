@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-import './top-navigation.scss';
-import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
-import MoneyContainer from '../../views/money-container/money-container';
-import PlayerCards from '../../views/player-cards/player-cards';
+import MoneyContainer from '../../views/money-container/money-container.jsx';
+import PlayerCards from '../../views/player-cards/player-cards.jsx';
+if(process.env.WEBPACK) {
+  require( './top-navigation.scss' );
+  var PlayIcon = require( '../../../../assets/img/table/svg/yoga-play.svg' );
+  
+}
 
 export default class TopNavContainer extends React.Component{
 

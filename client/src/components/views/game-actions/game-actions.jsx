@@ -1,7 +1,8 @@
 import React from 'react';
-import './game-actions.scss';
-
-import RangeSlider from '../range-slide/range-slide';
+if(process.env.WEBPACK) {
+  require( './game-actions.scss' );
+}
+import RangeSlider from '../range-slide/range-slide.jsx';
 
 export default class GameActions extends React.Component{
   constructor(props) {

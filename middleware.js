@@ -3,7 +3,6 @@ import { renderToString } from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
-import reducers from './client/src/reducers';
 import store from './client/src/store';
 import routes from './client/src/router';
 
@@ -18,9 +17,9 @@ export default (req, res) => {
 				res.status(200).send(`
 					<!doctype html>
 					<html>
-						<header>
+						<head>
 							<title>My Universal App</title>
-						</header>
+						</head>
 						<body>
 							<div id='root'></div>
 							<script src='bundle.js'></script>
@@ -31,10 +30,10 @@ export default (req, res) => {
 				res.status(200).send(`
 					<!doctype html>
 					<html>
-						<header>
+						<head>
 							<title>My Universal App</title>
 							<link rel='stylesheet' href='bundle.css'>
-						</header>
+						</head>
 						<body>
 							<div id='root'>${renderToString(
 								<Provider store={store}>

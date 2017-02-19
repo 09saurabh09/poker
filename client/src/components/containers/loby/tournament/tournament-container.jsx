@@ -5,10 +5,12 @@ import * as widgetApi from '../../../../api/widget-api';
 import { loadSearchLayout } from '../../../../actions/search-layout-actions';
 import SearchForm from '../../../views/search-form';
 
-var FilterIcon = require('babel!svg-react!../../../../../assets/img/table/svg/filter.svg?name=FilterIcon');
+if(process.env.WEBPACK) {
+  var FilterIcon = require ('../../../../../assets/img/table/svg/filter.svg');
+}
 
-import TournamentFilter from '../../../views/filter/tournament'
-import TournamentTable from '../../../views/poker-table/tournament'
+import TournamentFilter from '../../../views/filter/tournament.jsx';
+import TournamentTable from '../../../views/poker-table/tournament.jsx';
 
 export default class CashGameContainer extends React.Component{
 

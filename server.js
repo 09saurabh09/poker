@@ -26,13 +26,13 @@ if(process.env.NODE_ENV === 'development') {
 } else if(process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.resolve(__dirname, 'dist')));
 }
-
 app.get('*', middleware);
 
-app.listen(3000, '0.0.0.0', (err) => {
+let port = process.env.PORT || '7000';
+app.listen(port, '0.0.0.0', (err) => {
 	if(err) {
 		console.error(err);
 	} else {
-		console.info('Listening at http://localhost:3000');	
+		console.info(`Listening at http://localhost:${port}`);
 	}
 });

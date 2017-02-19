@@ -1,38 +1,23 @@
 import React from 'react';
 
-import './game-table.scss';
+if(process.env.WEBPACK) {
+  require( './game-table.scss' );
+}
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
-import OpenSeat from '../open-seat/open-seat';
-import Player from '../player/player';
-import GamePot from '../game-pot/game-pot';
-import GameControls from '../game-controls/game-controls';
-import GameActions from '../game-actions/game-actions';
-import PlayerChips from '../player-chips/player-chips';
-import Card from '../card/card';
-import Login from '../login/login';
+import OpenSeat from '../open-seat/open-seat.jsx';
+import Player from '../player/player.jsx';
+import GamePot from '../game-pot/game-pot.jsx';
+import GameControls from '../game-controls/game-controls.jsx';
+import GameActions from '../game-actions/game-actions.jsx';
+import PlayerChips from '../player-chips/player-chips.jsx';
+import Card from '../card/card.jsx';
+import Login from '../login/login.jsx';
 
 export default class GameTable extends React.Component{
 
   constructor(props) {
     super(props);
-    $(document).ready(function() {
-        $(window).resize(function() {
-          if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
-            $('.main-table').width( $(window).width() * .70 );
-            $('.main-table').height( $('.main-table').width() * 0.45 );
-          } else {
-            $('.main-table').height( $(window).height() * .65);
-            $('.main-table').width( $('.main-table').height() * 2.22 );
-          }
-          if($('.main-table').height() + 250 <= $(window).height()) {
-            $('.game-table').height( $('.main-table').height() + 250);
-          } else {
-            $('.game-table').height( $(window).height());
-          }
-        }).resize();
-    });
-    
     this.game = this.props.gameData[this.props.tableId] || {
       turnPos: 0,
       minAmount: 0,
@@ -97,6 +82,22 @@ export default class GameTable extends React.Component{
       () => this.tick(),
       20000
     );*/
+    $(document).ready(function() {
+        $(window).resize(function() {
+          if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
+            $('.main-table').width( $(window).width() * .70 );
+            $('.main-table').height( $('.main-table').width() * 0.45 );
+          } else {
+            $('.main-table').height( $(window).height() * .65);
+            $('.main-table').width( $('.main-table').height() * 2.22 );
+          }
+          if($('.main-table').height() + 250 <= $(window).height()) {
+            $('.game-table').height( $('.main-table').height() + 250);
+          } else {
+            $('.game-table').height( $(window).height());
+          }
+        }).resize();
+    });
   }
 
   componentWillUnmount() {

@@ -8,6 +8,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let network = require("./server/utils/network");
 
+import webpack from 'webpack';
+import middleware from './middleware';
+
 require("./server/config/prototype");
 require('./server/config/globalConstant');
 
@@ -23,7 +26,30 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build')));
+
+if(process.env.NODE_ENV === 'development') {
+  const config = require('./webpack.config.dev');
+  const compiler = webpack(config);
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath,
+    stats: {
+      assets: false,
+      colors: true,
+      version: false,
+      hash: false,
+      timings: false,
+      chunks: false,
+      chunkModules: false
+    }
+  }));
+  app.use(require('webpack-hot-middleware')(compiler));
+  app.use(express.static(path.resolve(__dirname, 'client')));
+} else if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, 'dist')));
+}
+
+/*app.use(express.static(path.join(__dirname, 'build')));*/
 
 if (app.get('env') === 'development') {
     let ip = network()[0];
@@ -67,6 +93,8 @@ if (app.get('env') === 'development') {
 }
 
 require('./routes')(app);
+
+app.get('*', middleware);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

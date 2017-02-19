@@ -1,12 +1,15 @@
 import React from 'react';
 
-import './poker-table.scss';
+if(process.env.WEBPACK) {
+  require('./poker-table.scss');
 
-var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
-var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
-import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
-import TickIcon from '../../../../assets/img/table/svg/tick.svg';
-
+  var UpArrowIcon = require( '../../../../assets/img/table/svg/up-arrow.svg' );
+  var DownArrowIcon = require( '../../../../assets/img/table/svg/down-arrow.svg' );
+  var SelectRoundIcon = require( '../../../../assets/img/table/svg/select-round.svg' );
+  var TickIcon = require( '../../../../assets/img/table/svg/tick.svg' );
+  var HotIcon = require( '../../../../assets/img/table/svg/hot.svg' );
+  var ColdIcon = require( '../../../../assets/img/table/svg/cold.svg' );
+}
 
 export default class TournamentTable extends React.Component{
 
