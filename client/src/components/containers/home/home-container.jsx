@@ -96,7 +96,7 @@ class Home extends React.Component {
                 <div className="name-balance-review">
                   <div className="name-balance-container">
                     <div className="user-name">
-                      Adeline Daniel
+                      {this.props.userData.name}
                     </div>
                     <div className="balance">
                       Balance : $6218 

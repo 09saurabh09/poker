@@ -26,7 +26,7 @@ export default (props) => {
             <div className="name-balance-review">
               <div className="name-balance-container">
                 <div className="user-name">
-                  Adeline Daniel
+                  {props.userData.name}
                 </div>
                 <div className="balance">
                   Balance : $6218 
