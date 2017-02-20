@@ -1,10 +1,10 @@
 import React from 'react';
-if(process.env.WEBPACK) {
-  require( './game-controls.scss' );
-  var AddMoneyIcon = require( '../../../../assets/img/game/add-money.svg' );
-  var PauseIcon = require( '../../../../assets/img/game/pause.svg' );
-  var CloseIcon = require( '../../../../assets/img/game/close.svg' );
-}
+import './game-controls.scss';
+
+import AddMoneyIcon from '../../../../assets/img/game/add-money.svg';
+import PauseIcon from '../../../../assets/img/game/pause.svg';
+import CloseIcon from '../../../../assets/img/game/close.svg';
+
 export default class GameControls extends React.Component{
 
   render() {

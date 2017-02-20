@@ -1,7 +1,6 @@
 import React from 'react';
-if(process.env.WEBPACK) {
-	require('./card.scss' );
-}
+import './card.scss';
+
 export default class PlayerCards extends React.Component{
 
   render() {

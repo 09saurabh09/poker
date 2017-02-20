@@ -1,10 +1,9 @@
 import React from 'react';
-if(process.env.WEBPACK) {
-  require( './money-container.scss' );
 
-  var RealMoneyIcon = require( '../../../../assets/img/table/svg/real-money-icon.svg' );
-  var PlayMoneyIcon = require( '../../../../assets/img/table/svg/play-money-icon.svg' );
-}
+import './money-container.scss';
+
+import RealMoneyIcon from '../../../../assets/img/table/svg/real-money-icon.svg';
+import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg';
 
 // Using "Stateless Functional Components"
 export default (props) => {

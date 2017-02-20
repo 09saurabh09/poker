@@ -1,35 +1,31 @@
 import React from 'react';
+import './filter.scss';
 
+import '../../../plugins/nouislider.min.css';
 
-if(process.env.WEBPACK) {
-  require( './filter.scss' );
-  var HoldemIcon = require( '../../../../assets/img/table/svg/2-cards.svg' );
-  var OmahaIcon = require( '../../../../assets/img/table/svg/4-cards.svg' );
-  var wNumb = require( '../../../plugins/wNumb.js' );
-}
+import HoldemIcon from '../../../../assets/img/table/svg/2-cards.svg';
+import OmahaIcon from '../../../../assets/img/table/svg/4-cards.svg';
 
-import RangeSlider from '../range-slide/range-slide.jsx';
-import CheckboxElement from '../checkbox-element/checkbox-element.jsx';
-import SwitchElement from '../switch-element/switch-element.jsx';
-import RadioElement from '../radio-element/radio-element.jsx';
+import RangeSlider from '../range-slide/range-slide';
+import CheckboxElement from '../checkbox-element/checkbox-element';
+import SwitchElement from '../switch-element/switch-element';
+import RadioElement from '../radio-element/radio-element';
 
 export default class CashGameFilter extends React.Component {
 	constructor(props) {
 			super(props);
       this.login = this.login.bind(this);
+      window.onclick = (event) => {
+        var modal = document.getElementById('cash-game-filter');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
 	}
 
   login() {
     alert('login');
-  }
-
-  componentDidMount() {
-    window.onclick = (event) => {
-      var modal = document.getElementById('cash-game-filter');
-      if (event.target == modal) {
-          modal.style.display = 'none';
-      }
-    }
   }
 
 	render() {
@@ -116,6 +112,7 @@ export default class CashGameFilter extends React.Component {
                       start={[6]}
                       step={1}
                       connect={[true, false]}
+                      tooltips={wNumb({ decimals: 0 })}
                       />
                   </div>
                 </div>

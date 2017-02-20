@@ -1,27 +1,26 @@
 import React from 'react';
-
+//import './login.scss';
 
 import * as userApi from '../../../api/user-api';
-var PlayIcon = require( '../../../../assets/img/home/svg/yoga-play.svg' );
-if(process.env.WEBPACK) {
-  //require( './login.scss' );
-  
-  //var LoginIcon = require( '../../../../assets/img/home/svg/login-button.svg' );
-}
+import Svg from '../Svg/Svg.jsx';
+
+import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
+import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
+import io from 'socket.io-client';
+
 
 
 export default class Login extends React.Component {
 	constructor(props) {
-			super(props);
-      this.state = {
-        email: '',
-        password: ''
-      };
+		super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
 	}
-
   componentDidMount() {
     $(document).ready(()=>{
-      var modal = document.getElementsByClassName('modal')[0];
+      var modal = document.getElementById('login');
 
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
@@ -29,7 +28,7 @@ export default class Login extends React.Component {
               modal.style.display = 'none';
           }
       }
-    });
+    })
   }
   onEmailChange(event) {
     this.setState({
@@ -77,8 +76,7 @@ export default class Login extends React.Component {
                         {/*<div className="play-icon-container"><PlayIcon /></div>*/}
                         <div className="play-icon-container">
                           {/*<div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>*/}
-                          {/*<img className="play-icon-wrapper icon-wrapper" src={require('../../../../assets/img/home/svg/yoga-play.svg')} />*/}
-                          <PlayIcon />
+                          <Svg markup={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
                         </div>
                         <form className="form-horizontal form-container">
                           <div className="form-group">
@@ -95,6 +93,7 @@ export default class Login extends React.Component {
                               value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
                               <div className="login-button" onClick={this.login.bind(this)}>
                                 <div className="login-icon-container">
+                                  <Svg markup={LoginIcon} className="login-icon-wrapper icon-wrapper" />
                                   {/*<div className="login-icon-wrapper icon-wrapper" 
                                     style={{backgroundImage: `url(${LoginIcon})`}}>
                                   </div>*/}

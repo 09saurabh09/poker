@@ -1,17 +1,23 @@
 import React from 'react';
+import './buyin-pref.scss';
 
-import RangeSlider from '../range-slide/range-slide.jsx';
-import CheckboxElement from '../checkbox-element/checkbox-element.jsx';
-
-
-if(process.env.WEBPACK) {
-  require( './buyin-pref.scss' );
-  var TournamentLogo = require( '../../../../assets/img/game/tournament-logo.svg' );
-}
+import RangeSlider from '../range-slide/range-slide';
+import CheckboxElement from '../checkbox-element/checkbox-element';
+import TournamentLogo from '../../../../assets/img/game/tournament-logo.svg';
 
 export default class BuyinPref extends React.Component {
   constructor(props) {
     super(props);
+    $(document).ready(()=>{
+      var modal = document.getElementById('buyin-pref');
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = 'none';
+          }
+      }
+    })
     this.state = {
       value: this.props.bbValue.value,
       inputValue: this.props.bbValue.value * this.props.bigBlind,
@@ -44,19 +50,6 @@ export default class BuyinPref extends React.Component {
   handleAutoPostChange(event) {
     this.setState({
       autoPost: event.target.checked
-    })
-  }
-
-  componentDidMount() {
-    $(document).ready(()=>{
-      var modal = document.getElementById('buyin-pref');
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-          if (event.target == modal) {
-              modal.style.display = 'none';
-          }
-      }
     })
   }
 

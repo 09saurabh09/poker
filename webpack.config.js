@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var AssetsPlugin = require('assets-webpack-plugin')
+const isoTools = require('./isomorphic.tools');
 /*const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');*/
 
@@ -33,10 +34,12 @@ var config = {
     filename: '[name].js'
   },
   plugins: [
+    isoTools.plugin(),
     new webpack.EnvironmentPlugin(['NODE_ENV', 'API_BASE_URL']),
     new webpack.ProvidePlugin({
       $: "jquery",
-      jQuery: "jquery"
+      jQuery: "jquery",
+      "React": "react"
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -69,8 +72,8 @@ var config = {
         loader: 'url-loader?limit=100000'
       }, {
         test: /\.svg$/,
-        exclude: /(node_modules)/,
-        loaders: ['react-svg-inline-loader']
+        include: [/client\/assets/],
+        loaders: ['svg-inline-loader']
       }
     ]
   }

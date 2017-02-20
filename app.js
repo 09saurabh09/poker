@@ -1,14 +1,5 @@
 "use strict";
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-let network = require("./server/utils/network");
-
-
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { useRouterHistory, RouterContext, match } from 'react-router'
@@ -23,6 +14,14 @@ import createRoutes from './client/src/routes/index'
 import { Provider } from 'react-redux'
 
 import Helmet from 'react-helmet'
+
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+let network = require("./server/utils/network");
 
 
 require("./server/config/prototype");

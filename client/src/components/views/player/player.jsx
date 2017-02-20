@@ -1,13 +1,10 @@
 import React from 'react';
-import PlayerCards from '../player-cards/player-cards.jsx';
+import './player.scss';
 
-if(process.env.WEBPACK) {
-  require( './player.scss' );
-
-  var BasicUserCard = require( '../../../../assets/img/game/basic-user-card.svg' );
-  var OpenSeatIcon = require( '../../../../assets/img/game/open-seat.svg' );
-  var JoinSeatIcon = require( '../../../../assets/img/game/join-seat.svg' ); 
-}
+import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
+import OpenSeatIcon from '../../../../assets/img/game/open-seat.svg';
+import JoinSeatIcon from '../../../../assets/img/game/join-seat.svg';
+import PlayerCards from '../player-cards/player-cards';
 
 export default class Player extends React.Component {
   constructor(props) {

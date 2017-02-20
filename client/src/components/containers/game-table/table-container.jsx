@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import * as gameStateApi from '../../../api/game-state-api';
 import store from '../../../store';
 
-import TopNavContainer from '../top-navigation/top-navigation.jsx';
-import GameTable from '../../views/game-table/game-table.jsx';
+import TopNavContainer from '../top-navigation/top-navigation';
+import GameTable from '../../views/game-table/game-table';
 
 class TableContainer extends React.Component{
 

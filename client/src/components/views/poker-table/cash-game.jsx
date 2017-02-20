@@ -1,16 +1,14 @@
 import React from 'react';
 import { Router, browserHistory } from 'react-router';
 
-if(process.env.WEBPACK) {
-  require('./poker-table.scss');
+import './poker-table.scss';
 
-  var UpArrowIcon = require( '../../../../assets/img/table/svg/up-arrow.svg' );
-  var DownArrowIcon = require( '../../../../assets/img/table/svg/down-arrow.svg' );
-  var SelectRoundIcon = require( '../../../../assets/img/table/svg/select-round.svg' );
-  var TickIcon = require( '../../../../assets/img/table/svg/tick.svg' );
-  var HotIcon = require( '../../../../assets/img/table/svg/hot.svg' );
-  var ColdIcon = require( '../../../../assets/img/table/svg/cold.svg' );
-}
+var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
+var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
+import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
+import TickIcon from '../../../../assets/img/table/svg/tick.svg';
+import HotIcon from '../../../../assets/img/table/svg/hot.svg';
+import ColdIcon from '../../../../assets/img/table/svg/cold.svg';
 
 export default class CashGameTable extends React.Component{
 
@@ -18,7 +16,7 @@ export default class CashGameTable extends React.Component{
     super(props);
     this.tableHeaders = [
     {
-      text: 'Table Name12',
+      text: 'Table Name',
       key: 'name',
       sortOrder: 1
     },
@@ -44,17 +42,7 @@ export default class CashGameTable extends React.Component{
       key: 'join'
     }];
     this.sortType = ['asc', 'desc'];
-    this.sortIcons = [
-    <div className="down-icon-container">
-      <div className="sort-icon-wrapper icon-wrapper" 
-        style={{backgroundImage: `url(${DownArrowIcon})`}}>
-      </div>
-    </div>,
-    <div className="up-icon-container">
-      <div className="sort-icon-wrapper icon-wrapper" 
-        style={{backgroundImage: `url(${UpArrowIcon})`}}>
-      </div>
-    </div>];
+    this.sortIcons = [<DownArrowIcon />, <UpArrowIcon />];
     this.currentSortIndex = 0;
     this.hotIcon = <div className="hot-icon-container">
                       <div className="action-icon-wrapper icon-wrapper" 
