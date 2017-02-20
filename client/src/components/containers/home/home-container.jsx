@@ -38,9 +38,6 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.dispatch(connectUnauthorizedSocket());
     this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
-  }
-
-  render() {
     $('document').ready(()=>{
       document.getElementById('dp').height = document.getElementById('dp').width;
         // Get the button that opens the modal
@@ -48,10 +45,14 @@ class Home extends React.Component {
 
       // When the user clicks the button, open the modal 
       btn.onclick = function() {
-          
-          //modal.style.display = 'block';
+          var modal = document.getElementById('login');   
+          modal.style.display = 'block';
       }
     });
+  }
+
+  render() {
+    
     return (
       <div className="home">
         <nav role="main">
@@ -226,7 +227,7 @@ class Home extends React.Component {
             </div>
           </div>
         </section>
-        <Login />
+        <Login postLogin={()=>{}}/>
       </div>
     )
   }

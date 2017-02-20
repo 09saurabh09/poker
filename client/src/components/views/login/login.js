@@ -17,7 +17,7 @@ export default class Login extends React.Component {
         password: ''
       };
       $(document).ready(()=>{
-        var modal = document.getElementsByClassName('modal')[0];
+        var modal = document.getElementById('login');
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {

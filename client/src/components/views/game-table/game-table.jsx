@@ -16,7 +16,6 @@ export default class GameTable extends React.Component{
 
   constructor(props) {
     super(props);
-    debugger;
     this.state = {
       players : [],
       gameState: {
@@ -162,26 +161,36 @@ export default class GameTable extends React.Component{
       playerInfo: {
           chips: balance,
           isMaintainChips: maintainStack,
-          seat
+          seat: seat - 1
       }
     } );
   }
 
-  onFoldAction() {
+  onGameAction(call, amount) {
     this.props.authorizedSocket.emit('player-turn', {
       "tableId": this.props.tableId,
-      call : "fold",
-      amount : 0
+      call,
+      amount
     })
   }
 
   render() {
     let {gameState : game, players} = this.state;
-    debugger;
-    let myTurn = true;//this.state.players[this.state.turnPos] && this.state.players[this.state.turnPos].id == this.props.userData.id;
+    let myTurn = false, playersPlaying = 0;
+    players.forEach((player)=>{
+      if(!!player) {
+        playersPlaying++;
+      }
+      if(player && (player.id == this.props.userData.id) && (game.turnPos == player.seat - 1)) {
+        myTurn = true;
+      }
+    });
+    game.minRaise = 10;
+    game.maxRaise = 1000;
+    myTurn = myTurn && playersPlaying > 1 && game.minRaise < game.maxRaise;
     let gameActionsElement = <div className="game-actions-container">
-                                <GameActions range={{min: 10, max: 100, 
-                                  potValue: game.totalPot, step: 1}} callValue={game.callValue} onFold={this.onFoldAction.bind(this)} />
+                                <GameActions range={{min: game.minRaise, max: game.maxRaise, 
+                                  potValue: game.totalPot, step: 1}} callValue={game.callValue} onAction={this.onGameAction.bind(this)} />
                               </div> ;
     return (
       <div className='game-table'>
@@ -207,7 +216,8 @@ export default class GameTable extends React.Component{
             )}
         </div>
         {game.minAmount != game.maxAmount ? <BuyinPref bbValue={{min:game.minAmount/game.bigBlind, max:game.maxAmount/game.bigBlind, 
-                                                        value: game.minAmount/game.bigBlind, step:game.bigBlind}} bigBlind={game.bigBlind} onSet={this.joinSeat.bind(this)}/> 
+                                                        value: game.minAmount/game.bigBlind, step:game.bigBlind}} 
+                                                        bigBlind={game.bigBlind} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
         <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)}/>
       </div>

@@ -10,6 +10,9 @@ class TableContainer extends React.Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      gameData: this.props.gameData || {}
+    }
   }
 
   componentWillMount() {
@@ -26,7 +29,9 @@ class TableContainer extends React.Component{
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    
+    this.setState({
+      gameData: nextProps.gameData
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -47,12 +52,30 @@ class TableContainer extends React.Component{
 
     socket.on('player-joined', (data)=>{
       console.log( socket.nsp, ' Player joined', data);
+      this.setState({
+        gameData: {[data.tableId]: data}
+      })
     });
     socket.on('turn-completed', (data)=>{
       console.log( socket.nsp,' turn-completed', data);
+      this.setState({
+        gameData: {[data.tableId]: data}
+      })
     });
     socket.on('game-started', (data)=>{
       console.log(socket.nsp, 'game started data ', data);
+      let newCards = data;
+      let newGameState = this.state.gameData[tableId];
+      let players = newGameState.players;
+      players.forEach((player)=>{
+        if(player && (player.id == this.props.userData.id)) {
+          player.cards = newCards;
+        }
+      })
+
+      this.setState({
+        gameData: {[tableId]: newGameState}
+      })
     });
   }
 
@@ -74,7 +97,7 @@ class TableContainer extends React.Component{
       <div className="table-container">
         <TopNavContainer runningGames={this.props.runningGames} 
           unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
-        <GameTable tableId={this.props.params.id} gameData={this.props.gameData} userData={this.props.userData}
+        <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket}/>
       </div>
     );

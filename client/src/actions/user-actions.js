@@ -3,7 +3,7 @@ import * as types from '../actions/action-types';
 export function authenticateUserSuccess(data) {
   return {
     type: types.AUTHENTICATE_USER_SUCCESS,
-    userToken: data.token
+    user: data
   };
 }
 

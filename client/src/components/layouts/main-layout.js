@@ -10,7 +10,7 @@ export default class App extends React.Component {
   componentDidMount() {
     let token = localStorage.getItem('userToken');
     if(token) {
-      userApi.getUserInfo(token, 'small');  
+      userApi.getUserInfo(token, 'large');  
     }
   }
 
