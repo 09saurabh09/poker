@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as gameStateApi from '../../../api/game-state-api';
-import store from '../../../store';
 
+import { updateUserCards } from '../../../actions/user-actions';
 import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table';
 
@@ -29,8 +29,11 @@ class TableContainer extends React.Component{
   }
 
   componentWillReceiveProps(nextProps, nextState) {
+    let tableId = nextProps.params.id;
+    let oldGameState = nextProps.gameData[tableId];
+    let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId]);
     this.setState({
-      gameData: nextProps.gameData
+      gameData: {[tableId]: newGameState}
     })
   }
 
@@ -47,32 +50,38 @@ class TableContainer extends React.Component{
     }
   }
 
+  addCardsToPlayer(gameState, cards) {
+    let newGameState = gameState;
+    let players = newGameState.players;
+    players.forEach((player)=>{
+      if(player && (player.id == this.props.userData.id)) {
+        player.cards = cards;
+      }
+    })
+    return newGameState;
+  }
+
   performSocketActions(socket, tableId) {
     socket.emit('game-subscribe-gameState', { tableId: tableId });
 
     socket.on('player-joined', (data)=>{
       console.log( socket.nsp, ' Player joined', data);
+      let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
       this.setState({
-        gameData: {[data.tableId]: data}
+        gameData: {[data.tableId]: newGameState}
       })
     });
     socket.on('turn-completed', (data)=>{
       console.log( socket.nsp,' turn-completed', data);
+      let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
       this.setState({
-        gameData: {[data.tableId]: data}
+        gameData: {[data.tableId]: newGameState}
       })
     });
-    socket.on('game-started', (data)=>{
-      console.log(socket.nsp, 'game started data ', data);
-      let newCards = data;
-      let newGameState = this.state.gameData[tableId];
-      let players = newGameState.players;
-      players.forEach((player)=>{
-        if(player && (player.id == this.props.userData.id)) {
-          player.cards = newCards;
-        }
-      })
-
+    socket.on('game-started', (cards)=>{
+      console.log(socket.nsp, 'game started cards ', cards);
+      let newGameState = this.addCardsToPlayer(this.state.gameData[tableId], cards);
+      this.props.dispatch(updateUserCards({tableId, cards}))
       this.setState({
         gameData: {[tableId]: newGameState}
       })
@@ -107,6 +116,7 @@ class TableContainer extends React.Component{
 const mapStateToProps = function(state) {
   return {
     userData: state.userState.userData,
+    userCards: state.userState.userCards,
     socket: state.socket,
     runningGames : state.gameState.runningGames,
     gameData: state.gameState.gameData

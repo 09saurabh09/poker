@@ -156,14 +156,16 @@ export default class GameTable extends React.Component{
     })
     var modal = document.getElementById('buyin-pref');
     modal.style.display = 'none';
-    this.props.authorizedSocket.emit('table-join', {
+    let payload = {
       tableId: this.props.tableId,
       playerInfo: {
           chips: balance,
           isMaintainChips: maintainStack,
           seat: seat - 1
       }
-    } );
+    };
+    this.props.authorizedSocket.emit('table-join', payload );
+    console.log('Event emited table-join with payload ', payload)
   }
 
   onGameAction(call, amount) {

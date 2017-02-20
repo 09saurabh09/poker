@@ -23,10 +23,10 @@ export function getUsersSuccess(users) {
   };
 }
 
-export function deleteUserSuccess(userId) {
+export function updateUserCards(data) {
   return {
-    type: types.DELETE_USER_SUCCESS,
-    userId
+    type: types.UPDATE_USER_CARDS,
+    data
   };
 }
 

@@ -1,9 +1,9 @@
 import * as types from '../actions/action-types';
-import _ from 'lodash';
 
 const initialState = {
   userToken: null,
-  userData: {}
+  userData: {},
+  userCards: {}
 };
 
 const userReducer = function(state = initialState, action) {
@@ -20,11 +20,11 @@ const userReducer = function(state = initialState, action) {
     case types.GET_USERS_SUCCESS:
       return Object.assign({}, state, { users: action.users });
 
-    case types.DELETE_USER_SUCCESS:
+    case types.UPDATE_USER_CARDS:
 
-      // Use lodash to create a new user array without the user we want to remove
-      const newUsers = _.filter(state.users, user => user.id != action.userId);
-      return Object.assign({}, state, { users: newUsers });
+      return Object.assign({}, state, { userCards: {
+        [action.data.tableId] : action.data.cards
+      } });
 
     case types.USER_INFO_SUCCESS:
       return Object.assign({}, state, { userData: action.userInfo.data });
