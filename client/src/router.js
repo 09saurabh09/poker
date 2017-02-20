@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 
 // Layouts
 import GameLayout from './components/layouts/loby/loby-layout';
-
+import App from './components/layouts/main-layout';
 // Pages
 import Home from './components/containers/home/home-container';
 import CashGameContainer from './components/containers/loby/cash-game/cash-game-container';
@@ -11,7 +11,7 @@ import TournamentContainer from './components/containers/loby/tournament/tournam
 import TableContainer from './components/containers/game-table/table-container';
 
 export default (
-	<Route>
+	<Route component={App}>
 		<Route path="/" component={Home} />
 		<Route path="/cash-game">
 			<Route component={GameLayout} >

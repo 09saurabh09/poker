@@ -44,7 +44,7 @@ export default class GameActions extends React.Component{
   }
 
   onFoldClick(event) {
-    
+     
   }
 
   onCallClick(event) {
@@ -91,7 +91,7 @@ export default class GameActions extends React.Component{
           </div>
           <div className="actions space-between">
             <div className="button-container">
-              <a onClick={this.onFoldClick.bind(this)} className="button">Fold</a>
+              <a onClick={this.props.onFold.bind(this)} className="button">Fold</a>
             </div>
             <div className="button-container">
               <a onClick={this.onCallClick.bind(this)} className="button"><span>Call</span> <span>{this.props.callValue}</span></a>

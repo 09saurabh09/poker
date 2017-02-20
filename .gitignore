@@ -49,6 +49,7 @@ jspm_packages
 
 #build files
 build
+dist
 
 DS_Store
 /.DS_Store

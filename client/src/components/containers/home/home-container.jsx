@@ -48,7 +48,8 @@ class Home extends React.Component {
 
       // When the user clicks the button, open the modal 
       btn.onclick = function() {
-          modal.style.display = 'block';
+          
+          //modal.style.display = 'block';
       }
     });
     return (
@@ -231,12 +232,12 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = function(store) {
+const mapStateToProps = function(state) {
   return {
-    socket: store.socket,
-    userData: store.userData,
-    runningGames : store.gameState.runningGames,
-    gameData: store.gameState.gameData
+    socket: state.socket,
+    userData: state.userState.userData,
+    runningGames : state.gameState.runningGames,
+    gameData: state.gameState.gameData
   };
 };
 
