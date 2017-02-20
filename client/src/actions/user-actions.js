@@ -30,9 +30,9 @@ export function deleteUserSuccess(userId) {
   };
 }
 
-export function userProfileSuccess(userProfile) {
+export function UserInfoSuccess(userInfo) {
   return {
-    type: types.USER_PROFILE_SUCCESS,
-    userProfile
+    type: types.USER_INFO_SUCCESS,
+    userInfo
   };
 }

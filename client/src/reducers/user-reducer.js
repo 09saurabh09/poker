@@ -2,7 +2,8 @@ import * as types from '../actions/action-types';
 import _ from 'lodash';
 
 const initialState = {
-  userToken: null
+  userToken: null,
+  userData: {}
 };
 
 const userReducer = function(state = initialState, action) {
@@ -24,8 +25,8 @@ const userReducer = function(state = initialState, action) {
       const newUsers = _.filter(state.users, user => user.id != action.userId);
       return Object.assign({}, state, { users: newUsers });
 
-    case types.USER_PROFILE_SUCCESS:
-      return Object.assign({}, state, { userProfile: action.userProfile });
+    case types.USER_INFO_SUCCESS:
+      return Object.assign({}, state, { userData: action.userInfo.data });
 
   }
 

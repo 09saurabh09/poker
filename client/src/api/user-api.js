@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import utils from '../utils/utils';
-import { authenticateUserSuccess, signupUserSuccess, getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actions/user-actions';
+import { authenticateUserSuccess, signupUserSuccess, getUsersSuccess, deleteUserSuccess, UserInfoSuccess } from '../actions/user-actions';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
 
 /**
@@ -29,6 +29,24 @@ export function signup(email, password) {
   })
     .then(response => {
       store.dispatch(signupUserSuccess(response.data));
+      return response;
+    });
+} 
+
+/**
+  * User info
+  */
+
+export function getUserInfo(token, responseGroup) {
+  return axios({
+    method: 'get',
+    url: utils.getUserInfoUrl(responseGroup),
+    headers: {
+        'X-Access-Token' : token
+      }
+    })
+    .then(response => {
+      store.dispatch(UserInfoSuccess(response.data));
       return response;
     });
 } 
