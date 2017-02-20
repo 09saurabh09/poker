@@ -22,13 +22,19 @@ class TableContainer extends React.Component{
     gameStateApi.getGameState(tableId);
     socket.unAuthorizedSocket.emit('game-subscribe-gameState', { tableUniqueId: tableId });
     socket.unAuthorizedSocket.on('player-joined', (data)=>{
-      console.log('unAuthorizedSocket' + data);
+      console.log('unAuthorizedSocket Player joined', data);
+    });
+    socket.authorizedSocket && socket.authorizedSocket.on('player-joined', (data)=>{
+      console.log('authorizedSocket Player joined', data);
     });
     socket.unAuthorizedSocket.on('turn-completed', (data)=>{
-      console.log(data);
+      console.log('unauthorizedSocket turn-completed', data);
+    });
+    socket.authorizedSocket && socket.authorizedSocket.on('turn-completed', (data)=>{
+      console.log('authorizedSocket turn-completed', data);
     });
     socket.authorizedSocket && socket.authorizedSocket.on('game-started', (data)=>{
-      console.log(data);
+      console.log('game started data ', data);
     });
   }
 
@@ -37,8 +43,14 @@ class TableContainer extends React.Component{
     let tableId = params.id;
     if(socket.authorizedSocket && !this.props.socket.authorizedSocket) {
       socket.authorizedSocket.emit('game-subscribe-gameState', { tableUniqueId: tableId });
+      socket.authorizedSocket.on('player-joined', (data)=>{
+        console.log('authorizedSocket Player joined', data);
+      });
+      socket.authorizedSocket && socket.authorizedSocket.on('turn-completed', (data)=>{
+        console.log('authorizedSocket turn-completed', data);
+      });
       socket.authorizedSocket.on('game-started', (data)=>{
-        console.log(data);
+        console.log('game started data ', data);
       });
     }
   }

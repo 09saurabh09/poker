@@ -48,7 +48,8 @@ class Home extends React.Component {
 
       // When the user clicks the button, open the modal 
       btn.onclick = function() {
-          modal.style.display = 'block';
+          
+          //modal.style.display = 'block';
       }
     });
     return (
