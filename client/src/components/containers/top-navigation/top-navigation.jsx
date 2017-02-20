@@ -12,7 +12,7 @@ export default class TopNavContainer extends React.Component{
     super(props);
   }
 
-  render(props) {
+  render() {
     return (
       <div className="top-nav-container">
         <div id="top-drawer">
@@ -28,7 +28,7 @@ export default class TopNavContainer extends React.Component{
                   </div>
                   <div className="name-balance">
                     <div className="user-name">
-                      Adeline Daniel
+                      {this.props.userData.name}
                     </div>
                     <div className="balance">
                       Balance : $123
