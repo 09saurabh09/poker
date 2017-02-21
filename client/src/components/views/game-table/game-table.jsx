@@ -168,7 +168,7 @@ export default class GameTable extends React.Component{
   }
 
   onGameAction(call, amount) {
-    payload = {
+    let payload = {
       tableId : this.props.tableId,
       call,
       amount

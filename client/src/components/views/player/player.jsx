@@ -16,7 +16,7 @@ export default class Player extends React.Component {
 
   setTimer() {
     clearTimeout(this.timerId);
-    if(this.props.player.active && this.state.timeElapsed < this.props.player.timer) {
+    if((this.props.player.seat - 1 == this.props.turnPos) && this.state.timeElapsed < this.props.player.timer) {
       this.timerId = setTimeout(()=>{
         this.setState({
           timeElapsed: this.state.timeElapsed + 1
@@ -58,8 +58,8 @@ export default class Player extends React.Component {
 
 
   render() {
-    let activeClassName = this.props.player.active? 'active' : '';
-    let onTableClassName = this.props.player.onTable ? 'on-table' : '';
+    let activeClassName = (this.props.player.seat - 1 == this.props.turnPos) ? 'active' : '';
+    let onTableClassName = this.props.player.hasDone === false ? 'on-table' : '';
     let seatOpen = this.props.player.seatOpen ? 'hide' : '';
     let playing = !this.props.player.seatOpen ? 'hide' : '';
     let timeElapsed = ( this.state.timeElapsed )/this.props.player.timer * 100 ;
@@ -83,7 +83,7 @@ export default class Player extends React.Component {
       timerLeftHeight = (timeElapsed - 75) * 4 + '%';
     }
 
-    if(!this.props.player.active) {
+    if(this.props.player.seat - 1 !== this.props.turnPos) {
       clearTimeout(this.timerId);
       this.timerId = undefined;
       timerTopWidth = timerRightHeight = timerBottomWidth = timerLeftHeight = 0;
