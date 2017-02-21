@@ -13,19 +13,67 @@ import RadioElement from '../radio-element/radio-element';
 
 export default class CashGameFilter extends React.Component {
 	constructor(props) {
-			super(props);
-      this.login = this.login.bind(this);
-      window.onclick = (event) => {
-        var modal = document.getElementById('cash-game-filter');
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
+		super(props);
+    this.state = {
+      count: 0,
+      alreadyOn: false,
+      joinNow: false,
+      filterData: this.props.tableContents
     }
-
 	}
 
-  login() {
-    alert('login');
+  componentWillReceiveProps(nextProps, nextState) {
+    this.setState({
+      filterData: nextProps.tableContents
+    })
+  }
+
+  componentDidMount() {
+    window.onclick = (event) => {
+      var modal = document.getElementById('cash-game-filter');
+      if (event.target == modal) {
+          modal.style.display = 'none';
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /*debugger;
+    let count = 10;
+    this.setState({
+      count
+    })*/
+  }
+
+  updateCount(filter) {
+    let {joinNow, alreadyOn} = this.state;
+    
+    joinNow = filter.joinNow !== undefined ? filter.joinNow : joinNow;
+    alreadyOn = filter.alreadyOn !== undefined ? filter.alreadyOn : alreadyOn;
+    let newTableContents = this.props.tableContents.filter((item)=>{
+      return item.userJoined == alreadyOn && item.userJoined != joinNow
+    });
+    return newTableContents;
+  }
+
+  onJoinNow(event) {
+    let joinNow = event.target.checked;
+    let filterData = this.updateCount({joinNow});
+    this.setState({
+      joinNow,
+      count : filterData.length,
+      filterData
+    })
+  }
+
+  onAlreadyOn(event) {
+    let alreadyOn = event.target.checked;
+    let filterData = this.updateCount({alreadyOn});
+    this.setState({
+      alreadyOn,
+      count : filterData.length,
+      filterData
+    })
   }
 
 	render() {
@@ -37,10 +85,10 @@ export default class CashGameFilter extends React.Component {
           <div className="bottom-sheet-header margin-b-16">
             <div className="uppercase select-filter">Select your filter</div>
             <div className="already-open-container">
-              <CheckboxElement label="Already On" checkboxId="already-open"/>
+              <CheckboxElement label="Already On" checkboxId="already-open" checked={this.state.alreadyOn} onChangeCheckbox={this.onAlreadyOn.bind(this)}/>
             </div>
             <div className="join-now">
-              <CheckboxElement label="Join Now" checkboxId="join-now"/>
+              <CheckboxElement label="Join Now" checkboxId="join-now" checked={this.state.joinNow} onChangeCheckbox={this.onJoinNow.bind(this)}/>
             </div>
           </div>
           <div className="bottom-sheet-body">
@@ -120,9 +168,9 @@ export default class CashGameFilter extends React.Component {
               <div className="col-lg-2 ">
                 <div className="result-container">
                   <div className="text-uppercase result-text">Result</div>
-                  <div className="result-value">13</div>
+                  <div className="result-value">{this.state.count}</div>
                   <div className="button-container">
-                    <button className="button text-uppercase" href> Apply </button>
+                    <button className="button text-uppercase" onClick={this.props.applyFilter.bind(null, this.state.filterData)}> Apply </button>
                   </div>
                 </div>
               </div>
