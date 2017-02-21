@@ -106,7 +106,7 @@ class TableContainer extends React.Component{
   render() {
     return (
       <div className="table-container">
-        <TopNavContainer runningGames={this.props.runningGames} userData={this.props.userData}
+        <TopNavContainer myTables={this.props.myTables} userData={this.props.userData} tableId={this.props.params.id}
           unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket}/>
@@ -120,7 +120,7 @@ const mapStateToProps = function(state) {
     userData: state.userState.userData,
     userCards: state.userState.userCards,
     socket: state.socket,
-    runningGames : state.gameState.runningGames,
+    myTables : state.userState.myTables,
     gameData: state.gameState.gameData
   };
 };

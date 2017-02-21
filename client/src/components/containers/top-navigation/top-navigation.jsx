@@ -31,7 +31,7 @@ export default class TopNavContainer extends React.Component{
                       {this.props.userData.name}
                     </div>
                     <div className="balance">
-                      Balance : $123
+                      {`Balance : ${this.props.userData.currentBalance}`}
                     </div>
                   </div>
                 </div>
@@ -46,9 +46,9 @@ export default class TopNavContainer extends React.Component{
                   <div className="left-arrow">LOBBY</div>
                 </Link>
                 <div className="playing-tables">
-                  {this.props.runningGames.map((game, index)=>
-                    <div key={index} className={game.active? 'active play-card' : 'play-card'}>
-                      <PlayerCards cards={game.cards}/>
+                  {this.props.myTables.map((table, index)=>
+                    <div key={index} className={table.id == this.props.tableId ? 'active play-card' : 'play-card'}>
+                      <PlayerCards cards={table.userCards}/>
                     </div>
                     )}
                   <div className="play-card plus-game">

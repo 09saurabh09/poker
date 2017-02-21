@@ -99,7 +99,7 @@ class Home extends React.Component {
                       {this.props.userData.name}
                     </div>
                     <div className="balance">
-                      Balance : $6218 
+                      {`Balance : ${this.props.userData.currentBalance}`}
                     </div>
                   </div>
                   <div className="review-icon-container">
@@ -237,7 +237,6 @@ const mapStateToProps = function(state) {
   return {
     socket: state.socket,
     userData: state.userState.userData,
-    runningGames : state.gameState.runningGames,
     gameData: state.gameState.gameData
   };
 };

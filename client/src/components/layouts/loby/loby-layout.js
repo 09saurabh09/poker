@@ -29,7 +29,7 @@ export default (props) => {
                   {props.userData.name}
                 </div>
                 <div className="balance">
-                  Balance : $6218 
+                  {`Balance : ${props.userData.currentBalance}`}
                 </div>
               </div>
             </div>
