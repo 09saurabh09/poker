@@ -56,6 +56,10 @@ class UrlUtils {
 		return `${this.getUserUrl()}?responseGroup=${responseGroup}`;
 	}
 
+	getListMyTablesUrl() {
+		return `${this.getGameUrl()}/list-my-tables`;
+	}
+
 	constructor() {
 
 	}

@@ -144,8 +144,7 @@ export default class GameTable extends React.Component{
         return {
           name : this.props.userData.name,
           balance : balance,
-          bbValue: balance/game.bigBlind,
-          onTable : true
+          bbValue: balance/game.bigBlind
         }
       } else {
         return player;
@@ -161,7 +160,7 @@ export default class GameTable extends React.Component{
       playerInfo: {
           chips: balance,
           isMaintainChips: maintainStack,
-          seat: seat - 1
+          seat: seat + 1
       }
     };
     this.props.authorizedSocket.emit('table-join', payload );
@@ -169,11 +168,13 @@ export default class GameTable extends React.Component{
   }
 
   onGameAction(call, amount) {
-    this.props.authorizedSocket.emit('player-turn', {
-      "tableId": this.props.tableId,
+    payload = {
+      tableId : this.props.tableId,
       call,
       amount
-    })
+    }
+    console.log('Event emited table-join with payload ', payload)
+    this.props.authorizedSocket.emit('player-turn', payload);
   }
 
   render() {
@@ -187,8 +188,9 @@ export default class GameTable extends React.Component{
         myTurn = true;
       }
     });
-    game.minRaise = 10;
-    game.maxRaise = 1000;
+    game.minRaise = parseInt(game.minRaise) || 10;
+    game.maxRaise = parseInt(game.maxRaise) || 1000;
+    game.callValue = parseInt(game.callValue) || 0;
     myTurn = myTurn && playersPlaying > 1 && game.minRaise < game.maxRaise;
     let gameActionsElement = <div className="game-actions-container">
                                 <GameActions range={{min: game.minRaise, max: game.maxRaise, 

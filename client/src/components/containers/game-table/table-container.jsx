@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as gameStateApi from '../../../api/game-state-api';
+import * as userApi from '../../../api/user-api';
 
 import { updateUserCards } from '../../../actions/user-actions';
 import TopNavContainer from '../top-navigation/top-navigation';
@@ -24,6 +25,7 @@ class TableContainer extends React.Component{
     let { socket, dispatch, params } = this.props;
     let tableId = params.id;
     gameStateApi.getGameState(tableId);
+    userApi.getMyTables(tableId);
     this.socketOnConnect(socket.unAuthorizedSocket, tableId);
     this.socketOnConnect(socket.authorizedSocket, tableId);
   }

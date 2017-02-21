@@ -3,7 +3,8 @@ import * as types from '../actions/action-types';
 const initialState = {
   userToken: null,
   userData: {},
-  userCards: {}
+  userCards: {},
+  myTables: []
 };
 
 const userReducer = function(state = initialState, action) {
@@ -17,8 +18,14 @@ const userReducer = function(state = initialState, action) {
     case types.SIGNUP_USER_SUCCESS: 
       return Object.assign({}, state, {});
       
-    case types.GET_USERS_SUCCESS:
-      return Object.assign({}, state, { users: action.users });
+    case types.LIST_MYTABLES_SUCCESS:
+      let userCards = {};
+      let myTables = action.myTables;
+      myTables.forEach((table)=>{
+        let tableId = table.id;
+        userCards[tableId] = table.userCards;
+      })
+      return Object.assign({}, state, { myTables, userCards });
 
     case types.UPDATE_USER_CARDS:
 

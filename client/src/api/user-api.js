@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import utils from '../utils/utils';
-import { authenticateUserSuccess, signupUserSuccess, getUsersSuccess, deleteUserSuccess, UserInfoSuccess } from '../actions/user-actions';
+import { authenticateUserSuccess, signupUserSuccess, ListMyTablesSuccess, UserInfoSuccess } from '../actions/user-actions';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
 
 /**
@@ -37,7 +37,11 @@ export function signup(email, password) {
   * User info
   */
 
-export function getUserInfo(token, responseGroup) {
+export function getUserInfo(responseGroup) {
+  let token = localStorage.getItem('userToken');
+  if(!token) {
+    return;
+  }
   return axios({
     method: 'get',
     url: utils.getUserInfoUrl(responseGroup),
@@ -50,3 +54,22 @@ export function getUserInfo(token, responseGroup) {
       return response;
     });
 } 
+
+
+export function getMyTables() {
+  let token = localStorage.getItem('userToken');
+  if(!token) {
+    return;
+  }
+  return axios({
+    method: 'get',
+    url: utils.getListMyTablesUrl(),
+    headers: {
+        'X-Access-Token' : token
+      }
+    })
+    .then(response => {
+      store.dispatch(ListMyTablesSuccess(response.data && response.data.data));
+      return response;
+    });
+}
