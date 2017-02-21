@@ -80,13 +80,15 @@ class TableContainer extends React.Component{
         gameData: {[data.tableId]: newGameState}
       })
     });
-    socket.on('game-started', (cards)=>{
-      console.log(socket.nsp, 'game started cards ', cards);
-      let newGameState = this.addCardsToPlayer(this.state.gameData[tableId], cards);
-      this.props.dispatch(updateUserCards({tableId, cards}))
-      this.setState({
-        gameData: {[tableId]: newGameState}
-      })
+    socket.on('game-started', (data)=>{
+      console.log(socket.nsp, 'game started cards ', data.cards);
+      let newGameState = this.addCardsToPlayer(this.state.gameData[data.tableId], data.cards);
+      this.props.dispatch(updateUserCards({tableId: data.tableId, cards: data.cards}))
+      if(tableId == data.tableId) {
+        this.setState({
+          gameData: {[data.tableId]: newGameState}
+        })
+      }
     });
   }
 
