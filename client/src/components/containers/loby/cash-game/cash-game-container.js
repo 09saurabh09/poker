@@ -19,10 +19,19 @@ class CashGameContainer extends React.Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      filterData: this.props.tableData.tables
+    }
   }
 
   openCashGameFilter() {
     document.getElementById('cash-game-filter').style.display = 'block';
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    this.setState({
+      filterData: nextProps.tableData.tables
+    })
   }
 
   componentWillMount() {
@@ -41,10 +50,18 @@ class CashGameContainer extends React.Component{
     }
   }
 
-  render(props) {
+  updateTableContent(filterData) {
+    this.setState({
+      filterData
+    })
+    var modal = document.getElementById('cash-game-filter');
+    modal.style.display = 'none';
+  }
+
+  render() {
     return (
       <div>
-        <CashGameTable tableContents={this.props.tableData.tables} />
+        <CashGameTable tableContents={this.state.filterData} />
         <div className="filter-icon-container">
           <a onClick={this.openCashGameFilter.bind(this)} className="filter-icon-wrapper">
             <div className="filter-icon">
@@ -52,7 +69,7 @@ class CashGameContainer extends React.Component{
             </div>
           </a>
         </div>
-        <CashGameFilter />
+        <CashGameFilter tableContents={this.props.tableData.tables} applyFilter={this.updateTableContent.bind(this)}/>
       </div>
     );
   }

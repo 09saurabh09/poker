@@ -47,10 +47,9 @@ module.exports = {
                                 var token = jwt.sign(user, GlobalConstant.tokenSecret, {
                                     expiresIn: 24 * 60 * 60 // expires in 24 hours
                                 });
+                                user.token = token;
                                 response = new responseMessage.GenericSuccessMessage();
-                                response.data = {
-                                    token: token
-                                }
+                                response.data = user;
                                 callback(null, response, response.code);
 
                             } else {

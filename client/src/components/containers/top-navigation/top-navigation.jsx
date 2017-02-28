@@ -12,7 +12,7 @@ export default class TopNavContainer extends React.Component{
     super(props);
   }
 
-  render(props) {
+  render() {
     return (
       <div className="top-nav-container">
         <div id="top-drawer">
@@ -28,10 +28,10 @@ export default class TopNavContainer extends React.Component{
                   </div>
                   <div className="name-balance">
                     <div className="user-name">
-                      Adeline Daniel
+                      {this.props.userData.name}
                     </div>
                     <div className="balance">
-                      Balance : $123
+                      {`Balance : ${this.props.userData.currentBalance}`}
                     </div>
                   </div>
                 </div>
@@ -46,9 +46,11 @@ export default class TopNavContainer extends React.Component{
                   <div className="left-arrow">LOBBY</div>
                 </Link>
                 <div className="playing-tables">
-                  {this.props.runningGames.map((game, index)=>
-                    <div key={index} className={game.active? 'active play-card' : 'play-card'}>
-                      <PlayerCards cards={game.cards}/>
+                  {this.props.myTables.map((table, index)=>
+                    <div key={index} className={table.id == this.props.tableId ? 'active play-card' : 'play-card'}>
+                       <Link to={`/cash-game/${table.id}`} className="table-link">
+                        <PlayerCards cards={table.userCards}/>
+                      </Link>  
                     </div>
                     )}
                   <div className="play-card plus-game">

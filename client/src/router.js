@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 // Layouts
-import GameLayout from './components/layouts/loby/loby-layout';
-
+import LobyLayoutContainer from './components/containers/loby-layout-container';
+import MainLayoutContainer from './components/containers/main-layout-container';
 // Pages
 import Home from './components/containers/home/home-container';
 import CashGameContainer from './components/containers/loby/cash-game/cash-game-container';
@@ -11,17 +11,17 @@ import TournamentContainer from './components/containers/loby/tournament/tournam
 import TableContainer from './components/containers/game-table/table-container';
 
 export default (
-	<Route>
+	<Route component={MainLayoutContainer}>
 		<Route path="/" component={Home} />
 		<Route path="/cash-game">
-			<Route component={GameLayout} >
+			<Route component={LobyLayoutContainer} >
 				<IndexRoute component={CashGameContainer} />
 			</Route>
 			<Route path=":id" component={TableContainer} />	
 		</Route>
 		
 		<Route path="tournament">
-			<Route component={GameLayout} >
+			<Route component={LobyLayoutContainer} >
 				<IndexRoute component={TournamentContainer} />
 			</Route>
 		</Route>

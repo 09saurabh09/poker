@@ -97,10 +97,10 @@ class Home extends React.Component {
                 <div className="name-balance-review">
                   <div className="name-balance-container">
                     <div className="user-name">
-                      Adeline Daniel
+                      {this.props.userData.name}
                     </div>
                     <div className="balance">
-                      Balance : $6218 
+                      {`Balance : ${this.props.userData.currentBalance}`}
                     </div>
                   </div>
                   <div className="review-icon-container">
@@ -228,18 +228,17 @@ class Home extends React.Component {
             </div>
           </div>
         </section>
-        <Login />
+        <Login postLogin={()=>{}}/>
       </div>
     )
   }
 }
 
-const mapStateToProps = function(store) {
+const mapStateToProps = function(state) {
   return {
-    socket: store.socket,
-    userData: store.userData,
-    runningGames : store.gameState.runningGames,
-    gameData: store.gameState.gameData
+    socket: state.socket,
+    userData: state.userState.userData,
+    gameData: state.gameState.gameData
   };
 };
 

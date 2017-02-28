@@ -16,6 +16,46 @@ export default class GameTable extends React.Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      players : [],
+      gameState: {
+        tableId: 0,
+        turnPos: 0,
+        minAmount: 0,
+        maxAmount: 0,
+        minRaise: 0,
+        maxRaise: 0,
+        maxPlayer: 0,
+        potValue: 0,
+        totalPot: 0,
+        communityCards: [],
+        players: []
+      }
+    };
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    let game = nextProps.gameData[nextProps.tableId];
+    if(!game) {
+      return;
+    }
+    this.setState({
+      players : this.rotateIfPlaying(game.players),
+      gameState : {
+        ...game
+      }
+    })
+  }
+
+  componentWillMount() {
+    
+  }
+
+  componentDidMount() {
+    /*this.timerID = setInterval(
+      () => this.tick(),
+      20000
+    );*/
     $(document).ready(function() {
         $(window).resize(function() {
           if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
@@ -32,71 +72,6 @@ export default class GameTable extends React.Component{
           }
         }).resize();
     });
-    
-    this.game = this.props.gameData[this.props.tableId] || {
-      turnPos: 0,
-      minAmount: 0,
-      maxAmount: 0,
-      minRaise: 0,
-      maxRaise: 0,
-      maxPlayer: 0,
-      potValue: 0,
-      totalPot: 0,
-      communityCards: [],
-      players: []
-    };
-    this.state = {
-      players : this.game.players.map((player, seat)=>{
-        if(player === null) return null;
-        else {
-          return {
-            ...player, 
-            seat
-          }   
-        }
-        
-        }),
-      turnPos: this.game.turnPos
-    };
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    this.game = nextProps.gameData[nextProps.tableId] || {
-      turnPos: 0,
-      minAmount: 0,
-      maxAmount: 0,
-      minRaise: 0,
-      maxRaise: 0,
-      maxPlayer: 0,
-      potValue: 0,
-      totalPot: 0,
-      communityCards: [],
-      players: []
-    };
-    this.setState({
-      players : this.game.players.map((player, seat)=>{
-        if(player === null) return null;
-        else {
-          return {
-            ...player, 
-            seat
-          }   
-        }
-        
-        }),
-      turnPos: this.game.turnPos
-    })
-  }
-
-  componentWillMount() {
-    
-  }
-
-  componentDidMount() {
-    /*this.timerID = setInterval(
-      () => this.tick(),
-      20000
-    );*/
   }
 
   componentWillUnmount() {
@@ -120,6 +95,21 @@ export default class GameTable extends React.Component{
       potValue: this.game.potValue + 1,
       communityCards: tableCards
     });*/
+  }
+
+  rotateIfPlaying(players) {
+    let playing = false;
+    let seat;
+    players.forEach((player, index)=>{
+      if(player && player.id == this.props.userData.id) {
+        playing = true;
+        seat = index;
+      }
+    })
+    if(playing && seat !== undefined) {
+      return this.rotatePlayers(players, seat);
+    }
+    return players;
   }
 
   rotatePlayers(array, baseIndex) {
@@ -149,73 +139,100 @@ export default class GameTable extends React.Component{
   }
 
   joinSeat(balance, maintainStack, autoPost) {
+    let {gameState : game, players} = this.state;
     let seat = this.selectedSeat;
-    let allPlayers = this.state.players;
-    allPlayers = allPlayers.map((player, index) => {
+    let allPlayers;
+    allPlayers = players.map((player, index) => {
       if(index == seat) {
         return {
           name : this.props.userData.name,
           balance : balance,
-          bbValue: balance/this.game.bigBlind,
-          onTable : true
+          bbValue: balance/game.bigBlind
         }
       } else {
         return player;
       }
     })
-    /*allPlayers.forEach((player, index)=>{
-      if(index == seat) {
-        player.name = 'ITS ME!! Bitch';
-        player.onTable = !player.hasDone;
-      }
-    }); */
     this.setState({
       players : this.rotatePlayers(allPlayers, seat)
     })
     var modal = document.getElementById('buyin-pref');
     modal.style.display = 'none';
-    this.props.authorizedSocket.emit('table-join', {
-      "tableId": this.props.tableId,
-      "playerInfo": {
-          "chips": balance,
-          "isMaintainChips": maintainStack,
-          "seat": this.selectedSeat
+    let payload = {
+      tableId: this.props.tableId,
+      playerInfo: {
+          chips: balance,
+          isMaintainChips: maintainStack,
+          seat: seat + 1
       }
-    } );
+    };
+    this.props.authorizedSocket.emit('table-join', payload );
+    console.log('Event emited table-join with payload ', payload)
+  }
+
+  onGameAction(call, amount) {
+    let payload = {
+      tableId : this.props.tableId,
+      call,
+      amount: parseInt(amount)
+    }
+    console.log('Event emited table-join with payload ', payload)
+    this.props.authorizedSocket.emit('player-turn', payload);
+  }
+
+  leaveTable() {
+    let payload = {
+      tableId : this.props.tableId
+    }
+    console.log('Event emited table-join with payload ', payload)
+    this.props.authorizedSocket.emit('table-leave', payload);
   }
 
   render() {
-    
-    let myTurn = this.state.players[this.state.turnPos] && this.state.players[this.state.turnPos].id == this.props.userData.id;
+    let {gameState : game, players} = this.state;
+    let myTurn = false, playersPlaying = 0;
+    players.forEach((player)=>{
+      if(!!player) {
+        playersPlaying++;
+      }
+      if(player && (player.id == this.props.userData.id) && (game.turnPos == player.seat - 1)) {
+        myTurn = true;
+      }
+    });
+    game.minRaise = parseInt(game.minRaise) || 10;
+    game.maxRaise = parseInt(game.maxRaise) || 1000;
+    game.callValue = parseInt(game.callValue) || 0;
+    myTurn = myTurn && playersPlaying > 1 && game.minRaise < game.maxRaise;
     let gameActionsElement = <div className="game-actions-container">
-                                <GameActions range={{min: this.game.minRaise, max: this.game.maxRaise, 
-                                  potValue: this.game.totalPot, step: 1}} callValue={this.game.callValue}/>
+                                <GameActions range={{min: game.minRaise, max: game.maxRaise, 
+                                  potValue: game.totalPot, step: 1}} callValue={game.callValue} onAction={this.onGameAction.bind(this)} />
                               </div> ;
     return (
       <div className='game-table'>
         <div className='game-controls-container'>
-          <GameControls />  
+          <GameControls leaveTable={this.leaveTable.bind(this)}/>
         </div>
         {myTurn ? gameActionsElement : null}
         <div className='main-table'>
-            <GamePot potValue={this.game.potValue} totalPot={this.game.totalPot}/>
+            <GamePot potValue={game.potValue} totalPot={game.totalPot}/>
             <div className='table-center'>
-              {this.game.communityCards && this.game.communityCards.map((element, index)=> 
+              {game.communityCards && game.communityCards.map((element, index)=> 
                 <div key={index} className='game-cards-container'>
                   <Card card={element}/>
                 </div>
               )}
             </div>
-           {this.state.players.map((player, index)=> 
+           {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              {player !== null ? <Player turnPos={this.state.turnPos} player={player}/> : null }
+              {player !== null ? <Player turnPos={this.state.turnPos} player={player} bigBlind={game.bigBlind}/> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
-              {player && player.chipsValue ? <PlayerChips chipsValue={player.chipsValue} />: null }
+              {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }
             </div>
             )}
         </div>
-        {this.game.minAmount != this.game.maxAmount ? <BuyinPref bbValue={{min:this.game.minAmount/this.game.bigBlind, max:this.game.maxAmount/this.game.bigBlind, 
-                                                        value: this.game.minAmount/this.game.bigBlind, step:this.game.bigBlind}} bigBlind={this.game.bigBlind} onSet={this.joinSeat.bind(this)}/> 
+        {game.minAmount != game.maxAmount ? <BuyinPref bbValue={{min:game.minAmount/game.bigBlind, max:game.maxAmount/game.bigBlind, 
+                                                        value: game.minAmount/game.bigBlind, step:game.bigBlind}} 
+                                                        bigBlind={game.bigBlind} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
         <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)}/>
       </div>

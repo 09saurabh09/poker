@@ -3,7 +3,7 @@ import * as types from '../actions/action-types';
 export function authenticateUserSuccess(data) {
   return {
     type: types.AUTHENTICATE_USER_SUCCESS,
-    userToken: data.token
+    user: data
   };
 }
 
@@ -14,25 +14,23 @@ export function signupUserSuccess(data) {
   };
 }
 
-
-
-export function getUsersSuccess(users) {
+export function updateUserCards(data) {
   return {
-    type: types.GET_USERS_SUCCESS,
-    users
+    type: types.UPDATE_USER_CARDS,
+    data
   };
 }
 
-export function deleteUserSuccess(userId) {
+export function UserInfoSuccess(userInfo) {
   return {
-    type: types.DELETE_USER_SUCCESS,
-    userId
+    type: types.USER_INFO_SUCCESS,
+    userInfo
   };
 }
 
-export function userProfileSuccess(userProfile) {
+export function ListMyTablesSuccess(myTables) {
   return {
-    type: types.USER_PROFILE_SUCCESS,
-    userProfile
+    type: types.LIST_MYTABLES_SUCCESS,
+    myTables
   };
 }

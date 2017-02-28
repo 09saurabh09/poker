@@ -52,6 +52,14 @@ class UrlUtils {
 		return `${this.getPublicGameUrl()}/table/${tableId}`;
 	}
 
+	getUserInfoUrl(responseGroup) {
+		return `${this.getUserUrl()}?responseGroup=${responseGroup}`;
+	}
+
+	getListMyTablesUrl() {
+		return `${this.getGameUrl()}/list-my-tables`;
+	}
+
 	constructor() {
 
 	}

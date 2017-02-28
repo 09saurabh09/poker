@@ -16,7 +16,7 @@ export default class GameControls extends React.Component{
         <div className="game-control-icon-container pause-icon-container">
           <div className="game-control-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PauseIcon})`}}></div>
         </div>
-        <div className="game-control-icon-container close-icon-container">
+        <div className="game-control-icon-container close-icon-container" onClick={this.props.leaveTable}>
           <div className="game-control-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${CloseIcon})`}}></div>
         </div>
       </div>

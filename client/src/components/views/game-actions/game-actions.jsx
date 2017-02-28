@@ -6,7 +6,7 @@ import RangeSlider from '../range-slide/range-slide';
 export default class GameActions extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {value: this.props.range.value};
+    this.state = {value: this.props.range.value || 0};
   }
   onHalfClick() {
     this.setState({
@@ -41,18 +41,6 @@ export default class GameActions extends React.Component{
     if(value != this.state.value) {
       this.setState({value}); 
     }
-  }
-
-  onFoldClick(event) {
-    
-  }
-
-  onCallClick(event) {
-    
-  }
-
-  onRaiseClick(event) {
-    
   }
 
   render() {
@@ -91,13 +79,15 @@ export default class GameActions extends React.Component{
           </div>
           <div className="actions space-between">
             <div className="button-container">
-              <a onClick={this.onFoldClick.bind(this)} className="button">Fold</a>
+              <a href="#" onClick={this.props.onAction.bind(null, "fold", 0)} className="button">Fold</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onCallClick.bind(this)} className="button"><span>Call</span> <span>{this.props.callValue}</span></a>
+              <a href="#" onClick={this.props.onAction.bind(null, "callOrCheck", this.props.callValue)} className="button">
+                <span>{this.props.callValue ? `Call ${this.props.callValue}`: 'Check'}</span>
+              </a>
             </div>
             <div className="button-container">
-              <a onClick={this.onRaiseClick.bind(this)} className="button">Raise</a>
+              <a href="#" onClick={this.props.onAction.bind(null, "raise", this.state.value)} className="button">Raise</a>
             </div>
           </div>
         </form>
