@@ -51,7 +51,7 @@ export default class CashGameFilter extends React.Component {
     joinNow = filter.joinNow !== undefined ? filter.joinNow : joinNow;
     alreadyOn = filter.alreadyOn !== undefined ? filter.alreadyOn : alreadyOn;
     let newTableContents = this.props.tableContents.filter((item)=>{
-      return item.userJoined == alreadyOn && item.userJoined != joinNow
+      return !!item.userJoined == alreadyOn && !!item.userJoined != joinNow
     });
     return newTableContents;
   }
