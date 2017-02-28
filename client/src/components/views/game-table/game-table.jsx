@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './game-table.scss';
+//import './game-table.scss';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import OpenSeat from '../open-seat/open-seat';

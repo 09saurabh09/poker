@@ -1,7 +1,7 @@
 import React from 'react';
-import './game-actions.scss';
+//import './game-actions.scss';
 
-import RangeSlider from '../range-slide/range-slide';
+import RangeSlider from '../range-slide/range-slide.jsx';
 
 export default class GameActions extends React.Component{
   constructor(props) {

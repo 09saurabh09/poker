@@ -1,13 +1,22 @@
 import React from 'react';
-import './buyin-pref.scss';
+//import './buyin-pref.scss';
 
-import RangeSlider from '../range-slide/range-slide';
+import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
 import TournamentLogo from '../../../../assets/img/game/tournament-logo.svg';
 
 export default class BuyinPref extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: this.props.bbValue.value,
+      inputValue: this.props.bbValue.value * this.props.bigBlind,
+      maintainStack: true,
+      autoPost: true
+    };
+  }
+
+  componentDidMount() {
     $(document).ready(()=>{
       var modal = document.getElementById('buyin-pref');
 
@@ -18,12 +27,6 @@ export default class BuyinPref extends React.Component {
           }
       }
     })
-    this.state = {
-      value: this.props.bbValue.value,
-      inputValue: this.props.bbValue.value * this.props.bigBlind,
-      maintainStack: true,
-      autoPost: true
-    };
   }
 
   handleBlur(event) {

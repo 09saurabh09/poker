@@ -1,5 +1,5 @@
 import React from 'react';
-import './game-controls.scss';
+//import './game-controls.scss';
 
 import AddMoneyIcon from '../../../../assets/img/game/add-money.svg';
 import PauseIcon from '../../../../assets/img/game/pause.svg';

@@ -1,9 +1,9 @@
 import React from 'react';
-import './range-slide.scss';
+//import './range-slide.scss';
 
-import noUiSlider from '../../../plugins/nouislider.min.js';
-import '../../../plugins/nouislider.min.css';
-import '../../../plugins/wNumb.js';
+//import noUiSlider from '../../../plugins/nouislider.min.js';
+//import '../../../plugins/nouislider.min.css';
+//import '../../../plugins/wNumb.js';
 
 class RangeSlider extends React.Component {
   componentDidMount() {
@@ -24,7 +24,7 @@ class RangeSlider extends React.Component {
   }
 
   createSlider() {
-    var slider = this.slider = noUiSlider.create(this.sliderContainer, {...this.props});
+    var slider = this.slider = noUiSlider.create(this.sliderContainer, Object.assign({},this.props));
 
     if (this.props.onUpdate) {
       slider.on('update', this.props.onUpdate);

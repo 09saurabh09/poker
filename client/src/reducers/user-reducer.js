@@ -12,7 +12,7 @@ const userReducer = function(state = initialState, action) {
   switch(action.type) {
 
     case types.AUTHENTICATE_USER_SUCCESS:
-      let {token: userToken, ...userData} = action.user;
+      let {token: userToken, userData} = action.user;
       return Object.assign({}, state, { userToken, userData });
 
     case types.SIGNUP_USER_SUCCESS: 

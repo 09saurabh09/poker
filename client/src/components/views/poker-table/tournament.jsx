@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './poker-table.scss';
+//import './poker-table.scss';
 
-var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
-var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
+import UpArrowIcon from '../../../../assets/img/table/svg/up-arrow.svg';
+import DownArrowIcon from '../../../../assets/img/table/svg/down-arrow.svg';
 import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
 import TickIcon from '../../../../assets/img/table/svg/tick.svg';
 
@@ -35,17 +35,20 @@ export default class TournamentTable extends React.Component{
       key: 'join'
     }];
     this.sortType = ['asc', 'desc'];
-    this.sortIcons = [<DownArrowIcon />, <UpArrowIcon />];
+    this.sortIcons = [
+      <div className="sort-icon-container">
+        <Svg className="down-arrow-icon-wrapper icon-wrapper" markup={DownArrowIcon} />
+      </div>,
+      <div className="sort-icon-container">
+        <Svg className="up-arrow-icon-wrapper icon-wrapper" markup={UpArrowIcon} />
+      </div>
+    ];
     this.currentSortIndex = 0;
     this.TickIcon = <div className="join-icon-container">
-                      <div className="join-icon-wrapper icon-wrapper" 
-                        style={{backgroundImage: `url(${TickIcon})`}}>
-                      </div>
+                      <Svg className="join-icon-wrapper icon-wrapper" markup={TickIcon}/>
                     </div> ;
     this.SelectRoundIcon = <div className="join-icon-container">
-                      <div className="join-icon-wrapper icon-wrapper" 
-                        style={{backgroundImage: `url(${SelectRoundIcon})`}}>
-                      </div>
+                      <Svg className="join-icon-wrapper icon-wrapper" markup={SelectRoundIcon}/>
                     </div> ;
   }
 

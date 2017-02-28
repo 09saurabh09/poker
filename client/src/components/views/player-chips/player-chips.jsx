@@ -1,5 +1,5 @@
 import React from 'react';
-import './player-chips.scss';
+//import './player-chips.scss';
 
 import CoinIcon from '../../../../assets/img/game/coin.svg';
 

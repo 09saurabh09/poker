@@ -2,7 +2,7 @@ import React from 'react';
 //import './login.scss';
 
 import * as userApi from '../../../api/user-api';
-import Svg from '../Svg/Svg.jsx';
+import Svg from '../svg/svg.jsx';
 
 import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
 import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';

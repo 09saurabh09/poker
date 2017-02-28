@@ -25,7 +25,7 @@ import TournamentIcon from '../../../../assets/img/home/svg/tournament.svg';
 //var MyTournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/my-tournament.svg?name=MyTournamentIcon');
 import MyTournamentIcon from '../../../../assets/img/home/svg/my-tournament.svg';
 
-import Svg from '../../views/Svg/Svg.jsx';
+import Svg from '../../views/svg/svg.jsx';
 /*import './home.scss';*/
 
 import * as userApi from '../../../api/user-api';
@@ -57,7 +57,6 @@ class Home extends React.Component {
       <div className="home">
         <nav role="main">
           <div className="play-icon nav-link">
-            {/*<div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>*/}
             <Svg markup={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
           </div>
           <Link className="nav-link" to="/">
@@ -97,10 +96,10 @@ class Home extends React.Component {
                 <div className="name-balance-review">
                   <div className="name-balance-container">
                     <div className="user-name">
-                      {this.props.userData.name}
+                      {this.props.userData && this.props.userData.name || 'Guest User'}
                     </div>
                     <div className="balance">
-                      {`Balance : ${this.props.userData.currentBalance}`}
+                      {`Balance : ${this.props.userData && this.props.userData.currentBalance || 0}`}
                     </div>
                   </div>
                   <div className="review-icon-container">

@@ -1,5 +1,5 @@
 import React from 'react';
-import './player-cards.scss';
+//import './player-cards.scss';
 
 import Card from '../card/card'
 

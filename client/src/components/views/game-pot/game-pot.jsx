@@ -1,5 +1,5 @@
 import React from 'react';
-import './game-pot.scss';
+//import './game-pot.scss';
 
 export default class GamePot extends React.Component {
 

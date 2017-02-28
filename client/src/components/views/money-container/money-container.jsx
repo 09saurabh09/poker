@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './money-container.scss';
+//import './money-container.scss';
 
 import RealMoneyIcon from '../../../../assets/img/table/svg/real-money-icon.svg';
 import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg';

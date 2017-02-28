@@ -1,5 +1,5 @@
 import React from 'react';
-import './player.scss';
+//import './player.scss';
 
 import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
 import OpenSeatIcon from '../../../../assets/img/game/open-seat.svg';

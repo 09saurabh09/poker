@@ -1,12 +1,12 @@
 import React from 'react';
-import './filter.scss';
+//import './filter.scss';
 
-import '../../../plugins/nouislider.min.css';
+/*import '../../../plugins/nouislider.min.css';*/
 
 import HoldemIcon from '../../../../assets/img/table/svg/2-cards.svg';
 import OmahaIcon from '../../../../assets/img/table/svg/4-cards.svg';
 
-import RangeSlider from '../range-slide/range-slide';
+import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
 import SwitchElement from '../switch-element/switch-element';
 import RadioElement from '../radio-element/radio-element';
