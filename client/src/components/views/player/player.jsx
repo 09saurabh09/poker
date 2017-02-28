@@ -111,10 +111,10 @@ export default class Player extends React.Component {
               </div>
               <div className='player-money'>
                 <div className='player-balance'>
-                  {this.props.player.balance}
+                  {this.props.player.chips}
                 </div>
                 <div className='player-bb'>
-                  BB <span className='bb-value'> {this.props.player.bbValue} </span>
+                  BB <span className='bb-value'> {this.props.player.chips/this.props.bigBlind} </span>
                 </div>
               </div>
               <div>

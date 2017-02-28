@@ -31,8 +31,11 @@ class TableContainer extends React.Component{
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    let tableId = nextProps.params.id;
+    let tableId = nextProps.params.id; 
     let oldGameState = nextProps.gameData[tableId];
+    if(!oldGameState) {
+      return;
+    }
     let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId]);
     this.setState({
       gameData: {[tableId]: newGameState}
@@ -53,6 +56,9 @@ class TableContainer extends React.Component{
   }
 
   addCardsToPlayer(gameState, cards) {
+    if(!gameState) {
+      return;
+    }
     let newGameState = gameState;
     let players = newGameState.players;
     players.forEach((player)=>{

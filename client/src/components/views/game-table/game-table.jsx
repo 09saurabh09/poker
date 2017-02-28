@@ -36,6 +36,9 @@ export default class GameTable extends React.Component{
 
   componentWillReceiveProps(nextProps, nextState) {
     let game = nextProps.gameData[nextProps.tableId];
+    if(!game) {
+      return;
+    }
     this.setState({
       players : this.rotateIfPlaying(game.players),
       gameState : {
@@ -171,10 +174,18 @@ export default class GameTable extends React.Component{
     let payload = {
       tableId : this.props.tableId,
       call,
-      amount
+      amount: parseInt(amount)
     }
     console.log('Event emited table-join with payload ', payload)
     this.props.authorizedSocket.emit('player-turn', payload);
+  }
+
+  leaveTable() {
+    let payload = {
+      tableId : this.props.tableId
+    }
+    console.log('Event emited table-join with payload ', payload)
+    this.props.authorizedSocket.emit('table-leave', payload);
   }
 
   render() {
@@ -199,7 +210,7 @@ export default class GameTable extends React.Component{
     return (
       <div className='game-table'>
         <div className='game-controls-container'>
-          <GameControls />
+          <GameControls leaveTable={this.leaveTable.bind(this)}/>
         </div>
         {myTurn ? gameActionsElement : null}
         <div className='main-table'>
@@ -213,9 +224,9 @@ export default class GameTable extends React.Component{
             </div>
            {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              {player !== null ? <Player turnPos={this.state.turnPos} player={player}/> : null }
+              {player !== null ? <Player turnPos={this.state.turnPos} player={player} bigBlind={game.bigBlind}/> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
-              {player && player.chipsValue ? <PlayerChips chipsValue={player.chipsValue} />: null }
+              {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }
             </div>
             )}
         </div>
