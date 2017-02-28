@@ -24,6 +24,7 @@ class RangeSlider extends React.Component {
   }
 
   createSlider() {
+    var noUiSlider = require('../../../plugins/nouislider.min.js');
     var slider = this.slider = noUiSlider.create(this.sliderContainer, Object.assign({},this.props));
 
     if (this.props.onUpdate) {

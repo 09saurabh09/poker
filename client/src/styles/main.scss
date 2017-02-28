@@ -5,6 +5,22 @@
 @import '../components/views/login/login.scss';
 @import '../components/views/poker-table/poker-table.scss';
 @import '../components/views/filter/filter.scss';
+@import '../components/views/buyin-pref/buyin-pref.scss';
+@import '../components/views/card/card.scss';
+@import '../components/views/checkbox-element/checkbox-element.scss';
+@import '../components/views/game-actions/game-actions.scss';
+@import '../components/views/game-controls/game-controls.scss';
+@import '../components/views/game-pot/game-pot.scss';
+@import '../components/views/game-table/game-table.scss';
+@import '../components/views/money-container/money-container.scss';
+@import '../components/views/open-seat/open-seat.scss';
+@import '../components/views/player/player.scss';
+@import '../components/views/player-cards/player-cards.scss';
+@import '../components/views/player-chips/player-chips.scss';
+@import '../components/views/radio-element/radio-element.scss';
+@import '../components/views/range-slide/range-slide.scss';
+@import '../components/views/switch-element/switch-element.scss';
+
 
 body {
 	font-family: ProximaNova;

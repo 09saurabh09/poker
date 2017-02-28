@@ -26,10 +26,10 @@ export default (props) => {
             <div className="name-balance-review">
               <div className="name-balance-container">
                 <div className="user-name">
-                  {props.userData.name}
+                  {props.userData && props.userData.name || 'Guest User'}
                 </div>
                 <div className="balance">
-                  {`Balance : ${props.userData.currentBalance}`}
+                  {`Balance : ${props.userData && props.userData.currentBalance || 0}`}
                 </div>
               </div>
             </div>

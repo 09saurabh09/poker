@@ -41,10 +41,10 @@ class CashGameContainer extends React.Component{
     dispatch(connectUnauthorizedSocket());  
     let userToken = localStorage.getItem('userToken');
     if(userToken) {
-      gameTableApi.getGameTables(userToken);
+      gameTableApi.getGameTables(dispatch, userToken);
       dispatch(connectAuthorizedSocket(userToken));
     } else {
-      gameTableApi.getPublicGameTables();
+      gameTableApi.getPublicGameTables(dispatch);
     }
   }
 
