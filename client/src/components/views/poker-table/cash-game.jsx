@@ -16,25 +16,28 @@ export default class CashGameTable extends React.Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      tableData: this.props.tableContents
+    }
     this.tableHeaders = [
     {
       text: 'Table Name',
-      key: 'name',
-      sortOrder: 1
+      key: 'tableName',
+      sortOrder: -1
     },
     {
       text: 'BLINDS',
-      key: 'blinds',
-      sortOrder: 0
+      key: 'bigBlind',
+      sortOrder: -1
     },
     {
       text: 'BUY-IN',
-      key: 'buyIn',
-      sortOrder: 0
+      key: 'maxAmount',
+      sortOrder: -1
     },{
       text: 'PLAYERS',
       key: 'players',
-      sortOrder: 0
+      sortOrder: -1
     },{
       text: 'ACTION',
       key: 'action',
@@ -63,12 +66,31 @@ export default class CashGameTable extends React.Component{
                     </div> ;
   }
 
-  sortTable(arrayIndex) {
+  sortTable(key, arrayIndex) {
     let header = this.tableHeaders[arrayIndex];
-    let newSortOrder = 1 - header.sortOrder ;
+    let oldSortOrder = header.sortOrder == -1 ? 0 : header.sortOrder;
+    let newSortOrder = 1 - oldSortOrder ;
     console.log('Call api with sortType', this.sortType[newSortOrder]);
     this.tableHeaders[arrayIndex].sortOrder = newSortOrder;
     this.currentSortIndex = arrayIndex;
+    let sortedTableData = this.state.tableData.slice(0);
+    sortedTableData.sort((a,b) =>{
+      if(newSortOrder) {
+        if (a[key] > b[key])
+          return -1;
+        if (a[key] < b[key])
+          return 1;
+      } else {
+        if (a[key] < b[key])
+          return -1;
+        if (a[key] > b[key])
+          return 1;
+      }
+      return 0;
+    })
+    this.setState({
+      tableData : sortedTableData
+    })
   }
 
   openTable(id) {
@@ -79,6 +101,12 @@ export default class CashGameTable extends React.Component{
     return this.currentSortIndex === index ? this.sortIcons[sortOrder]: null;
   }
 
+  componentWillReceiveProps(nextProps, nextState) {
+    this.setState({
+      tableData: nextProps.tableContents
+    })
+  }
+
   render() {
     return (
          <div className="table-responsive poker-table">
@@ -86,12 +114,12 @@ export default class CashGameTable extends React.Component{
             <thead className="table-head">
               <tr>{this.tableHeaders.map(({text, key, sortOrder}, index) =>
                 <th className="table-header" key={index} >
-                  <div className="table-header-container" onClick={this.sortTable.bind(this, index)}>
+                  <div className="table-header-container" onClick={this.sortTable.bind(this, key, index)}>
                     <div className="table-header-name">
                       <div className="sort-icon-container">
-                      {this.getSortingIcon.call(this, index, sortOrder)}
-                    </div>
-                    <div>{text}</div>
+                        {this.getSortingIcon.call(this, index, sortOrder)}
+                      </div>
+                      <div>{text}</div>
                     </div> 
                   </div>  
                 </th>
@@ -99,7 +127,7 @@ export default class CashGameTable extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.props.tableContents.map(({id, tableName, bigBlind, minAmount, maxAmount, currentlyPlaying, maxPlayer, action, userJoined}, index)=> 
+              {this.state.tableData.map(({id, tableName, bigBlind, minAmount, maxAmount, currentlyPlaying, maxPlayer, action, userJoined}, index)=> 
                 <tr className="table-row" key={index} onClick={this.openTable.bind(this, id)}>
                   <td className="table-column ">{tableName}</td>
                   <td className="table-column ">{bigBlind/2}/{bigBlind}</td>
