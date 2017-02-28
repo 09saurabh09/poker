@@ -45,12 +45,8 @@ export default class CashGameTable extends React.Component{
     }];
     this.sortType = ['asc', 'desc'];
     this.sortIcons = [
-      <div className="sort-icon-container">
-        <Svg className="down-arrow-icon-wrapper icon-wrapper" markup={DownArrowIcon} />
-      </div>,
-      <div className="sort-icon-container">
-        <Svg className="up-arrow-icon-wrapper icon-wrapper" markup={UpArrowIcon} />
-      </div>
+      <Svg className="down-arrow-icon-wrapper icon-wrapper" markup={DownArrowIcon} />,
+      <Svg className="up-arrow-icon-wrapper icon-wrapper" markup={UpArrowIcon} />
     ];
     this.currentSortIndex = 0;
     this.hotIcon = <div className="hot-icon-container">
@@ -91,12 +87,12 @@ export default class CashGameTable extends React.Component{
               <tr>{this.tableHeaders.map(({text, key, sortOrder}, index) =>
                 <th className="table-header" key={index} >
                   <div className="table-header-container" onClick={this.sortTable.bind(this, index)}>
-                    <span className="sort-icon-container">
+                    <div className="table-header-name">
+                      <div className="sort-icon-container">
                       {this.getSortingIcon.call(this, index, sortOrder)}
-                    </span>
-                    <span className="table-header-name">
-                      {text}
-                    </span> 
+                    </div>
+                    <div>{text}</div>
+                    </div> 
                   </div>  
                 </th>
               )}

@@ -1,11 +1,13 @@
 .poker-table {
-	.table-header-container {
+	tr {
 		cursor: pointer;
 	}
 	.table-header-name {		
 	    font-size: 18px;
 	    font-weight: 600;
         text-transform: uppercase;
+        display: flex;
+    	justify-content: center;
 	}
 	.borderless {
 		border-collapse: separate;
@@ -50,17 +52,12 @@
 	}
 	.action-icon-wrapper {
 	    width: 25%;
-	    padding-top: 25%;
-	}
-	.join-icon-container {
-		width: 50%;
-		margin: 0 auto;
-		margin-top: 10px;
-		margin-bottom: 10px;
 	}
 	.join-icon-wrapper {
-	    width: 35%;
-	    padding-top: 35%;
+	    width: 17%;
+	}
+	.sort-icon-container {
+		width: 10%;
 	}
 	.table-column.text-left {
 	    padding-left: 3.5rem;
