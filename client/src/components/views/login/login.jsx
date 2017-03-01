@@ -43,7 +43,7 @@ export default class Login extends React.Component {
   }
 
   login() {
-    userApi.login(this.state.email, this.state.password).then((data)=>{
+    userApi.login(this.props.dispatch, this.state.email, this.state.password).then((data)=>{
       if(data.status == 200) {
         let token = data.data.data.token;
         localStorage.setItem('userToken', token);
@@ -55,7 +55,7 @@ export default class Login extends React.Component {
   }
 
   signup() {
-    userApi.signup(this.state.email, this.state.password).then((data)=>{
+    userApi.signup(this.props.dispatch, this.state.email, this.state.password).then((data)=>{
       if(data.status == 200) {
         var modal = document.getElementById('login');
         modal.style.display = 'none';

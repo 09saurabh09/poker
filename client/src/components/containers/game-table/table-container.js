@@ -5,7 +5,7 @@ import * as userApi from '../../../api/user-api';
 
 import { updateUserCards } from '../../../actions/user-actions';
 import TopNavContainer from '../top-navigation/top-navigation';
-import GameTable from '../../views/game-table/game-table';
+import GameTable from '../../views/game-table/game-table.jsx';
 
 class TableContainer extends React.Component{
 
@@ -24,8 +24,8 @@ class TableContainer extends React.Component{
   componentDidMount() {
     let { socket, dispatch, params } = this.props;
     let tableId = params.id;
-    gameStateApi.getGameState(tableId);
-    userApi.getMyTables(tableId);
+    gameStateApi.getGameState(dispatch, tableId);
+    userApi.getMyTables(dispatch, tableId);
     this.socketOnConnect(socket.unAuthorizedSocket, tableId);
     this.socketOnConnect(socket.authorizedSocket, tableId);
   }
@@ -51,7 +51,7 @@ class TableContainer extends React.Component{
       this.socketOnConnect(authorizedSocket, tableId);   
     }
     if(this.props.params.id != prevProps.params.id) {
-      gameStateApi.getGameState(this.props.params.id);
+      gameStateApi.getGameState(dispatch, this.props.params.id);
     }
   }
 
@@ -117,7 +117,7 @@ class TableContainer extends React.Component{
         <TopNavContainer myTables={this.props.myTables} userData={this.props.userData} tableId={this.props.params.id}
           unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
-        unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket}/>
+        unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} dispatch={this.props.dispatch}/>
       </div>
     );
   }

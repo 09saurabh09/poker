@@ -1,7 +1,7 @@
 import React from 'react';
 //import './player-cards.scss';
 
-import Card from '../card/card'
+import Card from '../card/card.jsx'
 
 export default class PlayerCards extends React.Component{
 

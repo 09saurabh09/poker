@@ -8,7 +8,7 @@ import MainLayoutContainer from '../components/containers/main-layout-container'
 import Home from '../components/containers/home/home-container.jsx';
 import CashGameContainer from '../components/containers/loby/cash-game/cash-game-container';
 import TournamentContainer from '../components/containers/loby/tournament/tournament-container';
-//import TableContainer from '../components/containers/game-table/table-container';
+import TableContainer from '../components/containers/game-table/table-container';
 export default function(history) {
 	return (
 		<Router history={history}>
@@ -18,7 +18,7 @@ export default function(history) {
 					<Route component={LobyLayoutContainer} >
 						<IndexRoute component={CashGameContainer} />
 					</Route>
-					{/*<Route path=":id" component={TableContainer} />	*/}
+					<Route path=":id" component={TableContainer} />
 				</Route>
 				
 				<Route path="tournament">

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import store from '../store';
 import utils from '../utils/utils';
 import { authenticateUserSuccess, signupUserSuccess, ListMyTablesSuccess, UserInfoSuccess } from '../actions/user-actions';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
@@ -8,13 +7,13 @@ import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/s
  * Authenticate user login
  */
 
-export function login(email, password) {
+export function login(dispatch, email, password) {
   return axios.post(utils.getAuthenticateUserUrl(), {
     user: {email, password}
   })
     .then(response => {
-      store.dispatch(connectAuthorizedSocket(response.data.data.token));
-      store.dispatch(authenticateUserSuccess(response.data));
+      dispatch(connectAuthorizedSocket(response.data.data.token));
+      dispatch(authenticateUserSuccess(response.data));
       return response;
     });
 }
@@ -23,12 +22,12 @@ export function login(email, password) {
  * User Sign up
  */
 
-export function signup(email, password) {
+export function signup(dispatch, email, password) {
   return axios.post(utils.getPublicUserUrl(), {
     user: {email, password}
   })
     .then(response => {
-      store.dispatch(signupUserSuccess(response.data));
+      dispatch(signupUserSuccess(response.data));
       return response;
     });
 } 
@@ -37,7 +36,7 @@ export function signup(email, password) {
   * User info
   */
 
-export function getUserInfo(responseGroup) {
+export function getUserInfo(dispatch, responseGroup) {
   let token = localStorage.getItem('userToken');
   if(!token) {
     return;
@@ -50,13 +49,13 @@ export function getUserInfo(responseGroup) {
       }
     })
     .then(response => {
-      store.dispatch(UserInfoSuccess(response.data));
+      dispatch(UserInfoSuccess(response.data));
       return response;
     });
 } 
 
 
-export function getMyTables() {
+export function getMyTables(dispatch) {
   let token = localStorage.getItem('userToken');
   if(!token) {
     return;
@@ -69,7 +68,7 @@ export function getMyTables() {
       }
     })
     .then(response => {
-      store.dispatch(ListMyTablesSuccess(response.data && response.data.data));
+      dispatch(ListMyTablesSuccess(response.data && response.data.data));
       return response;
     });
 }

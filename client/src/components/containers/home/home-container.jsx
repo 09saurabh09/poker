@@ -227,7 +227,7 @@ class Home extends React.Component {
             </div>
           </div>
         </section>
-        <Login postLogin={()=>{}}/>
+        <Login postLogin={()=>{}} dispatch={this.props.dispatch}/>
       </div>
     )
   }

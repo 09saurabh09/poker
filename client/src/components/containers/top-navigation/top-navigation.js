@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import './top-navigation.scss';
+//import './top-navigation.scss';
 import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
-import MoneyContainer from '../../views/money-container/money-container';
-import PlayerCards from '../../views/player-cards/player-cards';
+import MoneyContainer from '../../views/money-container/money-container.jsx';
+import PlayerCards from '../../views/player-cards/player-cards.jsx';
 
 export default class TopNavContainer extends React.Component{
 

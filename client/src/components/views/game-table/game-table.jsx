@@ -3,14 +3,14 @@ import React from 'react';
 //import './game-table.scss';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
-import OpenSeat from '../open-seat/open-seat';
-import Player from '../player/player';
-import GamePot from '../game-pot/game-pot';
-import GameControls from '../game-controls/game-controls';
-import GameActions from '../game-actions/game-actions';
-import PlayerChips from '../player-chips/player-chips';
-import Card from '../card/card';
-import Login from '../login/login';
+import OpenSeat from '../open-seat/open-seat.jsx';
+import Player from '../player/player.jsx';
+import GamePot from '../game-pot/game-pot.jsx';
+import GameControls from '../game-controls/game-controls.jsx';
+import GameActions from '../game-actions/game-actions.jsx';
+import PlayerChips from '../player-chips/player-chips.jsx';
+import Card from '../card/card.jsx';
+import Login from '../login/login.jsx';
 
 export default class GameTable extends React.Component{
 
@@ -41,9 +41,7 @@ export default class GameTable extends React.Component{
     }
     this.setState({
       players : this.rotateIfPlaying(game.players),
-      gameState : {
-        ...game
-      }
+      gameState : Object.assign({}, game)
     })
   }
 
@@ -234,7 +232,7 @@ export default class GameTable extends React.Component{
                                                         value: game.minAmount/game.bigBlind, step:game.bigBlind}} 
                                                         bigBlind={game.bigBlind} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
-        <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)}/>
+        <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)} dispatch={this.props.dispatch}/>
       </div>
     );
   }

@@ -2,9 +2,7 @@ import React from 'react';
 //import './player.scss';
 
 import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
-import OpenSeatIcon from '../../../../assets/img/game/open-seat.svg';
-import JoinSeatIcon from '../../../../assets/img/game/join-seat.svg';
-import PlayerCards from '../player-cards/player-cards';
+import PlayerCards from '../player-cards/player-cards.jsx';
 
 export default class Player extends React.Component {
   constructor(props) {

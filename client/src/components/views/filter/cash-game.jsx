@@ -7,6 +7,7 @@ import wNumb from 'wnumb';
 import HoldemIcon from '../../../../assets/img/table/svg/2-cards.svg';
 import OmahaIcon from '../../../../assets/img/table/svg/4-cards.svg';
 
+
 import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
 import SwitchElement from '../switch-element/switch-element';
@@ -128,7 +129,7 @@ export default class CashGameFilter extends React.Component {
                       <RadioElement groupName="radio1" icon={HoldemIcon} label="Hold’Em" inputId="holdem"/>
                     </div>
                     <div className="margin-20">
-                      <RadioElement groupName="radio1" icon={OmahaIcon} label="Omaha" inputId="omaha"/>
+                    
                     </div>
                   </div>
                 </div>
