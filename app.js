@@ -54,10 +54,12 @@ if ( process.env.NODE_ENV === 'production' ) {
   ]
   styleSrc = `/${refManifest['main.css']}`
 } else {
+  let ip = network()[0];
+  console.log(ip);
   scriptSrcs = [
-    'http://localhost:7000/static/vendor.js',
-    'http://localhost:7000/static/dev.js',
-    'http://localhost:7000/static/app.js'
+    `http://${ip}:7000/static/vendor.js`,
+    `http://${ip}:7000/static/dev.js`,
+    `http://${ip}:7000/static/app.js`
   ]
   styleSrc = '/main.css'
 }

@@ -14,7 +14,7 @@ var port = 7000;
       timings: true,
       chunks: false
     }
-  }).listen(port, 'localhost', function (err) {
+  }).listen(port, "0.0.0.0", function (err) {
     if (err) {
       console.log(err)
     }
