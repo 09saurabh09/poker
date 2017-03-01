@@ -6,6 +6,7 @@ import * as userApi from '../../../api/user-api';
 import { updateUserCards } from '../../../actions/user-actions';
 import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table.jsx';
+import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
 
 class TableContainer extends React.Component{
 
@@ -24,8 +25,16 @@ class TableContainer extends React.Component{
   componentDidMount() {
     let { socket, dispatch, params } = this.props;
     let tableId = params.id;
+    // call apis
     gameStateApi.getGameState(dispatch, tableId);
     userApi.getMyTables(dispatch, tableId);
+    // connect to socket if not already connected
+    !socket.unAuthorizedSocket && dispatch(connectUnauthorizedSocket());
+    let userToken = localStorage.getItem('userToken');
+    if(!socket.authorizedSocket && userToken) {
+      dispatch(connectAuthorizedSocket(userToken));
+    }
+    //if already connected or the connection is in process
     this.socketOnConnect(socket.unAuthorizedSocket, tableId);
     this.socketOnConnect(socket.authorizedSocket, tableId);
   }
@@ -45,10 +54,14 @@ class TableContainer extends React.Component{
   componentDidUpdate(prevProps, prevState) {
     let { socket, dispatch, params } = prevProps;
     let tableId = params.id;
-    let authorizedSocket = this.props.socket.authorizedSocket;
-
+    let {unAuthorizedSocket, authorizedSocket} = this.props.socket;
+    // in case the user reload page or logs in before join seat
     if(!socket.authorizedSocket && authorizedSocket) {
       this.socketOnConnect(authorizedSocket, tableId);   
+    }
+    // in case the user reload page
+    if(!socket.unAuthorizedSocket && unAuthorizedSocket) {
+      this.socketOnConnect(unAuthorizedSocket, tableId);
     }
     if(this.props.params.id != prevProps.params.id) {
       gameStateApi.getGameState(dispatch, this.props.params.id);
@@ -79,6 +92,7 @@ class TableContainer extends React.Component{
         gameData: {[data.tableId]: newGameState}
       })
     });
+
     socket.on('turn-completed', (data)=>{
       console.log( socket.nsp,' turn-completed', data);
       let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
@@ -86,8 +100,9 @@ class TableContainer extends React.Component{
         gameData: {[data.tableId]: newGameState}
       })
     });
+
     socket.on('game-started', (data)=>{
-      console.log(socket.nsp, 'game started cards ', data.cards);
+      console.log(socket.nsp, 'game started cards ', data);
       let newGameState = this.addCardsToPlayer(this.state.gameData[data.tableId], data.cards);
       this.props.dispatch(updateUserCards({tableId: data.tableId, cards: data.cards}))
       if(tableId == data.tableId) {
