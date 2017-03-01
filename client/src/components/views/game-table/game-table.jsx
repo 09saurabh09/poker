@@ -124,7 +124,20 @@ export default class GameTable extends React.Component{
     return [...rightSideArray, ...leftSideArray];
   }
 
+  isHePlaying() {
+    for(let i = 0 ; i<this.state.players.length; i++) {
+      if(this.state.players[i] && this.state.players[i].id == this.props.userData.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   openBuyinPref(seat) {
+    if(this.isHePlaying()) {
+      alert('You are already playing');
+      return;
+    }
     this.selectedSeat = seat;
     if(localStorage.getItem('userToken')) {
       var modal = document.getElementById('buyin-pref');
