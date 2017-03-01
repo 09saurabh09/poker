@@ -12,7 +12,7 @@ var debug = require('debug')('poker:server');
 var http = require('http');
 var redis = require('socket.io-redis');
 
-const isoTools = require('../isomorphic.tools');
+const isoTools = require('../config/isomorphic.tools');
 isoTools.server().then(assets => {
   var app = require('../app');
   var port = normalizePort(process.env.PORT || '7100');

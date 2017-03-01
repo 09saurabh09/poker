@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var AssetsPlugin = require('assets-webpack-plugin')
-const isoTools = require('./isomorphic.tools');
+const isoTools = require('./config/isomorphic.tools');
 /*const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');*/
 

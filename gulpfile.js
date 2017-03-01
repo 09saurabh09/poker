@@ -33,7 +33,7 @@ gulp.task('build:revAssets', ['css', 'moveAssets'], function() {
 })
 
 gulp.task('build:cpClient', function() {
-  return gulp.src('./client/**/*.{js,ejs}')
+  return gulp.src('./client/**/*')
              .pipe(gulp.dest('./dist/server-build/client'))
 })
 gulp.task('build:cpViews', function() {
@@ -43,6 +43,10 @@ gulp.task('build:cpViews', function() {
 gulp.task('build:cpBin', function() {
   return gulp.src('./bin/*')
              .pipe(gulp.dest('./dist/server-build/bin'))
+})
+gulp.task('build:cpConfig', function() {
+  return gulp.src('./config/*')
+             .pipe(gulp.dest('./dist/server-build/config'))
 })
 gulp.task('build:cpApp', function() {
   return gulp.src('./app.js')
@@ -56,7 +60,7 @@ gulp.task('build:cpServer', function() {
   return gulp.src('./server/**/*')
              .pipe(gulp.dest('./dist/server-build/server'))
 })
-gulp.task('build:revServer', ['build:cpClient', 'build:cpServer', 'build:cpViews', 'build:cpBin', 'build:cpApp', 'build:cpRoutes'], function() {
+gulp.task('build:revServer', ['build:cpClient', 'build:cpServer', 'build:cpViews', 'build:cpBin', 'build:cpConfig', 'build:cpApp', 'build:cpRoutes'], function() {
   var manifest = gulp.src('./dist/rev-manifest.json')
   return gulp.src('./dist/server-build/client/src/{components}/**/*')
              .pipe($.revReplace({ manifest: manifest }))
