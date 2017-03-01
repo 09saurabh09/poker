@@ -2,6 +2,7 @@ import React from 'react';
 //import './filter.scss';
 
 /*import '../../../plugins/nouislider.min.css';*/
+import wNumb from 'wnumb';
 
 import HoldemIcon from '../../../../assets/img/table/svg/2-cards.svg';
 import OmahaIcon from '../../../../assets/img/table/svg/4-cards.svg';
@@ -157,9 +158,10 @@ export default class CashGameFilter extends React.Component {
                     <div className="margin-b-32 text-uppercase">number of players</div>
                       <RangeSlider 
                       range={{min: 0, max: 9}}
-                      start={[6]}
+                      start={[9]}
                       step={1}
                       connect={[true, false]}
+                      tooltips={wNumb({decimals:0})}
                       />
                   </div>
                 </div>

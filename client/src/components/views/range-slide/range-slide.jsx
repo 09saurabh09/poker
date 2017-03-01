@@ -3,7 +3,7 @@ import React from 'react';
 
 //import noUiSlider from '../../../plugins/nouislider.min.js';
 //import '../../../plugins/nouislider.min.css';
-//import '../../../plugins/wNumb.js';
+
 
 class RangeSlider extends React.Component {
   componentDidMount() {
@@ -53,7 +53,7 @@ class RangeSlider extends React.Component {
   }
 
   render() {
-    return <div className="range-slide" ref={slider => {this.sliderContainer = slider;}} />;
+    return <div className="range-slide" id="range-slider" ref={slider => {this.sliderContainer = slider;}} />;
   }
 }
 
@@ -102,6 +102,7 @@ RangeSlider.propTypes = {
   // http://refreshless.com/nouislider/slider-options/#section-tooltips
   tooltips: React.PropTypes.oneOfType([
     React.PropTypes.bool,
+    React.PropTypes.object,
     React.PropTypes.arrayOf(
       React.PropTypes.shape({
         to: React.PropTypes.func

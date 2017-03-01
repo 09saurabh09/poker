@@ -15,7 +15,7 @@ gulp.task('css', function() {
 })
 
 gulp.task('css:watch', ['css'], function() {
-  gulp.watch('./client/src/styles/*.scss', ['css'])
+  gulp.watch('./client/src/**/**/**/*.scss', ['css'])
 })
 
 gulp.task('moveAssets', function() {
