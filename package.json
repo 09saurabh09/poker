@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "export NODE_ENV=production; PORT=7100 npm run build && node ./dist/server-build/bin/www",
+    "start": "export NODE_ENV=production; PORT=7100 npm run build && node bin/www",
     "test": "karma start",
     "test:ci": "cross-env NODE_ENV=test cross-env NODE_PATH=./app mocha --compilers js:babel-register -r app/spec/support/setup.mocha.js --recursive 'app/spec/**/*.test.js'",
     "webpack": "webpack",

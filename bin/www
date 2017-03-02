@@ -13,6 +13,7 @@ var http = require('http');
 var redis = require('socket.io-redis');
 
 const isoTools = require('../config/isomorphic.tools');
+// first run the isomorphic server
 isoTools.server().then(assets => {
   var app = require('../app');
   var port = normalizePort(process.env.PORT || '7100');
