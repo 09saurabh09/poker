@@ -32,41 +32,6 @@ gulp.task('build:revAssets', ['css', 'moveAssets'], function() {
              .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('build:cpClient', function() {
-  return gulp.src('./client/**/*')
-             .pipe(gulp.dest('./dist/server-build/client'))
-})
-gulp.task('build:cpViews', function() {
-  return gulp.src('./views/**/*.{js,ejs}')
-             .pipe(gulp.dest('./dist/server-build/views'))
-})
-gulp.task('build:cpBin', function() {
-  return gulp.src('./bin/*')
-             .pipe(gulp.dest('./dist/server-build/bin'))
-})
-gulp.task('build:cpConfig', function() {
-  return gulp.src('./config/*')
-             .pipe(gulp.dest('./dist/server-build/config'))
-})
-gulp.task('build:cpApp', function() {
-  return gulp.src('./app.js')
-             .pipe(gulp.dest('./dist/server-build'))
-})
-gulp.task('build:cpRoutes', function() {
-  return gulp.src('./routes.js')
-             .pipe(gulp.dest('./dist/server-build'))
-})
-gulp.task('build:cpServer', function() {
-  return gulp.src('./server/**/*')
-             .pipe(gulp.dest('./dist/server-build/server'))
-})
-gulp.task('build:revServer', ['build:cpClient', 'build:cpServer', 'build:cpViews', 'build:cpBin', 'build:cpConfig', 'build:cpApp', 'build:cpRoutes'], function() {
-  var manifest = gulp.src('./dist/rev-manifest.json')
-  return gulp.src('./dist/server-build/client/src/{components}/**/*')
-             .pipe($.revReplace({ manifest: manifest }))
-             .pipe(gulp.dest('./dist/server-build'))
-})
-
 gulp.task('build', function() {
-  runSequence('build:revAssets', 'build:revServer')
+  runSequence('build:revAssets')
 })

@@ -47,7 +47,7 @@ app.use(cookieParser());
 
 let styleSrc
 if ( process.env.NODE_ENV === 'production' ) {
-  let refManifest = require('../rev-manifest.json')
+  let refManifest = require('./dist/rev-manifest.json')
   scriptSrcs = [
     `/${refManifest['vendor.js']}`,
     `/${refManifest['app.js']}`,
@@ -67,7 +67,7 @@ if ( process.env.NODE_ENV === 'production' ) {
 app.use(compression())
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '..', 'public')))
+  app.use(express.static(path.join(__dirname, 'dist/public')))
 } else {
   app.use('/assets', express.static(path.join(__dirname, 'client/assets')))
   app.use(express.static(path.join(__dirname, 'dist')))
