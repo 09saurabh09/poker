@@ -21,18 +21,15 @@ section#main{
     display: block;
 }
 .play-icon {
-    padding-top: 18%;
+    
 }
 .icon-wrapper {
     margin: 0 auto;
-    /* just to get an apsect ratio same as the SVG's: */
-    padding-top: 75%;
     width: 60%;
     background-size: contain;
     background-repeat: no-repeat;
 }
 .other-icon-wrapper {
-    padding-top: 28%;
     width: 28%;
 }
 .user-detail-section {
@@ -74,11 +71,11 @@ section#main{
     float: right;
 }
 .user-name {
-    padding: 24px 16px;
+    padding: 3% 2%;
     font-size: 18px;
 }
 .balance {
-    padding: 24px 16px;
+    padding: 3% 2%;
     font-size: 16px;
     font-weight: bold;
 }
@@ -119,7 +116,6 @@ section#main{
     float: left;
 }
 .money-icon-wrapper {
-    padding-top: 50%;
 }
 .money-container {
     width: 100%;
@@ -195,7 +191,6 @@ section#main{
 .game-icon-wrapper {
     mix-blend-mode: luminosity;
     width: 65%;
-    padding-top: 65%;
 }
 .game {
     width: 100%;

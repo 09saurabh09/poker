@@ -1,14 +1,16 @@
 import React from 'react';
 import { Router, browserHistory } from 'react-router';
 
-import './poker-table.scss';
+//import './poker-table.scss';
 
-var UpArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/up-arrow.svg?name=UpArrowIcon');
-var DownArrowIcon = require('babel!svg-react!../../../../assets/img/table/svg/down-arrow.svg?name=DownArrowIcon');
+import UpArrowIcon from '../../../../assets/img/table/svg/up-arrow.svg';
+import DownArrowIcon from '../../../../assets/img/table/svg/down-arrow.svg';
 import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
 import TickIcon from '../../../../assets/img/table/svg/tick.svg';
 import HotIcon from '../../../../assets/img/table/svg/hot.svg';
 import ColdIcon from '../../../../assets/img/table/svg/cold.svg';
+
+import Svg from '../svg/svg.jsx';
 
 export default class CashGameTable extends React.Component{
 
@@ -45,27 +47,22 @@ export default class CashGameTable extends React.Component{
       key: 'join'
     }];
     this.sortType = ['asc', 'desc'];
-    this.sortIcons = [<DownArrowIcon />, <UpArrowIcon />];
+    this.sortIcons = [
+      <Svg className="down-arrow-icon-wrapper icon-wrapper" markup={DownArrowIcon} />,
+      <Svg className="up-arrow-icon-wrapper icon-wrapper" markup={UpArrowIcon} />
+    ];
     this.currentSortIndex = 0;
     this.hotIcon = <div className="hot-icon-container">
-                      <div className="action-icon-wrapper icon-wrapper" 
-                        style={{backgroundImage: `url(${HotIcon})`}}>
-                      </div>
+                      <Svg className="action-icon-wrapper icon-wrapper" markup={HotIcon} />
                     </div> ;
     this.coldIcon = <div className="cold-icon-container">
-                      <div className="action-icon-wrapper icon-wrapper" 
-                        style={{backgroundImage: `url(${ColdIcon})`}}>
-                      </div>
+                      <Svg className="action-icon-wrapper icon-wrapper" markup={ColdIcon} />
                     </div> ;
     this.TickIcon = <div className="join-icon-container">
-                      <div className="join-icon-wrapper icon-wrapper" 
-                        style={{backgroundImage: `url(${TickIcon})`}}>
-                      </div>
+                      <Svg className="join-icon-wrapper icon-wrapper" markup={TickIcon} />
                     </div> ;
     this.SelectRoundIcon = <div className="join-icon-container">
-                      <div className="join-icon-wrapper icon-wrapper" 
-                        style={{backgroundImage: `url(${SelectRoundIcon})`}}>
-                      </div>
+                      <Svg className="join-icon-wrapper icon-wrapper" markup={SelectRoundIcon} />
                     </div> ;
   }
 
@@ -118,12 +115,12 @@ export default class CashGameTable extends React.Component{
               <tr>{this.tableHeaders.map(({text, key, sortOrder}, index) =>
                 <th className="table-header" key={index} >
                   <div className="table-header-container" onClick={this.sortTable.bind(this, key, index)}>
-                    <span className="sort-icon-container">
-                      {this.getSortingIcon.call(this, index, sortOrder)}
-                    </span>
-                    <span className="table-header-name">
-                      {text}
-                    </span> 
+                    <div className="table-header-name">
+                      <div className="sort-icon-container">
+                        {this.getSortingIcon.call(this, index, sortOrder)}
+                      </div>
+                      <div>{text}</div>
+                    </div> 
                   </div>  
                 </th>
               )}

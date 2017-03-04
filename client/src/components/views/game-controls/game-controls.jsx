@@ -1,9 +1,11 @@
 import React from 'react';
-import './game-controls.scss';
+//import './game-controls.scss';
 
 import AddMoneyIcon from '../../../../assets/img/game/add-money.svg';
 import PauseIcon from '../../../../assets/img/game/pause.svg';
 import CloseIcon from '../../../../assets/img/game/close.svg';
+
+import Svg from '../svg/svg.jsx';
 
 export default class GameControls extends React.Component{
 
@@ -11,13 +13,13 @@ export default class GameControls extends React.Component{
     return (
       <div className="game-controls">
         <div className="game-control-icon-container add-money-icon-container">
-          <div className="game-control-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${AddMoneyIcon})`}}></div>
+          <Svg className="game-control-icon-wrapper icon-wrapper" markup={AddMoneyIcon} />
         </div>
         <div className="game-control-icon-container pause-icon-container">
-          <div className="game-control-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PauseIcon})`}}></div>
+          <Svg className="game-control-icon-wrapper icon-wrapper" markup={PauseIcon} />
         </div>
         <div className="game-control-icon-container close-icon-container" onClick={this.props.leaveTable}>
-          <div className="game-control-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${CloseIcon})`}}></div>
+          <Svg className="game-control-icon-wrapper icon-wrapper" markup={CloseIcon} />
         </div>
       </div>
     );

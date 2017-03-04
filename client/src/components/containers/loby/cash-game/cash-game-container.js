@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 
 import { Link } from 'react-router';
 import * as gameTableApi from '../../../../api/game-table-api';
-import * as userApi from '../../../../api/user-api';
-import { loadSearchLayout } from '../../../../actions/search-layout-actions';
-import SearchForm from '../../../views/search-form';
 
-import CashGameTable from '../../../views/poker-table/cash-game'
+import CashGameTable from '../../../views/poker-table/cash-game.jsx'
 
-import CashGameFilter from '../../../views/filter/cash-game'
+import CashGameFilter from '../../../views/filter/cash-game.jsx'
 import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
+import Svg from '../../../views/svg/svg.jsx';
 
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../../actions/socket-actions';
 
@@ -40,13 +38,13 @@ class CashGameContainer extends React.Component{
 
   componentDidMount() {
     let { dispatch } = this.props;
-    dispatch(connectUnauthorizedSocket());  
+    dispatch(connectUnauthorizedSocket());
     let userToken = localStorage.getItem('userToken');
     if(userToken) {
-      gameTableApi.getGameTables(userToken);
+      gameTableApi.getGameTables(dispatch, userToken);
       dispatch(connectAuthorizedSocket(userToken));
     } else {
-      gameTableApi.getPublicGameTables();
+      gameTableApi.getPublicGameTables(dispatch);
     }
   }
 
@@ -65,7 +63,7 @@ class CashGameContainer extends React.Component{
         <div className="filter-icon-container">
           <a onClick={this.openCashGameFilter.bind(this)} className="filter-icon-wrapper">
             <div className="filter-icon">
-              <div className="filter-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${FilterIcon})`}}></div>
+              <Svg className="filter-icon-wrapper icon-wrapper" markup={FilterIcon} />
             </div>
           </a>
         </div>

@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import * as userApi from '../../api/user-api';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    userApi.getUserInfo('large');  
+    userApi.getUserInfo(this.props.dispatch, 'large');  
   }
 
   render() {
@@ -19,3 +19,11 @@ export default class App extends React.Component {
     )
   }
 }
+
+const mapStateToProps = function(state) {
+  return {
+    userData: state.userState.userData
+  };
+};
+
+export default connect(mapStateToProps)(App);

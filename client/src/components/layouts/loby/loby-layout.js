@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import './loby-layout.scss';
+//import './loby-layout.scss';
 
 
 import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
 import RealMoneyIcon from '../../../../assets/img/table/svg/real-money-icon.svg';
 import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg';
+
+import Svg from '../../views/svg/svg.jsx';
 
 // Using "Stateless Functional Components"
 export default (props) => {
@@ -16,7 +18,7 @@ export default (props) => {
         <div className="left-half">
           <Link to="/" >
             <div className="play-icon-container">
-              <div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>
+              <Svg className="play-icon-wrapper icon-wrapper" markup={PlayIcon}/>
             </div>
           </Link>
           <div className="user-detail-container">
@@ -26,10 +28,10 @@ export default (props) => {
             <div className="name-balance-review">
               <div className="name-balance-container">
                 <div className="user-name">
-                  {props.userData.name}
+                  {props.userData && props.userData.name || 'Guest User'}
                 </div>
                 <div className="balance">
-                  {`Balance : ${props.userData.currentBalance}`}
+                  {`Balance : ${props.userData && props.userData.currentBalance || 0}`}
                 </div>
               </div>
             </div>
@@ -39,13 +41,13 @@ export default (props) => {
           <div className="money-container">
             <div className="money">
               <div className="money-icon-container">
-                <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${RealMoneyIcon})`}}></div>
+                <Svg className="money-icon-wrapper icon-wrapper" markup={RealMoneyIcon}/>
               </div>
               <span className="text">On Table:</span> <span className="text value">$784</span>
             </div>
             <div className="money">
               <div className="money-icon-container">
-                <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayMoneyIcon})`}}></div>
+                <Svg className="money-icon-wrapper icon-wrapper" markup={PlayMoneyIcon}/>
               </div>
               <span className="text">Off Table:</span> <span className="text value"> $784</span>
             </div>

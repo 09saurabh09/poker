@@ -1,9 +1,9 @@
 import React from 'react';
-import './range-slide.scss';
+//import './range-slide.scss';
 
-import noUiSlider from '../../../plugins/nouislider.min.js';
-import '../../../plugins/nouislider.min.css';
-import '../../../plugins/wNumb.js';
+//import noUiSlider from '../../../plugins/nouislider.min.js';
+//import '../../../plugins/nouislider.min.css';
+
 
 class RangeSlider extends React.Component {
   componentDidMount() {
@@ -24,7 +24,8 @@ class RangeSlider extends React.Component {
   }
 
   createSlider() {
-    var slider = this.slider = noUiSlider.create(this.sliderContainer, {...this.props});
+    var noUiSlider = require('../../../plugins/nouislider.min.js');
+    var slider = this.slider = noUiSlider.create(this.sliderContainer, Object.assign({},this.props));
 
     if (this.props.onUpdate) {
       slider.on('update', this.props.onUpdate);
@@ -52,7 +53,7 @@ class RangeSlider extends React.Component {
   }
 
   render() {
-    return <div className="range-slide" ref={slider => {this.sliderContainer = slider;}} />;
+    return <div className="range-slide" id="range-slider" ref={slider => {this.sliderContainer = slider;}} />;
   }
 }
 
@@ -101,6 +102,7 @@ RangeSlider.propTypes = {
   // http://refreshless.com/nouislider/slider-options/#section-tooltips
   tooltips: React.PropTypes.oneOfType([
     React.PropTypes.bool,
+    React.PropTypes.object,
     React.PropTypes.arrayOf(
       React.PropTypes.shape({
         to: React.PropTypes.func

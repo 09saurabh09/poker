@@ -1,5 +1,4 @@
 import axios from 'axios';
-import store from '../store';
 import utils from '../utils/utils';
 import { getAllGameTablesSuccess } from '../actions/game-table-actions';
 
@@ -7,7 +6,7 @@ import { getAllGameTablesSuccess } from '../actions/game-table-actions';
  * Get Game State for Authenticated user
  */
 
-export function getGameTables(token) {
+export function getGameTables(dispatch, token) {
   return axios({
     method: 'get',
     url: utils.getGameTableUrl(),
@@ -16,7 +15,7 @@ export function getGameTables(token) {
       }
     })
   .then(response => {
-    store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
+    dispatch(getAllGameTablesSuccess(response.data && response.data.data));
     return response;
   }, result => {
     if(result.response.status == 401 || result.response.status == 403 ) {
@@ -30,10 +29,10 @@ export function getGameTables(token) {
  * Get Game State for Unauthenticated user
  */
 
-export function getPublicGameTables() {
+export function getPublicGameTables(dispatch) {
   return axios.get(utils.getPublicGameTableUrl())
     .then(response => {
-      store.dispatch(getAllGameTablesSuccess(response.data && response.data.data));
+      dispatch(getAllGameTablesSuccess(response.data && response.data.data));
       return response;
     });
 }

@@ -1,10 +1,6 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
-// Reducers
-
-import widgetReducer from './widget-reducer';
-import searchLayoutReducer from './search-layout-reducer';
 
 //Poke Reducers
 import gameTableReducer from './game-table-reducer';
@@ -16,8 +12,6 @@ import connectSocketReducer from './connect-socket-reducer';
 var reducers = combineReducers({
 	socket: connectSocketReducer,
     userState: userReducer,
-    widgetState: widgetReducer,
-    searchLayoutState: searchLayoutReducer,
     gameState: gameStateReducer,
     gameTable: gameTableReducer,
     routing : routerReducer

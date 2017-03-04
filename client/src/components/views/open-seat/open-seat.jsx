@@ -1,9 +1,11 @@
 import React from 'react';
-import './open-seat.scss';
+//import './open-seat.scss';
 
 import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
 import OpenSeatIcon from '../../../../assets/img/game/open-seat.svg';
 import JoinSeatIcon from '../../../../assets/img/game/join-seat.svg';
+
+import Svg from '../svg/svg.jsx';
 
 export default class OpenSeat extends React.Component {
   constructor(props) {
@@ -37,11 +39,11 @@ export default class OpenSeat extends React.Component {
               <img src='' />
             </div>
             <div className='open-seat-icon-container'>
-              <div className='open-seat-icon-wrapper icon-wrapper' style={{backgroundImage: `url(${OpenSeatIcon})`}}></div>
+              <Svg className='open-seat-icon-wrapper icon-wrapper' markup={OpenSeatIcon} />
             </div>
             <div className='join'>Seat Open
               <div className='join-seat-icon-container'>
-                <div className='join-seat-icon-wrapper icon-wrapper' style={{backgroundImage: `url(${JoinSeatIcon})`}}></div>
+                <Svg className='join-seat-icon-wrapper icon-wrapper' markup={JoinSeatIcon} />
               </div>
             </div>
           </div>

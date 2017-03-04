@@ -1,13 +1,26 @@
 import React from 'react';
-import './buyin-pref.scss';
+//import './buyin-pref.scss';
 
-import RangeSlider from '../range-slide/range-slide';
+import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
 import TournamentLogo from '../../../../assets/img/game/tournament-logo.svg';
+
+import Svg from '../svg/svg.jsx';
+
+import wNumb from 'wnumb';
 
 export default class BuyinPref extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: this.props.bbValue.value,
+      inputValue: this.props.bbValue.value * this.props.bigBlind,
+      maintainStack: true,
+      autoPost: true
+    };
+  }
+
+  componentDidMount() {
     $(document).ready(()=>{
       var modal = document.getElementById('buyin-pref');
 
@@ -18,12 +31,6 @@ export default class BuyinPref extends React.Component {
           }
       }
     })
-    this.state = {
-      value: this.props.bbValue.value,
-      inputValue: this.props.bbValue.value * this.props.bigBlind,
-      maintainStack: true,
-      autoPost: true
-    };
   }
 
   handleBlur(event) {
@@ -69,7 +76,7 @@ export default class BuyinPref extends React.Component {
               <div className="modal-body">
                 <div className="modal-container">
                   <div className="tournament-logo-icon-container">
-                    <div className="tournament-logo-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${TournamentLogo})`}}></div>
+                    <Svg className="tournament-logo-icon-wrapper icon-wrapper" markup={TournamentLogo} />
                   </div>
                   <form className="form-horizontal">
                     <div className="form-container">

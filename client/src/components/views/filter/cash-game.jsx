@@ -1,12 +1,14 @@
 import React from 'react';
-import './filter.scss';
+//import './filter.scss';
 
-import '../../../plugins/nouislider.min.css';
+/*import '../../../plugins/nouislider.min.css';*/
+import wNumb from 'wnumb';
 
 import HoldemIcon from '../../../../assets/img/table/svg/2-cards.svg';
 import OmahaIcon from '../../../../assets/img/table/svg/4-cards.svg';
 
-import RangeSlider from '../range-slide/range-slide';
+
+import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
 import SwitchElement from '../switch-element/switch-element';
 import RadioElement from '../radio-element/radio-element';
@@ -127,7 +129,7 @@ export default class CashGameFilter extends React.Component {
                       <RadioElement groupName="radio1" icon={HoldemIcon} label="Hold’Em" inputId="holdem"/>
                     </div>
                     <div className="margin-20">
-                      <RadioElement groupName="radio1" icon={OmahaIcon} label="Omaha" inputId="omaha"/>
+                    
                     </div>
                   </div>
                 </div>
@@ -157,10 +159,10 @@ export default class CashGameFilter extends React.Component {
                     <div className="margin-b-32 text-uppercase">number of players</div>
                       <RangeSlider 
                       range={{min: 0, max: 9}}
-                      start={[6]}
+                      start={[9]}
                       step={1}
                       connect={[true, false]}
-                      tooltips={wNumb({ decimals: 0 })}
+                      tooltips={wNumb({decimals:0})}
                       />
                   </div>
                 </div>

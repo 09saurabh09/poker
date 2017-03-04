@@ -1,9 +1,11 @@
 import React from 'react';
 
-import './money-container.scss';
+//import './money-container.scss';
 
 import RealMoneyIcon from '../../../../assets/img/table/svg/real-money-icon.svg';
 import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg';
+
+import Svg from '../svg/svg.jsx';
 
 // Using "Stateless Functional Components"
 export default (props) => {
@@ -11,13 +13,13 @@ export default (props) => {
     <div className="money-container">
       <div className="money">
         <div className="money-icon-container">
-          <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${RealMoneyIcon})`}}></div>
+          <Svg className="money-icon-wrapper icon-wrapper" markup={RealMoneyIcon} />
         </div>
         <span className="text">On Table:</span> <span className="text value">$784</span>
       </div>
       <div className="money">
         <div className="money-icon-container">
-          <div className="money-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayMoneyIcon})`}}></div>
+          <Svg className="money-icon-wrapper icon-wrapper" markup={PlayMoneyIcon} />
         </div>
         <span className="text">Off Table:</span> <span className="text value"> $784</span>
       </div>

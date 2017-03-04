@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
-import * as userApi from '../../../../api/user-api';
-import * as widgetApi from '../../../../api/widget-api';
-import { loadSearchLayout } from '../../../../actions/search-layout-actions';
-import SearchForm from '../../../views/search-form';
+//import * as userApi from '../../../../api/user-api';
+//import * as widgetApi from '../../../../api/widget-api';
+//import { loadSearchLayout } from '../../../../actions/search-layout-actions';
+//import SearchForm from '../../../views/search-form';
 
-var FilterIcon = require('babel!svg-react!../../../../../assets/img/table/svg/filter.svg?name=FilterIcon');
+import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
 
-import TournamentFilter from '../../../views/filter/tournament'
-import TournamentTable from '../../../views/poker-table/tournament'
+import TournamentFilter from '../../../views/filter/tournament.jsx'
+import TournamentTable from '../../../views/poker-table/tournament.jsx'
 
 export default class CashGameContainer extends React.Component{
 
@@ -16,7 +16,7 @@ export default class CashGameContainer extends React.Component{
     super(props);
   }
 
-  openTouranamentFilter = () => {
+  openTouranamentFilter(){
 
   }
 

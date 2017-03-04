@@ -1,9 +1,13 @@
 import React from 'react';
-import './game-pot.scss';
+//import './game-pot.scss';
 
 export default class GamePot extends React.Component {
 
-  render() {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
     let borderLeft = 0, borderRight = 0, width = 0;
     let potValue = this.props.potValue;
     if(potValue >= 0 && potValue <= 25) {
@@ -21,6 +25,10 @@ export default class GamePot extends React.Component {
                             'width': width + 'px',
                             'border-right': borderRight + 'px solid transparent'})
     });
+  }
+
+  render() {
+    
     return (
       <div className="pot">
         <div className="triangle-bottomleft"></div>
@@ -28,7 +36,7 @@ export default class GamePot extends React.Component {
         <div className="pot-text">
           <div>Total Pot</div>
           <div className="pot-value">{this.props.totalPot}</div>
-          <div className="pot-percentage">{potValue}%</div>
+          <div className="pot-percentage">{this.props.potValue}%</div>
         </div>
       </div>
     );

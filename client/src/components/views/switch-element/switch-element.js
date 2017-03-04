@@ -1,5 +1,5 @@
 import React from 'react';
-import './switch-element.scss';
+//import './switch-element.scss';
 
 export default class SwitchElement extends React.Component{
 

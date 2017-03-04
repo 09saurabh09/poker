@@ -1,9 +1,9 @@
 @font-face {
     font-family: 'ProximaNova';
-    src: url('../fonts/ProximaNova-Reg-webfont.ttf');
-	src: url('../fonts/ProximaNova-Reg-webfont.woff') format('woff'),
-	     url('../fonts/ProximaNova-Reg-webfont.ttf') format('truetype'),
-	     url('../fonts/ProximaNova-Reg-webfont.svg#webfont') format('svg');
+    src: url('assets/fonts/ProximaNova-Reg-webfont.ttf');
+	src: url('assets/fonts/ProximaNova-Reg-webfont.woff') format('woff'),
+	     url('assets/fonts/ProximaNova-Reg-webfont.ttf') format('truetype'),
+	     url('assets/fonts/ProximaNova-Reg-webfont.svg#webfont') format('svg');
 }
 body {
 	background-color: black;

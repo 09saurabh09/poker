@@ -1,7 +1,8 @@
 import React from 'react';
-import './login.scss';
+//import './login.scss';
 
 import * as userApi from '../../../api/user-api';
+import Svg from '../svg/svg.jsx';
 
 import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
 import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
@@ -11,23 +12,24 @@ import io from 'socket.io-client';
 
 export default class Login extends React.Component {
 	constructor(props) {
-			super(props);
-      this.state = {
-        email: '',
-        password: ''
-      };
-      $(document).ready(()=>{
-        var modal = document.getElementById('login');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-      })
+		super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
 	}
+  componentDidMount() {
+    $(document).ready(()=>{
+      var modal = document.getElementById('login');
 
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = 'none';
+          }
+      }
+    })
+  }
   onEmailChange(event) {
     this.setState({
       email: event.target.value
@@ -41,7 +43,7 @@ export default class Login extends React.Component {
   }
 
   login() {
-    userApi.login(this.state.email, this.state.password).then((data)=>{
+    userApi.login(this.props.dispatch, this.state.email, this.state.password).then((data)=>{
       if(data.status == 200) {
         let token = data.data.data.token;
         localStorage.setItem('userToken', token);
@@ -53,7 +55,7 @@ export default class Login extends React.Component {
   }
 
   signup() {
-    userApi.signup(this.state.email, this.state.password).then((data)=>{
+    userApi.signup(this.props.dispatch, this.state.email, this.state.password).then((data)=>{
       if(data.status == 200) {
         var modal = document.getElementById('login');
         modal.style.display = 'none';
@@ -73,7 +75,8 @@ export default class Login extends React.Component {
                       <div className="modal-container">
                         {/*<div className="play-icon-container"><PlayIcon /></div>*/}
                         <div className="play-icon-container">
-                          <div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>
+                          {/*<div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>*/}
+                          <Svg markup={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
                         </div>
                         <form className="form-horizontal form-container">
                           <div className="form-group">
@@ -90,9 +93,10 @@ export default class Login extends React.Component {
                               value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
                               <div className="login-button" onClick={this.login.bind(this)}>
                                 <div className="login-icon-container">
-                                  <div className="login-icon-wrapper icon-wrapper" 
+                                  <Svg markup={LoginIcon} className="login-icon-wrapper icon-wrapper" />
+                                  {/*<div className="login-icon-wrapper icon-wrapper" 
                                     style={{backgroundImage: `url(${LoginIcon})`}}>
-                                  </div>
+                                  </div>*/}
                                 </div>
                               </div>
                             </div>

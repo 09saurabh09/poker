@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import './top-navigation.scss';
+//import './top-navigation.scss';
 import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
-import MoneyContainer from '../../views/money-container/money-container';
-import PlayerCards from '../../views/player-cards/player-cards';
+import MoneyContainer from '../../views/money-container/money-container.jsx';
+import PlayerCards from '../../views/player-cards/player-cards.jsx';
+
+import Svg from '../../views/svg/svg.jsx';
 
 export default class TopNavContainer extends React.Component{
 
@@ -21,7 +23,7 @@ export default class TopNavContainer extends React.Component{
               <div className="user-container">
                 <div className="user-details">
                   <div className="play-icon nav-link">
-                    <div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>
+                    <Svg className="play-icon-wrapper icon-wrapper" markup={PlayIcon} />
                   </div>
                   <div id="dp-container" className="profile-photo">
                     <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
