@@ -1,6 +1,6 @@
 "use strict";
 
-let GameModel = DB_MODELS.GameModel;
+let GameModel = DB_MODELS.Game;
 let PokerTableModel = DB_MODELS.PokerTable;
 
 /**
@@ -46,6 +46,7 @@ GAME_QUEUE.process('gameOverMoneyTransaction', function (job, done) {
 });
 
 GAME_QUEUE.process('gameOverUpdateGame', function (job, done) {
+    console.log(`INFO ::: Job gameOverUpdateGame with data ${JSON.stringify(job.data)} is being picked up`);
     let data = job.data;
     let updateObject = {
         rake: data.rakeEarning,
@@ -74,7 +75,7 @@ GAME_QUEUE.process('gameStateUpdated', function (job, done) {
     //     // Can update gameHistory status also in transaction
     // });
 
-    PokerTableModel.update(updateObject, { where: { id: pokerTableId, updatedAt: {"$lte": data.createdAt} } }).then(function (game) {
+    PokerTableModel.update(updateObject, { where: { id: pokerTableId, updatedAt: { "$lte": data.createdAt } } }).then(function (game) {
         console.log(`SUCCESS ::: poker table game state with id ${pokerTableId} updated`);
         done();
     }).catch(function (err) {

@@ -38,6 +38,7 @@ global.SOCKET_IO = io;
 
 global.GlobalConstant = {};
 GlobalConstant.tokenSecret = env.TOKEN_SECRET;
+GlobalConstant.tokenValidity = env.TOKEN_VALIDITY;
 
 global.GAME_QUEUE = kue.createQueue({
     prefix: 'pokerQueue',

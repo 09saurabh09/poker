@@ -21,5 +21,15 @@
     "react/display-name": 0,
     "react/prop-types": 0,
     "react/no-multi-comp": 0
-  }
+  },
+  "globals": {
+        "DB_MODELS": true,
+        "GAME_QUEUE": false,
+        "DB_CREDENTIALS": true,
+        "GlobalConstant": true,
+        "PROMISE": true,
+        "_": true,
+        "async": true,
+        "SOCKET_IO": true
+    }
 }

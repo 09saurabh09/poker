@@ -20,7 +20,7 @@ module.exports = {
      * @param {Number} params.amount
      * @param {Object} currentUser object
      */
-    addMoneyToTable: function ({tableId, amount}, currentUser, callback) {
+    addMoneyToTable: function ({ tableId, amount }, currentUser, callback) {
         let userId = currentUser.id;
         let pokerTablePromise = PokerTable.findOne({
             where: {
@@ -71,7 +71,8 @@ module.exports = {
     listTables: function (callback) {
         let self = this;
         let response;
-        PokerTable.findAll({ raw: true, attributes: { exclude: ['gameState'] } })
+        // PokerTable.findAll({ raw: true, attributes: { exclude: ['gameState'] } })
+        PokerTable.findAll({ raw: true })
             .then(function (tables) {
                 response = new responseMessage.GenericSuccessMessage();
                 // if(tables && tables.length) {
@@ -79,7 +80,10 @@ module.exports = {
                 //         table.gameState = self.getCommonGameState(table.gameState);
                 //     });
                 // }
-
+                tables.forEach(function (table) {
+                    table.currentTotalPlayer = table.gameState.currentTotalPlayer;
+                    delete table.gameState;
+                });
                 response.data = tables;
                 callback(null, response, response.code);
             })
@@ -98,6 +102,7 @@ module.exports = {
             .then(function (tables) {
                 tables.forEach(function (table) {
                     table.userJoined = false;
+                    table.currentTotalPlayer = table.gameState.currentTotalPlayer;
                     if (table.gameState.players) {
                         table.gameState.players.forEach(function (player) {
                             if (player && player.id == user.id) {
@@ -127,7 +132,7 @@ module.exports = {
      * @param {Number} params.amount
      * @param {Object} currentUser object
      */
-    requestMoney: function ({tableId, amount}, currenUser, callback) {
+    requestMoney: function ({ tableId, amount }, currenUser, callback) {
         let response;
         let query = `UPDATE "PokerTables" SET "moneyRequest" = "moneyRequest" || CONCAT('{"${currenUser.id}":', COALESCE("moneyRequest"->>'${currenUser.id}','0')::int + ${amount}, '}')::jsonb WHERE id = ${tableId};`;
         return DB_MODELS.sequelize.query(query)
@@ -162,6 +167,7 @@ module.exports = {
         let commonGameState = {
             tableId: gameState.tableId,
             turnPos: gameState.turnPos,
+            round: gameState.round,
             minRaise: gameState.minRaise,
             maxRaise: gameState.maxRaise,
             callValue: gameState.callValue,
@@ -191,6 +197,9 @@ module.exports = {
                     hasDone: player.hasDone,
                     idleForHand: player.idleForHand,
                     betForRound: player.betForRound
+                }
+                if ((gameState.round == "showdown") && (player.showCards)) {
+                    pl.cards = player.cards;
                 }
                 commonGameState.players.push(pl);
             } else {

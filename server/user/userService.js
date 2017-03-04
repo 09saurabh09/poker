@@ -45,7 +45,7 @@ module.exports = {
 
                                 delete user.password;
                                 var token = jwt.sign(user, GlobalConstant.tokenSecret, {
-                                    expiresIn: 24 * 60 * 60 // expires in 24 hours
+                                    expiresIn: GlobalConstant.tokenValidity // expires depend on env
                                 });
                                 user.token = token;
                                 response = new responseMessage.GenericSuccessMessage();
