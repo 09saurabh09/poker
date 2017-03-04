@@ -2,6 +2,7 @@
 
 let GameModel = DB_MODELS.Game;
 let PokerTableModel = DB_MODELS.PokerTable;
+let UserGamesModel = DB_MODELS.UserGame;
 
 /**
  * This job will be created after hand will be over from game server
@@ -82,4 +83,27 @@ GAME_QUEUE.process('gameStateUpdated', function (job, done) {
         console.log(`ERROR ::: Unable to update poker table game state with id ${pokerTableId}, error: ${err.message}, stack: ${err.stack}`);
         done(err);
     });
+});
+
+GAME_QUEUE.process('gameStartCreateUserGames', function (job, done) {
+    console.log(`INFO ::: Job gameStartCreateUserGames with data ${JSON.stringify(job.data)} is being picked up`);
+    let gameState = job.data;
+    let players = gameState.players;
+    let userGamePromise = [];
+    players.forEach(function(player) {
+        if(player) {
+            userGamePromise.push(UserGamesModel.create({
+                GameId: gameState.currentGameId,
+                UserId: player.id
+            }));
+        }
+    });
+
+    PROMISE.all(userGamePromise)
+        .then(() => {
+            console.log(`SUCCESS ::: User game created for game id ${gameState.currentGameId}`);
+        })
+        .catch((err) => {
+            console.log(`ERROR ::: Unable to create user games for game ${gameState.currentGameId}, error: ${err.message}, stack: ${err.stack}`);
+        })
 });
