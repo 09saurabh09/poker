@@ -13,7 +13,7 @@ export function login(dispatch, email, password) {
   })
     .then(response => {
       dispatch(connectAuthorizedSocket(response.data.data.token));
-      dispatch(authenticateUserSuccess(response.data));
+      dispatch(authenticateUserSuccess(response.data.data));
       return response;
     });
 }
