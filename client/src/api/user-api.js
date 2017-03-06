@@ -22,9 +22,9 @@ export function login(dispatch, email, password) {
  * User Sign up
  */
 
-export function signup(dispatch, email, password) {
+export function signup(dispatch, user) {
   return axios.post(utils.getPublicUserUrl(), {
-    user: {email, password}
+    user
   })
     .then(response => {
       dispatch(signupUserSuccess(response.data));

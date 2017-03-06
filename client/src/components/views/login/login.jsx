@@ -14,25 +14,40 @@ export default class Login extends React.Component {
 	constructor(props) {
 		super(props);
     this.state = {
+      username: '',
       email: '',
-      password: ''
+      password: '',
+      mobileNumber: '',
+      otp: '',
+      resendRemainingTime: 30,
+      resendText: ''
     };
 	}
   componentDidMount() {
     $(document).ready(()=>{
-      var modal = document.getElementById('login');
-
-      // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
-          if (event.target == modal) {
-              modal.style.display = 'none';
-          }
+        if (event.target.classList.contains("modal")) {
+          $('.modal').hide();
+        }
       }
     })
   }
+
+  onUserNameChange(event) {
+    this.setState({
+      username: event.target.value
+    })
+  }
+
   onEmailChange(event) {
     this.setState({
       email: event.target.value
+    })
+  }
+
+  onMobileChange(event) {
+    this.setState({
+      mobileNumber: event.target.value
     })
   }
 
@@ -54,13 +69,55 @@ export default class Login extends React.Component {
     });
   }
 
+  onOTPChange(event) {
+    this.setState({
+      otp: event.target.value
+    })
+  }
+
+  sendOtp() {
+    if(this.state.otp) {
+      userApi.signup(this.props.dispatch, {
+        name: this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+        mobileNumber: this.state.mobileNumber
+      }).then((data)=>{
+        if(data.status == 200) {
+          var modal = document.getElementById('login');
+          modal.style.display = 'none';
+        }
+      });
+    } else {
+      setTimeout(()=>{
+        $('.mobile-container').toggle();
+        this.resendTimer = setInterval(()=>{
+          if(this.state.resendRemainingTime > 0) {
+           this.setState({
+            resendText: '',
+            resendRemainingTime: this.state.resendRemainingTime - 1
+           })
+         } else {
+          clearInterval(this.resendTimer);
+          this.setState({
+            resendText: 'Resend'
+          })
+         }
+        }, 1000);
+      }, 1000);
+      $('.mobile-otp').toggleClass('show-otp');  
+    }
+    
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.resendTimer);
+  }
+
   signup() {
-    userApi.signup(this.props.dispatch, this.state.email, this.state.password).then((data)=>{
-      if(data.status == 200) {
-        var modal = document.getElementById('login');
-        modal.style.display = 'none';
-      }
-    });
+    $('#login .form-group').toggleClass('sign-up-form-group');
+    $('#login .play-icon-container').toggleClass('sign-up-form-group');
+    $('.sign-up-form').toggleClass('expand');
   }
 
 
@@ -73,35 +130,62 @@ export default class Login extends React.Component {
                 <div id="login-content" className="modal-content">
                     <div className="modal-body">
                       <div className="modal-container">
-                        {/*<div className="play-icon-container"><PlayIcon /></div>*/}
                         <div className="play-icon-container">
-                          {/*<div className="play-icon-wrapper icon-wrapper" style={{backgroundImage: `url(${PlayIcon})`}}></div>*/}
                           <Svg markup={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
                         </div>
                         <form className="form-horizontal form-container">
                           <div className="form-group">
                             <label htmlFor="inputUsername" className="sr-only">User name</label>
                             <div className="">
-                              <input autoComplete="off" type="email" className="form-control" id="inputUsername" placeholder="User name" 
-                              value={this.state.email} onChange={this.onEmailChange.bind(this)}/>
+                              <input autoComplete="off" type="text" className="form-control" id="inputUsername" placeholder="User name" 
+                              value={this.state.name} onChange={this.onUserNameChange.bind(this)}/>
                             </div>
                           </div>
                           <div className="form-group">
                             <label htmlFor="inputPassword" className="sr-only">Password</label>
-                            <div className="password-container">
+                            <div className="login-action-container">
                               <input type="password" className="form-control" id="inputPassword" placeholder="Password" 
                               value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
-                              <div className="login-button" onClick={this.login.bind(this)}>
+                              <div className="login-action login-button" onClick={this.login.bind(this)}>
                                 <div className="login-icon-container">
                                   <Svg markup={LoginIcon} className="login-icon-wrapper icon-wrapper" />
-                                  {/*<div className="login-icon-wrapper icon-wrapper" 
-                                    style={{backgroundImage: `url(${LoginIcon})`}}>
-                                  </div>*/}
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div className="form-group bottom-button-container">
+                          <div className="sign-up-form">
+                            <div className="form-group">
+                              <label htmlFor="inputUserEmail" className="sr-only">Email Id</label>
+                              <div className="">
+                                <input autoComplete="off" type="email" className="form-control" id="inputUserEmail" placeholder="Email" 
+                                value={this.state.email} onChange={this.onEmailChange.bind(this)}/>
+                              </div>
+                            </div>
+                            <div className="form-group">
+                              
+                              <div className="login-action-container">
+                                <div className="mobile-otp">
+                                  <div className="mobile-container">
+                                    <label htmlFor="inputUserPhone" className="sr-only">Phone Number</label>
+                                    <input autoComplete="off" type="number" className="form-control" id="inputUserNumber" placeholder="Phone Number" 
+                                    value={this.state.mobileNumber} onChange={this.onMobileChange.bind(this)}/>
+                                  </div>
+                                  <div className="otp-container">
+                                    <input autoComplete="off" type="number" className="form-control" id="inputOtp" placeholder="Enter OTP" 
+                                    value={this.state.otp} onChange={this.onOTPChange.bind(this)}/>
+                                    {!this.state.resendText ? <span className="resend-box">00:{this.state.resendRemainingTime}</span> : null }
+                                    {!!this.state.resendText ? <span className="resend-box"> {this.state.resendText}</span> : null }
+                                  </div>
+                                </div>
+                                <div className="login-action otp-button" onClick={this.sendOtp.bind(this)}>
+                                  <div className="otp-icon-container">
+                                    <Svg markup={LoginIcon} className="otp-icon-wrapper icon-wrapper" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="bottom-button-container">
                             <div className="sign-up-button-container" onClick={this.signup.bind(this)}>
                               <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
                             </div>

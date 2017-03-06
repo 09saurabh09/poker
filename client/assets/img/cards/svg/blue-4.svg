@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="81px" height="119px" viewBox="0 0 81 119" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>EFADA57E-C339-4D7D-B60A-682CCC9AC404</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <polygon id="path-1" points="0.309958932 0 24.3004449 0 24.3004449 42.0689655 0.309958932 42.0689655"></polygon>
+        <linearGradient x1="4.93828079%" y1="0%" x2="100%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#22DEFF" offset="0%"></stop>
+            <stop stop-color="#22ADFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#5BA6FF" offset="0%"></stop>
+            <stop stop-color="#2E6CFF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M12.7124576,36.2233425 C12.4868644,36.5383923 12.1233051,36.5383923 11.8977119,36.2233425 L0.479153288,20.2044116 C0.253560814,19.8884344 0.253560814,19.3761279 0.479153288,19.0601357 L11.8977119,3.04120852 C12.1233051,2.72522385 12.4868644,2.72522385 12.7124576,3.04120852 L24.1319492,19.0601432 C24.3566102,19.3761279 24.3566102,19.8884344 24.1319492,20.2044191 L12.7124576,36.2233425 Z" id="path-5"></path>
+        <polygon id="path-6" points="0.0860997034 0 6.75012359 0 6.75012359 8.41375805 0.0860997034 8.41375805"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Cards" transform="translate(-345.000000, -584.000000)">
+            <g id="Blue4" transform="translate(343.000000, 582.000000)">
+                <path d="M83.0846429,114.222881 C83.1531598,117.023272 80.9396429,119.352491 78.1472276,119.421203 L9.18282083,121.091341 C6.38760896,121.158651 4.06502422,118.940215 3.99930388,116.138422 L1.39985472,8.273594 C1.33133778,5.4703986 3.54345642,3.14258251 6.33866828,3.07527216 L75.3030751,1.40373193 C78.0968886,1.33782389 80.4194734,3.55345607 80.4851937,6.35805377 L83.0846429,114.222881 Z" id="Shape-Copy-3" fill="#FFFFFF" transform="translate(42.242248, 61.247566) rotate(1.000000) translate(-42.242248, -61.247566) "></path>
+                <g id="Page-1" transform="translate(29.364407, 44.873563)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <g id="Fill-1" mask="url(#mask-2)">
+                        <use fill="url(#linearGradient-3)" xlink:href="#path-5"></use>
+                        <use fill="url(#linearGradient-4)" xlink:href="#path-5"></use>
+                    </g>
+                </g>
+                <g id="Page-1-Copy-4" transform="translate(9.788136, 36.459770)">
+                    <mask id="mask-7" fill="white">
+                        <use xlink:href="#path-6"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M3.53123823,8.35468621 C3.46857345,8.43344866 3.36758475,8.43344866 3.30491996,8.35468621 L0.133098136,4.34995347 C0.0704335593,4.27095917 0.0704335593,4.14288254 0.133098136,4.06388451 L3.30491996,0.059152705 C3.36758475,-0.0198434636 3.46857345,-0.0198434636 3.53123823,0.059152705 L6.70331921,4.06388638 C6.76572505,4.14288254 6.76572505,4.27095917 6.70331921,4.34995534 L3.53123823,8.35468621 Z" id="Fill-1" fill="url(#linearGradient-4)" mask="url(#mask-7)"></path>
+                </g>
+                <text id="4" transform="translate(13.991525, 22.413793) rotate(1.000000) translate(-13.991525, -22.413793) " font-family="ProductSans-Bold, Product Sans" font-size="22.3999996" font-weight="bold" fill="#343F44">
+                    <tspan x="6.99152542" y="30.4137931">4</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

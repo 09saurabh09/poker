@@ -22,13 +22,11 @@ export default class BuyinPref extends React.Component {
 
   componentDidMount() {
     $(document).ready(()=>{
-      var modal = document.getElementById('buyin-pref');
-
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
-          if (event.target == modal) {
-              modal.style.display = 'none';
-          }
+        if (event.target.classList.contains("modal")) {
+          $('.modal').hide();
+        }
       }
     })
   }
