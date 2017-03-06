@@ -63,11 +63,6 @@ export default class GameTable extends React.Component{
             $('.main-table').height( $(window).height() * .65);
             $('.main-table').width( $('.main-table').height() * 2.22 );
           }
-          if($('.main-table').height() + 250 <= $(window).height()) {
-            $('.game-table').height( $('.main-table').height() + 250);
-          } else {
-            $('.game-table').height( $(window).height());
-          }
         }).resize();
     });
   }
