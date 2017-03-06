@@ -120,7 +120,7 @@ class TableContainer extends React.Component{
     if(socket.connected) {
       this.performSocketActions(socket, tableId);
     } else {
-      socket.on('connection', ()=>{
+      socket.on('connect', ()=>{
         this.performSocketActions(socket, tableId);
       })
     }    

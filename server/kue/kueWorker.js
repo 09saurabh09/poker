@@ -10,6 +10,7 @@ let UserGamesModel = DB_MODELS.UserGame;
  * @param {function} done: callback when job finishes
  */
 
+// Not being used now
 GAME_QUEUE.process('gameOverMoneyTransaction', function (job, done) {
     console.log(`INFO ::: Picked up job gameOverMoneyTransaction with data ${JSON.stringify(job)}`);
     let pots = job.data.pots;
