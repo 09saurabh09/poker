@@ -22,6 +22,12 @@ router.get('/', (req, res, next) => {
 
     userController.getUserInfo(req, res);
 
-})
+});
+
+router.get('/session/game-history', (req, res, next) => {
+
+    userController.getSessionHistory(req, res);
+
+});
 
 module.exports = {router, publicRouter};

@@ -20,7 +20,9 @@ module.exports = function (sequelize, DataTypes) {
                         through: "UserGames"
                     });
 
-                    Game.belongsTo(models.PokerTable);
+                    Game.belongsTo(models.PokerTable, {foreignKey: 'pokerTableId'});
+
+                    Game.hasMany(models.GameHistory);
                 }
             }
         });
