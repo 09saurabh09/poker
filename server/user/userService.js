@@ -113,6 +113,9 @@ module.exports = {
             where: {
                 id: user.id
             },
+            attributes: {
+                exclude: ['password']
+            },
             // include: [DB_MODELS.Game]
             include: [{
                 model: DB_MODELS.Game,
@@ -125,7 +128,8 @@ module.exports = {
                 },
                 include: {
                     model: DB_MODELS.GameHistory,
-                    attributes: ['gameState']
+                    attributes: ['gameState', 'createdAt'],
+                    order: ['createdAt'] 
                 }
             }
 
