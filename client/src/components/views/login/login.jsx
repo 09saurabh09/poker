@@ -58,7 +58,7 @@ export default class Login extends React.Component {
   }
 
   login() {
-    userApi.login(this.props.dispatch, this.state.email, this.state.password).then((data)=>{
+    userApi.login(this.props.dispatch, this.state.username, this.state.password).then((data)=>{
       if(data.status == 200) {
         let token = data.data.data.token;
         localStorage.setItem('userToken', token);
@@ -138,7 +138,7 @@ export default class Login extends React.Component {
                             <label htmlFor="inputUsername" className="sr-only">User name</label>
                             <div className="">
                               <input autoComplete="off" type="text" className="form-control" id="inputUsername" placeholder="User name" 
-                              value={this.state.name} onChange={this.onUserNameChange.bind(this)}/>
+                              value={this.state.username} onChange={this.onUserNameChange.bind(this)}/>
                             </div>
                           </div>
                           <div className="form-group">

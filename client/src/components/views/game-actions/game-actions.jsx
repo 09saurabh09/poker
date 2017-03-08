@@ -26,12 +26,6 @@ export default class GameActions extends React.Component{
     })
   }
 
-  onMaxClick() {
-    this.setState({
-      value: this.props.range.max
-    })
-  }
-
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -58,7 +52,7 @@ export default class GameActions extends React.Component{
               <a onClick={this.onPotClick.bind(this)} className="button">Pot</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onMaxClick.bind(this)} className="button">Max</a>
+              <a onClick={this.props.onAction.bind(null, "allIn", this.state.value)} className="button">Max</a>
             </div>
             <div className="button-container">
               <input type="number" id="call-value" name="call-value" step={this.props.range.step} 

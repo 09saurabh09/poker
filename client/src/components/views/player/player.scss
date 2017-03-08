@@ -32,8 +32,9 @@ $dp-size : 24px;
 }
 .player-card-wrapper {
   position: absolute;
-  top: -15%;
+  top: -10%;
   left: 35%;
+  width: 100%;
 }
 .sitting-player.on-table {
   border-radius: 30%;
@@ -141,6 +142,9 @@ $dp-size : 24px;
     width: 100%;
     float: left;
     background-color: #484848;
+  }
+  .winner-text {
+    color: #3de689;
   }
   .hands-played {
     width: 30%;

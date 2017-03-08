@@ -122,7 +122,9 @@ export default class Player extends React.Component {
                 <div className='hands-played'></div>
                 <div className='raised'></div>
               </div>
+
             </div>
+            {this.props.winner ? <div className="winner-text"> WINNER </div>: null}
           </div>  
         </div>
         

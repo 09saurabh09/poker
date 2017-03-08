@@ -1,6 +1,8 @@
 import React from 'react';
 
 //import './game-table.scss';
+import Svg from '../svg/svg.jsx';
+import CoinIcon from '../../../../assets/img/game/coin.svg';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import OpenSeat from '../open-seat/open-seat.jsx';
@@ -55,15 +57,15 @@ export default class GameTable extends React.Component{
       20000
     );*/
     $(document).ready(function() {
-        $(window).resize(function() {
-          if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
-            $('.main-table').width( $(window).width() * .70 );
-            $('.main-table').height( $('.main-table').width() * 0.45 );
-          } else {
-            $('.main-table').height( $(window).height() * .65);
-            $('.main-table').width( $('.main-table').height() * 2.22 );
-          }
-        }).resize();
+      $(window).resize(function() {
+        if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
+          $('.main-table').width( $(window).width() * .70 );
+          $('.main-table').height( $('.main-table').width() * 0.45 );
+        } else {
+          $('.main-table').height( $(window).height() * .65);
+          $('.main-table').width( $('.main-table').height() * 2.22 );
+        }
+      }).resize();
     });
   }
 
@@ -182,7 +184,7 @@ export default class GameTable extends React.Component{
       call,
       amount: parseInt(amount)
     }
-    console.log('Event emited table-join with payload ', payload)
+    console.log('Event emited player-turn with payload ', payload)
     this.props.authorizedSocket.emit('player-turn', payload);
   }
 
@@ -190,37 +192,60 @@ export default class GameTable extends React.Component{
     let payload = {
       tableId : this.props.tableId
     }
-    console.log('Event emited table-join with payload ', payload)
+    console.log('Event emited table-leave with payload ', payload)
     this.props.authorizedSocket.emit('table-leave', payload);
+  }
+
+  getPlayerIndexFromId(players, playerId) {
+    let playerIndex = -1;
+    players.forEach((player, index)=>{
+      if(player && player.id == playerId) {
+        playerIndex = index;
+      }
+    })
+    return playerIndex;
   }
 
   render() {
     let {gameState : game, players} = this.state;
-    let myTurn = false, playersPlaying = 0;
-    players.forEach((player)=>{
-      if(!!player) {
-        playersPlaying++;
-      }
-      if(player && (player.id == this.props.userData.id) && (game.turnPos == player.seat - 1)) {
-        myTurn = true;
-      }
-    });
-    game.minRaise = parseInt(game.minRaise) || 10;
-    game.maxRaise = parseInt(game.maxRaise) || 1000;
-    game.callValue = parseInt(game.callValue) || 0;
-    myTurn = myTurn && playersPlaying > 1 && game.minRaise < game.maxRaise;
-    let gameActionsElement = <div className="game-actions-container">
-                                <GameActions range={{min: game.minRaise, max: game.maxRaise, 
-                                  potValue: game.totalPot, step: 1}} callValue={game.callValue} onAction={this.onGameAction.bind(this)} />
-                              </div> ;
+    let winnerPlayerId, winnerPlayerIndex = -1;
+    game.maxRaise = game.maxRaise || 100;
+    if(game.round == 'showdown'){
+      winnerPlayerId = game.gamePots[0].winners && game.gamePots[0].winners[0];
+      winnerPlayerIndex = this.getPlayerIndexFromId(players, winnerPlayerId);
+      let potChips = $('.pot-chips');
+      let classes = potChips && potChips.attr('class') && potChips.attr('class').split(' ');
+      classes && classes.forEach((cl)=>{
+        if(cl !== 'pot-chips') {
+          potChips.removeClass(cl);
+        }
+      })
+      $('.pot-chips').addClass(`moved-to-player${winnerPlayerIndex}`);
+    }
     return (
       <div className='game-table'>
         <div className='game-controls-container'>
           <GameControls leaveTable={this.leaveTable.bind(this)}/>
         </div>
-        {myTurn ? gameActionsElement : null}
+        <div className="game-actions-container">
+          <GameActions range={{min: game.minRaise, max: game.maxRaise || game.minRaise + 1, 
+                                potValue: game.totalPot, step: 1}} 
+                        callValue={game.callValue} onAction={this.onGameAction.bind(this)} />
+        </div>
         <div className='main-table'>
             <GamePot potValue={game.potValue} totalPot={game.totalPot}/>
+            {game.totalPot > 0 ? 
+            <div className="pot-chips">
+              <div className="coin-icon-container">
+                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+              </div>
+              <div className="coin-icon-container">
+                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+              </div>
+              <div className="coin-icon-container">
+                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+              </div>
+            </div> : null }
             <div className='table-center'>
               {game.communityCards && game.communityCards.map((element, index)=> 
                 <div key={index} className='game-cards-container'>
@@ -230,7 +255,7 @@ export default class GameTable extends React.Component{
             </div>
            {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              {player !== null ? <Player turnPos={this.state.turnPos} player={player} bigBlind={game.bigBlind}/> : null }
+              {player !== null ? <Player turnPos={game.turnPos} player={player} bigBlind={game.bigBlind} winner={winnerPlayerIndex == index}/> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }
             </div>
