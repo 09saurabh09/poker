@@ -57,4 +57,5 @@ DS_Store
 /.vscode/
 server/.DS_Store
 server/utils/.DS_Store
+server/webpack-assets.json
 

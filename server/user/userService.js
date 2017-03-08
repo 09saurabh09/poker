@@ -3,6 +3,7 @@ let UserModel = DB_MODELS.User;
 let responseMessage = require("../utils/responseMessage");
 let userManager = require("../utils/userManager");
 let jwt = require("jsonwebtoken");
+const uuidV4 = require('uuid/v4');
 
 module.exports = {
     create: function (params, callback) {
@@ -44,6 +45,7 @@ module.exports = {
                             if (isPasswordMatched) {
 
                                 delete user.password;
+                                user.sessionKey = uuidV4();
                                 var token = jwt.sign(user, GlobalConstant.tokenSecret, {
                                     expiresIn: GlobalConstant.tokenValidity // expires depend on env
                                 });
@@ -103,6 +105,48 @@ module.exports = {
                 callback(null, response, response.code);
             })
         })
+    },
+
+    getSessionHistory: function (user, callback) {
+        let response;
+        UserModel.findOne({
+            where: {
+                id: user.id
+            },
+            attributes: {
+                exclude: ['password']
+            },
+            // include: [DB_MODELS.Game]
+            include: [{
+                model: DB_MODELS.Game,
+                attributes:['pokerTableId'],
+                // as: 'games',
+                through: {
+                    where: {
+                        sessionKey: "eaa06ba7-9a6c-47cb-96de-05053c0c86c9"
+                    }
+                },
+                include: {
+                    model: DB_MODELS.GameHistory,
+                    attributes: ['gameState', 'createdAt'],
+                    order: ['createdAt'] 
+                }
+            }
+
+            ]
+        })
+
+        
+            .then(function (userGames) {
+                response = new responseMessage.GenericSuccessMessage();
+                response.data = userGames;
+                callback(null, response, response.code);
+            })
+            .catch(function (err) {
+                console.log(`ERROR ::: Unable to get table details for user: ${user.id}, error: ${err.message}, stack: ${err.stack}`);
+                response = new responseMessage.GenericFailureMessage();
+                callback(null, response, response.code);
+            })
     }
 
 }

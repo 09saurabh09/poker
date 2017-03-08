@@ -35,5 +35,11 @@ module.exports = {
                 break;
         }
 
+    },
+
+    getSessionHistory: function(req, res) {
+        userService.getSessionHistory(req.user, function(err, response, statusCode) {
+            responseHelper(err, res, response, statusCode);
+        })
     }
 };
