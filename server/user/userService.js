@@ -107,8 +107,15 @@ module.exports = {
         })
     },
 
-    getSessionHistory: function (user, callback) {
+    getSessionHistory: function (params, user, callback) {
         let response;
+        let userGameQuery = {
+            sessionKey: "eaa06ba7-9a6c-47cb-96de-05053c0c86c9"
+        }
+
+        if(params.tableId) {
+            _.assign(userGameQuery, {pokerTableId: params.tableId});
+        }
         UserModel.findOne({
             where: {
                 id: user.id
@@ -122,9 +129,7 @@ module.exports = {
                 attributes:['pokerTableId'],
                 // as: 'games',
                 through: {
-                    where: {
-                        sessionKey: "eaa06ba7-9a6c-47cb-96de-05053c0c86c9"
-                    }
+                    where: userGameQuery
                 },
                 include: {
                     model: DB_MODELS.GameHistory,
