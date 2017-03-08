@@ -20,6 +20,9 @@ module.exports = function (sequelize, DataTypes) {
         },
         status: {
             type: DataTypes.STRING
+        },
+        pokerTableId: {
+            type: DataTypes.INTEGER
         }
     });
     return UserGame;

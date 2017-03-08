@@ -96,7 +96,8 @@ GAME_QUEUE.process('gameStartCreateUserGames', function (job, done) {
             userGamePromise.push(UserGamesModel.create({
                 GameId: gameState.currentGameId,
                 UserId: player.id,
-                sessionKey: player.sessionKey
+                sessionKey: player.sessionKey,
+                pokerTableId: gameState.tableId
             }));
         }
     });

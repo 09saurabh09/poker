@@ -38,7 +38,8 @@ module.exports = {
     },
 
     getSessionHistory: function(req, res) {
-        userService.getSessionHistory(req.user, function(err, response, statusCode) {
+        let params = req.query;
+        userService.getSessionHistory(params, req.user, function(err, response, statusCode) {
             responseHelper(err, res, response, statusCode);
         })
     }
