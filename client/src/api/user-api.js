@@ -80,7 +80,7 @@ export function getGameHistory(dispatch, tableId) {
   }
   return axios({
     method: 'get',
-    url: utils.getGameHistoryUrl(),
+    url: utils.getGameHistoryUrl(tableId),
     headers: {
         'X-Access-Token' : token
       }

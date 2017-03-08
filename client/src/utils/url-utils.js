@@ -60,8 +60,12 @@ class UrlUtils {
 		return `${this.getGameUrl()}/list-my-tables`;
 	}
 
-	getGameHistoryUrl() {
-		return `${this.getUserUrl()}/session/game-history`;
+	getGameHistoryUrl(tableId) {
+		let url = `${this.getUserUrl()}/session/game-history`
+		/*if(tableId) {
+			return `${url}/?tableId=${tableId}`
+		}*/
+		return url;
 	}
 
 	constructor() {
