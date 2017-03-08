@@ -37,12 +37,12 @@ export default class GameTable extends React.Component{
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    let game = nextProps.gameData[nextProps.tableId];
-    if(!game) {
+    let game = nextProps.gameData;
+    if(!game || Object.keys(game).length == 0) {
       return;
     }
     this.setState({
-      players : this.rotateIfPlaying(game.players),
+      players : this.rotateIfPlaying(game.players, nextProps.userData.id),
       gameState : Object.assign({}, game)
     })
   }
@@ -92,11 +92,11 @@ export default class GameTable extends React.Component{
     });*/
   }
 
-  rotateIfPlaying(players) {
+  rotateIfPlaying(players, userId) {
     let playing = false;
     let seat;
     players.forEach((player, index)=>{
-      if(player && player.id == this.props.userData.id) {
+      if(player && player.id == userId) {
         playing = true;
         seat = index;
       }
@@ -225,10 +225,10 @@ export default class GameTable extends React.Component{
     return (
       <div className='game-table'>
         <div className='game-controls-container'>
-          <GameControls leaveTable={this.leaveTable.bind(this)}/>
+          <GameControls leaveTable={this.leaveTable.bind(this)} onReplayClick={this.props.onReplayClick}/>
         </div>
         <div className="game-actions-container">
-          <GameActions range={{min: game.minRaise, max: game.maxRaise || game.minRaise + 1, 
+          <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
                                 potValue: game.totalPot, step: 1}} 
                         callValue={game.callValue} onAction={this.onGameAction.bind(this)} />
         </div>

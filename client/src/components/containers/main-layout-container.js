@@ -8,7 +8,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    userApi.getUserInfo(this.props.dispatch, 'large');  
+    userApi.getUserInfo(this.props.dispatch, 'small');
   }
 
   render() {

@@ -7,7 +7,6 @@ export default class CheckboxElement extends React.Component{
   }
 
   /*handleOnChange(event) {
-    debugger;
     this.setState({
       checked: event.target.checked
     })

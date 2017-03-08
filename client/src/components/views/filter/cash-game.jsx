@@ -40,7 +40,7 @@ export default class CashGameFilter extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    /*debugger;
+    /*
     let count = 10;
     this.setState({
       count

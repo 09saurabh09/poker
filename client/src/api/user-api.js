@@ -1,6 +1,6 @@
 import axios from 'axios';
 import utils from '../utils/utils';
-import { authenticateUserSuccess, signupUserSuccess, ListMyTablesSuccess, UserInfoSuccess } from '../actions/user-actions';
+import { authenticateUserSuccess, signupUserSuccess, ListMyTablesSuccess, UserInfoSuccess, GameHistorySuccess } from '../actions/user-actions';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
 
 /**
@@ -69,6 +69,24 @@ export function getMyTables(dispatch) {
     })
     .then(response => {
       dispatch(ListMyTablesSuccess(response.data && response.data.data));
+      return response;
+    });
+}
+
+export function getGameHistory(dispatch, tableId) {
+  let token = localStorage.getItem('userToken');
+  if(!token) {
+    return;
+  }
+  return axios({
+    method: 'get',
+    url: utils.getGameHistoryUrl(),
+    headers: {
+        'X-Access-Token' : token
+      }
+    })
+    .then(response => {
+      dispatch(GameHistorySuccess(response.data && response.data.data));
       return response;
     });
 }

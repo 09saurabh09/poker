@@ -94,7 +94,7 @@ export default class CashGameTable extends React.Component{
   }
 
   openTable(id) {
-    browserHistory.push(`/cash-game/${id}`);
+    browserHistory.push(`/cash-game/play/${id}`);
   }
 
   getSortingIcon(index, sortOrder) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Router, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as gameStateApi from '../../../api/game-state-api';
 import * as userApi from '../../../api/user-api';
@@ -7,13 +8,14 @@ import { updateUserCards } from '../../../actions/user-actions';
 import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table.jsx';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
+import { getGameStateSuccess } from '../../../actions/game-state-actions';
 
 class TableContainer extends React.Component{
 
   constructor(props) {
     super(props);
     this.state = {
-      gameData: this.props.gameData || {}
+      gameData : this.props.gameData
     }
   }
 
@@ -27,7 +29,7 @@ class TableContainer extends React.Component{
     let tableId = params.id;
     // call apis
     gameStateApi.getGameState(dispatch, tableId);
-    userApi.getMyTables(dispatch, tableId);
+    userApi.getMyTables(dispatch);
     // connect to socket if not already connected
     !socket.unAuthorizedSocket && dispatch(connectUnauthorizedSocket());
     let userToken = localStorage.getItem('userToken');
@@ -40,15 +42,33 @@ class TableContainer extends React.Component{
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    let tableId = nextProps.params.id; 
-    let oldGameState = nextProps.gameData[tableId];
-    if(!oldGameState) {
-      return;
+    if(nextProps.params.id && nextProps.params.playAction == 'play') {
+      let tableId = nextProps.params.id;
+      let oldGameState = nextProps.gameData[tableId];
+      if(!oldGameState) {
+        return;
+      }
+      let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId], nextProps.userData.id);
+      this.setState({
+        gameData: newGameState
+      })
+    } else if(nextProps.params.id && nextProps.params.playAction == 'replay') {
+      let counter = 0;
+      for(var i = 0 ; i< nextProps.gameHistory.length ; i++) {
+        let gameHistories = nextProps.gameHistory[i].GameHistories;
+        for(var j = 0; j < gameHistories.length; j++) {
+          counter++;
+          (function(component, gameData){
+            setTimeout(function(){
+              console.log(gameData);
+              component.setState({
+                gameData
+              })
+            }, 500 * (counter));
+          })(this, gameHistories[j].gameState)
+        }
+      }
     }
-    let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId]);
-    this.setState({
-      gameData: {[tableId]: newGameState}
-    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -63,19 +83,20 @@ class TableContainer extends React.Component{
     if(!socket.unAuthorizedSocket && unAuthorizedSocket) {
       this.socketOnConnect(unAuthorizedSocket, tableId);
     }
-    if(this.props.params.id != prevProps.params.id) {
+    let totalGamesRunning = Object.keys(this.props.gameData);
+    if(totalGamesRunning.length > 0 && totalGamesRunning.indexOf(this.props.params.id) == -1) {
       gameStateApi.getGameState(dispatch, this.props.params.id);
     }
   }
 
-  addCardsToPlayer(gameState, cards) {
+  addCardsToPlayer(gameState, cards, userId = this.props.userData.id) {
     if(!gameState) {
       return;
     }
     let newGameState = gameState;
     let players = newGameState.players;
     players.forEach((player)=>{
-      if(player && (player.id == this.props.userData.id)) {
+      if(player && (player.id == userId)) {
         player.cards = cards;
       }
     })
@@ -88,28 +109,31 @@ class TableContainer extends React.Component{
     socket.on('player-joined', (data)=>{
       console.log( socket.nsp, ' Player joined', data);
       let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
-      this.setState({
+      /*this.setState({
         gameData: {[data.tableId]: newGameState}
-      })
+      })*/
+      this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
     });
 
     socket.on('turn-completed', (data)=>{
       console.log( socket.nsp,' turn-completed', data);
       let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
-      this.setState({
+      /*this.setState({
         gameData: {[data.tableId]: newGameState}
-      })
+      })*/
+      this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
     });
 
     socket.on('game-started', (data)=>{
       console.log(socket.nsp, 'game started cards ', data);
-      let newGameState = this.addCardsToPlayer(this.state.gameData[data.tableId], data.cards);
+      let newGameState = this.addCardsToPlayer(this.props.gameData[data.tableId], data.cards);
       this.props.dispatch(updateUserCards({tableId: data.tableId, cards: data.cards}))
-      if(tableId == data.tableId) {
-        this.setState({
+//      if(tableId == data.tableId) {
+        /*this.setState({
           gameData: {[data.tableId]: newGameState}
-        })
-      }
+        })*/
+        this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
+//      }
     });
   }
 
@@ -126,13 +150,22 @@ class TableContainer extends React.Component{
     }    
   }
 
+  onReplay() {
+    userApi.getGameHistory(this.props.dispatch, this.props.params.id)
+    .then(()=>{
+        browserHistory.push(`/cash-game/replay/${this.props.params.id}`);
+    });
+  }
+
   render() {
     return (
       <div className="table-container">
         <TopNavContainer myTables={this.props.myTables} userData={this.props.userData} tableId={this.props.params.id}
           unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
-        unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} dispatch={this.props.dispatch}/>
+        unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
+        dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)}
+        />
       </div>
     );
   }
@@ -144,7 +177,8 @@ const mapStateToProps = function(state) {
     userCards: state.userState.userCards,
     socket: state.socket,
     myTables : state.userState.myTables,
-    gameData: state.gameState.gameData
+    gameData: state.gameState.gameData,
+    gameHistory: state.userState.gameHistory
   };
 };
 

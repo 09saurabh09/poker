@@ -4,7 +4,8 @@ const initialState = {
   userToken: null,
   userData: {},
   userCards: {},
-  myTables: []
+  myTables: [],
+  gameHistory: []
 };
 
 const userReducer = function(state = initialState, action) {
@@ -35,6 +36,9 @@ const userReducer = function(state = initialState, action) {
 
     case types.USER_INFO_SUCCESS:
       return Object.assign({}, state, { userData: action.userInfo.data });
+
+    case types.GAME_HISTORY_SUCCESS:
+      return Object.assign({}, state, { gameHistory: action.data.Games });  
 
   }
 

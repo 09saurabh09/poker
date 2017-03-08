@@ -18,9 +18,11 @@ export default function(history) {
 					<Route component={LobyLayoutContainer} >
 						<IndexRoute component={CashGameContainer} />
 					</Route>
-					<Route path=":id" component={TableContainer} />
+					<Route path=":playAction">
+						<Route path=":id" component={TableContainer}/>
+					</Route>
 				</Route>
-				
+
 				<Route path="tournament">
 					<Route component={LobyLayoutContainer} >
 						<IndexRoute component={TournamentContainer} />

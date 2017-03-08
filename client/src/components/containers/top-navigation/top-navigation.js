@@ -26,7 +26,7 @@ export default class TopNavContainer extends React.Component{
                     <Svg className="play-icon-wrapper icon-wrapper" markup={PlayIcon} />
                   </div>
                   <div id="dp-container" className="profile-photo">
-                    <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
+                    <img id="dp" className="photo" src=""/>
                   </div>
                   <div className="name-balance">
                     <div className="user-name">
@@ -50,7 +50,7 @@ export default class TopNavContainer extends React.Component{
                 <div className="playing-tables">
                   {this.props.myTables.map((table, index)=>
                     <div key={index} className={table.id == this.props.tableId ? 'active play-card' : 'play-card'}>
-                       <Link to={`/cash-game/${table.id}`} className="table-link">
+                       <Link to={`/cash-game/play/${table.id}`} className="table-link">
                         <PlayerCards cards={table.userCards}/>
                       </Link>  
                     </div>

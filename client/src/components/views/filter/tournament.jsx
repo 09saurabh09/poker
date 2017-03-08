@@ -38,7 +38,7 @@ export default class TournamentFilter extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    /*debugger;
+    /*
     let count = 10;
     this.setState({
       count

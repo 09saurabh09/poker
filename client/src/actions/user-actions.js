@@ -34,3 +34,10 @@ export function ListMyTablesSuccess(myTables) {
     myTables
   };
 }
+
+export function GameHistorySuccess(data) {
+  return {
+    type: types.GAME_HISTORY_SUCCESS,
+    data
+  };
+}
