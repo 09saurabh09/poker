@@ -12,7 +12,7 @@
     "dev:start": "export NODE_ENV=development; PORT=7100 nodemon ./bin/www",
     "prod:start": "export NODE_ENV=production; PORT=7100 node ./bin/www",
     "debug": "export NODE_ENV=development; PORT=7100 node --inspect --debug-brk ./bin/www",
-    "webserver": "concurrently --kill-others  \"export NODE_ENV=development; node webpack.server.js\" \"gulp css:watch\"",
+    "webserver": "export NODE_ENV=development; node webpack.server.js && gulp css:watch",
     "stats": "webpack --profile --json > stats.json",
     "deploy": "gh-pages -d build",
     "test:tdd": "npm run test -- --auto-watch --no-single-run",
