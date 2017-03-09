@@ -46,9 +46,9 @@ input:focus {
     cursor: pointer;
     border-radius: 40px;
     background-color: #3c3c3c;
-}
-.button:hover {
-    background-color: #3de689;
+    &.active {
+        background-color: #3de689;
+    }
 }
 .hide {
     display: none !important;

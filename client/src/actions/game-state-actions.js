@@ -6,3 +6,10 @@ export function getGameStateSuccess(gameStateObject) {
     gameStateObject
   };
 }
+
+export function saveGameAction(payload) {
+	return {
+    type: types.SAVE_GAME_ACTION,
+    payload
+  };
+}

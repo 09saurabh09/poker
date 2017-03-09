@@ -73,15 +73,15 @@ export default class GameActions extends React.Component{
           </div>
           <div className="actions space-between">
             <div className="button-container">
-              <a href="#" onClick={this.props.onAction.bind(null, "fold", 0)} className="button">Fold</a>
+              <button type="button" onClick={(event) => {this.props.onAction(event, "fold", 0)}} className="button">Fold</button>
             </div>
             <div className="button-container">
-              <a href="#" onClick={this.props.onAction.bind(null, "callOrCheck", this.props.callValue)} className="button">
+              <button type="button" onClick={(event) => {this.props.onAction(event, "callOrCheck", this.props.callValue)}} className="button">
                 <span>{this.props.callValue ? `Call ${this.props.callValue}`: 'Check'}</span>
-              </a>
+              </button>
             </div>
             <div className="button-container">
-              <a href="#" onClick={this.props.onAction.bind(null, "raise", this.state.value)} className="button">Raise</a>
+              <button type="button" onClick={(event) => {this.props.onAction(event, "raise", this.state.value)}} className="button">Raise</button>
             </div>
           </div>
         </form>

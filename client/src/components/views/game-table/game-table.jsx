@@ -14,6 +14,8 @@ import PlayerChips from '../player-chips/player-chips.jsx';
 import Card from '../card/card.jsx';
 import Login from '../login/login.jsx';
 
+import { saveGameAction } from '../../../actions/game-state-actions';
+
 export default class GameTable extends React.Component{
 
   constructor(props) {
@@ -73,6 +75,14 @@ export default class GameTable extends React.Component{
     //clearInterval(this.timerID);
   }
 
+  componentDidUpdate(prevProps, nextProps) {
+    let { dispatch } = this.props;
+    let { gameState: game } = this.state;
+    if(this.isMyTurn() && game.payload) {
+      debugger;
+    }
+  }
+
   tick() {
     /*if(this.game.potValue >= 100) {
       clearInterval(this.timerID);
@@ -130,6 +140,17 @@ export default class GameTable extends React.Component{
     return false;
   }
 
+  isMyTurn() {
+    let myTurn = false;
+    this.state.players.forEach((player)=>{
+      if(player && player.id == this.props.userData.id 
+        && player.seat - 1 == this.state.gameState.turnPos) {
+        myTurn = true;
+      }
+    });
+    return myTurn;
+  }
+
   openBuyinPref(seat) {
     if(this.isHePlaying()) {
       alert('You are already playing');
@@ -178,14 +199,23 @@ export default class GameTable extends React.Component{
     console.log('Event emited table-join with payload ', payload)
   }
 
-  onGameAction(call, amount) {
+  onGameAction(event, action, amount) {
     let payload = {
       tableId : this.props.tableId,
-      call,
+      action,
       amount: parseInt(amount)
     }
     console.log('Event emited player-turn with payload ', payload)
-    this.props.authorizedSocket.emit('player-turn', payload);
+    
+    //if(this.isMyTurn()) {
+      this.props.authorizedSocket.emit('player-turn', payload);
+    /*} else {
+      //queue the action
+      this.props.dispatch(saveGameAction(payload));
+      $('.game-actions button').removeClass('active');
+      $(event.currentTarget).addClass('active');
+    }*/
+    
   }
 
   leaveTable() {
