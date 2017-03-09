@@ -160,8 +160,7 @@ class TableContainer extends React.Component{
   render() {
     return (
       <div className="table-container">
-        <TopNavContainer myTables={this.props.myTables} userData={this.props.userData} tableId={this.props.params.id}
-          unAuthorizedSocket={this.props.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} />
+        <TopNavContainer myTables={this.props.myTables} tableId={this.props.params.id} />
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
         dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)}

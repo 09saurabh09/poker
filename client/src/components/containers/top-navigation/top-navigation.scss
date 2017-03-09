@@ -82,7 +82,7 @@ $player-card-height : 36px;
       height: 100%;
     }
     .playing-tables {
-      display: flex;
+      overflow-x: scroll;
     }
     .play-card {
       width: 12.5%;
@@ -95,6 +95,7 @@ $player-card-height : 36px;
       position: relative;
       border: solid 1px #a0b2b9;
       border-bottom: initial;
+      display: inline-block;
       &.active {
         border: solid 1px #3de689;
         border-bottom: initial;

@@ -19,7 +19,7 @@ export default class TopNavContainer extends React.Component{
       <div className="top-nav-container">
         <div id="top-drawer">
           <div className="nav-dropdown">
-            <div className="top-row">
+            {/*<div className="top-row">
               <div className="user-container">
                 <div className="user-details">
                   <div className="play-icon nav-link">
@@ -41,7 +41,7 @@ export default class TopNavContainer extends React.Component{
               <div className="money-wrapper">
                 <MoneyContainer />
               </div>
-            </div>
+            </div>*/}
             <div className="bottom-row">
               <div className="bottom-row-detail">
                 <Link to="/cash-game" >
