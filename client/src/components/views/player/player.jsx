@@ -90,9 +90,9 @@ export default class Player extends React.Component {
     return (
       <div className='player'>
         <div className={'sitting-player ' + seatOpen + ' '+ onTableClassName}>
-          <div className='player-card-wrapper'>
+          {this.props.showCards ? <div className='player-card-wrapper'>
             <PlayerCards cards={this.props.player.cards}/>
-          </div>
+          </div>: null}
           <div className={'player-container ' + activeClassName}>
             <div className="timer-count">{this.props.player.timer - this.state.timeElapsed}</div>
             <div className='timer timer-top' style={{width: timerTopWidth}}></div>

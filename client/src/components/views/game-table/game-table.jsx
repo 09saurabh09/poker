@@ -255,7 +255,7 @@ export default class GameTable extends React.Component{
             </div>
            {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              {player !== null ? <Player turnPos={game.turnPos} player={player} bigBlind={game.bigBlind} winner={winnerPlayerIndex == index}/> : null }
+              {player !== null ? <Player turnPos={game.turnPos} player={player} bigBlind={game.bigBlind} winner={winnerPlayerIndex == index} showCards={game.round != 'idle'}/> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }
             </div>
