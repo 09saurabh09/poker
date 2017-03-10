@@ -14,7 +14,7 @@ import PlayerChips from '../player-chips/player-chips.jsx';
 import Card from '../card/card.jsx';
 import Login from '../login/login.jsx';
 
-import { saveGameAction } from '../../../actions/game-state-actions';
+import { saveGameAction, removeGameAction } from '../../../actions/game-state-actions';
 
 export default class GameTable extends React.Component{
 
@@ -75,11 +75,14 @@ export default class GameTable extends React.Component{
     //clearInterval(this.timerID);
   }
 
-  componentDidUpdate(prevProps, nextProps) {
-    let { dispatch } = this.props;
-    let { gameState: game } = this.state;
+  componentDidUpdate(prevProps, prevState) {
+    let { dispatch, authorizedSocket } = this.props;
+    let { gameState: game } = prevState;
     if(this.isMyTurn() && game.payload) {
-      debugger;
+      console.log('Event emited player-turn with payload ', game.payload);
+      authorizedSocket.emit('player-turn', game.payload);
+      $('.game-actions button').removeClass('active');
+      this.props.dispatch(removeGameAction(game.payload));
     }
   }
 
@@ -199,22 +202,21 @@ export default class GameTable extends React.Component{
     console.log('Event emited table-join with payload ', payload)
   }
 
-  onGameAction(event, action, amount) {
+  onGameAction(event, call, amount) {
     let payload = {
       tableId : this.props.tableId,
-      action,
+      call,
       amount: parseInt(amount)
     }
-    console.log('Event emited player-turn with payload ', payload)
-    
-    //if(this.isMyTurn()) {
+    if(this.isMyTurn()) {
+      console.log('Event emited player-turn with payload ', payload)
       this.props.authorizedSocket.emit('player-turn', payload);
-    /*} else {
+    } else {
       //queue the action
       this.props.dispatch(saveGameAction(payload));
       $('.game-actions button').removeClass('active');
       $(event.currentTarget).addClass('active');
-    }*/
+    }
     
   }
 
