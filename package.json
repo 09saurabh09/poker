@@ -93,6 +93,7 @@
     "bluebird": "^3.4.7",
     "body-parser": "~1.15.2",
     "bootstrap": "^3.3.7",
+    "bull": "^2.2.2",
     "classnames": "^2.2.5",
     "compression": "^1.6.0",
     "cookie-parser": "~1.4.3",
