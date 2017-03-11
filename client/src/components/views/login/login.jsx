@@ -57,13 +57,18 @@ export default class Login extends React.Component {
     })
   }
 
+  closeModal(id) {
+    var modal = document.getElementById(id);
+    modal.style.display = 'none';
+  }
+
   login() {
-    userApi.login(this.props.dispatch, this.state.username, this.state.password).then((data)=>{
+    this.props.dispatch(userApi.login(this.state.username, this.state.password))
+    .then((data)=>{
       if(data.status == 200) {
         let token = data.data.data.token;
         localStorage.setItem('userToken', token);
-        var modal = document.getElementById('login');
-        modal.style.display = 'none';
+        this.closeModal('login');
         this.props.postLogin();
       }
     });
@@ -77,15 +82,14 @@ export default class Login extends React.Component {
 
   sendOtp() {
     if(this.state.otp) {
-      userApi.signup(this.props.dispatch, {
+      this.props.dispatch(userApi.signup({
         name: this.state.username,
         email: this.state.email,
         password: this.state.password,
         mobileNumber: this.state.mobileNumber
-      }).then((data)=>{
+      })).then((data)=>{
         if(data.status == 200) {
-          var modal = document.getElementById('login');
-          modal.style.display = 'none';
+          this.closeModal('login');
         }
       });
     } else {
@@ -114,13 +118,11 @@ export default class Login extends React.Component {
     clearInterval(this.resendTimer);
   }
 
-  signup() {
+  expandSignup() {
     $('#login .form-group').toggleClass('sign-up-form-group');
     $('#login .play-icon-container').toggleClass('sign-up-form-group');
     $('.sign-up-form').toggleClass('expand');
   }
-
-
 
 	render() {
 		return (
@@ -186,7 +188,7 @@ export default class Login extends React.Component {
                             </div>
                           </div>
                           <div className="bottom-button-container">
-                            <div className="sign-up-button-container" onClick={this.signup.bind(this)}>
+                            <div className="sign-up-button-container" onClick={this.expandSignup.bind(this)}>
                               <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
                             </div>
                             <div className="facebook-login-button-container">
