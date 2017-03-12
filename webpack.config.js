@@ -20,9 +20,6 @@ var config = {
       'react-router',
       'redux',
       'react-dom',
-      'lodash',
-      'bluebird',
-      'humps',
       'history'
     ]
   },
@@ -37,9 +34,8 @@ var config = {
     isoTools.plugin(),
     new webpack.EnvironmentPlugin(['NODE_ENV', 'API_BASE_URL']),
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "React": "react"
+      /*$: "jquery",
+      jQuery: "jquery"*/
     }),
     new webpack.DefinePlugin({
       'process.env': {

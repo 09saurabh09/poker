@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import Login from '../../views/login/login.jsx';
 import MoneyContainer from '../../views/money-container/money-container.jsx';
 
-import VideoOverlayIcon from '../../../../assets/img/home/svg/video-overlay.svg';
+const VideoOverlayIcon = '../../../../assets/img/home/svg/video-overlay.svg';
 /*import './home.scss';*/
 
 import * as userApi from '../../../api/user-api';

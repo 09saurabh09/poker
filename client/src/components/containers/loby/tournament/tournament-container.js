@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 //import { loadSearchLayout } from '../../../../actions/search-layout-actions';
 //import SearchForm from '../../../views/search-form';
 
-import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
+const FilterIcon = '../../../../../assets/img/table/svg/filter.svg';
 
 import TournamentFilter from '../../../views/filter/tournament.jsx'
 import TournamentTable from '../../../views/poker-table/tournament.jsx'
