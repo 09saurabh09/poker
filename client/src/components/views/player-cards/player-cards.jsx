@@ -37,7 +37,7 @@ export default class PlayerCards extends React.Component{
           </div>
           ) : 
         <div className="card-back-container">
-          <img className="card-back-wrapper icon-wrapper" src={carBack[this.props.gameType][this.props.selectedCardBackTheme]} />
+          <img className="card-back-wrapper icon-wrapper" src={carBack[this.props.gameType][this.props.cardBackTheme]} />
         </div>
       }
       </div>

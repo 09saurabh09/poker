@@ -288,7 +288,7 @@ export default class GameTable extends React.Component{
               {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
                                           player={player} bigBlind={game.bigBlind} 
                                           winner={winnerPlayerIndex == index} showCards={game.round != 'idle'}
-                                          gameType={game.gameType || 'holdem'} selectedCardBackTheme={this.props.userData.cardBackTheme || 'trendy'}
+                                          gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
                                           /> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }

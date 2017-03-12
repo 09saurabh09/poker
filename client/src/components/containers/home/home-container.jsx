@@ -28,6 +28,16 @@ class Home extends React.Component {
         var modal = document.getElementById('login');
         modal.style.display = 'block';
       }
+      $(window).resize(function() {
+        
+        /*if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
+          $('.main-table').width( $(window).width() * .70 );
+          $('.main-table').height( $('.main-table').width() * 0.45 );
+        } else {
+          $('.main-table').height( $(window).height() * .65);
+          $('.main-table').width( $('.main-table').height() * 2.22 );
+        }*/
+      }).resize();
     });
     this.props.dispatch(connectUnauthorizedSocket());
     this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
