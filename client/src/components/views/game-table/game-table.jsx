@@ -156,7 +156,6 @@ export default class GameTable extends React.Component{
 
   openBuyinPref(seat) {
     if(this.isHePlaying()) {
-      alert('You are already playing');
       return;
     }
     this.selectedSeat = seat;
