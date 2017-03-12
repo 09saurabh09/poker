@@ -78,7 +78,7 @@ export default class TopNavContainer extends React.Component{
             </div>
           </div>
         </div>
-        <TableSettings onSet={this.onSetTableSetting.bind(this)}/>
+        {/*<TableSettings onSet={this.onSetTableSetting.bind(this)}/>*/}
       </div>
     );
   }
