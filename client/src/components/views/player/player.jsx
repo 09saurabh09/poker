@@ -119,7 +119,7 @@ export default class Player extends React.Component {
             <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>
             <div className='timer timer-left' style={{height: timerLeftHeight}}></div>
             {/*<Svg markup={BasicUserCard} className="basic-user-card-wrapper icon-wrapper" />*/}
-            <img src="assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
+            <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
             <div className='player-wrapper'>
               <div className='player-dp'>
                 <img src='' />

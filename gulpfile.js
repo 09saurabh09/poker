@@ -25,7 +25,7 @@ gulp.task('moveAssets', function() {
 
 gulp.task('build:revAssets', ['css', 'moveAssets'], function() {
   var rev = new $.revAll()
-  return gulp.src('./dist/**/*')
+  return gulp.src('./dist/*')
              .pipe(rev.revision())
              .pipe(gulp.dest('./dist/public'))
              .pipe(rev.manifestFile())

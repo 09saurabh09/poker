@@ -16,9 +16,10 @@ export default class PlayerCards extends React.Component{
       case 'd': suit = 'blue'; break;
       default: suit = black; break;
     }
+    let url = `../../../../assets/img/cards/svg/${suit}-${rank.toString().toLowerCase()}.svg`;
     return (
       <div className={'card rank ' + suit}>
-        <Svg markup={require(`../../../../assets/img/cards/svg/${suit}-${rank.toString().toLowerCase()}.svg`)} className="card-icon-wrapper icon-wrapper"/>
+        <img src={url} className="card-icon-wrapper icon-wrapper"/>
       </div>
     );
   }
