@@ -1,0 +1,42 @@
+#table-settings {
+  .form-container .col-lg-12 {
+    margin-bottom: 20px;
+  }
+  .card-theme-container{
+    width: 100%;
+    display: flex;
+    margin-bottom: 42px;
+  }
+  .card-theme-icon-container {
+    width: 15%;
+    margin-right: 10%;
+    border-radius: 8px;
+    border: solid 1px #595959;
+    cursor: pointer;
+    &.active-card-theme {
+      border: solid 1px #fe2a57;
+    }
+    /* &:hover {
+      border: solid 1px #34904d;
+    } */
+  } 
+  .card-back-theme-icon-wrapper {
+    margin-top: 10px;
+  }
+  .card-front-theme-icon-wrapper {
+    margin-top: 8px;
+  }
+  .card-front-theme-icon-container-1 {
+    width: 40%;
+  }
+  .set-button-container {
+    text-align: right;
+  }
+  .input-wrapper .form-control {
+    width: 25%;
+    padding: 6px 12px;
+    border-radius: 12px;
+    margin-top: 10px;
+    font-size: 13px;
+  }
+}

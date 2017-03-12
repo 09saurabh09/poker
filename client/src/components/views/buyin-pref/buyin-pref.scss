@@ -3,32 +3,57 @@
     color: red;
     font-size: 11px;
   }
-  .tournament-logo-icon-container {
-    width: 25%;
-    margin: 0 auto;
-    top: -40px;
+  .range-buyin-pref {
     position: relative;
-  }
-  .form-container {
-    width: 80%;
-    margin: 0 auto;
+    margin: 48px 0;
+    .bb-value{
+      position: absolute;
+      margin-top: 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #717171;
+      &.min {
+        left: 0;
+      }
+      &.max {
+        right: 0;
+      }
+      
+    }
   }
   .pref-input{
     border-radius: 52px;
     background-color: #494949;
-    padding: 10px;
+    padding: 10px 0px;
     font-size: 13.5px;
     font-weight: 600;
     text-align: center;
-    width: 25%;
+    width: 45%;
+    margin-right: 5%;
+    float: left;
+  }
+  .display-bb {
+    padding: 10px 20px;
+    background-color: #494949;
+    border-radius: 52px;
+    display: inline-block;
+  }
+  .display-bankroll {
+    padding: 10px 20px;
+    background-color: #f7f7f7;
+    border-radius: 52px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #000000;
+    display: inline-block;
   }
   .label-wrapper {
-    float: left;
-    width: 50%;
     text-align: left;
+    padding: 10px 0;
+    margin-bottom: 24px;
   }
-  .pref-input-wrapper {
-    float: right;
+  .pref-input-container {
+    clear: both;
   }
   .pref-label {
     padding: 10px 0;
@@ -38,12 +63,8 @@
   }
   .user-settings {
     display: flex;
-    margin-bottom: 72px;
-  }
-  .maintain-stack{
-    margin-right: 10%;
-  }
-  .button-container {
-    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
   }
 }

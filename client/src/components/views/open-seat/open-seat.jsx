@@ -34,6 +34,7 @@ export default class OpenSeat extends React.Component {
     return (
       <div className="seat-open" onClick={this.props.onJoinSeat.bind(this)}>
         <div className='player-container'>
+          <Svg markup={BasicUserCard} className="basic-user-card-wrapper icon-wrapper" />
           <div className='player-wrapper'>
             <div className='player-dp'>
               <img src='' />

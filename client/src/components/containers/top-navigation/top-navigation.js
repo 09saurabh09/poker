@@ -2,16 +2,26 @@ import React from 'react';
 import { Link } from 'react-router';
 
 //import './top-navigation.scss';
-import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
+import SettingIcon from '../../../../assets/img/game/setting.svg';
 import MoneyContainer from '../../views/money-container/money-container.jsx';
 import PlayerCards from '../../views/player-cards/player-cards.jsx';
-
+import TableSettings from '../../views/table-settings/table-settings.jsx';
 import Svg from '../../views/svg/svg.jsx';
 
 export default class TopNavContainer extends React.Component{
 
   constructor(props) {
     super(props);
+  }
+
+  openTableSettings() {
+    var modal = document.getElementById('table-settings');
+    modal.style.display = 'block';
+  }
+  
+  onSetTableSetting() {
+    var modal = document.getElementById('table-settings');
+    modal.style.display = 'none';
   }
 
   render() {
@@ -60,11 +70,15 @@ export default class TopNavContainer extends React.Component{
                       <div className="plus-icon"></div>
                     </Link>
                   </div>
+                  <div className="setting-icon-container" onClick={this.openTableSettings.bind(this)}>
+                    <Svg className="setting-icon-wrapper icon-wrapper" markup={SettingIcon} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <TableSettings onSet={this.onSetTableSetting.bind(this)}/>
       </div>
     );
   }

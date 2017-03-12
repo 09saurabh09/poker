@@ -36,7 +36,6 @@ export default class GamePot extends React.Component {
         <div className="pot-text">
           <div>Total Pot</div>
           <div className="pot-value">{this.props.totalPot}</div>
-          <div className="pot-percentage">{this.props.potValue}%</div>
         </div>
       </div>
     );

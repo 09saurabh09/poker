@@ -294,8 +294,9 @@ export default class GameTable extends React.Component{
             )}
         </div>
         {game.minAmount != game.maxAmount ? <BuyinPref bbValue={{min:game.minAmount/game.bigBlind, max:game.maxAmount/game.bigBlind, 
-                                                        value: game.minAmount/game.bigBlind, step:game.bigBlind}} 
-                                                        bigBlind={game.bigBlind} onSet={this.joinSeat.bind(this)}/> 
+                                                        value: this.props.userData.defaultBB || ((game.maxAmount+game.minAmount)/2)/game.bigBlind, step:game.bigBlind}} 
+                                                        bigBlind={game.bigBlind} avgStack={game.avgStack || 0}
+                                                        bankroll={this.props.userData.currentBalance} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
         <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)} dispatch={this.props.dispatch}/>
       </div>
