@@ -72,38 +72,42 @@ export default class Player extends React.Component {
     let totalTime = this.state.turnTimerFinished ? this.props.player.timeBank : this.props.player.timer;
     let activeClassName = (this.props.player.seat - 1 == this.props.turnPos) ? 'active' : '';
     let onTableClassName = this.props.player.hasDone === false ? 'on-table' : '';
-    let seatOpen = this.props.player.seatOpen ? 'hide' : '';
-    let playing = !this.props.player.seatOpen ? 'hide' : '';
-    let timeElapsed = ( this.state.timeElapsed )/totalTime * 100 ;
-    let timerTopWidth, timerRightHeight, timerBottomWidth, timerLeftHeight ;
-    timerTopWidth = timerRightHeight = timerBottomWidth = timerLeftHeight = 0;
     
-    if(timeElapsed <= 25) {
-      timerTopWidth = timeElapsed * 4 + '%';
-      timerRightHeight = 0;
-    } else if(timeElapsed > 25 && timeElapsed <= 50 ) {
-      timerTopWidth = '100%';
-      timerRightHeight = (timeElapsed -25) * 4 + '%';
-    } else if (timeElapsed > 50 && timeElapsed <= 75 ) {
-      timerTopWidth = '100%';
-      timerRightHeight = '100%';
-      timerBottomWidth = (timeElapsed - 50) * 4 + '%';
-    } else if (timeElapsed > 75 && timeElapsed <= 100 ) {
-      timerTopWidth = '100%';
-      timerRightHeight = '100%';
-      timerBottomWidth = '100%';
-      timerLeftHeight = (timeElapsed - 75) * 4 + '%';
-    }
-
+    let timerTopWidth, timerRightHeight, timerBottomWidth, timerLeftHeight ;
     if(this.props.player.seat - 1 !== this.props.turnPos) {
       clearTimeout(this.timerId);
       this.timerId = undefined;
       timerTopWidth = timerRightHeight = timerBottomWidth = timerLeftHeight = 0;
-    }
+    } else {
+      let timeElapsed = ( this.state.timeElapsed )/totalTime;
+      timerTopWidth = timerRightHeight = timerBottomWidth = timerLeftHeight = 0;
+      let activePlayer = $('.player-container.active');
+      let activePlayerHeight = $('.player-container.active').height();
+      let activePlayerWidth = $('.player-container.active').width();
+      let perimeter = 2* (activePlayerHeight + activePlayerWidth);
 
+      let coveredPerimeter = perimeter * timeElapsed;
+      if(coveredPerimeter > 0 && coveredPerimeter <= activePlayerHeight) {
+        timerLeftHeight = coveredPerimeter;
+      } else if(coveredPerimeter > activePlayerHeight && coveredPerimeter<= activePlayerHeight+activePlayerWidth) {
+        timerLeftHeight = activePlayerHeight;
+        timerTopWidth = coveredPerimeter - activePlayerHeight;
+      } else if(coveredPerimeter > activePlayerHeight+activePlayerWidth && coveredPerimeter <= ((2*activePlayerHeight) + activePlayerWidth)) {
+        timerLeftHeight = activePlayerHeight;
+        timerTopWidth = '100%';
+        timerRightHeight = coveredPerimeter - (activePlayerHeight+activePlayerWidth) + 6;
+      } else if(coveredPerimeter > ((2*activePlayerHeight) + activePlayerWidth) && coveredPerimeter < perimeter) {
+        timerLeftHeight = activePlayerHeight;
+        timerTopWidth = '100%';
+        timerRightHeight = activePlayerHeight;
+        timerBottomWidth = coveredPerimeter - ((2*activePlayerHeight) + activePlayerWidth);
+      }  
+    }
+    
+    
     return (
       <div className='player'>
-        <div className={'sitting-player ' + seatOpen + ' '+ onTableClassName}>
+        <div className={'sitting-player ' + ' '+ onTableClassName}>
           {this.props.showCards ? <div className='player-card-wrapper'>
             <PlayerCards cards={this.props.player.cards}/>
           </div>: null}

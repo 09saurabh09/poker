@@ -30,7 +30,7 @@
     background-color: rgba(30, 57, 42, 0.09);
     border: solid 1.5px #3de689;
     .table-center {
-      width: 300px;
+      width: 40%;
       padding: 16px;
       position: absolute;
       left: 50%;
@@ -93,11 +93,6 @@
       margin-right: 5%;
       .rank {
         height: 100%;
-      }
-    }
-    @media only screen and (max-width: 720px) {
-      .table-center {
-        width: 200px;
       }
     }
   }

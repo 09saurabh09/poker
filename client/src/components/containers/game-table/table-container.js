@@ -100,11 +100,11 @@ class TableContainer extends React.Component{
         player.cards = cards;
       }
       //timer testing...
-      /*if(player) {
-        player.timer = 10;
-        player.timeBank = 10;
-        player.timerStarted = Date.now() - 8000;
-      }*/
+      if(player) {
+        player.timer = 20;
+        player.timeBank = 60;
+        player.timerStarted = Date.now();
+      }
     })
     return newGameState;
   }
