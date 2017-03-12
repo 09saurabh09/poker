@@ -2,11 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 
 //import './top-navigation.scss';
-import SettingIcon from '../../../../assets/img/game/setting.svg';
 import MoneyContainer from '../../views/money-container/money-container.jsx';
 import PlayerCards from '../../views/player-cards/player-cards.jsx';
 import TableSettings from '../../views/table-settings/table-settings.jsx';
-import Svg from '../../views/svg/svg.jsx';
 
 export default class TopNavContainer extends React.Component{
 
@@ -71,14 +69,14 @@ export default class TopNavContainer extends React.Component{
                     </Link>
                   </div>
                   <div className="setting-icon-container" onClick={this.openTableSettings.bind(this)}>
-                    <Svg className="setting-icon-wrapper icon-wrapper" markup={SettingIcon} />
+                    <img className="setting-icon-wrapper icon-wrapper" src="../../../../assets/img/game/setting.svg" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/*<TableSettings onSet={this.onSetTableSetting.bind(this)}/>*/}
+        <TableSettings onSet={this.onSetTableSetting.bind(this)}/>
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 //import './card.scss';
 //import Black10 from ;
-import Svg from '../svg/svg.jsx';
 export default class PlayerCards extends React.Component{
 
   render() {

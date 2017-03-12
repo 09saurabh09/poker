@@ -1,9 +1,7 @@
 import React from 'react';
 //import './player.scss';
 
-import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
 import PlayerCards from '../player-cards/player-cards.jsx';
-import Svg from '../svg/svg.jsx';
 
 export default class Player extends React.Component {
   constructor(props) {
@@ -118,7 +116,6 @@ export default class Player extends React.Component {
             <div className='timer timer-right' style={{height: timerRightHeight}}></div>
             <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>
             <div className='timer timer-left' style={{height: timerLeftHeight}}></div>
-            {/*<Svg markup={BasicUserCard} className="basic-user-card-wrapper icon-wrapper" />*/}
             <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
             <div className='player-wrapper'>
               <div className='player-dp'>
