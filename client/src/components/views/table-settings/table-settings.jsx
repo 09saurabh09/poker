@@ -55,7 +55,7 @@ export default class TableSettings extends React.Component {
       name: 'twoColor',
       url: TwoCards
     },{
-      name: 'fouColor',
+      name: 'fourColor',
       url: FourCards
     }];
     return (
