@@ -71,13 +71,10 @@ app.use(compression())
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'dist/public')))
-  app.use('/cash-game', express.static(path.join(__dirname, 'dist/public')))
-  app.use('/cash-game/play', express.static(path.join(__dirname, 'dist/public')))
+  app.use('/assets', express.static(path.join(__dirname, 'dist/assets')))
 } else {
+  app.use(express.static(path.join(__dirname, 'dist')));
   app.use('/assets', express.static(path.join(__dirname, 'client/assets')))
-  app.use(express.static(path.join(__dirname, 'dist')))
-  app.use('/cash-game/assets', express.static(path.join(__dirname, 'client/assets')))
-  app.use('/cash-game/play/assets', express.static(path.join(__dirname, 'client/assets')))
 }
 
 /*app.use(express.static(path.join(__dirname, 'build')));
