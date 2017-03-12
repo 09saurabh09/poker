@@ -110,7 +110,7 @@ module.exports = {
     getSessionHistory: function (params, user, callback) {
         let response;
         let userGameQuery = {
-            sessionKey: "eaa06ba7-9a6c-47cb-96de-05053c0c86c9"
+            sessionKey: "daa8812d-b20b-428b-ba03-53b575819edc"
         }
 
         if(params.tableId) {

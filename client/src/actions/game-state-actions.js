@@ -13,3 +13,10 @@ export function saveGameAction(payload) {
     payload
   };
 }
+
+export function removeGameAction(payload) {
+	return {
+    type: types.REMOVE_GAME_ACTION,
+    payload
+  };
+}

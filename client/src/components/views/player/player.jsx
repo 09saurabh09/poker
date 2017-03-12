@@ -3,6 +3,7 @@ import React from 'react';
 
 import BasicUserCard from '../../../../assets/img/game/basic-user-card.svg';
 import PlayerCards from '../player-cards/player-cards.jsx';
+import Svg from '../svg/svg.jsx';
 
 export default class Player extends React.Component {
   constructor(props) {
@@ -94,11 +95,13 @@ export default class Player extends React.Component {
             <PlayerCards cards={this.props.player.cards}/>
           </div>: null}
           <div className={'player-container ' + activeClassName}>
+            
             <div className="timer-count">{this.props.player.timer - this.state.timeElapsed}</div>
             <div className='timer timer-top' style={{width: timerTopWidth}}></div>
             <div className='timer timer-right' style={{height: timerRightHeight}}></div>
             <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>
             <div className='timer timer-left' style={{height: timerLeftHeight}}></div>
+            <Svg markup={BasicUserCard} className="basic-user-card-wrapper icon-wrapper" />
             <div className='player-wrapper'>
               <div className='player-dp'>
                 <img src='' />
@@ -122,9 +125,8 @@ export default class Player extends React.Component {
                 <div className='hands-played'></div>
                 <div className='raised'></div>
               </div>
-
+              {this.props.winner ? <div className="winner-text"> WINNER </div>: null}
             </div>
-            {this.props.winner ? <div className="winner-text"> WINNER </div>: null}
           </div>  
         </div>
         
