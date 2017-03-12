@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 
 import Login from '../../views/login/login.jsx';
 
+
 import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
 import HomePageIcon from '../../../../assets/img/home/svg/home-page.svg';
 import AnalyticsIcon from '../../../../assets/img/home/svg/analytics.svg';
@@ -91,7 +92,7 @@ class Home extends React.Component {
             <div className="user-detail-section">
               <div className="user-detail-container">
                 <div id="dp-container" className="profile-photo">
-                  <img id="dp" className="photo" src="http://pnge.org/wp-content/uploads/2016/12/1480662458_318_images.jpg"/>
+                  <img id="dp" className="photo" src=""/>
                 </div>
                 <div className="name-balance-review">
                   <div className="name-balance-container">
