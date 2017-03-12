@@ -3,12 +3,8 @@ import { Link } from 'react-router';
 
 //import './loby-layout.scss';
 
-
-import PlayIcon from '../../../../assets/img/table/svg/yoga-play.svg';
-import RealMoneyIcon from '../../../../assets/img/table/svg/real-money-icon.svg';
-import PlayMoneyIcon from '../../../../assets/img/table/svg/play-money-icon.svg';
-
-import Svg from '../../views/svg/svg.jsx';
+import MoneyContainer from '../../views/money-container/money-container.jsx';
+const PlayIcon = '../../../../assets/img/table/svg/yoga-play.svg';
 
 // Using "Stateless Functional Components"
 export default (props) => {
@@ -18,7 +14,7 @@ export default (props) => {
         <div className="left-half">
           <Link to="/" >
             <div className="play-icon-container">
-              <Svg className="play-icon-wrapper icon-wrapper" markup={PlayIcon}/>
+              <img className="play-icon-wrapper icon-wrapper" src={PlayIcon}/>
             </div>
           </Link>
           <div className="user-detail-container">
@@ -38,20 +34,7 @@ export default (props) => {
           </div>
         </div>
         <div className="right-half">
-          <div className="money-container">
-            <div className="money">
-              <div className="money-icon-container">
-                <Svg className="money-icon-wrapper icon-wrapper" markup={RealMoneyIcon}/>
-              </div>
-              <span className="text">On Table:</span> <span className="text value">$784</span>
-            </div>
-            <div className="money">
-              <div className="money-icon-container">
-                <Svg className="money-icon-wrapper icon-wrapper" markup={PlayMoneyIcon}/>
-              </div>
-              <span className="text">Off Table:</span> <span className="text value"> $784</span>
-            </div>
-          </div>
+          <MoneyContainer />
         </div>
       </div>
       <div>

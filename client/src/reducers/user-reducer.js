@@ -35,7 +35,7 @@ const userReducer = function(state = initialState, action) {
       } });
 
     case types.USER_INFO_SUCCESS:
-      return Object.assign({}, state, { userData: action.userInfo.data });
+      return Object.assign({}, state, { userData: Object.assign({}, state.userData, action.userInfo) });
 
     case types.GAME_HISTORY_SUCCESS:
       return Object.assign({}, state, { gameHistory: action.data.Games });  

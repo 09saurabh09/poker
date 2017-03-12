@@ -107,7 +107,7 @@ export default class Player extends React.Component {
       <div className='player'>
         <div className={'sitting-player ' + ' '+ onTableClassName}>
           {this.props.showCards ? <div className='player-card-wrapper'>
-            <PlayerCards cards={this.props.player.cards}/>
+            <PlayerCards cards={this.props.player.cards} gameType={this.props.gameType} selectedCardBackTheme={this.props.selectedCardBackTheme}/>
           </div>: null}
           <div className={'player-container ' + activeClassName}>
             

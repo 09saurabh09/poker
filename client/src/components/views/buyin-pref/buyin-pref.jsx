@@ -3,9 +3,7 @@ import React from 'react';
 
 import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
-import TournamentLogo from '../../../../assets/img/game/tournament-logo.svg';
-
-import Svg from '../svg/svg.jsx';
+const TournamentLogo = '../../../../assets/img/game/tournament-logo.svg';
 
 import wNumb from 'wnumb';
 
@@ -81,7 +79,7 @@ export default class BuyinPref extends React.Component {
               <div className="modal-body">
                 <div className="modal-container">
                   <div className="settings-icon-container">
-                    <Svg className="tournament-logo-icon-wrapper icon-wrapper" markup={TournamentLogo} />
+                    <img className="tournament-logo-icon-wrapper icon-wrapper" src={TournamentLogo} />
                   </div>
                   <form className="form-horizontal">
                     <div className="form-container">

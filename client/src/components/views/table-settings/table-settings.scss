@@ -8,7 +8,8 @@
     margin-bottom: 42px;
   }
   .card-theme-icon-container {
-    width: 15%;
+    width: 10%;
+    padding: 1% 2%;
     margin-right: 10%;
     border-radius: 8px;
     border: solid 1px #595959;
@@ -25,6 +26,9 @@
   }
   .card-front-theme-icon-wrapper {
     margin-top: 8px;
+  }
+  .card-front-theme-icon-container-0 {
+    width: 15%;
   }
   .card-front-theme-icon-container-1 {
     width: 40%;

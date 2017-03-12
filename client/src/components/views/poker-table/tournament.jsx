@@ -2,10 +2,10 @@ import React from 'react';
 
 //import './poker-table.scss';
 
-import UpArrowIcon from '../../../../assets/img/table/svg/up-arrow.svg';
-import DownArrowIcon from '../../../../assets/img/table/svg/down-arrow.svg';
-import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
-import TickIcon from '../../../../assets/img/table/svg/tick.svg';
+const UpArrowIcon = '../../../../assets/img/table/svg/up-arrow.svg';
+const DownArrowIcon = '../../../../assets/img/table/svg/down-arrow.svg';
+const SelectRoundIcon = '../../../../assets/img/table/svg/select-round.svg';
+const TickIcon = '../../../../assets/img/table/svg/tick.svg';
 
 
 export default class TournamentTable extends React.Component{
@@ -37,18 +37,18 @@ export default class TournamentTable extends React.Component{
     this.sortType = ['asc', 'desc'];
     this.sortIcons = [
       <div className="sort-icon-container">
-        <Svg className="down-arrow-icon-wrapper icon-wrapper" markup={DownArrowIcon} />
+        <img className="down-arrow-icon-wrapper icon-wrapper" src={DownArrowIcon} />
       </div>,
       <div className="sort-icon-container">
-        <Svg className="up-arrow-icon-wrapper icon-wrapper" markup={UpArrowIcon} />
+        <img className="up-arrow-icon-wrapper icon-wrapper" src={UpArrowIcon} />
       </div>
     ];
     this.currentSortIndex = 0;
     this.TickIcon = <div className="join-icon-container">
-                      <Svg className="join-icon-wrapper icon-wrapper" markup={TickIcon}/>
+                      <img className="join-icon-wrapper icon-wrapper" src={TickIcon}/>
                     </div> ;
     this.SelectRoundIcon = <div className="join-icon-container">
-                      <Svg className="join-icon-wrapper icon-wrapper" markup={SelectRoundIcon}/>
+                      <img className="join-icon-wrapper icon-wrapper" src={SelectRoundIcon}/>
                     </div> ;
   }
 

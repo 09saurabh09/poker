@@ -6,6 +6,8 @@ import MoneyContainer from '../../views/money-container/money-container.jsx';
 import PlayerCards from '../../views/player-cards/player-cards.jsx';
 import TableSettings from '../../views/table-settings/table-settings.jsx';
 
+import { UserInfoSuccess } from '../../../actions/user-actions';
+
 export default class TopNavContainer extends React.Component{
 
   constructor(props) {
@@ -17,7 +19,8 @@ export default class TopNavContainer extends React.Component{
     modal.style.display = 'block';
   }
   
-  onSetTableSetting() {
+  onSetTableSetting(settings) {
+    this.props.dispatch(UserInfoSuccess(settings));
     var modal = document.getElementById('table-settings');
     modal.style.display = 'none';
   }
@@ -76,7 +79,7 @@ export default class TopNavContainer extends React.Component{
             </div>
           </div>
         </div>
-        <TableSettings onSet={this.onSetTableSetting.bind(this)}/>
+        <TableSettings onSet={this.onSetTableSetting.bind(this)} userData={this.props.userData}/>
       </div>
     );
   }
