@@ -1,8 +1,7 @@
 import React from 'react';
 //import './card.scss';
 //import Black10 from ;
-import Svg from '../svg/svg.jsx';
-export default class PlayerCards extends React.Component{
+export default class Cards extends React.Component{
 
   render() {
   	let rank = this.props.card[0], suit;

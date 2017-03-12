@@ -1,8 +1,7 @@
 import React from 'react';
 
 //import './game-table.scss';
-import Svg from '../svg/svg.jsx';
-import CoinIcon from '../../../../assets/img/game/coin.svg';
+const CoinIcon = '../../../../assets/img/game/coin.svg';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import OpenSeat from '../open-seat/open-seat.jsx';
@@ -268,13 +267,13 @@ export default class GameTable extends React.Component{
             {game.totalPot > 0 ? 
             <div className="pot-chips">
               <div className="coin-icon-container">
-                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+                <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />
               </div>
               <div className="coin-icon-container">
-                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+                <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />
               </div>
               <div className="coin-icon-container">
-                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+                <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />
               </div>
             </div> : null }
             <div className='table-center'>
@@ -286,7 +285,11 @@ export default class GameTable extends React.Component{
             </div>
            {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              {player !== null ? <Player playerIndex={index} turnPos={game.turnPos} player={player} bigBlind={game.bigBlind} winner={winnerPlayerIndex == index} showCards={game.round != 'idle'}/> : null }
+              {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
+                                          player={player} bigBlind={game.bigBlind} 
+                                          winner={winnerPlayerIndex == index} showCards={game.round != 'idle'}
+                                          gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
+                                          /> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }
             </div>

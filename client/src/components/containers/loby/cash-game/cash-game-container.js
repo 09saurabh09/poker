@@ -7,8 +7,6 @@ import * as gameTableApi from '../../../../api/game-table-api';
 import CashGameTable from '../../../views/poker-table/cash-game.jsx'
 
 import CashGameFilter from '../../../views/filter/cash-game.jsx'
-import FilterIcon from '../../../../../assets/img/table/svg/filter.svg';
-import Svg from '../../../views/svg/svg.jsx';
 
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../../actions/socket-actions';
 
@@ -63,7 +61,7 @@ class CashGameContainer extends React.Component{
         <div className="filter-icon-container">
           <a onClick={this.openCashGameFilter.bind(this)} className="filter-icon-wrapper">
             <div className="filter-icon">
-              <Svg className="filter-icon-wrapper icon-wrapper" markup={FilterIcon} />
+              <img className="filter-icon-wrapper icon-wrapper" src="../../../../../assets/img/table/svg/filter.svg" />
             </div>
           </a>
         </div>

@@ -53,7 +53,7 @@ export function getUserInfo(dispatch, responseGroup) {
       }
     })
     .then(response => {
-      dispatch(UserInfoSuccess(response.data));
+      dispatch(UserInfoSuccess(response.data.data));
       return response;
     });
 } 

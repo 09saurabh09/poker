@@ -1,12 +1,10 @@
 import React from 'react';
 //import './game-controls.scss';
 
-import AddMoneyIcon from '../../../../assets/img/game/add-money.svg';
-import PauseIcon from '../../../../assets/img/game/pause.svg';
-import CloseIcon from '../../../../assets/img/game/close.svg';
-import ReplayIcon from '../../../../assets/img/game/reply.svg';
-
-import Svg from '../svg/svg.jsx';
+const AddMoneyIcon = '../../../../assets/img/game/add-money.svg';
+const PauseIcon = '../../../../assets/img/game/pause.svg';
+const CloseIcon = '../../../../assets/img/game/close.svg';
+const ReplayIcon = '../../../../assets/img/game/reply.svg';
 
 export default class GameControls extends React.Component{
 
@@ -14,16 +12,16 @@ export default class GameControls extends React.Component{
     return (
       <div className="game-controls">
         <div className="game-control-icon-container add-money-icon-container" onClick={this.props.onReplayClick}>
-          <Svg className="game-control-icon-wrapper icon-wrapper" markup={ReplayIcon} />
+          <img className="game-control-icon-wrapper icon-wrapper" src={ReplayIcon} />
         </div>
         <div className="game-control-icon-container add-money-icon-container">
-          <Svg className="game-control-icon-wrapper icon-wrapper" markup={AddMoneyIcon} />
+          <img className="game-control-icon-wrapper icon-wrapper" src={AddMoneyIcon} />
         </div>
         <div className="game-control-icon-container pause-icon-container">
-          <Svg className="game-control-icon-wrapper icon-wrapper" markup={PauseIcon} />
+          <img className="game-control-icon-wrapper icon-wrapper" src={PauseIcon} />
         </div>
         <div className="game-control-icon-container close-icon-container" onClick={this.props.leaveTable}>
-          <Svg className="game-control-icon-wrapper icon-wrapper" markup={CloseIcon} />
+          <img className="game-control-icon-wrapper icon-wrapper" src={CloseIcon} />
         </div>
       </div>
     );

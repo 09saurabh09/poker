@@ -3,14 +3,13 @@ import { Router, browserHistory } from 'react-router';
 
 //import './poker-table.scss';
 
-import UpArrowIcon from '../../../../assets/img/table/svg/up-arrow.svg';
-import DownArrowIcon from '../../../../assets/img/table/svg/down-arrow.svg';
-import SelectRoundIcon from '../../../../assets/img/table/svg/select-round.svg';
-import TickIcon from '../../../../assets/img/table/svg/tick.svg';
-import HotIcon from '../../../../assets/img/table/svg/hot.svg';
-import ColdIcon from '../../../../assets/img/table/svg/cold.svg';
+const UpArrowIcon = '../../../../assets/img/table/svg/up-arrow.svg';
+const DownArrowIcon = '../../../../assets/img/table/svg/down-arrow.svg';
+const SelectRoundIcon = '../../../../assets/img/table/svg/select-round.svg';
+const TickIcon = '../../../../assets/img/table/svg/tick.svg';
+const HotIcon = '../../../../assets/img/table/svg/hot.svg';
+const ColdIcon = '../../../../assets/img/table/svg/cold.svg';
 
-import Svg from '../svg/svg.jsx';
 
 export default class CashGameTable extends React.Component{
 
@@ -48,21 +47,21 @@ export default class CashGameTable extends React.Component{
     }];
     this.sortType = ['asc', 'desc'];
     this.sortIcons = [
-      <Svg className="down-arrow-icon-wrapper icon-wrapper" markup={DownArrowIcon} />,
-      <Svg className="up-arrow-icon-wrapper icon-wrapper" markup={UpArrowIcon} />
+      <img className="down-arrow-icon-wrapper icon-wrapper" src={DownArrowIcon} />,
+      <img className="up-arrow-icon-wrapper icon-wrapper" src={UpArrowIcon} />
     ];
     this.currentSortIndex = 0;
     this.hotIcon = <div className="hot-icon-container">
-                      <Svg className="action-icon-wrapper icon-wrapper" markup={HotIcon} />
+                      <img className="action-icon-wrapper icon-wrapper" src={HotIcon} />
                     </div> ;
     this.coldIcon = <div className="cold-icon-container">
-                      <Svg className="action-icon-wrapper icon-wrapper" markup={ColdIcon} />
+                      <img className="action-icon-wrapper icon-wrapper" src={ColdIcon} />
                     </div> ;
     this.TickIcon = <div className="join-icon-container">
-                      <Svg className="join-icon-wrapper icon-wrapper" markup={TickIcon} />
+                      <img className="join-icon-wrapper icon-wrapper" src={TickIcon} />
                     </div> ;
     this.SelectRoundIcon = <div className="join-icon-container">
-                      <Svg className="join-icon-wrapper icon-wrapper" markup={SelectRoundIcon} />
+                      <img className="join-icon-wrapper icon-wrapper" src={SelectRoundIcon} />
                     </div> ;
   }
 

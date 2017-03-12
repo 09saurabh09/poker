@@ -1,26 +1,24 @@
 import React from 'react';
 
 import CheckboxElement from '../checkbox-element/checkbox-element';
-import TableSettingLogo from '../../../../assets/img/game/table-setting.svg';
-import CardRoyal from '../../../../assets/img/table-settings/svg/cardroyal-1.svg';
-import CardElegent from '../../../../assets/img/table-settings/svg/cardelegant.svg';
-import CardCool from '../../../../assets/img/table-settings/svg/cardCool.svg';
-import CardTrendy from '../../../../assets/img/table-settings/svg/cardtrendy.svg';
-import TwoCards from '../../../../assets/img/table-settings/svg/two-cards.svg';
-import FourCards from '../../../../assets/img/table-settings/svg/four-cards.svg';
 
-import Svg from '../svg/svg.jsx';
+const CardRoyal = '../../../../assets/img/table-settings/svg/cardroyal-1.svg';
+const CardElegent = '../../../../assets/img/table-settings/svg/cardelegant.svg';
+const CardCool = '../../../../assets/img/table-settings/svg/cardCool.svg';
+const CardTrendy = '../../../../assets/img/table-settings/svg/cardtrendy.svg';
+const TwoCards = '../../../../assets/img/table-settings/svg/two-cards.svg';
+const FourCards = '../../../../assets/img/table-settings/svg/four-cards.svg';
 
 export default class TableSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedBackTheme: 0,
-      selectedFrontTheme:0,
-      music: true,
-      soundEffects: true,
-      autoMuck: true,
-      chatPopup: true
+      cardBackTheme: this.props.userData.cardBackTheme,
+      cardFrontTheme: this.props.userData.cardFrontTheme,
+      music: !!this.props.userData.musicSetting,
+      soundEffects: !!this.props.userData.soundEffectSetting,
+      autoMuck: !!this.props.userData.autoMuck,
+      chatPopup: !!this.props.userData.chatPopup
     };
   }
 
@@ -40,8 +38,26 @@ export default class TableSettings extends React.Component {
   }
 
   render() {
-    let allCardBackThemes = [CardRoyal, CardElegent, CardCool, CardTrendy];
-    let allCardFrontThemes = [TwoCards, FourCards];
+    let allCardBackThemes = [{
+      name: 'royal',
+      url: CardRoyal
+    },{
+      name: 'elegent',
+      url: CardElegent
+    },{
+      name: 'cool',
+      url: CardCool
+    },{
+      name: 'trendy',
+      url: CardTrendy
+    }];
+    let allCardFrontThemes = [{
+      name: 'twoColor',
+      url: TwoCards
+    },{
+      name: 'fouColor',
+      url: FourCards
+    }];
     return (
       <div className="modal fade-scale" id="table-settings" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div className="vertical-alignment-helper">
@@ -50,23 +66,23 @@ export default class TableSettings extends React.Component {
               <div className="modal-body">
                 <div className="modal-container">
                   <div className="settings-icon-container">
-                    <Svg className="tournament-logo-icon-wrapper icon-wrapper" markup={TableSettingLogo} />
+                    <img className="tournament-logo-icon-wrapper icon-wrapper" src="../../../../assets/img/game/table-setting.svg" />
                   </div>
                   <form className="form-horizontal">
                     <div className="form-container">
                       <div className="card-theme-container">
                         {allCardBackThemes.map((cardBackTheme, index) => (
-                          <div onClick={this.updateSetting.bind(this, {selectedBackTheme: index})} key={index} 
-                            className={`card-theme-icon-container${index==this.state.selectedBackTheme ? ' active-card-theme': ''}`}>
-                            <Svg className="card-back-theme-icon-wrapper icon-wrapper" markup={cardBackTheme} />
+                          <div onClick={this.updateSetting.bind(this, {cardBackTheme: cardBackTheme.name})} key={index} 
+                            className={`card-theme-icon-container${cardBackTheme.name == this.state.cardBackTheme ? ' active-card-theme': ''}`}>
+                            <img className="card-back-theme-icon-wrapper icon-wrapper" src={cardBackTheme.url} />
                           </div>  
                           ))}
                       </div>
                       <div className="card-theme-container">
                         {allCardFrontThemes.map((cardFrontTheme, index) => (
-                          <div onClick={this.updateSetting.bind(this, {selectedFrontTheme: index})} key={index} 
-                            className={`card-front-theme-icon-container-${index} card-theme-icon-container${index==this.state.selectedFrontTheme ? ' active-card-theme': ''}`}>
-                            <Svg className="card-front-theme-icon-wrapper icon-wrapper" markup={cardFrontTheme} />
+                          <div onClick={this.updateSetting.bind(this, {cardFrontTheme: cardFrontTheme.name})} key={index} 
+                            className={`card-front-theme-icon-container-${index} card-theme-icon-container${cardFrontTheme.name==this.state.cardFrontTheme ? ' active-card-theme': ''}`}>
+                            <img className="card-front-theme-icon-wrapper icon-wrapper" src={cardFrontTheme.url} />
                           </div>  
                           ))}
                       </div>
@@ -138,7 +154,7 @@ export default class TableSettings extends React.Component {
                       </div>
                       <div className="set-button-container">
                           <button type="button" className="button text-uppercase" 
-                          onClick={this.props.onSet.bind(null, this.state.inputValue, this.state.maintainStack, this.state.autoPost)}> Set </button>
+                          onClick={this.props.onSet.bind(null, this.state)}> Set </button>
                         </div>
                     </div>
                   </form>

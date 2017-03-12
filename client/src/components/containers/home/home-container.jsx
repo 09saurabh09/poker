@@ -4,29 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import Login from '../../views/login/login.jsx';
+import MoneyContainer from '../../views/money-container/money-container.jsx';
 
-
-import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
-import HomePageIcon from '../../../../assets/img/home/svg/home-page.svg';
-import AnalyticsIcon from '../../../../assets/img/home/svg/analytics.svg';
-import SupportIcon from '../../../../assets/img/home/svg/support.svg';
-import SettingsIcon from '../../../../assets/img/home/svg/settings.svg';
-import LogoutIcon from '../../../../assets/img/home/svg/logout.svg';
-import ReviewTouchPointIcon from '../../../../assets/img/home/svg/review-touch-point.svg';
 import VideoOverlayIcon from '../../../../assets/img/home/svg/video-overlay.svg';
-import RealMoneyIcon from '../../../../assets/img/home/svg/real-money-icon.svg';
-import PlayMoneyIcon from '../../../../assets/img/home/svg/play-money-icon.svg';
-import SearchIcon from '../../../../assets/img/home/svg/search-icon.svg';
-//var CashGameIcon = require('babel!svg-react!../../../../assets/img/home/svg/cash-games.svg?name=CashGameIcon');
-import cashGameIcon from '../../../../assets/img/home/svg/cash-games.svg';
-//var SitGoIcon = require('babel!svg-react!../../../../assets/img/home/svg/sit-and-go.svg?name=SitGoIcon');
-import SitGoIcon from '../../../../assets/img/home/svg/sit-and-go.svg';
-//var TournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/tournament.svg?name=TournamentIcon');
-import TournamentIcon from '../../../../assets/img/home/svg/tournament.svg';
-//var MyTournamentIcon = require('babel!svg-react!../../../../assets/img/home/svg/my-tournament.svg?name=MyTournamentIcon');
-import MyTournamentIcon from '../../../../assets/img/home/svg/my-tournament.svg';
-
-import Svg from '../../views/svg/svg.jsx';
 /*import './home.scss';*/
 
 import * as userApi from '../../../api/user-api';
@@ -48,6 +28,16 @@ class Home extends React.Component {
         var modal = document.getElementById('login');
         modal.style.display = 'block';
       }
+      $(window).resize(function() {
+        
+        /*if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
+          $('.main-table').width( $(window).width() * .70 );
+          $('.main-table').height( $('.main-table').width() * 0.45 );
+        } else {
+          $('.main-table').height( $(window).height() * .65);
+          $('.main-table').width( $('.main-table').height() * 2.22 );
+        }*/
+      }).resize();
     });
     this.props.dispatch(connectUnauthorizedSocket());
     this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
@@ -58,32 +48,32 @@ class Home extends React.Component {
       <div className="home">
         <nav role="main">
           <div className="play-icon nav-link">
-            <Svg markup={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
+            <img src="../../../../assets/img/home/svg/yoga-play.svg" className="play-icon-wrapper icon-wrapper"/>
           </div>
           <Link className="nav-link" to="/">
             <div className="active"></div>
             <div className="home-icon">
-              <Svg className="other-icon-wrapper icon-wrapper" markup={HomePageIcon} />
+              <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/home-page.svg" />
             </div>
           </Link>
           <Link to="/analytics" className="nav-link">
             <div className="analytics-icon">
-              <Svg className="other-icon-wrapper icon-wrapper" markup={AnalyticsIcon} />
+              <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/analytics.svg" />
             </div>
           </Link>
           <Link to="/support" className="nav-link">
             <div className="support-icon">
-              <Svg className="other-icon-wrapper icon-wrapper" markup={SupportIcon} />
+              <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/support.svg" />
             </div>
           </Link>
           <Link to="/settings" className="nav-link">
             <div className="setting-icon">
-              <Svg className="other-icon-wrapper icon-wrapper" markup={SettingsIcon} />
+              <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/settings.svg" />
             </div>
           </Link>
           <a className="nav-link" href="#" id="logout-link">
             <div className="logout-icon">
-              <Svg className="other-icon-wrapper icon-wrapper" markup={LogoutIcon} />
+              <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/logout.svg"/>
             </div>
           </a>
         </nav>
@@ -104,30 +94,17 @@ class Home extends React.Component {
                     </div>
                   </div>
                   <div className="review-icon-container">
-                    <Svg className="review-icon-wrapper icon-wrapper" markup={ReviewTouchPointIcon} />
+                    <img className="review-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/review-touch-point.svg"/>
                   </div>
                 </div>
               </div>
               <div className="money-search-container">
-                <div className="money-container">
-                  <div className="money">
-                    <div className="money-icon-container">
-                      <Svg className="money-icon-wrapper icon-wrapper" markup={RealMoneyIcon} />
-                    </div>
-                    <span className="text">On Table:</span> <span className="text value">$784</span>
-                  </div>
-                  <div className="money">
-                    <div className="money-icon-container">
-                      <Svg className="money-icon-wrapper icon-wrapper" markup={PlayMoneyIcon} />
-                    </div>
-                    <span className="text">Off Table:</span> <span className="text value"> $784</span>
-                  </div>
-                </div>
+                <MoneyContainer />
                 <div className="search-container">
                   <div className="form-group">
                     <input type="text" className="form-control" id="search-input" placeholder="Search tournament, player, table"/>
                     <div className="search-icon">
-                      <Svg className="search-icon-wrapper icon-wrapper" markup={SearchIcon} />
+                      <img className="search-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/search-icon.svg"/>
                     </div>
                   </div>
                 </div>
@@ -144,7 +121,7 @@ class Home extends React.Component {
                   <div className="game">
                     <div className="game-icon">
                       <div className="cash-game-icon-container game-icon-container">
-                        <Svg className="game-icon-wrapper icon-wrapper" markup={cashGameIcon} />
+                        <img className="game-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/cash-games.svg"/>
                       </div>
                     </div>
                     <div className="game-text">
@@ -153,7 +130,7 @@ class Home extends React.Component {
                           Cash Games
                         </div>
                         <div className="play-with-friends">
-                          Play with your friends
+                          Freedom
                         </div>
                       </div>
                     </div>
@@ -165,7 +142,7 @@ class Home extends React.Component {
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container tournament-icon-container">
-                        <Svg className="game-icon-wrapper icon-wrapper" markup={TournamentIcon} />
+                        <img className="game-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/tournament.svg"/>
                       </div>
                     </div>
                     <div className="game-text">
@@ -174,7 +151,7 @@ class Home extends React.Component {
                           Tournament
                         </div>
                         <div className="play-with-friends">
-                          Play with your friends
+                          Ecstacy
                         </div>
                       </div>
                     </div>
@@ -188,7 +165,7 @@ class Home extends React.Component {
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container sit-game-icon-container">
-                        <Svg className="game-icon-wrapper icon-wrapper" markup={SitGoIcon} />
+                        <img className="game-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/sit-and-go.svg"/>
                       </div>
                     </div>
                     <div className="game-text">
@@ -197,7 +174,7 @@ class Home extends React.Component {
                           Sit and go
                         </div>
                         <div className="play-with-friends">
-                          Play with your friends
+                          Practice
                         </div>
                       </div>
                     </div>
@@ -209,7 +186,7 @@ class Home extends React.Component {
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container mytourn-game-icon-container">
-                        <Svg className="game-icon-wrapper icon-wrapper" markup={MyTournamentIcon} />
+                        <img className="game-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/my-tournament.svg"/>
                       </div>
                     </div>
                     <div className="game-text">
@@ -218,7 +195,7 @@ class Home extends React.Component {
                           My tournament
                         </div>
                         <div className="play-with-friends">
-                          Play with your friends
+                          Hapiness
                         </div>
                       </div>
                     </div>

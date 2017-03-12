@@ -53,6 +53,7 @@ $dp-size : 24px;
     top: 0;
     bottom: 0;
     z-index: 10;
+    border-radius: 4px;
   }
   .timer-top {
     border-top: 4px solid #3de689;
@@ -73,6 +74,7 @@ $dp-size : 24px;
 }
 
 .player-container {
+  transform: skew($skew-angle);
   /* width: $player-container-width;
   height: $player-container-width / 2 - 10px;
   transform: skew($skew-angle);
@@ -82,6 +84,7 @@ $dp-size : 24px;
   position: relative;
   top: $dp-size * 3/4; */
   .player-wrapper {
+    transform: skew(-1 * $skew-angle);
     position: absolute;
     left: 0;
     right: 0;
@@ -142,8 +145,8 @@ $dp-size : 24px;
   .player-game-style {
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    left: -3%;
+    width: 97%;
     float: left;
     background-color: #484848;
   }

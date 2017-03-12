@@ -2,13 +2,9 @@ import React from 'react';
 //import './login.scss';
 
 import * as userApi from '../../../api/user-api';
-import Svg from '../svg/svg.jsx';
 
-import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
-import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
-import io from 'socket.io-client';
-
-
+const PlayIcon = '../../../../assets/img/home/svg/yoga-play.svg';
+const LoginIcon = '../../../../assets/img/home/svg/login-button.svg';
 
 export default class Login extends React.Component {
 	constructor(props) {
@@ -133,7 +129,7 @@ export default class Login extends React.Component {
                     <div className="modal-body">
                       <div className="modal-container">
                         <div className="play-icon-container">
-                          <Svg markup={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
+                          <img src={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
                         </div>
                         <form className="form-horizontal form-container">
                           <div className="form-group">
@@ -150,7 +146,7 @@ export default class Login extends React.Component {
                               value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
                               <div className="login-action login-button" onClick={this.login.bind(this)}>
                                 <div className="login-icon-container">
-                                  <Svg markup={LoginIcon} className="login-icon-wrapper icon-wrapper" />
+                                  <img src={LoginIcon} className="login-icon-wrapper icon-wrapper" />
                                 </div>
                               </div>
                             </div>
@@ -181,7 +177,7 @@ export default class Login extends React.Component {
                                 </div>
                                 <div className="login-action otp-button" onClick={this.sendOtp.bind(this)}>
                                   <div className="otp-icon-container">
-                                    <Svg markup={LoginIcon} className="otp-icon-wrapper icon-wrapper" />
+                                    <img src={LoginIcon} className="otp-icon-wrapper icon-wrapper" />
                                   </div>
                                 </div>
                               </div>
