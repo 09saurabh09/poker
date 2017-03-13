@@ -4,6 +4,7 @@ let responseMessage = require("../utils/responseMessage");
 let userManager = require("../utils/userManager");
 let jwt = require("jsonwebtoken");
 const uuidV4 = require('uuid/v4');
+let userConfig = require('./userConfig');
 
 module.exports = {
     create: function (params, callback) {
@@ -27,6 +28,29 @@ module.exports = {
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })
+
+    },
+
+    update: function (params, user, callback) {
+        let response;
+        let userParams = _.pickBy(params, function (value, key) {
+            return (userConfig.preferences.indexOf(key) > -1);
+        });
+        if (Object.keys(userParams).length) {
+            UserModel.update(userParams, { where: { id: user.id } })
+                .then(function (user) {
+                    response = new responseMessage.GenericSuccessMessage();
+                    callback(null, response, response.code);
+                })
+                .catch(function (err) {
+                    console.log(`ERROR ::: Unable to update user with id ${user.id}, error: ${err.message}, stack: ${err.stack}`);
+                    response = new responseMessage.GenericFailureMessage();
+                    callback(null, response, response.code);
+                })
+        } else {
+            response = new responseMessage.GenericSuccessMessage();
+            callback(null, response, response.code);
+        }
 
     },
 
@@ -113,8 +137,8 @@ module.exports = {
             sessionKey: "eaa06ba7-9a6c-47cb-96de-05053c0c86c9"
         }
 
-        if(params.tableId) {
-            _.assign(userGameQuery, {pokerTableId: params.tableId});
+        if (params.tableId) {
+            _.assign(userGameQuery, { pokerTableId: params.tableId });
         }
         UserModel.findOne({
             where: {
@@ -126,7 +150,7 @@ module.exports = {
             // include: [DB_MODELS.Game]
             include: [{
                 model: DB_MODELS.Game,
-                attributes:['pokerTableId'],
+                attributes: ['pokerTableId'],
                 // as: 'games',
                 through: {
                     where: userGameQuery
@@ -134,14 +158,14 @@ module.exports = {
                 include: {
                     model: DB_MODELS.GameHistory,
                     attributes: ['gameState', 'createdAt'],
-                    order: ['createdAt'] 
+                    order: ['createdAt']
                 }
             }
 
             ]
         })
 
-        
+
             .then(function (userGames) {
                 response = new responseMessage.GenericSuccessMessage();
                 response.data = userGames;

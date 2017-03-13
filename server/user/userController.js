@@ -12,6 +12,12 @@ module.exports = {
         })
     },
 
+    update: function(req, res) {
+        userService.update(req.body.user, req.user, function (err, response, statusCode) {
+            responseHelper(err, res, response, statusCode);
+        })
+    },
+
     authenticate: function (req, res) {
         userService.authenticate(req.body.user, function (err, response, statusCode) {
             responseHelper(err, res, response, statusCode);

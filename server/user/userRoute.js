@@ -12,6 +12,12 @@ publicRouter.post('/', (req, res, next) => {
 
 });
 
+router.put('/', (req, res, next) => {
+
+    userController.update(req, res);
+
+});
+
 publicRouter.post('/authenticate', (req, res, next) => {
 
     userController.authenticate(req, res);
