@@ -9,6 +9,9 @@ class App extends React.Component {
 
   componentDidMount() {
     userApi.getUserInfo(this.props.dispatch, 'small');
+    $('document').ready(()=>{
+      $('#dp-container').height($('#dp-container').width());  
+    });
   }
 
   render() {

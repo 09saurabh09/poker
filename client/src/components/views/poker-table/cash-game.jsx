@@ -115,9 +115,9 @@ export default class CashGameTable extends React.Component{
                 <th className="table-header" key={index} >
                   <div className="table-header-container" onClick={this.sortTable.bind(this, key, index)}>
                     <div className="table-header-name">
-                      <div className="sort-icon-container">
+                      {sortOrder != -1 ? <div className="sort-icon-container">
                         {this.getSortingIcon.call(this, index, sortOrder)}
-                      </div>
+                      </div> : null }
                       <div>{text}</div>
                     </div> 
                   </div>  
@@ -126,12 +126,12 @@ export default class CashGameTable extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.state.tableData.map(({id, tableName, bigBlind, minAmount, maxAmount, currentlyPlaying, maxPlayer, action, userJoined}, index)=> 
+              {this.state.tableData.map(({id, tableName, bigBlind, minAmount, maxAmount, currentTotalPlayer, maxPlayer, action, userJoined}, index)=> 
                 <tr className="table-row" key={index} onClick={this.openTable.bind(this, id)}>
                   <td className="table-column ">{tableName}</td>
                   <td className="table-column ">{bigBlind/2}/{bigBlind}</td>
                   <td className="table-column ">{minAmount}/{maxAmount}</td>
-                  <td className="table-column ">{currentlyPlaying || 0}/{maxPlayer}</td>
+                  <td className="table-column ">{currentTotalPlayer || 0}/{maxPlayer}</td>
                   <td className="table-column ">
                     {action=='hot'? this.hotIcon : this.coldIcon}
                   </td>

@@ -3,7 +3,7 @@
 		cursor: pointer;
 	}
 	.table-header-name {		
-	    font-size: 18px;
+	    font-size: 16px;
 	    font-weight: 600;
         text-transform: uppercase;
         display: flex;
@@ -57,7 +57,8 @@
 	    width: 17%;
 	}
 	.sort-icon-container {
-		width: 25px;
+	    width: 7%;
+    	padding-right: 2%;
 	}
 	.table-column.text-left {
 	    padding-left: 3.5rem;
