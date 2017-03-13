@@ -20,10 +20,8 @@ var config = {
       'react-router',
       'redux',
       'react-dom',
-      'lodash',
-      'bluebird',
-      'humps',
-      'history'
+      'history',
+      'jquery'
     ]
   },
   resolve: {
@@ -38,8 +36,7 @@ var config = {
     new webpack.EnvironmentPlugin(['NODE_ENV', 'API_BASE_URL']),
     new webpack.ProvidePlugin({
       $: "jquery",
-      jQuery: "jquery",
-      "React": "react"
+      jQuery: "jquery"
     }),
     new webpack.DefinePlugin({
       'process.env': {

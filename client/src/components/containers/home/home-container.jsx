@@ -19,7 +19,8 @@ class Home extends React.Component {
 
   componentDidMount() {
     $('document').ready(()=>{
-      document.getElementById('dp').height = document.getElementById('dp').width;
+      //document.getElementById('dp').height = document.getElementById('dp').width;
+      $('#dp-container').height($('#dp-container').width());
         // Get the button that opens the modal
       var btn = document.getElementById('logout-link');
 
@@ -28,8 +29,10 @@ class Home extends React.Component {
         var modal = document.getElementById('login');
         modal.style.display = 'block';
       }
+      let aspectRatio = ($('#main').width())/($('#main').height());
       $(window).resize(function() {
-        
+        $('#dp-container').height($('#dp-container').width());
+        $('#main').width(aspectRatio * $('#main').height());
         /*if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
           $('.main-table').width( $(window).width() * .70 );
           $('.main-table').height( $('.main-table').width() * 0.45 );
