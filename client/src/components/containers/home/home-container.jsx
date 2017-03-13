@@ -29,10 +29,20 @@ class Home extends React.Component {
         var modal = document.getElementById('login');
         modal.style.display = 'block';
       }
+      //$('.upper-section').height($('#main').height() * 0.43);
+      //$('.lower-section').height($('#main').height() * 0.5);
       let aspectRatio = ($('#main').width())/($('#main').height());
       $(window).resize(function() {
         $('#dp-container').height($('#dp-container').width());
-        $('#main').width(aspectRatio * $('#main').height());
+        /*let currentAspectRatio = $('#main').width() / $('#main').height();
+        if(currentAspectRatio > aspectRatio) {
+          $('#main').width(aspectRatio * $('#main').height());
+        } else {
+          $('#main').height($('#main').width() / aspectRatio );  
+        }*/
+        //$('.upper-section').height($('#main').height() * 0.43);
+        //$('.lower-section').height($('#main').height() * 0.5);
+        
         /*if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
           $('.main-table').width( $(window).width() * .70 );
           $('.main-table').height( $('.main-table').width() * 0.45 );

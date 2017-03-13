@@ -19,8 +19,12 @@ var config = {
       'react',
       'react-router',
       'redux',
+      'react-redux',
+      'react-router-redux',
       'react-dom',
       'history',
+      'redux-thunk',
+      'axios',
       'jquery'
     ]
   },

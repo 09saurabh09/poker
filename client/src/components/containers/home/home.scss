@@ -112,13 +112,14 @@ section#main{
 .upper-section {
     display: flex;
     justify-content: flex-start;
-    height: 48vh;
+    height: 47%;
 }
 .lower-section {
     display: flex;
     flex-direction: column;
-    height: 50vh;
+    height: 50%;
     overflow: hidden;
+    width: 100%;
 }
 .width-100 {
     width: 100%;
@@ -169,7 +170,6 @@ section#main{
 }
 .game-icon {
     width: 35%;
-    height: 100%;
     float: left;
 }
 .game-text {
