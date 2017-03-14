@@ -1,3 +1,6 @@
+.basic-user-card-wrapper.icon-wrapper {
+    width: 100%;
+}
 .seat-open {
   .player-dp {
     background-color: #3e3e3e !important;
@@ -5,20 +8,20 @@
     border: solid 1.2px #969696 !important;
   }
   .open-seat-icon-container{
-      width: 25%;
-      position: relative;
-      left: 35px;
-      padding-top: 8px;
+      width: 10%;
+      position: absolute;
+      left: 30%;
+      top: 15%;
   }
   .join {
     display: inline-flex;
     width: 100%;
-    position: relative;
-    left: 35px;
-    padding-top: 8px;
+    position: absolute;
+    left: 25%;
+    bottom: 16%;
     font-size: 11px;
   }
   .join-seat-icon-container {
-      width: 15%;
+      width: 10%;
   }
 }

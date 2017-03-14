@@ -105,11 +105,13 @@ input:focus {
     width: 91%;
 }
 .col-lg-12 {
-    float: left;
-    width: 100%;
+    display: flex;
 }
 .text-right {
     text-align: right;
+}
+.text-left {
+    text-align: left;
 }
 .valign-wrapper {
     display: -webkit-flex;
@@ -148,4 +150,27 @@ input:focus {
 
 .margin-left-20 {
     margin-left: 20px;
+}
+
+.form-control {
+    padding: 16px 0;
+    width: 100%;
+    border-radius: 70px;
+    background-color: #151515;
+    color: white;
+    text-align: center;
+    border: solid 1.4px #3b3b44;
+}
+.settings-icon-container {
+  width: 15%;
+  margin: 0 auto;
+  top: -40px;
+  position: relative;
+}
+.form-container {
+  width: 95%;
+  margin: 0 auto;
+}
+.display-flex {
+    display: flex;
 }

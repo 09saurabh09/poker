@@ -2,13 +2,9 @@ import React from 'react';
 //import './login.scss';
 
 import * as userApi from '../../../api/user-api';
-import Svg from '../svg/svg.jsx';
 
-import PlayIcon from '../../../../assets/img/home/svg/yoga-play.svg';
-import LoginIcon from '../../../../assets/img/home/svg/login-button.svg';
-import io from 'socket.io-client';
-
-
+const PlayIcon = '../../../../assets/img/home/svg/yoga-play.svg';
+const LoginIcon = '../../../../assets/img/home/svg/login-button.svg';
 
 export default class Login extends React.Component {
 	constructor(props) {
@@ -57,13 +53,18 @@ export default class Login extends React.Component {
     })
   }
 
+  closeModal(id) {
+    var modal = document.getElementById(id);
+    modal.style.display = 'none';
+  }
+
   login() {
-    userApi.login(this.props.dispatch, this.state.username, this.state.password).then((data)=>{
+    this.props.dispatch(userApi.login(this.state.username, this.state.password))
+    .then((data)=>{
       if(data.status == 200) {
         let token = data.data.data.token;
         localStorage.setItem('userToken', token);
-        var modal = document.getElementById('login');
-        modal.style.display = 'none';
+        this.closeModal('login');
         this.props.postLogin();
       }
     });
@@ -77,15 +78,14 @@ export default class Login extends React.Component {
 
   sendOtp() {
     if(this.state.otp) {
-      userApi.signup(this.props.dispatch, {
+      this.props.dispatch(userApi.signup({
         name: this.state.username,
         email: this.state.email,
         password: this.state.password,
         mobileNumber: this.state.mobileNumber
-      }).then((data)=>{
+      })).then((data)=>{
         if(data.status == 200) {
-          var modal = document.getElementById('login');
-          modal.style.display = 'none';
+          this.closeModal('login');
         }
       });
     } else {
@@ -114,13 +114,11 @@ export default class Login extends React.Component {
     clearInterval(this.resendTimer);
   }
 
-  signup() {
+  expandSignup() {
     $('#login .form-group').toggleClass('sign-up-form-group');
     $('#login .play-icon-container').toggleClass('sign-up-form-group');
     $('.sign-up-form').toggleClass('expand');
   }
-
-
 
 	render() {
 		return (
@@ -131,7 +129,7 @@ export default class Login extends React.Component {
                     <div className="modal-body">
                       <div className="modal-container">
                         <div className="play-icon-container">
-                          <Svg markup={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
+                          <img src={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
                         </div>
                         <form className="form-horizontal form-container">
                           <div className="form-group">
@@ -148,7 +146,7 @@ export default class Login extends React.Component {
                               value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
                               <div className="login-action login-button" onClick={this.login.bind(this)}>
                                 <div className="login-icon-container">
-                                  <Svg markup={LoginIcon} className="login-icon-wrapper icon-wrapper" />
+                                  <img src={LoginIcon} className="login-icon-wrapper icon-wrapper" />
                                 </div>
                               </div>
                             </div>
@@ -179,14 +177,14 @@ export default class Login extends React.Component {
                                 </div>
                                 <div className="login-action otp-button" onClick={this.sendOtp.bind(this)}>
                                   <div className="otp-icon-container">
-                                    <Svg markup={LoginIcon} className="otp-icon-wrapper icon-wrapper" />
+                                    <img src={LoginIcon} className="otp-icon-wrapper icon-wrapper" />
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                           <div className="bottom-button-container">
-                            <div className="sign-up-button-container" onClick={this.signup.bind(this)}>
+                            <div className="sign-up-button-container" onClick={this.expandSignup.bind(this)}>
                               <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
                             </div>
                             <div className="facebook-login-button-container">

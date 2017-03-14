@@ -99,6 +99,12 @@ class TableContainer extends React.Component{
       if(player && (player.id == userId)) {
         player.cards = cards;
       }
+      //timer testing...
+      if(player) {
+        player.timer = 20;
+        player.timeBank = 60;
+        player.timerStarted = Date.now();
+      }
     })
     return newGameState;
   }
@@ -160,7 +166,8 @@ class TableContainer extends React.Component{
   render() {
     return (
       <div className="table-container">
-        <TopNavContainer myTables={this.props.myTables} tableId={this.props.params.id} />
+        <TopNavContainer myTables={this.props.myTables} tableId={this.props.params.id} userData={this.props.userData}
+        dispatch={this.props.dispatch}/>
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
         dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)}

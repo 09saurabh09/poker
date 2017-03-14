@@ -3,9 +3,7 @@ import React from 'react';
 
 import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
-import TournamentLogo from '../../../../assets/img/game/tournament-logo.svg';
-
-import Svg from '../svg/svg.jsx';
+const TournamentLogo = '../../../../assets/img/game/tournament-logo.svg';
 
 import wNumb from 'wnumb';
 
@@ -15,6 +13,7 @@ export default class BuyinPref extends React.Component {
     this.state = {
       value: this.props.bbValue.value,
       inputValue: this.props.bbValue.value * this.props.bigBlind,
+      straddle: true,
       maintainStack: true,
       autoPost: true
     };
@@ -31,12 +30,8 @@ export default class BuyinPref extends React.Component {
     })
   }
 
-  handleBlur(event) {
-    this.setState({value: event.target.value/this.props.bigBlind});
-  }
-
   handleChange(event) {
-    this.setState({inputValue: event.target.value, value: event.target.value/this.props.bigBlind});
+    this.setState({inputValue: event.target.value});
   }
 
   onChange(val) {
@@ -44,6 +39,12 @@ export default class BuyinPref extends React.Component {
     if(value != this.state.value) {
       this.setState({value, inputValue: value*this.props.bigBlind}); 
     }
+  }
+
+  handleStraddleChange(event) {
+    this.setState({
+      straddle: event.target.checked
+    })
   }
 
   handleMaintainStackChange(event) {
@@ -66,6 +67,10 @@ export default class BuyinPref extends React.Component {
     if(this.state.inputValue > this.props.bbValue.max * this.props.bigBlind) {
       errorMessage = 'Has to be less than maximum amount';
     }
+    let bankroll = this.props.bankroll;
+    bankroll = bankroll > 1000 ? `${parseInt(bankroll) / 1000}K`: bankroll;
+    /*let displayInputValue = this.state.inputValue;
+    displayInputValue = displayInputValue > 1000 ? `${parseInt(displayInputValue) / 1000}K`: displayInputValue;*/
     return (
       <div className="modal fade-scale" id="buyin-pref" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div className="vertical-alignment-helper">
@@ -73,26 +78,42 @@ export default class BuyinPref extends React.Component {
             <div id="buyin-pref-content" className="modal-content">
               <div className="modal-body">
                 <div className="modal-container">
-                  <div className="tournament-logo-icon-container">
-                    <Svg className="tournament-logo-icon-wrapper icon-wrapper" markup={TournamentLogo} />
+                  <div className="settings-icon-container">
+                    <img className="tournament-logo-icon-wrapper icon-wrapper" src={TournamentLogo} />
                   </div>
                   <form className="form-horizontal">
                     <div className="form-container">
-                      <div className="pref-input-container margin-b-48">
-                        <div className="label-wrapper">
-                          <div className="pref-label">Big Blind Preference</div>
+                      <div className="pref-input-container">
+                        <div className="label-wrapper col-lg-6">
+                          <label className="pref-label">Big Blind Preference</label>
                         </div>
-                        <div className="text-right">
-                          <input type="number" id="pref" name="pref" className="pref-input" 
+                        <div className="text-left col-lg-6">
+                          <input type="number" id="pref" name="pref" className="pref-input form-control" 
                           min={this.props.bbValue.min*this.props.bigBlind} 
                           max={this.props.bbValue.max*this.props.bigBlind} 
-                          onChange={this.handleChange.bind(this)} 
-                          onBlur={this.handleBlur.bind(this)} 
-                          value={this.state.inputValue} /> 
-                          <p id="error-message" >{errorMessage}</p>
+                          onChange={this.handleChange.bind(this)}
+                          value={this.state.inputValue} />
+                          <span className="display-bb">{this.state.inputValue / this.props.bigBlind}BB</span>
+                          {errorMessage ? <p id="error-message" >{errorMessage}</p> : null }
                         </div>
                       </div>
-                      <div className="range-buyin-pref  margin-b-48">
+                      <div className="pref-input-container">
+                        <div className="label-wrapper col-lg-6">
+                          <label className="pref-label">Average Stack</label>
+                        </div>
+                        <div className="text-left">
+                          <span className="display-bb">{this.props.avgStack}BB</span>
+                        </div>
+                      </div>
+                      <div className="pref-input-container">
+                        <div className="label-wrapper col-lg-6">
+                          <label className="pref-label">Bankroll</label>
+                        </div>
+                        <div className="text-left">
+                          <span className="display-bankroll">{bankroll}</span>
+                        </div>
+                      </div>
+                      <div className="range-buyin-pref">
                         <RangeSlider 
                           range={{min: this.props.bbValue.min, max: this.props.bbValue.max}}
                           start={[parseFloat(this.state.value)]}
@@ -101,7 +122,16 @@ export default class BuyinPref extends React.Component {
                           step={this.props.bbValue.step}
                           tooltips={wNumb({ decimals: 0 })}
                           onChange={this.onChange.bind(this)}
-
+                          />
+                          <div className="bb-value min">{this.props.bbValue.min}BB</div>
+                          <div className="bb-value max">{this.props.bbValue.max}BB</div>
+                      </div>
+                      <div className="user-settings">
+                          <CheckboxElement 
+                            onChangeCheckbox={this.handleStraddleChange.bind(this)}
+                            checked={this.state.straddle}
+                            label="Straddle"
+                            checkboxId="straddle"
                           />
                       </div>
                       <div className="user-settings">
@@ -121,10 +151,10 @@ export default class BuyinPref extends React.Component {
                             checkboxId="auto-post"
                           />
                         </div>
-                      </div>
-                      <div className="button-container">
-                        <button type="button" className="button text-uppercase" 
-                        onClick={this.props.onSet.bind(null, this.state.inputValue, this.state.maintainStack, this.state.autoPost)}> Set </button>
+                        <div className="set-button-container">
+                          <button type="button" className="button text-uppercase" 
+                          onClick={this.props.onSet.bind(null, this.state.inputValue, this.state.maintainStack, this.state.autoPost)}> Set </button>
+                        </div>
                       </div>
                     </div>
                   </form>

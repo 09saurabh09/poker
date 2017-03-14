@@ -7,29 +7,33 @@ import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/s
  * Authenticate user login
  */
 
-export function login(dispatch, email, password) {
-  return axios.post(utils.getAuthenticateUserUrl(), {
-    user: {email, password}
-  })
+export function login(email, password) {
+  return dispatch => {
+    return axios.post(utils.getAuthenticateUserUrl(), {
+      user: {email, password}
+    })
     .then(response => {
       dispatch(connectAuthorizedSocket(response.data.data.token));
       dispatch(authenticateUserSuccess(response.data.data));
       return response;
     });
+  }
 }
 
 /**
  * User Sign up
  */
 
-export function signup(dispatch, user) {
-  return axios.post(utils.getPublicUserUrl(), {
-    user
-  })
+export function signup(user) {
+  return dispatch => {
+    return axios.post(utils.getPublicUserUrl(), {
+      user
+    })
     .then(response => {
       dispatch(signupUserSuccess(response.data));
       return response;
     });
+  }
 } 
 
 /**
@@ -49,7 +53,7 @@ export function getUserInfo(dispatch, responseGroup) {
       }
     })
     .then(response => {
-      dispatch(UserInfoSuccess(response.data));
+      dispatch(UserInfoSuccess(response.data.data));
       return response;
     });
 } 

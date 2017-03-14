@@ -1,12 +1,11 @@
 import React from 'react';
 //import './radio-element.scss';
-import Svg from '../svg/svg.jsx';
 
-export default class SwitchElement extends React.Component {
+export default class RadioElement extends React.Component {
 
   render() {
     let icon = <div className="radio-icon-container">
-                <Svg className="radio-icon-wrapper icon-wrapper" markup={this.props.icon} />
+                <img className="radio-icon-wrapper icon-wrapper" src={this.props.icon} />
               </div>;
     return (
       <div className="radio-container">

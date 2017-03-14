@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="94px" height="64px" viewBox="0 0 94 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>D8CF6A43-5BC2-4BDE-B27F-9D5F0AAB4E54</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#00E68B" offset="0%"></stop>
+            <stop stop-color="#00C853" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="4.93828079%" y1="0%" x2="100%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#22DEFF" offset="0%"></stop>
+            <stop stop-color="#22ADFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#5BA6FF" offset="0%"></stop>
+            <stop stop-color="#2E6CFF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M73.5179089,47.531343 C73.3993525,47.696615 73.2082904,47.696615 73.089734,47.531343 L67.088917,39.1279693 C66.970361,38.9622108 66.970361,38.6934599 67.088917,38.5276935 L73.089734,30.1243218 C73.2082904,29.9585594 73.3993525,29.9585594 73.5179089,30.1243218 L79.5192161,38.5276974 C79.6372827,38.6934599 79.6372827,38.9622108 79.5192161,39.1279733 L73.5179089,47.531343 Z" id="path-4"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Table-Setting" transform="translate(-879.000000, -532.000000)">
+            <g id="two-cards-daimond" transform="translate(878.000000, 532.000000)">
+                <path d="M43.6636315,59.9202001 C43.6996393,61.3892575 42.5363655,62.6111426 41.0688622,62.6471886 L4.82586541,63.5233265 C3.35689237,63.5586368 2.13629996,62.3948667 2.10176182,60.9250736 L0.735668334,4.34024603 C0.69966049,2.8697173 1.86219944,1.64856787 3.33117248,1.61325753 L39.5741692,0.736383965 C41.0424074,0.701809252 42.2629998,1.8641081 42.297538,3.33537247 L43.6636315,59.9202001 Z" id="Shape" fill="#FFFFFF" transform="translate(22.199650, 32.129871) rotate(1.000000) translate(-22.199650, -32.129871) "></path>
+                <text id="A" transform="translate(7.715966, 17.178161) rotate(1.000000) translate(-7.715966, -17.178161) " font-family="ProductSans-Regular, Product Sans" font-size="22.3999996" font-weight="normal" fill="#343F44">
+                    <tspan x="3.67426974" y="25.6781609">A</tspan>
+                </text>
+                <path d="M94.9749614,59.5547954 C95.0109692,61.0238529 93.8476954,62.245738 92.3801921,62.2817839 L56.1371953,63.1579219 C54.6682223,63.1932322 53.4476299,62.0294621 53.4130917,60.559669 L52.0469982,3.97484142 C52.0109904,2.50431269 53.1735293,1.28316326 54.6425024,1.24785292 L90.8854991,0.370979352 C92.3537373,0.336404639 93.5743297,1.49870349 93.6088679,2.96996786 L94.9749614,59.5547954 Z" id="Shape-Copy" fill="#FFFFFF" transform="translate(73.510980, 31.764466) rotate(1.000000) translate(-73.510980, -31.764466) "></path>
+                <text id="9" transform="translate(59.323073, 17.913793) rotate(1.000000) translate(-59.323073, -17.913793) " font-family="ProductSans-Regular, Product Sans" font-size="22.3999996" font-weight="normal" fill="#343F44">
+                    <tspan x="55.9112514" y="26.4137931">9</tspan>
+                </text>
+                <path d="M30.697079,39.9307291 C30.697079,35.5517024 23.3485391,30 23.3485391,30 C23.3485391,30 16,35.5517024 16,39.9307291 C16,43.3560354 20.0593487,44.9468825 22.3395362,42.4817095 C22.1726933,44.5425126 19.9952929,46.1757716 17.8864182,46.1757716 L18.1346965,46.1757716 C17.7235481,46.1757716 17.3898617,46.5071574 17.3898617,46.915472 C17.3898617,47.3237866 17.7235481,47.6551724 18.1346965,47.6551724 L28.5623825,47.6551724 C28.9735313,47.6551724 29.3072173,47.3237866 29.3072173,46.915472 C29.3072173,46.5071574 28.9735313,46.1757716 28.5623825,46.1757716 L28.8106608,46.1757716 C26.7022818,46.1757716 24.5243849,44.5425126 24.3580385,42.4817055 C26.6377295,44.9468825 30.697079,43.3560354 30.697079,39.9307291" id="Page-1" fill="url(#linearGradient-1)"></path>
+                <g id="Fill-1">
+                    <use fill="url(#linearGradient-2)" xlink:href="#path-4"></use>
+                    <use fill="url(#linearGradient-3)" xlink:href="#path-4"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

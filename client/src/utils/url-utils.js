@@ -62,9 +62,9 @@ class UrlUtils {
 
 	getGameHistoryUrl(tableId) {
 		let url = `${this.getUserUrl()}/session/game-history`
-		/*if(tableId) {
-			return `${url}/?tableId=${tableId}`
-		}*/
+		if(tableId) {
+			return `${url}/?tableId=${tableId}`;
+		}
 		return url;
 	}
 

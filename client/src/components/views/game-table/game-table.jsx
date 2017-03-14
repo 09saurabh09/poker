@@ -1,8 +1,7 @@
 import React from 'react';
 
 //import './game-table.scss';
-import Svg from '../svg/svg.jsx';
-import CoinIcon from '../../../../assets/img/game/coin.svg';
+const CoinIcon = '../../../../assets/img/game/coin.svg';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import OpenSeat from '../open-seat/open-seat.jsx';
@@ -14,7 +13,7 @@ import PlayerChips from '../player-chips/player-chips.jsx';
 import Card from '../card/card.jsx';
 import Login from '../login/login.jsx';
 
-import { saveGameAction } from '../../../actions/game-state-actions';
+import { saveGameAction, removeGameAction } from '../../../actions/game-state-actions';
 
 export default class GameTable extends React.Component{
 
@@ -75,11 +74,14 @@ export default class GameTable extends React.Component{
     //clearInterval(this.timerID);
   }
 
-  componentDidUpdate(prevProps, nextProps) {
-    let { dispatch } = this.props;
-    let { gameState: game } = this.state;
+  componentDidUpdate(prevProps, prevState) {
+    let { dispatch, authorizedSocket } = this.props;
+    let { gameState: game } = prevState;
     if(this.isMyTurn() && game.payload) {
-      debugger;
+      console.log('Event emited player-turn with payload ', game.payload);
+      authorizedSocket.emit('player-turn', game.payload);
+      $('.game-actions button').removeClass('active');
+      this.props.dispatch(removeGameAction(game.payload));
     }
   }
 
@@ -153,7 +155,6 @@ export default class GameTable extends React.Component{
 
   openBuyinPref(seat) {
     if(this.isHePlaying()) {
-      alert('You are already playing');
       return;
     }
     this.selectedSeat = seat;
@@ -199,22 +200,21 @@ export default class GameTable extends React.Component{
     console.log('Event emited table-join with payload ', payload)
   }
 
-  onGameAction(event, action, amount) {
+  onGameAction(event, call, amount) {
     let payload = {
       tableId : this.props.tableId,
-      action,
+      call,
       amount: parseInt(amount)
     }
-    console.log('Event emited player-turn with payload ', payload)
-    
-    //if(this.isMyTurn()) {
+    if(this.isMyTurn()) {
+      console.log('Event emited player-turn with payload ', payload)
       this.props.authorizedSocket.emit('player-turn', payload);
-    /*} else {
+    } else {
       //queue the action
       this.props.dispatch(saveGameAction(payload));
       $('.game-actions button').removeClass('active');
       $(event.currentTarget).addClass('active');
-    }*/
+    }
     
   }
 
@@ -267,13 +267,13 @@ export default class GameTable extends React.Component{
             {game.totalPot > 0 ? 
             <div className="pot-chips">
               <div className="coin-icon-container">
-                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+                <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />
               </div>
               <div className="coin-icon-container">
-                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+                <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />
               </div>
               <div className="coin-icon-container">
-                <Svg className="coin-icon-wrapper icon-wrapper" markup={CoinIcon} />
+                <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />
               </div>
             </div> : null }
             <div className='table-center'>
@@ -285,15 +285,20 @@ export default class GameTable extends React.Component{
             </div>
            {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
-              {player !== null ? <Player turnPos={game.turnPos} player={player} bigBlind={game.bigBlind} winner={winnerPlayerIndex == index} showCards={game.round != 'idle'}/> : null }
+              {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
+                                          player={player} bigBlind={game.bigBlind} 
+                                          winner={winnerPlayerIndex == index} showCards={game.round != 'idle'}
+                                          gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
+                                          /> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }
             </div>
             )}
         </div>
         {game.minAmount != game.maxAmount ? <BuyinPref bbValue={{min:game.minAmount/game.bigBlind, max:game.maxAmount/game.bigBlind, 
-                                                        value: game.minAmount/game.bigBlind, step:game.bigBlind}} 
-                                                        bigBlind={game.bigBlind} onSet={this.joinSeat.bind(this)}/> 
+                                                        value: this.props.userData.defaultBB || ((game.maxAmount+game.minAmount)/2)/game.bigBlind, step:game.bigBlind}} 
+                                                        bigBlind={game.bigBlind} avgStack={game.avgStack || 0}
+                                                        bankroll={this.props.userData.currentBalance} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
         <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)} dispatch={this.props.dispatch}/>
       </div>
