@@ -40,34 +40,47 @@ export function signup(user) {
   * User info
   */
 
-export function getUserInfo(dispatch, responseGroup) {
-  let token = localStorage.getItem('userToken');
-  if(!token) {
-    return;
-  }
-  return axios({
-    method: 'get',
-    url: utils.getUserInfoUrl(responseGroup),
-    headers: {
-        'X-Access-Token' : token
-      }
-    })
+export function getUserInfo(responseGroup) {
+  return dispatch => {
+    let token = localStorage.getItem('userToken');
+    if(!token) {
+      return;
+    }
+    return axios({
+      method: 'get',
+      url: utils.getUserInfoUrl(responseGroup),
+      headers: {
+          'X-Access-Token' : token
+        }
+      })
     .then(response => {
-      dispatch(UserInfoSuccess(response.data.data));
+      let userInfo = response && response.data && response.data.data;
+      let storedUserDataItem = localStorage.getItem('userData')
+      let storedUserData = null;
+      try {
+        storedUserData = JSON.parse(storedUserDataItem)
+      } catch(e) {
+        storedUserData = null;
+      }
+      let oldUserData = storedUserData && storedUserData[userInfo.id];
+      let resultUserData = oldUserData && Object.assign({}, userInfo, oldUserData) || userInfo;
+      dispatch(UserInfoSuccess(resultUserData));
       return response;
     });
+  }
 } 
 
 
-export function getMyTables(dispatch) {
-  let token = localStorage.getItem('userToken');
-  if(!token) {
-    return;
-  }
-  return axios({
-    method: 'get',
-    url: utils.getListMyTablesUrl(),
-    headers: {
+export function getMyTables() {
+  return dispatch => {
+    let token = localStorage.getItem('userToken');
+    if(!token) {
+      return;
+    }
+    return axios({
+      method: 'get',
+      url: utils.getListMyTablesUrl(),
+      headers: {
         'X-Access-Token' : token
       }
     })
@@ -75,6 +88,7 @@ export function getMyTables(dispatch) {
       dispatch(ListMyTablesSuccess(response.data && response.data.data));
       return response;
     });
+  }
 }
 
 export function getGameHistory(dispatch, tableId) {
@@ -95,7 +109,7 @@ export function getGameHistory(dispatch, tableId) {
     });
 }
 
-export function updateUserInfo(data) {
+export function updateUserInfo(data, userData) {
   let token = localStorage.getItem('userToken');
   if(!token) {
     return;
@@ -109,7 +123,7 @@ export function updateUserInfo(data) {
     data
     })
     .then(response => {
-      /*dispatch(UpdateUserInfoSuccess(response.data && response.data.data));*/
+      localStorage.setItem('userData', JSON.stringify(Object.assign({}, {[userData.id]: userData})))
       return response;
     });
 }

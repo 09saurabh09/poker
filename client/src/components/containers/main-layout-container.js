@@ -8,7 +8,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    userApi.getUserInfo(this.props.dispatch, 'small');
+    this.props.dispatch(userApi.getUserInfo('small'));
     $('document').ready(()=>{
       $('#dp-container').height($('#dp-container').width());  
     });

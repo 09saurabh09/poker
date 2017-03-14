@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Link } from 'react-router';
-
+import utils from '../../../utils/utils';
 import Login from '../../views/login/login.jsx';
+import TableSettings from '../../views/table-settings/table-settings.jsx';
 import MoneyContainer from '../../views/money-container/money-container.jsx';
 
 import VideoOverlayIcon from '../../../../assets/img/home/svg/video-overlay.svg';
@@ -22,13 +23,6 @@ class Home extends React.Component {
       //document.getElementById('dp').height = document.getElementById('dp').width;
       $('#dp-container').height($('#dp-container').width());
         // Get the button that opens the modal
-      var btn = document.getElementById('logout-link');
-
-      // When the user clicks the button, open the modal 
-      btn.onclick = function() {
-        var modal = document.getElementById('login');
-        modal.style.display = 'block';
-      }
       let aspectRatio = ($('#main').width())/($('#main').height());
       $(window).resize(function() {
         $('#dp-container').height($('#dp-container').width());
@@ -69,16 +63,16 @@ class Home extends React.Component {
               <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/support.svg" />
             </div>
           </Link>
-          <Link to="/settings" className="nav-link">
+          <Link to="/" className="nav-link" onClick={utils.openModal.bind(this, 'table-settings')}>
             <div className="setting-icon">
               <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/settings.svg" />
             </div>
           </Link>
-          <a className="nav-link" href="#" id="logout-link">
+          <Link className="nav-link" to="/" id="logout-link" onClick={utils.openModal.bind(this, 'login')}>
             <div className="logout-icon">
               <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/logout.svg"/>
             </div>
-          </a>
+          </Link>
         </nav>
         <section id="main">
           <div className="upper-section">
@@ -209,6 +203,7 @@ class Home extends React.Component {
           </div>
         </section>
         <Login postLogin={()=>{}} dispatch={this.props.dispatch}/>
+        <TableSettings onSet={()=>{}} userData={this.props.userData} dispatch={this.props.dispatch}/>
       </div>
     )
   }

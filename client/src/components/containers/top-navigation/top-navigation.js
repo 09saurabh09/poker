@@ -1,30 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import utils from '../../../utils/utils';
 //import './top-navigation.scss';
 import MoneyContainer from '../../views/money-container/money-container.jsx';
 import PlayerCards from '../../views/player-cards/player-cards.jsx';
 import TableSettings from '../../views/table-settings/table-settings.jsx';
 
 import * as userApi from '../../../api/user-api';
-import { UserInfoSuccess } from '../../../actions/user-actions';
 
 export default class TopNavContainer extends React.Component{
 
   constructor(props) {
     super(props);
-  }
-
-  openTableSettings() {
-    var modal = document.getElementById('table-settings');
-    modal.style.display = 'block';
-  }
-  
-  onSetTableSetting(settings) {
-    this.props.dispatch(UserInfoSuccess(settings));
-    userApi.updateUserInfo({user: settings});
-    var modal = document.getElementById('table-settings');
-    modal.style.display = 'none';
   }
 
   render() {
@@ -73,7 +61,7 @@ export default class TopNavContainer extends React.Component{
                       <div className="plus-icon"></div>
                     </Link>
                   </div>
-                  <div className="setting-icon-container" onClick={this.openTableSettings.bind(this)}>
+                  <div className="setting-icon-container" onClick={utils.openModal.bind(this, 'table-settings')}>
                     <img className="setting-icon-wrapper icon-wrapper" src="../../../../assets/img/game/setting.svg" />
                   </div>
                 </div>
@@ -81,7 +69,7 @@ export default class TopNavContainer extends React.Component{
             </div>
           </div>
         </div>
-        <TableSettings onSet={this.onSetTableSetting.bind(this)} userData={this.props.userData}/>
+        <TableSettings onSet={()=>{}} userData={this.props.userData} dispatch={this.props.dispatch}/>
       </div>
     );
   }
