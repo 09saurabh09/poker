@@ -6,6 +6,7 @@ import MoneyContainer from '../../views/money-container/money-container.jsx';
 import PlayerCards from '../../views/player-cards/player-cards.jsx';
 import TableSettings from '../../views/table-settings/table-settings.jsx';
 
+import * as userApi from '../../../api/user-api';
 import { UserInfoSuccess } from '../../../actions/user-actions';
 
 export default class TopNavContainer extends React.Component{
@@ -21,6 +22,7 @@ export default class TopNavContainer extends React.Component{
   
   onSetTableSetting(settings) {
     this.props.dispatch(UserInfoSuccess(settings));
+    userApi.updateUserInfo({user: settings});
     var modal = document.getElementById('table-settings');
     modal.style.display = 'none';
   }

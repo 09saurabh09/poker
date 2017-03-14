@@ -94,3 +94,22 @@ export function getGameHistory(dispatch, tableId) {
       return response;
     });
 }
+
+export function updateUserInfo(data) {
+  let token = localStorage.getItem('userToken');
+  if(!token) {
+    return;
+  }
+  return axios({
+    method: 'PUT',
+    url: utils.getUserUrl(),
+    headers: {
+        'X-Access-Token' : token
+      },
+    data
+    })
+    .then(response => {
+      /*dispatch(UpdateUserInfoSuccess(response.data && response.data.data));*/
+      return response;
+    });
+}
