@@ -29,7 +29,7 @@ class TableContainer extends React.Component{
     let tableId = params.id;
     // call apis
     gameStateApi.getGameState(dispatch, tableId);
-    userApi.getMyTables(dispatch);
+    dispatch(userApi.getMyTables());
     // connect to socket if not already connected
     !socket.unAuthorizedSocket && dispatch(connectUnauthorizedSocket());
     let userToken = localStorage.getItem('userToken');

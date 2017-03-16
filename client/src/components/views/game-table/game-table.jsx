@@ -1,6 +1,9 @@
 import React from 'react';
 
 //import './game-table.scss';
+import * as userApi from '../../../api/user-api';
+import utils from '../../../utils/utils';
+
 const CoinIcon = '../../../../assets/img/game/coin.svg';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
@@ -153,17 +156,20 @@ export default class GameTable extends React.Component{
     return myTurn;
   }
 
+  postLoginStaff() {
+    this.openBuyinPref(this.selectedSeat);
+    this.props.dispatch(userApi.getMyTables());
+  }
+
   openBuyinPref(seat) {
     if(this.isHePlaying()) {
       return;
     }
     this.selectedSeat = seat;
     if(localStorage.getItem('userToken')) {
-      var modal = document.getElementById('buyin-pref');
-      modal.style.display = 'block';
+      utils.openModal('buyin-pref');
     } else {
-      var modal = document.getElementById('login');
-      modal.style.display = 'block';
+      utils.openModal('login');
     }
     
   }
@@ -186,8 +192,7 @@ export default class GameTable extends React.Component{
     this.setState({
       players : this.rotatePlayers(allPlayers, seat)
     })
-    var modal = document.getElementById('buyin-pref');
-    modal.style.display = 'none';
+    utils.closeModal('buyin-pref');
     let payload = {
       tableId: this.props.tableId,
       playerInfo: {
@@ -300,7 +305,7 @@ export default class GameTable extends React.Component{
                                                         bigBlind={game.bigBlind} avgStack={game.avgStack || 0}
                                                         bankroll={this.props.userData.currentBalance} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
-        <Login postLogin={this.openBuyinPref.bind(this, this.selectedSeat)} dispatch={this.props.dispatch}/>
+        <Login postLogin={this.postLoginStaff.bind(this)} dispatch={this.props.dispatch}/>
       </div>
     );
   }

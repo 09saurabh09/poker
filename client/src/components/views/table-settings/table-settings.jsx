@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CheckboxElement from '../checkbox-element/checkbox-element';
+import utils from '../../../utils/utils';
 
 const CardRoyal = '../../../../assets/img/table-settings/svg/cardroyal-1.svg';
 const CardElegent = '../../../../assets/img/table-settings/svg/cardelegant.svg';
@@ -8,17 +9,20 @@ const CardCool = '../../../../assets/img/table-settings/svg/cardCool.svg';
 const CardTrendy = '../../../../assets/img/table-settings/svg/cardtrendy.svg';
 const TwoCards = '../../../../assets/img/table-settings/svg/two-cards.svg';
 const FourCards = '../../../../assets/img/table-settings/svg/four-cards.svg';
+import * as userApi from '../../../api/user-api';
+import { UserInfoSuccess } from '../../../actions/user-actions';
 
 export default class TableSettings extends React.Component {
   constructor(props) {
     super(props);
+    let { userData } = this.props;
     this.state = {
-      cardBackTheme: this.props.userData.cardBackTheme,
-      cardFrontTheme: this.props.userData.cardFrontTheme,
-      music: !!this.props.userData.musicSetting,
-      soundEffects: !!this.props.userData.soundEffectSetting,
-      autoMuck: !!this.props.userData.autoMuck,
-      chatPopup: !!this.props.userData.chatPopup
+      cardBackTheme: userData.cardBackTheme || 'royal',
+      cardFrontTheme: userData.cardFrontTheme || 'twoColor',
+      music: !!userData.music,
+      soundEffects: !!userData.soundEffects,
+      autoMuck: !!userData.autoMuck,
+      chatPopup: !!userData.chatPopup
     };
   }
 
@@ -33,8 +37,33 @@ export default class TableSettings extends React.Component {
     })
   }
 
-  updateSetting(setting) {
-    this.setState(Object.assign({}, this.state, setting))
+  componentWillReceiveProps(nextProps) {
+    let { userData } = nextProps;
+    if(userData.id && !this.props.userData.id) {
+      this.setState(Object.assign({}, this.state,
+        {
+          cardBackTheme: userData.cardBackTheme || 'royal',
+          cardFrontTheme: userData.cardFrontTheme || 'twoColor',
+          music: !!userData.music,
+          soundEffects: !!userData.soundEffects,
+          autoMuck: !!userData.autoMuck,
+          chatPopup: !!userData.chatPopup
+      }))  
+    }
+  }
+
+  updateSettings(settings) {
+    this.setState(Object.assign({}, this.state, settings))
+  }
+
+  setClickHandler(settings) {
+    userApi.updateUserInfo({user: settings}, this.props.userData)
+    .then((response)=>{
+      this.props.dispatch(UserInfoSuccess(settings))
+      utils.closeModal('table-settings')
+      this.props.onSet(settings);
+    });
+    
   }
 
   render() {
@@ -72,7 +101,7 @@ export default class TableSettings extends React.Component {
                     <div className="form-container">
                       <div className="card-theme-container">
                         {allCardBackThemes.map((cardBackTheme, index) => (
-                          <div onClick={this.updateSetting.bind(this, {cardBackTheme: cardBackTheme.name})} key={index} 
+                          <div onClick={this.updateSettings.bind(this, {cardBackTheme: cardBackTheme.name})} key={index} 
                             className={`card-theme-icon-container${cardBackTheme.name == this.state.cardBackTheme ? ' active-card-theme': ''}`}>
                             <img className="card-back-theme-icon-wrapper icon-wrapper" src={cardBackTheme.url} />
                           </div>  
@@ -80,7 +109,7 @@ export default class TableSettings extends React.Component {
                       </div>
                       <div className="card-theme-container">
                         {allCardFrontThemes.map((cardFrontTheme, index) => (
-                          <div onClick={this.updateSetting.bind(this, {cardFrontTheme: cardFrontTheme.name})} key={index} 
+                          <div onClick={this.updateSettings.bind(this, {cardFrontTheme: cardFrontTheme.name})} key={index} 
                             className={`card-front-theme-icon-container-${index} card-theme-icon-container${cardFrontTheme.name==this.state.cardFrontTheme ? ' active-card-theme': ''}`}>
                             <img className="card-front-theme-icon-wrapper icon-wrapper" src={cardFrontTheme.url} />
                           </div>  
@@ -89,7 +118,7 @@ export default class TableSettings extends React.Component {
                       <div className="col-lg-12">
                         <div className="music col-lg-6">
                           <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSetting({music: e.target.checked})}
+                            onChangeCheckbox={e => this.updateSettings({music: e.target.checked})}
                             checked={this.state.music}
                             label="Music"
                             checkboxId="music"
@@ -97,7 +126,7 @@ export default class TableSettings extends React.Component {
                         </div>
                         <div className="sound-effects col-lg-6">
                           <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSetting({soundEffects: e.target.checked})}
+                            onChangeCheckbox={e => this.updateSettings({soundEffects: e.target.checked})}
                             checked={this.state.soundEffects}
                             label="Sound Effects"
                             checkboxId="sound-effects"
@@ -137,7 +166,7 @@ export default class TableSettings extends React.Component {
                       <div className="col-lg-12">
                         <div className="auto-muck col-lg-6">
                           <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSetting({autoMuck: e.target.checked})}
+                            onChangeCheckbox={e => this.updateSettings({autoMuck: e.target.checked})}
                             checked={this.state.autoMuck}
                             label="Auto muck"
                             checkboxId="auto-muck"
@@ -145,7 +174,7 @@ export default class TableSettings extends React.Component {
                         </div>
                         <div className="chat-popup col-lg-6">
                           <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSetting({chatPopup: e.target.checked})}
+                            onChangeCheckbox={e => this.updateSettings({chatPopup: e.target.checked})}
                             checked={this.state.chatPopup}
                             label="Chat Popup"
                             checkboxId="chat-popup"
@@ -154,7 +183,7 @@ export default class TableSettings extends React.Component {
                       </div>
                       <div className="set-button-container">
                           <button type="button" className="button text-uppercase" 
-                          onClick={this.props.onSet.bind(null, this.state)}> Set </button>
+                          onClick={this.setClickHandler.bind(this, this.state)}> Set </button>
                         </div>
                     </div>
                   </form>

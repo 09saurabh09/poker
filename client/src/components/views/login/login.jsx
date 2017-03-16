@@ -2,6 +2,7 @@ import React from 'react';
 //import './login.scss';
 
 import * as userApi from '../../../api/user-api';
+import utils from '../../../utils/utils';
 
 const PlayIcon = '../../../../assets/img/home/svg/yoga-play.svg';
 const LoginIcon = '../../../../assets/img/home/svg/login-button.svg';
@@ -53,18 +54,13 @@ export default class Login extends React.Component {
     })
   }
 
-  closeModal(id) {
-    var modal = document.getElementById(id);
-    modal.style.display = 'none';
-  }
-
   login() {
     this.props.dispatch(userApi.login(this.state.username, this.state.password))
     .then((data)=>{
       if(data.status == 200) {
         let token = data.data.data.token;
         localStorage.setItem('userToken', token);
-        this.closeModal('login');
+        utils.closeModal('login');
         this.props.postLogin();
       }
     });
@@ -85,7 +81,7 @@ export default class Login extends React.Component {
         mobileNumber: this.state.mobileNumber
       })).then((data)=>{
         if(data.status == 200) {
-          this.closeModal('login');
+          utils.closeModal('login');
         }
       });
     } else {
