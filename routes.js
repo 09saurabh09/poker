@@ -23,7 +23,7 @@ module.exports = function(app) {
 
     app.use('/api/user', [customMiddleWare.authenticate], userRoute);
 
-    app.use('/api/tournament', [customMiddleWare.authenticate], userRoute);
+    app.use('/api/tournament', [customMiddleWare.authenticate], tournamentRoute);
     //app.use('/healthcheck', healthCheck);
 
 };

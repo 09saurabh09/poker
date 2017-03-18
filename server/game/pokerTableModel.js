@@ -20,6 +20,9 @@ module.exports = function (sequelize, DataTypes) {
         parentType: {
             type: DataTypes.STRING
         },
+        tournamentId: {
+            type: DataTypes.INTEGER
+        },
         tableType: {
             type: DataTypes.INTEGER
         },
