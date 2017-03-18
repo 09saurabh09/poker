@@ -19,6 +19,8 @@ DB_CREDENTIALS.DB_USERNAME = env.DB_USERNAME;
 DB_CREDENTIALS.DB_PASSWORD = env.DB_PASSWORD;
 DB_CREDENTIALS.REDIS_HOST = env.REDIS_HOST;
 DB_CREDENTIALS.REDIS_PORT = env.REDIS_PORT;
+DB_CREDENTIALS.DATABASE_URL = env.DATABASE_URL;
+DB_CREDENTIALS.REDIS_URL = env.REDISCLOUD_URL;
 
 // Create DB connection, do not change position as it require above variables
 var database = require('../config/database');
@@ -43,8 +45,9 @@ GlobalConstant.tokenValidity = env.TOKEN_VALIDITY;
 global.POKER_QUEUE = {};
 
 GlobalConstant.bullQueueRedisConnectionOptions = {
-    host: DB_CREDENTIALS.REDIS_HOST,
-    port: DB_CREDENTIALS.REDIS_PORT,
+    // host: DB_CREDENTIALS.REDIS_HOST,
+    // port: DB_CREDENTIALS.REDIS_PORT,
+    path: DB_CREDENTIALS.REDIS_URL,
     keyPrefix: 'bullPokerQueue',
     retryStrategy: function (options) {
         if (options.error && options.error.code === 'ECONNREFUSED') {
