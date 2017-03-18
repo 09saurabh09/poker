@@ -9,7 +9,7 @@ require('dotenv').config({ path: `${__dirname}/environments/${env.NODE_ENV}.env`
 let Promise = require("bluebird");
 let lodash = require("lodash");
 let async = require("async");
-let kue = require("kue");
+// let kue = require("kue");
 
 // Set DB credentials
 global.DB_CREDENTIALS = {};
@@ -47,7 +47,6 @@ global.POKER_QUEUE = {};
 GlobalConstant.bullQueueRedisConnectionOptions = {
     // host: DB_CREDENTIALS.REDIS_HOST,
     // port: DB_CREDENTIALS.REDIS_PORT,
-    path: DB_CREDENTIALS.REDIS_URL,
     keyPrefix: 'bullPokerQueue',
     retryStrategy: function (options) {
         if (options.error && options.error.code === 'ECONNREFUSED') {

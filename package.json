@@ -107,6 +107,7 @@
     "dotenv": "^4.0.0",
     "ejs": "^2.3.4",
     "express": "~4.14.0",
+    "glob": "^7.1.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-load-plugins": "^1.2.0",
