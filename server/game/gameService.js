@@ -8,6 +8,7 @@ let GameModel = DB_MODELS.Game;
 let UserModel = DB_MODELS.User;
 let PokerTable = DB_MODELS.PokerTable;
 let UserPokerTableModel = DB_MODELS.UserPokerTable;
+let TournamentModel = DB_MODELS.Tournament
 
 //UPDATE "Users" SET "currentBalance"="currentBalance" + -500,"updatedAt"='2017-01-14 13:14:07.493 +00:00' WHERE "id" = 1 RETURNING *
 
@@ -264,16 +265,32 @@ module.exports = {
 
     searchTables: function (params, user, callback) {
         let response;
-        let tablePromise = [PokerTable.findAll({
-            where: {
-                tableName: params.name
-            },
-            raw: true
-        })]
+        let tablePromise = {
+            tables: PokerTable.findAll({
+                where: {
+                    tableName: params.name
+                },
+                raw: true
+            }), tournamentTables: TournamentModel.findOne({
+                where: {
+                    tournamentName: params.name
+                },
+                attributes: {
+                    includes: ['id']
+                },
+                include: [{
+                    model: DB_MODELS.PokerTable
+                }
+                ]
+            })
+        }
 
-        PROMISE.all(tablePromise)
-            .then(function (tables) {
-                tables = _.flatten(tables);
+        PROMISE.props(tablePromise)
+            .then(function (result) {
+                let tables = result.tables;
+                result.tournamentTables.PokerTables.forEach(function (tournamentTable) {
+                    tables.push(tournamentTable.toJSON());
+                });
                 tables.forEach(function (table) {
                     table.currentTotalPlayer = table.gameState.currentTotalPlayer;
                     table.userJoined = false;
@@ -287,13 +304,14 @@ module.exports = {
                         })
                     }
                     delete table.gameState;
+
                 });
                 response = new responseMessage.GenericSuccessMessage();
                 response.data = tables;
                 callback(null, response, response.code);
             })
             .catch(function (err) {
-                console.log(`ERROR ::: Unable to search tables for name:${name}, error: ${err.message}, stack: ${err.stack}`);
+                console.log(`ERROR ::: Unable to search tables for name:${params.name}, error: ${err.message}, stack: ${err.stack}`);
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })
