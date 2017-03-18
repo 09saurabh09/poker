@@ -1,11 +1,15 @@
 class UrlUtils { 
 
 	getUserServerBaseUrl() {
-		return `http://${window.location.hostname}:7100/api`;
+		return `/api`;
 	}
 
 	getGameServerBaseUrl() {
-		return `http://${window.location.hostname}:3100`;
+		if(process.env.NODE_ENV == 'development') {
+			return `http://${window.location.hostname}:3100`;
+		} else {
+			return 'https://poker-game-app.herokuapp.com';
+		}
 	}
 
 	getAuthorizedSocketNameSpaceUrl(token) {
