@@ -40,9 +40,10 @@ export default class OpenSeat extends React.Component {
             <div className='open-seat-icon-container'>
               <img className='open-seat-icon-wrapper icon-wrapper' src={OpenSeatIcon} />
             </div>
-            <div className='join-text'>Seat Open</div>
-            <div className='join-seat-icon-container'>
-              <img className='join-seat-icon-wrapper icon-wrapper' src={JoinSeatIcon} />
+            <div className='join-text'>Seat Open
+              <div className='join-seat-icon-container'>
+                <img className='join-seat-icon-wrapper icon-wrapper' src={JoinSeatIcon} />
+              </div>
             </div>
           </div>
         </div>

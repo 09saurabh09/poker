@@ -1,5 +1,7 @@
 .basic-user-card-wrapper.icon-wrapper {
-    width: 100%;
+    width: 104%;
+    left: -2%;
+    position: relative;
 }
 .seat-open {
   .player-dp {
@@ -19,13 +21,11 @@
     position: absolute;
     left: 29.14%;
     bottom: 16.7%;
-    font-size: 10px;
+    font-size: 0.65em;
   }
   .join-seat-icon-container {
     width: 7.4%;
-    position: absolute;
-    right: 18.7%;
-    bottom: 21.12%;
+    margin-left: 5%;
     .join-seat-icon-wrapper {
       vertical-align: bottom;
     }

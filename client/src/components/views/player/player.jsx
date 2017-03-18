@@ -79,9 +79,9 @@ export default class Player extends React.Component {
     } else {
       let timeElapsed = ( this.state.timeElapsed )/totalTime;
       timerTopWidth = timerRightHeight = timerBottomWidth = timerLeftHeight = 0;
-      let activePlayer = $('.player-container.active');
-      let activePlayerHeight = $('.player-container.active').height();
-      let activePlayerWidth = $('.player-container.active').width();
+      let activePlayer = $('.player-wrapper.active');
+      let activePlayerHeight = $('.player-wrapper.active').height();
+      let activePlayerWidth = $('.player-wrapper.active').width();
       let perimeter = 2* (activePlayerHeight + activePlayerWidth);
 
       let coveredPerimeter = perimeter * timeElapsed;
@@ -102,43 +102,40 @@ export default class Player extends React.Component {
       }  
     }
     
-    
     return (
       <div className='player'>
         <div className={'sitting-player ' + ' '+ onTableClassName}>
           {this.props.showCards ? <div className='player-card-wrapper'>
             <PlayerCards cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
           </div>: null}
-          <div className={'player-container ' + activeClassName}>
-            
-            <div className="timer-count">{totalTime - this.state.timeElapsed}</div>
-            <div className='timer timer-top' style={{width: timerTopWidth}}></div>
-            <div className='timer timer-right' style={{height: timerRightHeight}}></div>
-            <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>
-            <div className='timer timer-left' style={{height: timerLeftHeight}}></div>
+          <div className="player-container">
             <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
-            <div className='player-wrapper'>
-              <div className='player-dp'>
-                <img src='' />
-              </div>
-              <div className='player-name'>{this.props.player.name}</div>
-              <div className='player-color-container'>
-                <div className='color-dot'></div>
-              </div>
-              <div className='player-money'>
-                <div className='player-balance'>
-                  {this.props.player.chips}
+            <div className={'player-wrapper ' + activeClassName}>
+              <div className="timer-count">{totalTime - this.state.timeElapsed}</div>
+              <div className='timer timer-top' style={{width: timerTopWidth}}></div>
+              <div className='timer timer-right' style={{height: timerRightHeight}}></div>
+              <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>
+              <div className='timer timer-left' style={{height: timerLeftHeight}}></div>
+              <div className="player-inner">
+                <div className='player-dp'>
+                  <img src='' />
                 </div>
-                <div className='player-bb'>
-                  BB <span className='bb-value'> {this.props.player.chips/this.props.bigBlind} </span>
+                <div className='player-name'>{this.props.player.name}</div>
+                <div className='player-color-container'>
+                  <div className='color-dot'></div>
                 </div>
-              </div>
-              <div>
-                
-              </div>
-              <div className='player-game-style'>
-                <div className='hands-played'></div>
-                <div className='raised'></div>
+                <div className='player-money'>
+                  <div className='player-balance'>
+                    {this.props.player.chips}
+                  </div>
+                  <div className='player-bb'>
+                    BB <span className='bb-value'> {this.props.player.chips/this.props.bigBlind} </span>
+                  </div>
+                </div>
+                <div className='player-game-style'>
+                  <div className='hands-played'></div>
+                  <div className='raised'></div>
+                </div>
               </div>
               {this.props.winner ? <div className="winner-text"> WINNER </div>: null}
             </div>
