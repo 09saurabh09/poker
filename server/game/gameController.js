@@ -68,5 +68,11 @@ module.exports = {
         gameService.listMyTables(req.user, function (err, data, statusCode) {
             responseHelper(err, res, data, statusCode);
         });
+    },
+
+    searchTables: function(req, res) {
+        gameService.searchTables(req.query, req.user, function (err, data, statusCode) {
+            responseHelper(err, res, data, statusCode);
+        });
     }
 };

@@ -56,4 +56,10 @@ publicRouter.get('/table/:id', (req, res, next) => {
 
 });
 
+router.get('/search', (req, res, next) => {
+
+    gameController.searchTables(req, res);
+
+});
+
 module.exports = {router, publicRouter};

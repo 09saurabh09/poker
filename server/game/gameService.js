@@ -260,5 +260,42 @@ module.exports = {
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
             })
+    },
+
+    searchTables: function (params, user, callback) {
+        let response;
+        let tablePromise = [PokerTable.findAll({
+            where: {
+                tableName: params.name
+            },
+            raw: true
+        })]
+
+        PROMISE.all(tablePromise)
+            .then(function (tables) {
+                tables = _.flatten(tables);
+                tables.forEach(function (table) {
+                    table.currentTotalPlayer = table.gameState.currentTotalPlayer;
+                    table.userJoined = false;
+                    table.currentTotalPlayer = table.gameState.currentTotalPlayer;
+                    if (table.gameState.players) {
+                        table.gameState.players.forEach(function (player) {
+                            if (player && player.id == user.id) {
+                                table.userJoined = true;
+                                table.userCards = player.cards;
+                            }
+                        })
+                    }
+                    delete table.gameState;
+                });
+                response = new responseMessage.GenericSuccessMessage();
+                response.data = tables;
+                callback(null, response, response.code);
+            })
+            .catch(function (err) {
+                console.log(`ERROR ::: Unable to search tables for name:${name}, error: ${err.message}, stack: ${err.stack}`);
+                response = new responseMessage.GenericFailureMessage();
+                callback(null, response, response.code);
+            })
     }
 };
