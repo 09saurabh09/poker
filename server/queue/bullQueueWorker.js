@@ -7,9 +7,9 @@ let PokerTableModel = DB_MODELS.PokerTable;
 let UserGamesModel = DB_MODELS.UserGame;
 
 
-POKER_QUEUE.gameStateUpdated = Queue('gameStateUpdated', GlobalConstant.bullQueueRedisConnectionOptions);
-POKER_QUEUE.gameOverUpdateGame = Queue('gameOverUpdateGame', GlobalConstant.bullQueueRedisConnectionOptions);
-POKER_QUEUE.gameStartCreateUserGames = Queue('gameStartCreateUserGames', GlobalConstant.bullQueueRedisConnectionOptions);
+POKER_QUEUE.gameStateUpdated = Queue('gameStateUpdated', DB_CREDENTIALS.REDIS_URL, GlobalConstant.bullQueueRedisConnectionOptions);
+POKER_QUEUE.gameOverUpdateGame = Queue('gameOverUpdateGame', DB_CREDENTIALS.REDIS_URL, GlobalConstant.bullQueueRedisConnectionOptions);
+POKER_QUEUE.gameStartCreateUserGames = Queue('gameStartCreateUserGames', DB_CREDENTIALS.REDIS_URL, GlobalConstant.bullQueueRedisConnectionOptions);
 
 POKER_QUEUE.gameOverUpdateGame
     .on('ready', function () {
