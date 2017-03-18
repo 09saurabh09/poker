@@ -74,7 +74,6 @@ $dp-size : 24px;
 }
 
 .player-container {
-  transform: skew($skew-angle);
   /* width: $player-container-width;
   height: $player-container-width / 2 - 10px;
   transform: skew($skew-angle);
@@ -84,22 +83,22 @@ $dp-size : 24px;
   position: relative;
   top: $dp-size * 3/4; */
   .player-wrapper {
-    transform: skew(-1 * $skew-angle);
-    position: absolute;
+    /* position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    color: white;
     height: 100%;
-    width: 100%;
+    width: 100%; */
+    color: white;
   }
   .player-dp {
     position: absolute;
-    top: -20%;
-    left: 6px;
-    height: $dp-size;
-    width: $dp-size;
+    top: 0;
+    transform: translateY(-33%);
+    left: 5.22%;
+    height: 53.35%;
+    width: 20.87%;
     box-shadow: 0 1px 7px 0 #f9334b;
     border: solid 1.2px #f9334b;
     border-radius: 50%;
@@ -108,7 +107,7 @@ $dp-size : 24px;
     font-size: 9.6px;
     padding: 4px;
     position: relative;
-    left: $dp-size + 10px;
+    left: 10px;
   }
   .player-money {
     width: 100%;

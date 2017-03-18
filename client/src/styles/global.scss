@@ -5,9 +5,21 @@
 	     url('assets/fonts/ProximaNova-Reg-webfont.ttf') format('truetype'),
 	     url('assets/fonts/ProximaNova-Reg-webfont.svg#webfont') format('svg');
 }
+
 body {
-	background-color: black;
-	color: white;
+    font-family: ProximaNova;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.icon-wrapper {
+    margin: 0 auto;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
 }
 .sr-only {
     position: absolute;

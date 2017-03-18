@@ -9,6 +9,7 @@ import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table.jsx';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
 import { getGameStateSuccess } from '../../../actions/game-state-actions';
+const aspectRatio = 1.651376146788991;
 
 class TableContainer extends React.Component{
 
@@ -39,6 +40,23 @@ class TableContainer extends React.Component{
     //if already connected or the connection is in process
     this.socketOnConnect(socket.unAuthorizedSocket, tableId);
     this.socketOnConnect(socket.authorizedSocket, tableId);
+    $(document).ready(function() {
+      $(window).resize(function() {
+        if($('#table-container').height() * aspectRatio  < $('#table-container').width()) {
+          console.log('correcting width');
+          console.log('previous width:: ', $('#table-container').width());
+          console.log('next width:: ', $('#table-container').height() * aspectRatio);
+          $('#table-container').width($('#table-container').height() * aspectRatio);
+        } else if($('#table-container').height() * aspectRatio  > $('#table-container').width()) {
+          console.log('correcting height');
+          console.log('previous height:: ', $('#table-container').height());
+          console.log('next height:: ', $('#table-container').width() / aspectRatio);
+          $('#table-container').height($('#table-container').width() / aspectRatio);
+        } else {
+          console.log('achieved ratio');
+        }
+      }).resize();
+    });
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -165,7 +183,7 @@ class TableContainer extends React.Component{
 
   render() {
     return (
-      <div className="table-container">
+      <div id="table-container">
         <TopNavContainer myTables={this.props.myTables} tableId={this.props.params.id} userData={this.props.userData}
         dispatch={this.props.dispatch}/>
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}

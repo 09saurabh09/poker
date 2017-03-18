@@ -8,20 +8,26 @@
     border: solid 1.2px #969696 !important;
   }
   .open-seat-icon-container{
-      width: 10%;
-      position: absolute;
-      left: 30%;
-      top: 15%;
+    width: 10.87%;
+    position: absolute;
+    left: 29.14%;
+    top: 14.25%;
   }
-  .join {
+  .join-text {
     display: inline-flex;
     width: 100%;
     position: absolute;
-    left: 25%;
-    bottom: 16%;
-    font-size: 11px;
+    left: 29.14%;
+    bottom: 16.7%;
+    font-size: 10px;
   }
   .join-seat-icon-container {
-      width: 10%;
+    width: 7.4%;
+    position: absolute;
+    right: 18.7%;
+    bottom: 21.12%;
+    .join-seat-icon-wrapper {
+      vertical-align: bottom;
+    }
   }
 }

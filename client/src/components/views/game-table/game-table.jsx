@@ -60,17 +60,7 @@ export default class GameTable extends React.Component{
       () => this.tick(),
       20000
     );*/
-    $(document).ready(function() {
-      $(window).resize(function() {
-        if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
-          $('.main-table').width( $(window).width() * .70 );
-          $('.main-table').height( $('.main-table').width() * 0.45 );
-        } else {
-          $('.main-table').height( $(window).height() * .65);
-          $('.main-table').width( $('.main-table').height() * 2.22 );
-        }
-      }).resize();
-    });
+    
   }
 
   componentWillUnmount() {
@@ -258,7 +248,7 @@ export default class GameTable extends React.Component{
       $('.pot-chips').addClass(`moved-to-player${winnerPlayerIndex}`);
     }
     return (
-      <div className='game-table'>
+      <div className='game-table' id="game-table">
         <div className='game-controls-container'>
           <GameControls leaveTable={this.leaveTable.bind(this)} onReplayClick={this.props.onReplayClick}/>
         </div>

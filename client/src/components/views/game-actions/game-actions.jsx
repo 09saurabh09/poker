@@ -55,9 +55,9 @@ export default class GameActions extends React.Component{
               <a onClick={this.props.onAction.bind(null, "allIn", this.state.value)} className="button">Max</a>
             </div>
             <div className="button-container">
-              <input type="number" id="call-value" name="call-value" step={this.props.range.step} 
+              <input type="text" id="call-value" name="call-value" step={this.props.range.step} 
               min={this.props.range.min} max={this.props.range.max} value={this.state.value} 
-              onChange={this.handleChange.bind(this)}/>
+              onChange={this.handleChange.bind(this)} className="form-control"/>
             </div>
           </div>
           {/*<RangeSlide range={this.props.range} value={this.state.value} handleChange={this.handleChange.bind(this)} onUpdate={this.onUpdate.bind(this)} />*/}
