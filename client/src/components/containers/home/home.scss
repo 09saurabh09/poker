@@ -1,3 +1,6 @@
+.home {
+    height: 100%;
+}
 nav{    
     width: 7%;
     float: left;
@@ -6,7 +9,7 @@ nav{
     justify-content: space-between;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
     background-color: #232323;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
@@ -15,7 +18,8 @@ section#main{
     margin: 0;
     padding: 0;
     display: inline;
-    width: 93%;     
+    width: 93%; 
+    height: 100%;    
 }
 .nav-link {
     display: block;
@@ -75,7 +79,7 @@ section#main{
 .money-search-container {
     display: flex;
     box-sizing: border-box;
-    padding: 8% 0 3% 2%;
+    padding: 8% 0 8% 2%;
     background-color: #1b1b1b;
     flex-direction: column;
 }
@@ -106,25 +110,25 @@ section#main{
 .upper-section {
     display: flex;
     justify-content: flex-start;
-    height: 47%;
+    height: 38.672%;
 }
 .lower-section {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 60.94%;
     overflow: hidden;
     width: 100%;
 }
-.width-100 {
-    width: 100%;
-    float: left;
-    height: 50%;
+.lower-top {
+    height: 100%;
+    margin: 4.482% 0 2.241% 2.241%;
 }
-.width-50 {
-    width: 47%;
-    float: left;
-    height: 90%;
-    margin: 1% 1%;
+.lower-bottom {
+    height: 100%;
+    margin: 0 0 2.241% 2.241%;   
+}
+a.game-section {
+    text-decoration: none;
 }
 
 .game-icon-container {
@@ -154,8 +158,6 @@ section#main{
     transform: translateY(-50%);
 }
 .game {
-    width: 100%;
-    float: left;
     display: flex;
     height: 100%;
 }
@@ -163,11 +165,10 @@ section#main{
     padding-left: 5%;
 }
 .game-icon {
-    width: 35%;
-    float: left;
+    width: 33%;
 }
 .game-text {
-    width: 65%;
+    width: 58.97%;
     display: flex;
     align-items: center;
     color: white;
@@ -176,9 +177,8 @@ section#main{
 }
 .game-title {
     font-size: 24px;
-    padding: 10% 0;
+    margin-bottom: 10%;
 }
 .play-with-friends {
     font-size: 13px;
-    padding: 10% 0;
 }

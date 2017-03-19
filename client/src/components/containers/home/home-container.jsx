@@ -120,9 +120,9 @@ class Home extends React.Component {
             </div>  
           </div>
           <div className="lower-section">
-            <div className="width-100">
-              <div className="width-50">
-                <Link to="/cash-game" className="cash-game">
+            <div className="col-lg-12 lower-top">
+              <div className="col-lg-6">
+                <Link to="/cash-game" className="game-section">
                   <div className="game">
                     <div className="game-icon">
                       <div className="cash-game-icon-container game-icon-container">
@@ -142,8 +142,8 @@ class Home extends React.Component {
                   </div>
                 </Link>
               </div>
-              <div className="width-50">
-                <Link to="/tournament" className="cash-game">
+              <div className="col-lg-6">
+                <Link to="/tournament" className="game-section">
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container tournament-icon-container">
@@ -164,9 +164,9 @@ class Home extends React.Component {
                 </Link>
               </div>
             </div>
-            <div className="width-100">
-              <div className="width-50">
-                <Link to="/cash-game" className="cash-game">
+            <div className="col-lg-12 lower-bottom">
+              <div className="col-lg-6">
+                <Link to="/cash-game" className="game-section">
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container sit-game-icon-container">
@@ -186,8 +186,8 @@ class Home extends React.Component {
                   </div>
                 </Link>
               </div>
-              <div className="width-50">
-                <Link to="/cash-game" className="cash-game">
+              <div className="col-lg-6">
+                <Link to="/cash-game" className="game-section">
                   <div className="game">
                     <div className="game-icon">
                       <div className="game-icon-container mytourn-game-icon-container">
