@@ -10,7 +10,8 @@ import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import OpenSeat from '../open-seat/open-seat.jsx';
 import Player from '../player/player.jsx';
 import GamePot from '../game-pot/game-pot.jsx';
-import GameControls from '../game-controls/game-controls.jsx';
+import GameControlsPrimary from '../game-controls/game-controls-primary.jsx';
+import GameControlsSecondary from '../game-controls/game-controls-secondary.jsx';
 import GameActions from '../game-actions/game-actions.jsx';
 import PlayerChips from '../player-chips/player-chips.jsx';
 import Card from '../card/card.jsx';
@@ -249,9 +250,13 @@ export default class GameTable extends React.Component{
     }
     return (
       <div className='game-table' id="game-table">
-        <div className='game-controls-container'>
-          <GameControls leaveTable={this.leaveTable.bind(this)} onReplayClick={this.props.onReplayClick}/>
+        <div className='game-controls-container primary'>
+          <GameControlsPrimary leaveTable={this.leaveTable.bind(this)}/>
         </div>
+        <div className='game-controls-container secondary'>
+          <GameControlsSecondary onReplayClick={this.props.onReplayClick}/>
+        </div>
+        
         <div className="game-actions-container">
           <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
                                 potValue: game.totalPot, step: 1}} 

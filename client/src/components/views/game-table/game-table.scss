@@ -4,17 +4,28 @@
   .game-controls-container {
     position: absolute;
     top: 0;
-    right: 0;
-    width: 15%;
-    margin: 20px;
+    width: 11%;
+    margin: 1.945% 1.25%;
     z-index: 1;
+    &.primary {
+      right: 0;  
+    }
+    &.secondary {
+      width: 12.71%;
+      margin-left: 2.085%;
+      left: 0
+      .game-control-icon-container {
+        width: 37.16%;
+      }
+    }
   }
   .game-actions-container {
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 0 2% 2% 0;
-    min-width: 30%;
+    //margin: 0 1.39% 0.76% 0;
+    margin: 0 2% 0.76% 0;
+    width: 40.695%;
     z-index: 1;
   }
   .main-table {

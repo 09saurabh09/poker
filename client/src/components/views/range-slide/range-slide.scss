@@ -1,9 +1,11 @@
 #range-slider {
   &.noUi-horizontal {
     height: 8px;
+    border: none; 
   }
   .noUi-connect {
     background: #3de689;
+    border-radius: 4px;
   }
   .noUi-handle {
     width: 20px;

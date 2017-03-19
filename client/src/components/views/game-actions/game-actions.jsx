@@ -54,7 +54,7 @@ export default class GameActions extends React.Component{
             <div className="button-container">
               <a onClick={this.props.onAction.bind(null, "allIn", this.state.value)} className="button">Max</a>
             </div>
-            <div className="button-container">
+            <div className="input-container">
               <input type="text" id="call-value" name="call-value" step={this.props.range.step} 
               min={this.props.range.min} max={this.props.range.max} value={this.state.value} 
               onChange={this.handleChange.bind(this)} className="form-control"/>
@@ -62,14 +62,16 @@ export default class GameActions extends React.Component{
           </div>
           {/*<RangeSlide range={this.props.range} value={this.state.value} handleChange={this.handleChange.bind(this)} onUpdate={this.onUpdate.bind(this)} />*/}
           <div id="slider-range" className="range-field">
-          <RangeSlider
-            range={{min: this.props.range.min, max: this.props.range.max}}
-            start={[parseFloat(this.state.value)]}
-            connect={[true, false]}
-            behaviour='tap'
-            step={this.props.range.step}
-            onUpdate={this.onUpdate.bind(this)}
-          />
+            <RangeSlider
+              range={{min: this.props.range.min, max: this.props.range.max}}
+              start={[parseFloat(this.state.value)]}
+              connect={[true, false]}
+              behaviour='tap'
+              step={this.props.range.step}
+              onUpdate={this.onUpdate.bind(this)}
+            />
+            <div className="minus indicator">-</div>
+            <div className="plus indicator">+</div>
           </div>
           <div className="actions space-between">
             <div className="button-container">

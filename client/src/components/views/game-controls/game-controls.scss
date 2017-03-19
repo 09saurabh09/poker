@@ -1,7 +1,7 @@
 .game-controls {
-	width: 100%;
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
     .game-control-icon-container {
-	    width: 100%;
+	    width: 42.94%;
 	}
 }

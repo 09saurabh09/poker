@@ -53,13 +53,16 @@ input:focus {
 
 .button {
     border: none;
+    font-family: ProximaNova;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
     display: inline-block;
     padding: 12px 24px;
     vertical-align: middle;
     -webkit-tap-highlight-color: transparent;
     outline: 0;
     text-decoration: none;
-    color: #fff;
     text-align: center;
     letter-spacing: .5px;
     transition: .2s ease-out;
@@ -68,6 +71,7 @@ input:focus {
     background-color: #3c3c3c;
     &.active {
         background-color: #3de689;
+        color: #191919;
     }
 }
 .hide {
