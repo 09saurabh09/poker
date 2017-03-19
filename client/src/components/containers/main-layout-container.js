@@ -13,16 +13,16 @@ class App extends React.Component {
     $('document').ready(()=>{
       $('#dp-container').height($('#dp-container').width());  
       $(window).resize(function() {
-        if($('.app').height() * aspectRatio  < $('.app').width()) {
+        if($('#root').height() * aspectRatio  < $('#root').width()) {
           console.log('correcting width');
-          console.log('previous width:: ', $('.app').width());
-          console.log('next width:: ', $('.app').height() * aspectRatio);
-          $('.app').width($('.app').height() * aspectRatio);
-        } else if($('.app').height() * aspectRatio  > $('.app').width()) {
+          console.log('previous width:: ', $('#root').width());
+          console.log('next width:: ', $('#root').height() * aspectRatio);
+          $('#root').width($('#root').height() * aspectRatio);
+        } else if($('#root').height() * aspectRatio  > $('#root').width()) {
           console.log('correcting height');
-          console.log('previous height:: ', $('.app').height());
-          console.log('next height:: ', $('.app').width() / aspectRatio);
-          $('.app').height($('.app').width() / aspectRatio);
+          console.log('previous height:: ', $('#root').height());
+          console.log('next height:: ', $('#root').width() / aspectRatio);
+          $('#root').height($('#root').width() / aspectRatio);
         } else {
           console.log('achieved ratio');
         }
