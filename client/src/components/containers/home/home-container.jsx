@@ -121,7 +121,7 @@ class Home extends React.Component {
           </div>
           <div className="lower-section">
             <div className="col-lg-12 lower-top">
-              <div className="col-lg-6">
+              <div className="width-49">
                 <Link to="/cash-game" className="game-section">
                   <div className="game">
                     <div className="game-icon">
@@ -142,7 +142,7 @@ class Home extends React.Component {
                   </div>
                 </Link>
               </div>
-              <div className="col-lg-6">
+              <div className="width-49">
                 <Link to="/tournament" className="game-section">
                   <div className="game">
                     <div className="game-icon">
@@ -165,7 +165,7 @@ class Home extends React.Component {
               </div>
             </div>
             <div className="col-lg-12 lower-bottom">
-              <div className="col-lg-6">
+              <div className="width-49">
                 <Link to="/cash-game" className="game-section">
                   <div className="game">
                     <div className="game-icon">
@@ -186,7 +186,7 @@ class Home extends React.Component {
                   </div>
                 </Link>
               </div>
-              <div className="col-lg-6">
+              <div className="width-49">
                 <Link to="/cash-game" className="game-section">
                   <div className="game">
                     <div className="game-icon">

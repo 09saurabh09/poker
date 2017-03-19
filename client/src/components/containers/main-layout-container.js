@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as userApi from '../../api/user-api';
-const aspectRatio = 1.651376146788991;
+
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(userApi.getUserInfo('small'));
     $('document').ready(()=>{
+      const aspectRatio = $(window).width()/ $(window).height();
       $('#dp-container').height($('#dp-container').width());  
       $(window).resize(function() {
         if($('#root').height() * aspectRatio  < $('#root').width()) {

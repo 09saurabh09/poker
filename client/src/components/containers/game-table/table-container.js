@@ -9,7 +9,7 @@ import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table.jsx';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
 import { getGameStateSuccess } from '../../../actions/game-state-actions';
-//const aspectRatio = 1.651376146788991;
+const aspectRatio = 1.651376146788991;
 
 class TableContainer extends React.Component{
 
@@ -41,7 +41,7 @@ class TableContainer extends React.Component{
     this.socketOnConnect(socket.unAuthorizedSocket, tableId);
     this.socketOnConnect(socket.authorizedSocket, tableId);
     $(document).ready(function() {
-      /*$(window).resize(function() {
+      $(window).resize(function() {
         if($('#table-container').height() * aspectRatio  < $('#table-container').width()) {
           console.log('correcting width');
           console.log('previous width:: ', $('#table-container').width());
@@ -55,7 +55,7 @@ class TableContainer extends React.Component{
         } else {
           console.log('achieved ratio');
         }
-      }).resize();*/
+      }).resize();
     });
   }
 
