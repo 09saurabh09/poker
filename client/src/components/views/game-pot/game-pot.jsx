@@ -32,10 +32,11 @@ export default class GamePot extends React.Component {
     return (
       <div className="pot">
         <div className="triangle-bottomleft"></div>
-        <div className="pot-container"><div className="pot-filled"></div></div>
-        <div className="pot-text">
-          <div>Total Pot</div>
-          <div className="pot-value">{this.props.totalPot}</div>
+        <div className="pot-container">
+          <div className="pot-text">
+            <div>Total Pot</div>
+            <div className="pot-value">{this.props.totalPot}</div>
+          </div>  
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
-$pot-height: 60px;
-$pot-side: 25px;
+$pot-height: 41.5px;
+$pot-side: 20px;
+$pot-width: 30px;
 .pot {
   position: absolute;
   top: 0;
@@ -11,7 +12,7 @@ $pot-side: 25px;
     z-index: 10;
     width: 0;
     height: 0;
-    border-bottom: 60px solid #020503;
+    border-bottom: $pot-height solid #020503;
     border-right: $pot-side solid transparent;
   }
   .pot-filled {
@@ -28,21 +29,22 @@ $pot-side: 25px;
   }
   .pot-container {
     border-top: $pot-height solid #38383b;
-    border-left: 25px solid #020503;
-    border-right: 25px solid #020503;
+    border-left: $pot-side solid #020503;
+    border-right: $pot-side solid #020503;
     height: 0;
-    width: $pot-height;
+    width: $pot-width;
     border-top-left-radius: 2.5px;
     border-top-right-radius: 2.5px;
   }
   .pot-text{
     position: absolute;
-    top: 4px;
-    color: white;
     left: 50%;
-    transform: translateX(-50%);
+    top: 1px;
+    color: white;
     text-align: center;
-    font-size: 13px;
+    font-size: 10px;
+    transform: translateX(-50%);
+    width: 100%;
     .pot-value {
       padding-top: 4px;
       letter-spacing: 0.3px;
