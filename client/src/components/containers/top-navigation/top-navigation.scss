@@ -1,4 +1,3 @@
-$player-card-height : 36px;
 .top-nav-container {
     position: absolute;
     top: 0;
@@ -32,7 +31,11 @@ $player-card-height : 36px;
         top: auto;
         z-index: 100; 
         width: 100%;
-    } 
+    }
+    .loby-link {
+      margin-left: 2.085%;
+      margin-top: 1%;
+    }
     .top-row {
       width: 100%;
       float: left;
@@ -64,7 +67,10 @@ $player-card-height : 36px;
       padding: 16px 0;
     }
     .bottom-row-detail {
-      margin-top: 24px;
+      margin-top: 3.264%;
+      margin-bottom: 3.82%;
+      height: 100%;
+      display: flex;
     }
 
     .left-arrow {
@@ -74,7 +80,6 @@ $player-card-height : 36px;
       width: 13.75%;
       float: left;
       text-align: center;
-      line-height: $player-card-height;
       &:before {
         content: "<";
         margin-right: 10px;
@@ -86,10 +91,13 @@ $player-card-height : 36px;
     }
     .playing-tables {
       overflow-x: scroll;
+      width: 100%;
+      display: flex;
+      position: relative;
+      margin-left: 2.292%;
     }
     .play-card {
-      width: 12.5%;
-      height: $player-card-height;
+      width: 12.643%;
       background-color: #2e2e30;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
@@ -99,16 +107,19 @@ $player-card-height : 36px;
       border: solid 1px #a0b2b9;
       border-bottom: initial;
       display: inline-block;
+      padding: 1.933% 0;
+      box-sizing: border-box;
       &.active {
         border: solid 1px #3de689;
         border-bottom: initial;
       }
       .player-cards {
         position: absolute;
-        left: 50%;
+        left: 33%;
         transform: translateX(-50%);
-        top: 25%;
-        width: 54px;;
+        top: 16.8%;
+        width: 45.76%;
+        height: 100%;
       }
     }
     .plus-game {
@@ -128,8 +139,10 @@ $player-card-height : 36px;
       height: 100%;
     }
     .setting-icon-container {
-      width: 4%;
-      float: right;
-      padding: 1% 5%;
+      width: 2.6%;
+      padding: 0 2.14%;
+      position: absolute;
+      right: 0;
+      bottom: 0;
     }
 }

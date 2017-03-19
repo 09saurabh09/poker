@@ -45,7 +45,7 @@ export default class TopNavContainer extends React.Component{
             </div>*/}
             <div className="bottom-row">
               <div className="bottom-row-detail">
-                <Link to="/cash-game" >
+                <Link to="/cash-game" className="loby-link">
                   <div className="left-arrow">LOBBY</div>
                 </Link>
                 <div className="playing-tables">

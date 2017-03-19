@@ -13,7 +13,7 @@
     &.secondary {
       width: 12.71%;
       margin-left: 2.085%;
-      left: 0
+      left: 0;
       .game-control-icon-container {
         width: 37.16%;
       }
@@ -31,9 +31,9 @@
   .main-table {
     position: relative;
     top: 13.765%;
-    box-sizing: content-box;
-    width: 63.75%;
-    height: 52.985%;
+    box-sizing: border-box;
+    width: 64.167%;
+    height: 53.785%;
     margin: 0 auto;
     border-radius: 50%;
     color: rgba(0,0,0,1);
@@ -113,20 +113,19 @@
   }
   .player0 {
     position: absolute;
-    bottom: 4.288%;
+    bottom: -14.905%;
     left: 50%;
-    transform: translate(-50%,100%);
+    transform: translateX(-50%);
     .player-chips {
-      top: -50%;
+      top: -100%;
       left: 50%;
-      transform: translate(-50%, -100%);
+      transform: translateX(-50%);
     }
   }
   .player1 {
     position: absolute;
-    bottom: 6%;
-    left: 15%;
-    transform: translateX(-15%);
+    bottom: -8.43%;
+    left: 4.882%;
     .player-chips{
       top: -50%;
       right: 0;
@@ -134,9 +133,8 @@
   }
   .player2 {
     position: absolute;
-    bottom: 40%;
-    left: 0;
-    transform: translateX(-50%);
+    bottom: 26.57%;
+    left: -14.164%;
     .player-chips{
       bottom: 50%;
       right: -20%;
@@ -145,9 +143,8 @@
   }
   .player3 {
     position: absolute;
-    top: 0;
-    left: 8%;
-    transform: translateX(-60%);
+    top: 8.925%;
+    left: -17.323%;
     .player-chips{
       bottom: -20%;
       right: -20%;
@@ -156,8 +153,10 @@
   }
   .player4 {
     position: absolute;
-    top: -10%;
-    left: 30%;
+    top: 3.9%;
+    //left: 17.43%;
+    left: 18.43%;
+    transform: translateY( -100%);
     .player-chips{
       bottom: -100%;
       left: 50%;
@@ -166,8 +165,9 @@
   }
   .player5 {
     position: absolute;
-    top: -10%;
-    left: 55%;
+    top: 3.9%;
+    left: 57.1%;
+    transform: translateY( -100%);
     .player-chips{
       bottom: -100%;
       left: 50%;
@@ -176,9 +176,8 @@
   }
   .player6 {
     position: absolute;
-    top: 0;
-    right: 8%;
-    transform: translateX(50%);
+    top: 4.37%;
+    left: 88.02%;
     .player-chips{
       bottom: -35%;
       left: -35%;
@@ -186,9 +185,8 @@
   }
   .player7 {
     position: absolute;
-    bottom: 40%;
-    right: 0;
-    transform: translateX(50%);
+    top: 46.49%;
+    left: 90.09%;
     .player-chips{
       top: 0;
       left: -35%;
@@ -196,9 +194,8 @@
   }
   .player8 {
     position: absolute;
-    bottom: 6%;
-    right: 15%;
-    transform: translateX(15%);
+    bottom: 0;
+    right: 0;
     .player-chips{
       top: -50%;
       left: 25%;
