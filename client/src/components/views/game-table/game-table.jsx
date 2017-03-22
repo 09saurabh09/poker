@@ -15,6 +15,7 @@ import GameControlsSecondary from '../game-controls/game-controls-secondary.jsx'
 import GameActions from '../game-actions/game-actions.jsx';
 import PlayerChips from '../player-chips/player-chips.jsx';
 import Card from '../card/card.jsx';
+//import DealerButton from '../dealerButton/dealerButton.jsx';
 import Login from '../login/login.jsx';
 
 import { saveGameAction, removeGameAction } from '../../../actions/game-state-actions';
@@ -232,6 +233,16 @@ export default class GameTable extends React.Component{
     return playerIndex;
   }
 
+  getDealerPosition(players, dealerPos) {
+    let localDealerPos = -1;
+    players.forEach((player, index) => {
+      if(player && player.seat - 1 == dealerPos) {
+        localDealerPos = index;
+      }
+    })
+    return localDealerPos;
+  }
+
   render() {
     let {gameState : game, players} = this.state;
     let winnerPlayerId, winnerPlayerIndex = -1;
@@ -248,6 +259,7 @@ export default class GameTable extends React.Component{
       })
       $('.pot-chips').addClass(`moved-to-player${winnerPlayerIndex}`);
     }
+    let dealerPos = this.getDealerPosition(players, game.dealerPos);
     return (
       <div className='game-table' id="game-table">
         <div className='game-controls-container primary'>
@@ -283,6 +295,10 @@ export default class GameTable extends React.Component{
                 </div>
               )}
             </div>
+            {game.round != 'idle' ? 
+            <div className={`dealer-button-postion max-${game.maxPlayer} dealer-${dealerPos}`}>
+              <div className="dealer-button">D</div>
+            </div> : null }
            {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
               {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
