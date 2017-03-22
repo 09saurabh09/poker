@@ -1,11 +1,15 @@
+$display-color: #494949;
 #buyin-pref {
+  .modal-content {
+    width: 68%;
+  }
   #error-message {
     color: red;
     font-size: 11px;
   }
   .range-buyin-pref {
     position: relative;
-    margin: 48px 0;
+    margin: 8% 0;
     .bb-value{
       position: absolute;
       margin-top: 14px;
@@ -23,7 +27,8 @@
   }
   .pref-input{
     border-radius: 52px;
-    background-color: #494949;
+    background-color: #f7f7f7;
+    color: black;
     padding: 10px 0px;
     font-size: 13.5px;
     font-weight: 600;
@@ -34,18 +39,21 @@
   }
   .display-bb {
     padding: 10px 20px;
-    background-color: #494949;
+    background-color: $display-color;
     border-radius: 52px;
     display: inline-block;
+    float: right;
+    color: white;
   }
   .display-bankroll {
     padding: 10px 20px;
-    background-color: #f7f7f7;
+    background-color: $display-color;
     border-radius: 52px;
     font-size: 13.5px;
     font-weight: 600;
     color: #000000;
     display: inline-block;
+    color: white;
   }
   .label-wrapper {
     text-align: left;
@@ -66,5 +74,9 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+  }
+  .set-button-container {
+    text-align: right;
+    margin-top: 4%;
   }
 }

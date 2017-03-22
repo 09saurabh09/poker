@@ -1,0 +1,19 @@
+#sit-out {
+	z-index: 100;
+	top: 10px;
+	.modal-content {
+	    margin: 0;
+	    padding: 0;
+	    border: none;
+	    width: 100%;
+	    opacity: 0.84;
+	    border-radius: 0;
+	    background-color: black;
+	}
+	.play-icon-container {
+		width: 15%;
+	    margin: 0 auto;
+	    padding-top: 18%;
+	    height: 100vh;
+	}
+}
