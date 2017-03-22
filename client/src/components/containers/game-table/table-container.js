@@ -16,7 +16,8 @@ class TableContainer extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      gameData : this.props.gameData
+      gameData : this.props.gameData,
+      myTables: this.props.myTables
     }
   }
 
@@ -71,7 +72,8 @@ class TableContainer extends React.Component{
       }
       let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId], nextProps.userData.id);
       this.setState({
-        gameData: newGameState
+        gameData: newGameState,
+        myTables: nextProps.myTables
       })
     } else if(nextProps.params.id && nextProps.params.playAction == 'replay') {
       let counter = 0;
@@ -184,14 +186,44 @@ class TableContainer extends React.Component{
     });
   }
 
+  tableLeave() {
+    let { myTables, params } = this.props;
+    let currentTableId = parseInt(params.id);
+    let nextTableIndex;
+    let allTables = myTables.map((table) => {
+      return table.id;
+    })
+    let currentIndex = allTables.indexOf(currentTableId);
+    if(allTables.length == 1) {
+      nextTableIndex = -1;
+    } else if (currentIndex == 0) {
+      nextTableIndex = currentIndex + 1;
+    } else {
+      nextTableIndex = currentIndex - 1;
+    }
+    if(nextTableIndex == -1) {
+      browserHistory.replace(`/cash-game`);
+    } else {
+      let nextTable = myTables[nextTableIndex].id;
+      browserHistory.replace(`/cash-game/play/${nextTable}`);  
+    }
+    let otherTables = myTables.filter((table) => {
+        return table.id != currentTableId;
+      });
+    this.setState({
+      myTables: otherTables
+    })
+    
+  }
+
   render() {
     return (
       <div id="table-container">
-        <TopNavContainer myTables={this.props.myTables} tableId={this.props.params.id} userData={this.props.userData}
+        <TopNavContainer myTables={this.state.myTables} tableId={this.props.params.id} userData={this.props.userData}
         dispatch={this.props.dispatch}/>
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
-        dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)}
+        dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)} tableLeave={this.tableLeave.bind(this)}
         />
       </div>
     );

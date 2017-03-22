@@ -53,7 +53,7 @@ class Home extends React.Component {
       <div className="home">
         <nav role="main">
           <div className="play-icon nav-link">
-            <img src="../../../../assets/img/home/svg/yoga-play.svg" className="play-icon-wrapper icon-wrapper"/>
+            <img src="../../../../assets/img/home/svg/logo-only.svg" className="play-icon-wrapper icon-wrapper"/>
           </div>
           <Link className="nav-link" to="/">
             <div className="active"></div>
@@ -116,7 +116,9 @@ class Home extends React.Component {
               </div>
             </div>
             <div className="video-section">
-              Hello
+              <div className="promotions-icon-container game-icon-container">
+                  <img className="promotions-wrapper icon-wrapper" src="../../../../assets/img/home/svg/promotion.svg"/>
+                </div>
             </div>  
           </div>
           <div className="lower-section">

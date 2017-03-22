@@ -9,7 +9,7 @@ export default class GameControls extends React.Component{
     return (
       <div className="game-controls">
         <div className="game-control-icon-container pause-icon-container">
-          <img className="game-control-icon-wrapper icon-wrapper" src={PauseIcon} />
+          <img className="game-control-icon-wrapper icon-wrapper" src={PauseIcon} onClick={this.props.sitOutTable}/>
         </div>
         <div className="game-control-icon-container close-icon-container" onClick={this.props.leaveTable}>
           <img className="game-control-icon-wrapper icon-wrapper" src={CloseIcon} />

@@ -50,7 +50,7 @@ export default class TopNavContainer extends React.Component{
                 </Link>
                 <div className="playing-tables">
                   {this.props.myTables.map((table, index)=>
-                    <div key={index} className={table.id == this.props.tableId ? 'active play-card' : 'play-card'}>
+                    <div key={index} className={table.id == this.props.tableId ? 'active play-card' : 'play-card'} onClick={utils.closeModal('sit-out')}>
                        <Link to={`/cash-game/play/${table.id}`} className="table-link">
                         <PlayerCards cards={table.userCards}/>
                       </Link>  

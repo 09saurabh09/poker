@@ -12,7 +12,7 @@ export default class GameControls extends React.Component{
           <img className="game-control-icon-wrapper icon-wrapper" src={ReplayIcon} />
         </div>
         <div className="game-control-icon-container add-money-icon-container">
-          <img className="game-control-icon-wrapper icon-wrapper" src={AddMoneyIcon} />
+          <img className="game-control-icon-wrapper icon-wrapper" src={AddMoneyIcon} onClick={this.props.onAddMoney}/>
         </div>
       </div>
     );

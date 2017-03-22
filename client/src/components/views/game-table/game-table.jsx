@@ -17,6 +17,7 @@ import PlayerChips from '../player-chips/player-chips.jsx';
 import Card from '../card/card.jsx';
 //import DealerButton from '../dealerButton/dealerButton.jsx';
 import Login from '../login/login.jsx';
+import SitOut from '../sit-out/sit-out.jsx';
 
 import { saveGameAction, removeGameAction } from '../../../actions/game-state-actions';
 
@@ -99,6 +100,10 @@ export default class GameTable extends React.Component{
     });*/
   }
 
+  isPlayerSitOut() {
+    return false;
+  }
+
   rotateIfPlaying(players, userId) {
     let playing = false;
     let seat;
@@ -153,16 +158,20 @@ export default class GameTable extends React.Component{
     this.props.dispatch(userApi.getMyTables());
   }
 
-  openBuyinPref(seat) {
-    if(this.isHePlaying()) {
-      return;
-    }
-    this.selectedSeat = seat;
+  addMoney() {
     if(localStorage.getItem('userToken')) {
       utils.openModal('buyin-pref');
     } else {
       utils.openModal('login');
     }
+  }
+
+  openBuyinPref(seat) {
+    if(this.isHePlaying()) {
+      return;
+    }
+    this.selectedSeat = seat;
+    this.addMoney();
     
   }
 
@@ -221,6 +230,17 @@ export default class GameTable extends React.Component{
     }
     console.log('Event emited table-leave with payload ', payload)
     this.props.authorizedSocket.emit('table-leave', payload);
+    this.props.tableLeave();
+  }
+
+  sitOutTable() {
+    let payload = {
+      tableId : this.props.tableId,
+      call: 'sitOut'
+    }
+    console.log('Event emited table-leave with payload ', payload)
+    this.props.authorizedSocket.emit('player-turn', payload);
+    utils.openModal('sit-out');
   }
 
   getPlayerIndexFromId(players, playerId) {
@@ -245,6 +265,7 @@ export default class GameTable extends React.Component{
 
   render() {
     let {gameState : game, players} = this.state;
+    let winHandName;
     let winnerPlayerId, winnerPlayerIndex = -1;
     game.maxRaise = game.maxRaise || 100;
     if(game.round == 'showdown'){
@@ -258,15 +279,16 @@ export default class GameTable extends React.Component{
         }
       })
       $('.pot-chips').addClass(`moved-to-player${winnerPlayerIndex}`);
+      winHandName = game.gamePots[0].handName;
     }
     let dealerPos = this.getDealerPosition(players, game.dealerPos);
     return (
       <div className='game-table' id="game-table">
         <div className='game-controls-container primary'>
-          <GameControlsPrimary leaveTable={this.leaveTable.bind(this)}/>
+          <GameControlsPrimary leaveTable={this.leaveTable.bind(this)} sitOutTable={this.sitOutTable.bind(this)} />
         </div>
         <div className='game-controls-container secondary'>
-          <GameControlsSecondary onReplayClick={this.props.onReplayClick}/>
+          <GameControlsSecondary onReplayClick={this.props.onReplayClick} onAddMoney={this.addMoney.bind(this)}/>
         </div>
         
         <div className="game-actions-container">
@@ -295,6 +317,7 @@ export default class GameTable extends React.Component{
                 </div>
               )}
             </div>
+            { winHandName ? <div> {winHandName} </div> : null }
             {game.round != 'idle' ? 
             <div className={`dealer-button-postion max-${game.maxPlayer} dealer-${dealerPos}`}>
               <div className="dealer-button">D</div>
@@ -317,6 +340,7 @@ export default class GameTable extends React.Component{
                                                         bankroll={this.props.userData.currentBalance} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
         <Login postLogin={this.postLoginStaff.bind(this)} dispatch={this.props.dispatch}/>
+        <SitOut open={this.isPlayerSitOut()}/>
       </div>
     );
   }
