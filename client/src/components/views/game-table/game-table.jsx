@@ -236,10 +236,12 @@ export default class GameTable extends React.Component{
   sitOutTable() {
     let payload = {
       tableId : this.props.tableId,
-      call: 'sitOut'
+      playerInfo: {
+        call: 'sitOut'
+      }
     }
     console.log('Event emited table-leave with payload ', payload)
-    this.props.authorizedSocket.emit('player-turn', payload);
+    this.props.authorizedSocket.emit('game-preference-update', payload);
     utils.openModal('sit-out');
   }
 
