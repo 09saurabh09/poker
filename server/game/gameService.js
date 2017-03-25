@@ -199,7 +199,8 @@ module.exports = {
                     idleForHand: player.idleForHand,
                     betForRound: player.betForRound,
                     timeBank: player.timeBank,
-                    expCallValue: player.expCallValue
+                    expCallValue: player.expCallValue,
+                    hasSitOut: player.hasSitOut
                 }
                 if ((gameState.round == "showdown") && (player.showCards)) {
                     pl.cards = player.cards;
