@@ -116,8 +116,9 @@
     left: 50%;
     transform: translateX(-50%);
     .player-chips {
-      top: -100%;
-      left: 50%;
+      z-index: -2;
+      top: -132%;
+      left: 65%;
       transform: translateX(-50%);
     }
   }
