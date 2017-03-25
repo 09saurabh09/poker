@@ -335,7 +335,7 @@ export default class GameTable extends React.Component{
                                           gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
                                           /> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
-              {player && player.betForRound ? <PlayerChips chipsValue={player.betForRound} />: null }
+              {player && player.betForRound ? <PlayerChips chipsValue={parseInt(player.betForRound)} />: null }
             </div>
             )}
         </div>

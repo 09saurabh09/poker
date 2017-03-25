@@ -126,10 +126,10 @@ export default class Player extends React.Component {
                 </div>
                 <div className='player-money'>
                   <div className='player-balance'>
-                    {this.props.player.chips}
+                    {this.props.player.chips && parseInt(this.props.player.chips)}
                   </div>
                   <div className='player-bb'>
-                    BB <span className='bb-value'> {this.props.player.chips/this.props.bigBlind} </span>
+                    BB <span className='bb-value'> {this.props.player.chips && this.props.bigBlind && parseInt(this.props.player.chips/this.props.bigBlind)} </span>
                   </div>
                 </div>
                 <div className='player-game-style'>
