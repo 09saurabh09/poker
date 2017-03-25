@@ -35,10 +35,12 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
         cardBackTheme: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            default: "royal"
         },
         cardFrontTheme: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            default: "twoColor"
         },
         buyInPreference: {
             type: DataTypes.BIGINT
@@ -58,11 +60,11 @@ module.exports = function (sequelize, DataTypes) {
         soundEffects: {
             type: DataTypes.BOOLEAN
         },
-        preflop: {
-            type: DataTypes.STRING
+        preFlop: {
+            type: DataTypes.JSONB
         },
         postFlop: {
-            type: DataTypes.STRING
+            type: DataTypes.JSONB
         }
     }, {
             classMethods: {
