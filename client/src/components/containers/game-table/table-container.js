@@ -16,7 +16,8 @@ class TableContainer extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      gameData : this.props.gameData
+      gameData : this.props.gameData,
+      myTables: this.props.myTables
     }
   }
 
@@ -43,18 +44,21 @@ class TableContainer extends React.Component{
     $(document).ready(function() {
       $(window).resize(function() {
         if($('#table-container').height() * aspectRatio  < $('#table-container').width()) {
-          console.log('correcting width');
-          console.log('previous width:: ', $('#table-container').width());
-          console.log('next width:: ', $('#table-container').height() * aspectRatio);
           $('#table-container').width($('#table-container').height() * aspectRatio);
         } else if($('#table-container').height() * aspectRatio  > $('#table-container').width()) {
-          console.log('correcting height');
-          console.log('previous height:: ', $('#table-container').height());
-          console.log('next height:: ', $('#table-container').width() / aspectRatio);
           $('#table-container').height($('#table-container').width() / aspectRatio);
         } else {
           console.log('achieved ratio');
         }
+        let currentRatio = $('#table-container').width() / 720;
+        $('.player-name').css({ 'font-size': `${9.6 * currentRatio}px` });
+        $('.player-money').css({ 'font-size': `${10.8 * currentRatio}px` });
+        $('.join-text').css({ 'font-size': `${10 * currentRatio}px` });
+        $('.timer-count').css({ 'font-size': `${10 * currentRatio}px` });
+        $('.game-actions .values .button').css({ 'font-size': `${10.4 * currentRatio}px` });
+        $('.game-actions .actions .button').css({ 'font-size': `${12 * currentRatio}px` });
+        $('.game-actions .values .form-control').css({ 'font-size': `${13.5 * currentRatio}px` });
+        $('.game-table .dealer-button').css({ 'font-size': `${7.6 * currentRatio}px` });
       }).resize();
     });
   }
@@ -68,7 +72,8 @@ class TableContainer extends React.Component{
       }
       let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId], nextProps.userData.id);
       this.setState({
-        gameData: newGameState
+        gameData: newGameState,
+        myTables: nextProps.myTables
       })
     } else if(nextProps.params.id && nextProps.params.playAction == 'replay') {
       let counter = 0;
@@ -181,14 +186,44 @@ class TableContainer extends React.Component{
     });
   }
 
+  tableLeave() {
+    let { myTables, params } = this.props;
+    let currentTableId = parseInt(params.id);
+    let nextTableIndex;
+    let allTables = myTables.map((table) => {
+      return table.id;
+    })
+    let currentIndex = allTables.indexOf(currentTableId);
+    if(allTables.length == 1) {
+      nextTableIndex = -1;
+    } else if (currentIndex == 0) {
+      nextTableIndex = currentIndex + 1;
+    } else {
+      nextTableIndex = currentIndex - 1;
+    }
+    if(nextTableIndex == -1) {
+      browserHistory.replace(`/cash-game`);
+    } else {
+      let nextTable = myTables[nextTableIndex].id;
+      browserHistory.replace(`/cash-game/play/${nextTable}`);  
+    }
+    let otherTables = myTables.filter((table) => {
+        return table.id != currentTableId;
+      });
+    this.setState({
+      myTables: otherTables
+    })
+    
+  }
+
   render() {
     return (
       <div id="table-container">
-        <TopNavContainer myTables={this.props.myTables} tableId={this.props.params.id} userData={this.props.userData}
+        <TopNavContainer myTables={this.state.myTables} tableId={this.props.params.id} userData={this.props.userData}
         dispatch={this.props.dispatch}/>
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
-        dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)}
+        dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)} tableLeave={this.tableLeave.bind(this)}
         />
       </div>
     );

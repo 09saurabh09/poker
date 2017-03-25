@@ -2,6 +2,7 @@
     position: absolute;
     top: 0;
     width: 100%;
+    z-index: 101;
     .nav-dropdown {
         margin: -5px auto;  
         position: absolute;
@@ -68,7 +69,6 @@
     }
     .bottom-row-detail {
       margin-top: 3.264%;
-      margin-bottom: 3.82%;
       height: 100%;
       display: flex;
     }
@@ -143,6 +143,6 @@
       padding: 0 2.14%;
       position: absolute;
       right: 0;
-      bottom: 0;
+      bottom: 35%;
     }
 }
