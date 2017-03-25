@@ -240,7 +240,7 @@ export default class GameTable extends React.Component{
         call: 'sitOut'
       }
     }
-    console.log('Event emited table-leave with payload ', payload)
+    console.log('Event emited game-preference-update with payload ', payload)
     this.props.authorizedSocket.emit('game-preference-update', payload);
     utils.openModal('sit-out');
   }

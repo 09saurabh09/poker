@@ -70,7 +70,8 @@ export default class Player extends React.Component {
     let totalTime = this.state.turnTimerFinished ? this.props.player.timeBank : this.props.player.timer;
     let activeClassName = (this.props.player.seat - 1 == this.props.turnPos) ? 'active' : '';
     let onTableClassName = this.props.player.hasDone === false ? 'on-table' : '';
-    
+    console.log(this.props.player.cards);
+    let showCardClass = this.props.player.cards ? 'show-cards' : '';
     let timerTopWidth, timerRightHeight, timerBottomWidth, timerLeftHeight ;
     if(this.props.player.seat - 1 !== this.props.turnPos) {
       clearTimeout(this.timerId);
@@ -105,7 +106,7 @@ export default class Player extends React.Component {
     return (
       <div className='player'>
         <div className={'sitting-player ' + ' '+ onTableClassName}>
-          {this.props.showCards ? <div className='player-card-wrapper'>
+          {this.props.showCards ? <div className={'player-card-wrapper ' + showCardClass}>
             <PlayerCards cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
           </div>: null}
           <div className="player-container">
