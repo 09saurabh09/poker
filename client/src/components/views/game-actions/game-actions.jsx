@@ -75,13 +75,13 @@ export default class GameActions extends React.Component{
         <form action="#">
           <div className="values space-between">
             <div className="button-container">
-              <a onClick={this.onHotKey1Click.bind(this)} className="button">{this.props.userData[flopState].hotKey1}</a>
+              <a onClick={this.onHotKey1Click.bind(this)} className="button">{this.props.userData && this.props.userData[flopState].hotKey1}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onHotKey2Click.bind(this)} className="button">{this.props.userData[flopState].hotKey2}</a>
+              <a onClick={this.onHotKey2Click.bind(this)} className="button">{this.props.userData && this.props.userData[flopState].hotKey2}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onHotKey3Click.bind(this)} className="button">{this.props.userData[flopState].hotKey3}</a>
+              <a onClick={this.onHotKey3Click.bind(this)} className="button">{this.props.userData && this.props.userData[flopState].hotKey3}</a>
             </div>
             <div className="button-container">
               <a onClick={this.props.onAction.bind(null, "allIn", this.state.value)} className="button">Max</a>
