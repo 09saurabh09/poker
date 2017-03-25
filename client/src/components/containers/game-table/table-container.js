@@ -125,7 +125,6 @@ class TableContainer extends React.Component{
       //timer testing...
       if(player) {
         player.timer = 20;
-        player.timeBank = 60;
         player.timerStarted = Date.now();
       }
     })
