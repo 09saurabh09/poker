@@ -181,6 +181,7 @@ module.exports = {
             dealerPos: gameState.dealerPos,
             minAmount: gameState.minAmount,
             maxAmount: gameState.maxAmount,
+            currentPot: gameState.currentPot,
             players: []
         };
 
