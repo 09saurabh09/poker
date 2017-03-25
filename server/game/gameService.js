@@ -229,9 +229,10 @@ module.exports = {
                 response.data = table;
                 callback(null, response, response.code);
             })
-            .catch(function () {
+            .catch(function (err) {
                 response = new responseMessage.GenericFailureMessage();
                 callback(null, response, response.code);
+                console.log(`ERROR ::: Unable to fetch game state, error: ${err.message}, stack:${err.stack}`);
             })
     },
 
