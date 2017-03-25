@@ -284,7 +284,7 @@ export default class GameTable extends React.Component{
       winHandName = game.gamePots[0].winnerHand;
     }
     let dealerPos = this.getDealerPosition(players, game.dealerPos);
-    let myPlayer = this.props.userData && players.filter((player)=>{return player.id == this.props.userData.id});
+    let myPlayer = this.props.userData && players.filter((player)=>{return player && player.id == this.props.userData.id});
     let expectedCallValue = myPlayer && myPlayer[0] && myPlayer[0].expCallValue;
     return (
       <div className='game-table' id="game-table">
