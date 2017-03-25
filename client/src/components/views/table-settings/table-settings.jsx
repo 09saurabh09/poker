@@ -22,7 +22,9 @@ export default class TableSettings extends React.Component {
       music: !!userData.music,
       soundEffects: !!userData.soundEffects,
       autoMuck: !!userData.autoMuck,
-      chatPopup: !!userData.chatPopup
+      chatPopup: !!userData.chatPopup,
+      preFlop: userData.preFlop || {hotKey1: 2, hotKey2: 3, hotKey3: 5},
+      postFlop: userData.postFlop || {hotKey1: 50, hotKey2: 75, hotKey3: 100}
     };
   }
 
@@ -47,7 +49,9 @@ export default class TableSettings extends React.Component {
           music: !!userData.music,
           soundEffects: !!userData.soundEffects,
           autoMuck: !!userData.autoMuck,
-          chatPopup: !!userData.chatPopup
+          chatPopup: !!userData.chatPopup,
+          preFlop: userData.preFlop || {hotKey1: 2, hotKey2: 3, hotKey3: 5},
+          postFlop: userData.postFlop || {hotKey1: 50, hotKey2: 75, hotKey3: 100}
       }))  
     }
   }
@@ -138,13 +142,13 @@ export default class TableSettings extends React.Component {
                           Preflop
                           <div className="display-flex">
                             <div className="input-wrapper">
-                              <input type="text" id="preflop-text-1" className="form-control"/>x
+                              <input type="text" id="preFlop-text-1" className="form-control" onChange={e => this.updateSettings({preFlop: {hotKey1: e.target.value}})} value={this.state.preFlop.hotKey1}/>x
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="preflop-text-2" className="form-control"/>x
+                              <input type="text" id="preFlop-text-2" className="form-control" onChange={e => this.updateSettings({preFlop: {hotKey2: e.target.value}})} value={this.state.preFlop.hotKey1}/>x
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="preflop-text-3" className="form-control"/>
+                              <input type="text" id="preFlop-text-3" className="form-control" onChange={e => this.updateSettings({preFlop: {hotKey3: e.target.value}})} value={this.state.preFlop.hotKey1}/>x
                             </div>
                           </div>
                         </div>
@@ -152,13 +156,13 @@ export default class TableSettings extends React.Component {
                           Postflop
                           <div className="display-flex">
                             <div className="input-wrapper">
-                              <input type="text" id="postflop-text-1" className="form-control"/>%
+                              <input type="text" id="postFlop-text-1" className="form-control" onChange={e => this.updateSettings({postFlop: {hotKey1: e.target.value}})} value={this.state.postFlop.hotKey1}/>%
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="postflop-text-2" className="form-control"/>%
+                              <input type="text" id="postFlop-text-2" className="form-control" onChange={e => this.updateSettings({postFlop: {hotKey2: e.target.value}})} value={this.state.postFlop.hotKey2}/>%
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="postflop-text-3" className="form-control"/>
+                              <input type="text" id="postFlop-text-3" className="form-control" onChange={e => this.updateSettings({postFlop: {hotKey3: e.target.value}})} value={this.state.postFlop.hotKey3}/>%
                             </div>
                           </div>
                         </div>

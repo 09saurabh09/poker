@@ -8,21 +8,52 @@ export default class GameActions extends React.Component{
     super(props);
     this.state = {value: this.props.range.value || 0};
   }
-  onHalfClick() {
+
+  onHotKey1Click() {
+    let hotKey1Value;
+    let value;
+    if(this.props.preFlop) {
+      hotKey1Value = this.props.userData.preflop.hotKey1;
+      value = hotKey1Value * this.props.bbValue 
+    } else {
+      hotKey1Value = this.props.userData.preflop.hotKey1;
+      value = hotKey1Value * this.props.range.potValue;
+    }
+    
     this.setState({
-      value: (this.props.range.max - this.props.range.min )/2
+      value
     })
   }
 
-  onThreeForthClick() {
+  onHotKey2Click() {
+    let hotKey2Value;
+    let value;
+    if(this.props.preFlop) {
+      hotKey2Value = this.props.userData.preflop.hotKey2;
+      value = hotKey2Value * this.props.bbValue 
+    } else {
+      hotKey2Value = this.props.userData.preflop.hotKey2;
+      value = hotKey2Value * this.props.range.potValue;
+    }
+    
     this.setState({
-      value: (this.props.range.max - this.props.range.min ) * 0.75
+      value
     })
   }
 
-  onPotClick() {
+  onHotKey3Click() {
+    let hotKey2Value;
+    let value;
+    if(this.props.preFlop) {
+      hotKey2Value = this.props.userData.preflop.hotKey2;
+      value = hotKey2Value * this.props.bbValue 
+    } else {
+      hotKey2Value = this.props.userData.preflop.hotKey2;
+      value = hotKey2Value * this.props.range.potValue;
+    }
+    
     this.setState({
-      value: this.props.range.potValue
+      value
     })
   }
 
@@ -43,13 +74,13 @@ export default class GameActions extends React.Component{
         <form action="#">
           <div className="values space-between">
             <div className="button-container">
-              <a onClick={this.onHalfClick.bind(this)} className="button">1/2</a>
+              <a onClick={this.onHotKey1Click.bind(this)} className="button">1/2</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onThreeForthClick.bind(this)} className="button">3/4</a>
+              <a onClick={this.onHotKey2Click.bind(this)} className="button">3/4</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onPotClick.bind(this)} className="button">Pot</a>
+              <a onClick={this.onHotKey3Click.bind(this)} className="button">Pot</a>
             </div>
             <div className="button-container">
               <a onClick={this.props.onAction.bind(null, "allIn", this.state.value)} className="button">Max</a>

@@ -3,11 +3,12 @@ $skew-angle : -6deg;
   .player-card-wrapper {
     position: absolute;
     top: -41%;
-    left: 50%;
+    left: 65%;
     width: 50%;
     z-index: -1;
     transform: translateX(-50%);
     &.show-cards {
+      left: 50%;
       top: -75%;
       width: 28%;
     }

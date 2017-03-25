@@ -281,9 +281,11 @@ export default class GameTable extends React.Component{
         }
       })
       $('.pot-chips').addClass(`moved-to-player${winnerPlayerIndex}`);
-      winHandName = game.gamePots[0].handName;
+      winHandName = game.gamePots[0].winnerHand;
     }
     let dealerPos = this.getDealerPosition(players, game.dealerPos);
+    let myPlayer = players.filter((player)=>{return player.id == this.props.userData.id});
+    let expectedCallValue = myPlayer && myPlayer[0] && myPlayer[0].expCallValue;
     return (
       <div className='game-table' id="game-table">
         <div className='game-controls-container primary'>
@@ -293,13 +295,14 @@ export default class GameTable extends React.Component{
           <GameControlsSecondary onReplayClick={this.props.onReplayClick} onAddMoney={this.addMoney.bind(this)}/>
         </div>
         
+        {game.round !== 'idle' ?
         <div className="game-actions-container">
           <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
-                                potValue: game.totalPot, step: 1}} 
-                        callValue={game.callValue} onAction={this.onGameAction.bind(this)} />
-        </div>
+                                potValue: game.currentPot, step: 1}} 
+                        callValue={expectedCallValue} onAction={this.onGameAction.bind(this)} preFlop={game.round == 'deal'}/>
+        </div> : null }
         <div className='main-table'>
-            <GamePot potValue={game.potValue} totalPot={game.totalPot}/>
+            <GamePot potValue={game.potValue} totalPot={game.currentPot}/>
             {game.totalPot > 0 ? 
             <div className="pot-chips">
               <div className="coin-icon-container">
@@ -320,7 +323,7 @@ export default class GameTable extends React.Component{
               )}
             </div>
             { winHandName ? <div> {winHandName} </div> : null }
-            {game.round != 'idle' ? 
+            {game.round !== undefined && game.round != 'idle' ? 
             <div className={`dealer-button-postion max-${game.maxPlayer} dealer-${dealerPos}`}>
               <div className="dealer-button">D</div>
             </div> : null }
