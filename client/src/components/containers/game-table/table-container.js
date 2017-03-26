@@ -9,7 +9,6 @@ import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table.jsx';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
 import { getGameStateSuccess } from '../../../actions/game-state-actions';
-const aspectRatio = 1.651376146788991;
 
 class TableContainer extends React.Component{
 
@@ -41,26 +40,7 @@ class TableContainer extends React.Component{
     //if already connected or the connection is in process
     this.socketOnConnect(socket.unAuthorizedSocket, tableId);
     this.socketOnConnect(socket.authorizedSocket, tableId);
-    $(document).ready(function() {
-      $(window).resize(function() {
-        if($('#table-container').height() * aspectRatio  < $('#table-container').width()) {
-          $('#table-container').width($('#table-container').height() * aspectRatio);
-        } else if($('#table-container').height() * aspectRatio  > $('#table-container').width()) {
-          $('#table-container').height($('#table-container').width() / aspectRatio);
-        } else {
-          console.log('achieved ratio');
-        }
-        let currentRatio = $('#table-container').width() / 720;
-        $('.player-name').css({ 'font-size': `${9.6 * currentRatio}px` });
-        $('.player-money').css({ 'font-size': `${10.8 * currentRatio}px` });
-        $('.join-text').css({ 'font-size': `${10 * currentRatio}px` });
-        $('.timer-count').css({ 'font-size': `${10 * currentRatio}px` });
-        $('.game-actions .values .button').css({ 'font-size': `${10.4 * currentRatio}px` });
-        $('.game-actions .actions .button').css({ 'font-size': `${12 * currentRatio}px` });
-        $('.game-actions .values .form-control').css({ 'font-size': `${13.5 * currentRatio}px` });
-        $('.game-table .dealer-button').css({ 'font-size': `${7.6 * currentRatio}px` });
-      }).resize();
-    });
+    
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -212,7 +192,10 @@ class TableContainer extends React.Component{
     this.setState({
       myTables: otherTables
     })
-    
+  }
+
+  onSitOut() {
+    $('.nav-dropdown').css({'left': 0, 'top': 'auto', 'z-index': 100, 'width': '100%'})
   }
 
   render() {
@@ -223,6 +206,7 @@ class TableContainer extends React.Component{
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
         dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)} tableLeave={this.tableLeave.bind(this)}
+        sitOutTable={this.onSitOut.bind(this)}
         />
       </div>
     );

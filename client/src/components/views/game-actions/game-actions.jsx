@@ -9,49 +9,15 @@ export default class GameActions extends React.Component{
     this.state = {value: this.props.range.value || 0};
   }
 
-  onHotKey1Click() {
-    let hotKey1Value;
+  onHotKeyPress(key) {
+    let hotKeyValue;
     let value;
-    if(this.props.preFlop) {
-      hotKey1Value = this.props.userData.preFlop.hotKey1;
-      value = hotKey1Value * this.props.bbValue 
+    hotKeyValue = this.props.userData[this.props.flopState][key];
+    if(this.props.flopState == 'preFlop') {
+      value = hotKeyValue * this.props.bbValue;
     } else {
-      hotKey1Value = this.props.userData.postFlop.hotKey1;
-      value = hotKey1Value * this.props.range.potValue;
+       value = hotKeyValue * this.props.range.potValue / 100;
     }
-    
-    this.setState({
-      value
-    })
-  }
-
-  onHotKey2Click() {
-    let hotKey2Value;
-    let value;
-    if(this.props.preFlop) {
-      hotKey2Value = this.props.userData.preFlop.hotKey2;
-      value = hotKey2Value * this.props.bbValue 
-    } else {
-      hotKey2Value = this.props.userData.postFlop.hotKey2;
-      value = hotKey2Value * this.props.range.potValue;
-    }
-    
-    this.setState({
-      value
-    })
-  }
-
-  onHotKey3Click() {
-    let hotKey2Value;
-    let value;
-    if(this.props.preFlop) {
-      hotKey2Value = this.props.userData.preFlop.hotKey2;
-      value = hotKey2Value * this.props.bbValue 
-    } else {
-      hotKey2Value = this.props.userData.postFlop.hotKey2;
-      value = hotKey2Value * this.props.range.potValue;
-    }
-    
     this.setState({
       value
     })
@@ -69,22 +35,25 @@ export default class GameActions extends React.Component{
   }
 
   render() {
-    let flopState = this.props.preFlop ? 'preFlop': 'postFlop';
+    let { userData, flopState } = this.props;
+    let hotKey1 = userData && userData[flopState] && userData[flopState].hotKey1,
+    hotKey2 = userData && userData[flopState] && userData[flopState].hotKey2,
+    hotKey3 = userData && userData[flopState] && userData[flopState].hotKey3;
     return (
       <div className="game-actions">
         <form action="#">
           <div className="values space-between">
             <div className="button-container">
-              <a onClick={this.onHotKey1Click.bind(this)} className="button">{this.props.userData && this.props.userData[flopState].hotKey1}</a>
+              <a onClick={this.onHotKeyPress.bind(this, 'hotKey1')} className="button">{hotKey1}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onHotKey2Click.bind(this)} className="button">{this.props.userData && this.props.userData[flopState].hotKey2}</a>
+              <a onClick={this.onHotKeyPress.bind(this, 'hotKey2')} className="button">{hotKey2}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onHotKey3Click.bind(this)} className="button">{this.props.userData && this.props.userData[flopState].hotKey3}</a>
+              <a onClick={this.onHotKeyPress.bind(this, 'hotKey3')} className="button">{hotKey3}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.props.onAction.bind(null, "allIn", this.state.value)} className="button">Max</a>
+              <a onClick={e => this.props.onAction(e, "allIn", this.state.value)} className="button">Max</a>
             </div>
             <div className="input-container">
               <input type="text" id="call-value" name="call-value" step={this.props.range.step} 

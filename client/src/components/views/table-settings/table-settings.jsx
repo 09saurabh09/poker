@@ -142,13 +142,13 @@ export default class TableSettings extends React.Component {
                           Preflop
                           <div className="display-flex">
                             <div className="input-wrapper">
-                              <input type="text" id="preFlop-text-1" className="form-control" onChange={e => this.updateSettings({preFlop: {hotKey1: e.target.value}})} value={this.state.preFlop.hotKey1}/>x
+                              <input type="text" id="preFlop-text-1" className="form-control" onChange={e => this.updateSettings({preFlop: Object.assign({}, this.state.preFlop, {hotKey1: e.target.value})})} value={this.state.preFlop.hotKey1}/>x
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="preFlop-text-2" className="form-control" onChange={e => this.updateSettings({preFlop: {hotKey2: e.target.value}})} value={this.state.preFlop.hotKey1}/>x
+                              <input type="text" id="preFlop-text-2" className="form-control" onChange={e => this.updateSettings({preFlop: Object.assign({}, this.state.preFlop, {hotKey2: e.target.value})})} value={this.state.preFlop.hotKey2}/>x
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="preFlop-text-3" className="form-control" onChange={e => this.updateSettings({preFlop: {hotKey3: e.target.value}})} value={this.state.preFlop.hotKey1}/>x
+                              <input type="text" id="preFlop-text-3" className="form-control" onChange={e => this.updateSettings({preFlop: Object.assign({}, this.state.preFlop, {hotKey3: e.target.value})})} value={this.state.preFlop.hotKey3}/>x
                             </div>
                           </div>
                         </div>
@@ -156,13 +156,13 @@ export default class TableSettings extends React.Component {
                           Postflop
                           <div className="display-flex">
                             <div className="input-wrapper">
-                              <input type="text" id="postFlop-text-1" className="form-control" onChange={e => this.updateSettings({postFlop: {hotKey1: e.target.value}})} value={this.state.postFlop.hotKey1}/>%
+                              <input type="text" id="postFlop-text-1" className="form-control" onChange={e => this.updateSettings({postFlop: Object.assign({}, this.state.postFlop, {hotKey1: e.target.value})})} value={this.state.postFlop.hotKey1}/>%
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="postFlop-text-2" className="form-control" onChange={e => this.updateSettings({postFlop: {hotKey2: e.target.value}})} value={this.state.postFlop.hotKey2}/>%
+                              <input type="text" id="postFlop-text-2" className="form-control" onChange={e => this.updateSettings({postFlop: Object.assign({}, this.state.postFlop, {hotKey2: e.target.value})})} value={this.state.postFlop.hotKey2}/>%
                             </div>
                             <div className="input-wrapper">
-                              <input type="text" id="postFlop-text-3" className="form-control" onChange={e => this.updateSettings({postFlop: {hotKey3: e.target.value}})} value={this.state.postFlop.hotKey3}/>%
+                              <input type="text" id="postFlop-text-3" className="form-control" onChange={e => this.updateSettings({postFlop: Object.assign({}, this.state.postFlop, {hotKey3: e.target.value})})} value={this.state.postFlop.hotKey3}/>%
                             </div>
                           </div>
                         </div>

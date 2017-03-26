@@ -1,3 +1,3 @@
 {
-    "preferences": ["cardBackTheme", "cardFrontTheme", "buyInPreference", "maintainStack", "autoPost", "straddle", "music", "soundEffects", "preflop", "postFlop"]
+    "preferences": ["cardBackTheme", "cardFrontTheme", "buyInPreference", "maintainStack", "autoPost", "straddle", "music", "soundEffects", "preFlop", "postFlop"]
 }
