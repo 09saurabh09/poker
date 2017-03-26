@@ -6,6 +6,14 @@
 	     url('assets/fonts/ProximaNova-Reg-webfont.svg#webfont') format('svg');
 }
 
+@font-face {
+    font-family: 'ProximaNova-Bold';
+    src: url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Reg-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Reg-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Reg-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Reg-webfont.ttf') format('svg');
+}
+
 body {
     font-family: ProximaNova;
     background-color: black;

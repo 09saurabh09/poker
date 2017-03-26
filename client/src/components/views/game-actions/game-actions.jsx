@@ -12,19 +12,20 @@ export default class GameActions extends React.Component{
   onHotKeyPress(key) {
     let hotKeyValue;
     let value;
-    hotKeyValue = this.props.userData[this.props.flopState][key];
+    hotKeyValue = parseFloat(parseFloat(this.props.userData[this.props.flopState][key]).toFixed(2));
     if(this.props.flopState == 'preFlop') {
       value = hotKeyValue * this.props.bbValue;
     } else {
        value = hotKeyValue * this.props.range.potValue / 100;
     }
+
     this.setState({
-      value
+      value : parseFloat(parseFloat(value).toFixed(2))
     })
   }
 
   handleChange(event) {
-    this.setState({value: parseFloat(event.target.value).toFixed(2)});
+    this.setState({value: parseFloat(parseFloat(event.target.value || 0).toFixed(2))});
   }
 
   onUpdate(val) {
@@ -33,6 +34,17 @@ export default class GameActions extends React.Component{
       this.setState({value}); 
     }
   }
+
+  minusRaise() {
+    let newValue = parseFloat(parseFloat(this.state.value).toFixed(2)) - this.props.range.step;
+    this.setState({value: newValue }); 
+  }
+
+  plusRaise() {
+    let newValue = parseFloat(parseFloat(this.state.value).toFixed(2)) + this.props.range.step;
+    this.setState({value: newValue });
+  }
+
 
   render() {
     let { userData, flopState } = this.props;
@@ -65,14 +77,14 @@ export default class GameActions extends React.Component{
           <div id="slider-range" className="range-field">
             <RangeSlider
               range={{min: this.props.range.min, max: this.props.range.max}}
-              start={[parseFloat(this.state.value).toFixed(2)]}
+              start={[parseFloat(parseFloat(this.state.value).toFixed(2))]}
               connect={[true, false]}
               behaviour='tap'
               step={this.props.range.step}
               onUpdate={this.onUpdate.bind(this)}
             />
-            <div className="minus indicator">-</div>
-            <div className="plus indicator">+</div>
+            <div className="minus indicator" onClick={this.minusRaise.bind(this)}>-</div>
+            <div className="plus indicator" onClick={this.plusRaise.bind(this)}>+</div>
           </div>
           <div className="actions space-between">
             <div className="button-container">

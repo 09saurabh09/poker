@@ -79,10 +79,13 @@ export default class GameTable extends React.Component{
         $('.player-money').css({ 'font-size': `${10.8 * currentRatio}px` });
         $('.join-text').css({ 'font-size': `${10 * currentRatio}px` });
         $('.timer-count').css({ 'font-size': `${10 * currentRatio}px` });
+        $('.game-actions .indicator').css({ 'font-size': `${21.5 * currentRatio}px` });
         $('.game-actions .values .button').css({ 'font-size': `${10.4 * currentRatio}px` });
         $('.game-actions .actions .button').css({ 'font-size': `${12 * currentRatio}px` });
         $('.game-actions .values .form-control').css({ 'font-size': `${13.5 * currentRatio}px` });
         $('.game-table .dealer-button').css({ 'font-size': `${7.6 * currentRatio}px` });
+        $('.player-wrapper .timer-count').css({ 'font-size': `${10 * currentRatio}px` });
+        
       }).resize();
     });
   }
@@ -97,7 +100,7 @@ export default class GameTable extends React.Component{
     }
     let myPlayer = players.filter((player)=>{return player && player.id == id});
     let expectedCallValue = myPlayer && myPlayer[0] && myPlayer[0].expCallValue;
-    return parseFloat(expectedCallValue).toFixed(2);
+    return parseFloat(parseFloat(expectedCallValue).toFixed(2));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -246,7 +249,7 @@ export default class GameTable extends React.Component{
     let payload = {
       tableId : this.props.tableId,
       call,
-      amount: parseFloat(amount).toFixed(2)
+      amount: parseFloat(parseFloat(amount).toFixed(2))
     }
     if(this.isMyTurn()) {
       console.log('Event emited player-turn with payload ', payload)
@@ -314,7 +317,7 @@ export default class GameTable extends React.Component{
     let winnerPlayerId, winnerPlayerIndex = -1;
     game.maxRaise = game.maxRaise || 100;
     if(game.round == 'showdown'){
-      winnerPlayerId = game.gamePots[0].winners && game.gamePots[0].winners[0];
+      winnerPlayerId = game.gamePots && game.gamePots[0] && game.gamePots[0].winners && game.gamePots[0].winners[0] || winnerPlayerId;
       winnerPlayerIndex = this.getPlayerIndexFromId(players, winnerPlayerId);
       let potChips = $('.pot-chips');
       let classes = potChips && potChips.attr('class') && potChips.attr('class').split(' ');
@@ -324,7 +327,7 @@ export default class GameTable extends React.Component{
         }
       })
       $('.pot-chips').addClass(`moved-to-player${winnerPlayerIndex}`);
-      winHandName = game.gamePots[0].winnerHand;
+      winHandName = game.gamePots && game.gamePots[0] && game.gamePots[0].winnerHand;
     }
     let dealerPos = this.getDealerPosition(players, game.dealerPos);
     let expectedCallValue = this.myExpectedCallValue(players, this.props.userData.id);
@@ -332,7 +335,6 @@ export default class GameTable extends React.Component{
     if(game.bigBlind) {
       step = parseFloat(game.bigBlind)/2;
     }
-    console.log('Round :: ', game.round);
     return (
       <div className='game-table' id="game-table">
         <div className='game-controls-container primary'>
@@ -369,8 +371,8 @@ export default class GameTable extends React.Component{
                   <Card card={element}/>
                 </div>
               )}
+              { winHandName ? <div className="winner-hand"> {winHandName} </div> : null }
             </div>
-            { winHandName ? <div> {winHandName} </div> : null }
             {game.round !== undefined && game.round != 'idle' ? 
             <div className={`dealer-button-postion max-${game.maxPlayer} dealer-${dealerPos}`}>
               <div className="dealer-button">D</div>
@@ -383,7 +385,7 @@ export default class GameTable extends React.Component{
                                           gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
                                           /> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
-              {player && player.betForRound ? <PlayerChips chipsValue={parseFloat(player.betForRound).toFixed(2)} />: null }
+              {player && player.betForRound ? <PlayerChips chipsValue={parseFloat(parseFloat(player.betForRound).toFixed(2))} />: null }
             </div>
             )}
         </div>

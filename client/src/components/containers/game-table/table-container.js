@@ -105,7 +105,7 @@ class TableContainer extends React.Component{
       //timer testing...
       if(player) {
         player.timer = 20;
-        player.timerStarted = Date.now();
+        player.timerStarted = player.timerStarted || Date.now();
       }
     })
     return newGameState;

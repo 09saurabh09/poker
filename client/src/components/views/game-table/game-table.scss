@@ -1,6 +1,8 @@
 
 .game-table {
   height: 100%;
+  position: relative;
+  margin: 0 auto;
   .game-controls-container {
     position: absolute;
     top: 0;
@@ -47,6 +49,10 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%,-50%);
+      .winner-hand {
+        color: white;
+        text-align: center;
+      }
     }
     .pot-chips {
       display: flex;

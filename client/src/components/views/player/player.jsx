@@ -7,7 +7,7 @@ export default class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeElapsed: parseInt((Date.now() - this.props.player.timerStarted)/1000),
+      timeElapsed: 0,
       turnTimerFinished: false 
     }
   }
@@ -42,6 +42,11 @@ export default class Player extends React.Component {
         })  
       }
     }*/
+    if(nextProps.player.seat - 1 == nextProps.turnPos) {
+      this.setState({
+        timeElapsed: parseInt((Date.now() - nextProps.player.timerStarted)/1000)
+      })
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -106,7 +111,7 @@ export default class Player extends React.Component {
       <div className='player'>
         <div className={'sitting-player ' + ' '+ onTableClassName}>
           {this.props.showCards ? <div className={'player-card-wrapper ' + showCardClass}>
-            <PlayerCards cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
+            <PlayerCards fold={this.props.player.lastAction == 'fold'} cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
           </div>: null}
           <div className="player-container">
             <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
