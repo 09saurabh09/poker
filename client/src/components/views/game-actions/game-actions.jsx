@@ -24,7 +24,7 @@ export default class GameActions extends React.Component{
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({value: parseFloat(event.target.value).toFixed(2)});
   }
 
   onUpdate(val) {
@@ -65,7 +65,7 @@ export default class GameActions extends React.Component{
           <div id="slider-range" className="range-field">
             <RangeSlider
               range={{min: this.props.range.min, max: this.props.range.max}}
-              start={[parseFloat(this.state.value)]}
+              start={[parseFloat(this.state.value).toFixed(2)]}
               connect={[true, false]}
               behaviour='tap'
               step={this.props.range.step}
@@ -80,7 +80,7 @@ export default class GameActions extends React.Component{
             </div>
             <div className="button-container">
               <button type="button" onClick={(event) => {this.props.onAction(event, "callOrCheck", this.props.callValue)}} className="button">
-                <span>{this.props.callValue ? `Call ${this.props.callValue}`: 'Check'}</span>
+                <span>{this.props.callValue != 0 ? `Call ${this.props.callValue}`: 'Check'}</span>
               </button>
             </div>
             <div className="button-container">

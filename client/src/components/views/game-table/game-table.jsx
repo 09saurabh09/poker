@@ -91,9 +91,24 @@ export default class GameTable extends React.Component{
     //clearInterval(this.timerID);
   }
 
+  myExpectedCallValue(players, id) {
+    if(!id) {
+      return 0;
+    }
+    let myPlayer = players.filter((player)=>{return player && player.id == id});
+    let expectedCallValue = myPlayer && myPlayer[0] && myPlayer[0].expCallValue;
+    return parseFloat(expectedCallValue).toFixed(2);
+  }
+
   componentDidUpdate(prevProps, prevState) {
     let { dispatch, authorizedSocket } = this.props;
-    let { gameState: game } = this.state;
+    let { gameState: game, players } = this.state;
+    if(game.payload && game.payload.call == 'callOrCheck' && game.payload.amount != this.myExpectedCallValue(players, this.props.userData.id)) {
+      console.log('Call/check value changed');
+      $('.game-actions button').removeClass('active');
+      this.props.dispatch(removeGameAction(game.payload));
+      return;
+    }
     if(this.isMyTurn() && game.payload) {
       console.log('Event emited player-turn with payload ', game.payload);
       authorizedSocket.emit('player-turn', game.payload);
@@ -231,7 +246,7 @@ export default class GameTable extends React.Component{
     let payload = {
       tableId : this.props.tableId,
       call,
-      amount: parseInt(amount)
+      amount: parseFloat(amount).toFixed(2)
     }
     if(this.isMyTurn()) {
       console.log('Event emited player-turn with payload ', payload)
@@ -312,8 +327,7 @@ export default class GameTable extends React.Component{
       winHandName = game.gamePots[0].winnerHand;
     }
     let dealerPos = this.getDealerPosition(players, game.dealerPos);
-    let myPlayer = this.props.userData && players.filter((player)=>{return player && player.id == this.props.userData.id});
-    let expectedCallValue = myPlayer && myPlayer[0] && myPlayer[0].expCallValue;
+    let expectedCallValue = this.myExpectedCallValue(players, this.props.userData.id);
     let step = 1;
     if(game.bigBlind) {
       step = parseFloat(game.bigBlind)/2;
