@@ -50,7 +50,12 @@ class TableContainer extends React.Component{
       if(!oldGameState) {
         return;
       }
-      let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId], nextProps.userData.id);
+      let updateTimer = false;
+      //update timer as soon as we get the game state
+      if(!this.props.gameData[tableId] && nextProps.gameData[tableId]) {
+        updateTimer = true;
+      }
+      let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId], nextProps.userData.id, updateTimer);
       this.setState({
         gameData: newGameState,
         myTables: nextProps.myTables
@@ -92,10 +97,11 @@ class TableContainer extends React.Component{
     }
   }
 
-  addCardsToPlayer(gameState, cards, userId = this.props.userData.id) {
+  addCardsToPlayer(gameState, cards, userId = this.props.userData.id, updateTimerStarted = false) {
     if(!gameState) {
       return;
     }
+    console.log('updateTimerStarted:: ', updateTimerStarted);
     let newGameState = gameState;
     let players = newGameState.players;
     players.forEach((player)=>{
@@ -105,7 +111,7 @@ class TableContainer extends React.Component{
       //timer testing...
       if(player) {
         player.timer = 20;
-        player.timerStarted = player.timerStarted || Date.now();
+        player.timerStarted = updateTimerStarted ? Date.now() : player.timerStarted;
       }
     })
     return newGameState;
@@ -125,7 +131,8 @@ class TableContainer extends React.Component{
 
     socket.on('turn-completed', (data)=>{
       console.log( socket.nsp,' turn-completed', data);
-      let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
+      //update timer as soon as we get the new game state
+      let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId], undefined, true);
       /*this.setState({
         gameData: {[data.tableId]: newGameState}
       })*/
@@ -134,7 +141,7 @@ class TableContainer extends React.Component{
 
     socket.on('game-started', (data)=>{
       console.log(socket.nsp, 'game started cards ', data);
-      let newGameState = this.addCardsToPlayer(this.props.gameData[data.tableId], data.cards);
+      let newGameState = this.addCardsToPlayer(this.props.gameData[data.tableId], data.cards, undefined, true);
       this.props.dispatch(updateUserCards({tableId: data.tableId, cards: data.cards}))
 //      if(tableId == data.tableId) {
         /*this.setState({
