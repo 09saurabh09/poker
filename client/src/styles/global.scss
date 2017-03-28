@@ -22,6 +22,14 @@
          url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf') format('svg');
 }
 
+@font-face {
+    font-family: 'ProximaNova-Thin';
+    src: url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('svg');
+}
+
 body {
     font-family: ProximaNova;
     background-color: black;
