@@ -1,7 +1,14 @@
 $display-color: #494949;
 #buyin-pref {
-  .modal-content {
-    width: 68%;
+  .form-horizontal {
+    padding: 0 3.602% 4% 7.719%;
+  }
+  .game-desc {
+    font-family: ProximaNova-Semibold;
+    font-size: 22.5px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0% 0 3.701%;
   }
   #error-message {
     color: red;
@@ -9,7 +16,7 @@ $display-color: #494949;
   }
   .range-buyin-pref {
     position: relative;
-    margin: 8% 0;
+    margin: 6.5% 0;
     .bb-value{
       position: absolute;
       margin-top: 14px;
@@ -22,28 +29,29 @@ $display-color: #494949;
       &.max {
         right: 0;
       }
-      
     }
   }
   .pref-input{
     border-radius: 52px;
     background-color: #f7f7f7;
     color: black;
-    padding: 10px 0px;
+    padding: 1% 0;
     font-size: 13.5px;
     font-weight: 600;
     text-align: center;
     width: 45%;
-    margin-right: 5%;
     float: left;
+    font-family: ProximaNova-Semibold;
   }
   .display-bb {
-    padding: 10px 20px;
+    padding: 2% 6%;
     background-color: $display-color;
     border-radius: 52px;
     display: inline-block;
     float: right;
     color: white;
+    font-size: 13.5px;
+    font-family: ProximaNova-Semibold;
   }
   .display-bankroll {
     padding: 10px 20px;
@@ -55,16 +63,13 @@ $display-color: #494949;
     display: inline-block;
     color: white;
   }
-  .label-wrapper {
-    text-align: left;
-    padding: 10px 0;
-    margin-bottom: 24px;
-  }
   .pref-input-container {
-    clear: both;
+    margin-bottom: 4%;
+  }
+  .average-stack-container {
+    margin-bottom: 2%;  
   }
   .pref-label {
-    padding: 10px 0;
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
@@ -73,10 +78,12 @@ $display-color: #494949;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
   }
   .set-button-container {
     text-align: right;
     margin-top: 4%;
+    .button {
+      padding: 8px 30px;
+    }
   }
 }

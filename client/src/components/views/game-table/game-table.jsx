@@ -388,6 +388,7 @@ export default class GameTable extends React.Component{
               {player && player.betForRound ? <PlayerChips chipsValue={parseFloat(parseFloat(player.betForRound).toFixed(2))} />: null }
             </div>
             )}
+           
         </div>
         {game.minAmount != game.maxAmount ? <BuyinPref bbValue={{min:game.minAmount/game.bigBlind, max:game.maxAmount/game.bigBlind, 
                                                         value: this.props.userData.defaultBB || ((game.maxAmount+game.minAmount)/2)/game.bigBlind, step:game.bigBlind}} 

@@ -1,15 +1,30 @@
+$range-height: 10px;
+.range-endpoints {
+  height: $range-height;
+  width: $range-height;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  &.end {
+    right: 0;
+  }
+}
 #range-slider {
   &.noUi-horizontal {
-    height: 8px;
+    height: $range-height;
     border: none; 
+    background: #717171;
+    box-shadow: none;
   }
   .noUi-connect {
     background: #3de689;
     border-radius: 4px;
   }
   .noUi-handle {
-    width: 20px;
-    height: 20px;
+    width: 2.5 * $range-height;
+    height: 2.5 * $range-height;
     left: 0;
     top: 0;
     transform: translate(-50%, -33%);
@@ -19,8 +34,8 @@
     }
   }
   .noUi-tooltip {
-    border-top-left-radius: 13px;
-    border-top-right-radius: 13px;
+    border-top-left-radius: 1.5 * $range-height;
+    border-top-right-radius: 1.5 * $range-height;
     background-color: #3de689;
   }
 }
