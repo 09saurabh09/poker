@@ -8,13 +8,13 @@ export default class Player extends React.Component {
     super(props);
     this.state = {
       timeElapsed: 0,
-      turnTimerFinished: false 
+      actionTimerFinished: false 
     }
   }
 
   setTimer() {
     clearTimeout(this.timerId);
-    let totalTime = this.state.turnTimerFinished ? this.props.player.timeBank : this.props.player.timer;
+    let totalTime = this.state.actionTimerFinished ? this.props.player.timeBank : this.props.actionTime;
     if((this.props.player.seat - 1 == this.props.turnPos) && this.state.timeElapsed < totalTime) {
       this.timerId = setTimeout(()=>{
         this.setState({
@@ -43,28 +43,35 @@ export default class Player extends React.Component {
       }
     }*/
     if(nextProps.player.seat - 1 == nextProps.turnPos) {
+      let actionTimerFinished = (Date.now() - new Date(nextProps.lastTurnAt).getTime() - nextProps.actionTime * 1000) > 0;
+      let totalTime = actionTimerFinished ? nextProps.player.timeBank : nextProps.actionTime;
+      let timeElapsed = parseInt((Date.now() - new Date(nextProps.lastTurnAt).getTime())/1000);
+      if(timeElapsed > totalTime) {
+        timeElapsed = totalTime
+      }
       this.setState({
-        timeElapsed: parseInt((Date.now() - nextProps.player.timerStarted)/1000)
+        timeElapsed,
+        actionTimerFinished
       })
     }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(!nextState.turnTimerFinished && nextProps.player.timer == nextState.timeElapsed) {
+    if(!nextState.actionTimerFinished && nextProps.actionTime == nextState.timeElapsed) {
       clearTimeout(this.timerId);
       setTimeout(()=>{
         this.setState({
           timeElapsed: 0,
-          turnTimerFinished: true
+          actionTimerFinished: true
         })  
       }, 1000);
     }
-    else if(nextState.turnTimerFinished && nextProps.player.timeBank == nextState.timeElapsed) {
+    else if(nextState.actionTimerFinished && nextProps.player.timeBank == nextState.timeElapsed) {
       clearTimeout(this.timerId);
       this.timerId = setTimeout(()=>{
         this.setState({
           timeElapsed: 0,
-          turnTimerFinished: false
+          actionTimerFinished: false
         })  
       }, 1000);
     }
@@ -72,7 +79,7 @@ export default class Player extends React.Component {
 
 
   render() {
-    let totalTime = this.state.turnTimerFinished ? this.props.player.timeBank : this.props.player.timer;
+    let totalTime = this.state.actionTimerFinished ? this.props.player.timeBank : this.props.actionTime;
     let activeClassName = (this.props.player.seat - 1 == this.props.turnPos) ? 'active' : '';
     let onTableClassName = this.props.player.hasDone === false ? 'on-table' : '';
     let showCardClass = this.props.player.cards ? 'show-cards' : '';

@@ -40,7 +40,9 @@ export default class GameTable extends React.Component{
         totalPot: 0,
         round: 'idle',
         communityCards: [],
-        players: []
+        players: [],
+        actionTime: 0,
+        lastTurnAt: 0
       }
     };
   }
@@ -353,7 +355,7 @@ export default class GameTable extends React.Component{
         </div> : null }
         <div className='main-table'>
             <GamePot potValue={game.potValue} totalPot={game.currentPot}/>
-            {game.totalPot > 0 ? 
+            {game.currentPot > 0 ? 
             <div className="pot-chips">
               <div className="coin-icon-container">
                 <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />
@@ -383,6 +385,7 @@ export default class GameTable extends React.Component{
                                           player={player} bigBlind={game.bigBlind} 
                                           winner={winnerPlayerIndex == index} showCards={game.round !== undefined && game.round != 'idle'}
                                           gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
+                                          lastTurnAt={game.lastTurnAt} actionTime={game.actionTime}
                                           /> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               {player && player.betForRound ? <PlayerChips chipsValue={parseFloat(parseFloat(player.betForRound).toFixed(2))} />: null }
