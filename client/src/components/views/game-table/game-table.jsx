@@ -5,7 +5,6 @@ import * as userApi from '../../../api/user-api';
 import utils from '../../../utils/utils';
 
 const CoinIcon = '../../../../assets/img/game/coin.svg';
-const TimeBankIcon = '../../../../assets/img/game/time-bank.svg';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import OpenSeat from '../open-seat/open-seat.jsx';
@@ -20,7 +19,7 @@ import Card from '../card/card.jsx';
 import Login from '../login/login.jsx';
 import SitOut from '../sit-out/sit-out.jsx';
 
-import { saveGameAction, removeGameAction, updateTimeBankInUse } from '../../../actions/game-state-actions';
+import { saveGameAction, removeGameAction } from '../../../actions/game-state-actions';
 const aspectRatio = 1.651376146788991;
 
 export default class GameTable extends React.Component{
@@ -43,8 +42,7 @@ export default class GameTable extends React.Component{
         communityCards: [],
         players: [],
         actionTime: 0,
-        lastTurnAt: 0,
-        timeBankInUse: false
+        lastTurnAt: 0
       }
     };
   }
@@ -121,7 +119,6 @@ export default class GameTable extends React.Component{
       authorizedSocket.emit('player-turn', game.payload);
       $('.game-actions button').removeClass('active');
       this.props.dispatch(removeGameAction(game.payload));
-      this.props.dispatch(updateTimeBankInUse({false, tableId: this.props.tableId}));
     }
   }
 
@@ -259,7 +256,6 @@ export default class GameTable extends React.Component{
     if(this.isMyTurn()) {
       console.log('Event emited player-turn with payload ', payload)
       this.props.authorizedSocket.emit('player-turn', payload);
-      this.props.dispatch(updateTimeBankInUse({false, tableId: this.props.tableId}));
     } else {
       let { gameState: game } = this.state;
       if(game.payload && game.payload.call == call) {
@@ -317,10 +313,6 @@ export default class GameTable extends React.Component{
     return localDealerPos;
   }
 
-  updateTimeBank(timeBankInUse) {
-    this.props.dispatch(updateTimeBankInUse({timeBankInUse, tableId: this.props.tableId}));
-  }
-
   render() {
     let {gameState : game, players} = this.state;
     let winHandName;
@@ -362,11 +354,7 @@ export default class GameTable extends React.Component{
         <div className='game-controls-container secondary'>
           <GameControlsSecondary onReplayClick={this.props.onReplayClick} onAddMoney={this.addMoney.bind(this)}/>
         </div>
-        {game.timeBankInUse ? <div className="time-bank">
-          <div className="time-bank-icon-container">
-            <img className="time-bank-icon-wrapper icon-wrapper" src={TimeBankIcon} />
-          </div>
-        </div> : null}
+        
         {game.round !== undefined && game.round !== 'idle' ?
         <div className="game-actions-container">
           <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
@@ -406,7 +394,7 @@ export default class GameTable extends React.Component{
                                           player={player} bigBlind={game.bigBlind} 
                                           winner={winnerPlayerIndex == index} showCards={game.round !== undefined && game.round != 'idle'}
                                           gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
-                                          lastTurnAt={game.lastTurnAt} actionTime={game.actionTime} updateTimeBankInUse={this.updateTimeBank.bind(this)}
+                                          lastTurnAt={game.lastTurnAt} actionTime={game.actionTime}
                                           /> : null }
               {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               {player && player.betForRound ? <PlayerChips chipsValue={parseFloat(parseFloat(player.betForRound).toFixed(2))} />: null }
