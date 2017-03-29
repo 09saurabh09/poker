@@ -330,6 +330,15 @@ export default class GameTable extends React.Component{
       })
       $('.pot-chips').addClass(`moved-to-player${winnerPlayerIndex}`);
       winHandName = game.gamePots && game.gamePots[0] && game.gamePots[0].winnerHand;
+      setTimeout(()=>{
+        let potChips = $('.pot-chips');
+        let classes = potChips && potChips.attr('class') && potChips.attr('class').split(' ');
+        classes && classes.forEach((cl)=>{
+          if(cl !== 'pot-chips') {
+            potChips.removeClass(cl);
+          }
+        })
+      }, 2000)
     }
     let dealerPos = this.getDealerPosition(players, game.dealerPos);
     let expectedCallValue = this.myExpectedCallValue(players, this.props.userData.id);
