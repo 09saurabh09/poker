@@ -22,7 +22,9 @@ export default class TableSettings extends React.Component {
       music: !!userData.music,
       soundEffects: !!userData.soundEffects,
       autoMuck: !!userData.autoMuck,
-      chatPopup: !!userData.chatPopup
+      chatPopup: !!userData.chatPopup,
+      preFlop: userData.preFlop || {hotKey1: 2, hotKey2: 3, hotKey3: 5},
+      postFlop: userData.postFlop || {hotKey1: 50, hotKey2: 75, hotKey3: 100}
     };
   }
 
@@ -47,7 +49,9 @@ export default class TableSettings extends React.Component {
           music: !!userData.music,
           soundEffects: !!userData.soundEffects,
           autoMuck: !!userData.autoMuck,
-          chatPopup: !!userData.chatPopup
+          chatPopup: !!userData.chatPopup,
+          preFlop: userData.preFlop || {hotKey1: 2, hotKey2: 3, hotKey3: 5},
+          postFlop: userData.postFlop || {hotKey1: 50, hotKey2: 75, hotKey3: 100}
       }))  
     }
   }
@@ -89,105 +93,103 @@ export default class TableSettings extends React.Component {
     }];
     return (
       <div className="modal fade-scale" id="table-settings" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div className="vertical-alignment-helper">
-          <div className="modal-dialog vertical-align-center">
-            <div id="table-settings-content" className="modal-content">
-              <div className="modal-body">
-                <div className="modal-container">
-                  <div className="settings-icon-container">
-                    <img className="tournament-logo-icon-wrapper icon-wrapper" src="../../../../assets/img/game/table-setting.svg" />
-                  </div>
-                  <form className="form-horizontal">
-                    <div className="form-container">
-                      <div className="card-theme-container">
-                        {allCardBackThemes.map((cardBackTheme, index) => (
-                          <div onClick={this.updateSettings.bind(this, {cardBackTheme: cardBackTheme.name})} key={index} 
-                            className={`card-theme-icon-container${cardBackTheme.name == this.state.cardBackTheme ? ' active-card-theme': ''}`}>
-                            <img className="card-back-theme-icon-wrapper icon-wrapper" src={cardBackTheme.url} />
-                          </div>  
-                          ))}
+        <div className="modal-dialog">
+          <div id="table-settings-content" className="modal-content">
+            <div className="modal-body">
+              <div className="modal-container">
+                <div className="settings-icon-container">
+                  <img className="tournament-logo-icon-wrapper icon-wrapper" src="../../../../assets/img/game/table-setting.svg" />
+                </div>
+                <form className="form-horizontal">
+                  <div className="form-container">
+                    <div className="card-theme-container">
+                      {allCardBackThemes.map((cardBackTheme, index) => (
+                        <div onClick={this.updateSettings.bind(this, {cardBackTheme: cardBackTheme.name})} key={index} 
+                          className={`card-theme-icon-container${cardBackTheme.name == this.state.cardBackTheme ? ' active-card-theme': ''}`}>
+                          <img className="card-back-theme-icon-wrapper icon-wrapper" src={cardBackTheme.url} />
+                        </div>  
+                        ))}
+                    </div>
+                    <div className="card-theme-container">
+                      {allCardFrontThemes.map((cardFrontTheme, index) => (
+                        <div onClick={this.updateSettings.bind(this, {cardFrontTheme: cardFrontTheme.name})} key={index} 
+                          className={`card-front-theme-icon-container-${index} card-theme-icon-container${cardFrontTheme.name==this.state.cardFrontTheme ? ' active-card-theme': ''}`}>
+                          <img className="card-front-theme-icon-wrapper icon-wrapper" src={cardFrontTheme.url} />
+                        </div>  
+                        ))}
+                    </div>
+                    <div className="col-lg-12">
+                      <div className="music col-lg-6">
+                        <CheckboxElement 
+                          onChangeCheckbox={e => this.updateSettings({music: e.target.checked})}
+                          checked={this.state.music}
+                          label="Music"
+                          checkboxId="music"
+                        />
                       </div>
-                      <div className="card-theme-container">
-                        {allCardFrontThemes.map((cardFrontTheme, index) => (
-                          <div onClick={this.updateSettings.bind(this, {cardFrontTheme: cardFrontTheme.name})} key={index} 
-                            className={`card-front-theme-icon-container-${index} card-theme-icon-container${cardFrontTheme.name==this.state.cardFrontTheme ? ' active-card-theme': ''}`}>
-                            <img className="card-front-theme-icon-wrapper icon-wrapper" src={cardFrontTheme.url} />
-                          </div>  
-                          ))}
+                      <div className="sound-effects col-lg-6">
+                        <CheckboxElement 
+                          onChangeCheckbox={e => this.updateSettings({soundEffects: e.target.checked})}
+                          checked={this.state.soundEffects}
+                          label="Sound Effects"
+                          checkboxId="sound-effects"
+                        />
                       </div>
-                      <div className="col-lg-12">
-                        <div className="music col-lg-6">
-                          <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSettings({music: e.target.checked})}
-                            checked={this.state.music}
-                            label="Music"
-                            checkboxId="music"
-                          />
-                        </div>
-                        <div className="sound-effects col-lg-6">
-                          <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSettings({soundEffects: e.target.checked})}
-                            checked={this.state.soundEffects}
-                            label="Sound Effects"
-                            checkboxId="sound-effects"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="col-lg-6">
-                          Preflop
-                          <div className="display-flex">
-                            <div className="input-wrapper">
-                              <input type="text" id="preflop-text-1" className="form-control"/>x
-                            </div>
-                            <div className="input-wrapper">
-                              <input type="text" id="preflop-text-2" className="form-control"/>x
-                            </div>
-                            <div className="input-wrapper">
-                              <input type="text" id="preflop-text-3" className="form-control"/>
-                            </div>
+                    </div>
+                    <div className="col-lg-12">
+                      <div className="col-lg-6">
+                        Preflop
+                        <div className="display-flex">
+                          <div className="input-wrapper">
+                            <input type="text" id="preFlop-text-1" className="form-control" onChange={e => this.updateSettings({preFlop: Object.assign({}, this.state.preFlop, {hotKey1: e.target.value})})} value={this.state.preFlop.hotKey1}/>x
                           </div>
-                        </div>
-                        <div className="col-lg-6">
-                          Postflop
-                          <div className="display-flex">
-                            <div className="input-wrapper">
-                              <input type="text" id="postflop-text-1" className="form-control"/>%
-                            </div>
-                            <div className="input-wrapper">
-                              <input type="text" id="postflop-text-2" className="form-control"/>%
-                            </div>
-                            <div className="input-wrapper">
-                              <input type="text" id="postflop-text-3" className="form-control"/>
-                            </div>
+                          <div className="input-wrapper">
+                            <input type="text" id="preFlop-text-2" className="form-control" onChange={e => this.updateSettings({preFlop: Object.assign({}, this.state.preFlop, {hotKey2: e.target.value})})} value={this.state.preFlop.hotKey2}/>x
+                          </div>
+                          <div className="input-wrapper">
+                            <input type="text" id="preFlop-text-3" className="form-control" onChange={e => this.updateSettings({preFlop: Object.assign({}, this.state.preFlop, {hotKey3: e.target.value})})} value={this.state.preFlop.hotKey3}/>x
                           </div>
                         </div>
                       </div>
-                      <div className="col-lg-12">
-                        <div className="auto-muck col-lg-6">
-                          <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSettings({autoMuck: e.target.checked})}
-                            checked={this.state.autoMuck}
-                            label="Auto muck"
-                            checkboxId="auto-muck"
-                          />
+                      <div className="col-lg-6">
+                        Postflop
+                        <div className="display-flex">
+                          <div className="input-wrapper">
+                            <input type="text" id="postFlop-text-1" className="form-control" onChange={e => this.updateSettings({postFlop: Object.assign({}, this.state.postFlop, {hotKey1: e.target.value})})} value={this.state.postFlop.hotKey1}/>%
+                          </div>
+                          <div className="input-wrapper">
+                            <input type="text" id="postFlop-text-2" className="form-control" onChange={e => this.updateSettings({postFlop: Object.assign({}, this.state.postFlop, {hotKey2: e.target.value})})} value={this.state.postFlop.hotKey2}/>%
+                          </div>
+                          <div className="input-wrapper">
+                            <input type="text" id="postFlop-text-3" className="form-control" onChange={e => this.updateSettings({postFlop: Object.assign({}, this.state.postFlop, {hotKey3: e.target.value})})} value={this.state.postFlop.hotKey3}/>%
+                          </div>
                         </div>
-                        <div className="chat-popup col-lg-6">
-                          <CheckboxElement 
-                            onChangeCheckbox={e => this.updateSettings({chatPopup: e.target.checked})}
-                            checked={this.state.chatPopup}
-                            label="Chat Popup"
-                            checkboxId="chat-popup"
-                          />
-                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-12">
+                      <div className="auto-muck col-lg-6">
+                        <CheckboxElement 
+                          onChangeCheckbox={e => this.updateSettings({autoMuck: e.target.checked})}
+                          checked={this.state.autoMuck}
+                          label="Auto muck"
+                          checkboxId="auto-muck"
+                        />
+                      </div>
+                      <div className="chat-popup col-lg-6">
+                        <CheckboxElement 
+                          onChangeCheckbox={e => this.updateSettings({chatPopup: e.target.checked})}
+                          checked={this.state.chatPopup}
+                          label="Chat Popup"
+                          checkboxId="chat-popup"
+                        />
                       </div>
                       <div className="set-button-container">
-                          <button type="button" className="button text-uppercase" 
-                          onClick={this.setClickHandler.bind(this, this.state)}> Set </button>
-                        </div>
+                        <button type="button" className="button text-uppercase active" 
+                        onClick={this.setClickHandler.bind(this, this.state)}> Set </button>
+                      </div>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

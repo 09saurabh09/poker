@@ -9,7 +9,6 @@ import TopNavContainer from '../top-navigation/top-navigation';
 import GameTable from '../../views/game-table/game-table.jsx';
 import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../../../actions/socket-actions';
 import { getGameStateSuccess } from '../../../actions/game-state-actions';
-const aspectRatio = 1.651376146788991;
 
 class TableContainer extends React.Component{
 
@@ -41,26 +40,7 @@ class TableContainer extends React.Component{
     //if already connected or the connection is in process
     this.socketOnConnect(socket.unAuthorizedSocket, tableId);
     this.socketOnConnect(socket.authorizedSocket, tableId);
-    $(document).ready(function() {
-      $(window).resize(function() {
-        if($('#table-container').height() * aspectRatio  < $('#table-container').width()) {
-          $('#table-container').width($('#table-container').height() * aspectRatio);
-        } else if($('#table-container').height() * aspectRatio  > $('#table-container').width()) {
-          $('#table-container').height($('#table-container').width() / aspectRatio);
-        } else {
-          console.log('achieved ratio');
-        }
-        let currentRatio = $('#table-container').width() / 720;
-        $('.player-name').css({ 'font-size': `${9.6 * currentRatio}px` });
-        $('.player-money').css({ 'font-size': `${10.8 * currentRatio}px` });
-        $('.join-text').css({ 'font-size': `${10 * currentRatio}px` });
-        $('.timer-count').css({ 'font-size': `${10 * currentRatio}px` });
-        $('.game-actions .values .button').css({ 'font-size': `${10.4 * currentRatio}px` });
-        $('.game-actions .actions .button').css({ 'font-size': `${12 * currentRatio}px` });
-        $('.game-actions .values .form-control').css({ 'font-size': `${13.5 * currentRatio}px` });
-        $('.game-table .dealer-button').css({ 'font-size': `${7.6 * currentRatio}px` });
-      }).resize();
-    });
+    
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -70,7 +50,12 @@ class TableContainer extends React.Component{
       if(!oldGameState) {
         return;
       }
-      let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId], nextProps.userData.id);
+      let updateTimer = false;
+      //update timer as soon as we get the game state
+      if(!this.props.gameData[tableId] && nextProps.gameData[tableId]) {
+        updateTimer = true;
+      }
+      let newGameState = this.addCardsToPlayer(oldGameState, nextProps.userCards[tableId], nextProps.userData.id, updateTimer);
       this.setState({
         gameData: newGameState,
         myTables: nextProps.myTables
@@ -112,10 +97,11 @@ class TableContainer extends React.Component{
     }
   }
 
-  addCardsToPlayer(gameState, cards, userId = this.props.userData.id) {
+  addCardsToPlayer(gameState, cards, userId = this.props.userData.id, updateTimerStarted = false) {
     if(!gameState) {
       return;
     }
+    console.log('updateTimerStarted:: ', updateTimerStarted);
     let newGameState = gameState;
     let players = newGameState.players;
     players.forEach((player)=>{
@@ -125,7 +111,7 @@ class TableContainer extends React.Component{
       //timer testing...
       if(player) {
         player.timer = 20;
-        player.timerStarted = Date.now();
+        player.timerStarted = updateTimerStarted ? Date.now() : player.timerStarted;
       }
     })
     return newGameState;
@@ -145,7 +131,8 @@ class TableContainer extends React.Component{
 
     socket.on('turn-completed', (data)=>{
       console.log( socket.nsp,' turn-completed', data);
-      let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
+      //update timer as soon as we get the new game state
+      let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId], undefined, true);
       /*this.setState({
         gameData: {[data.tableId]: newGameState}
       })*/
@@ -154,7 +141,7 @@ class TableContainer extends React.Component{
 
     socket.on('game-started', (data)=>{
       console.log(socket.nsp, 'game started cards ', data);
-      let newGameState = this.addCardsToPlayer(this.props.gameData[data.tableId], data.cards);
+      let newGameState = this.addCardsToPlayer(this.props.gameData[data.tableId], data.cards, undefined, true);
       this.props.dispatch(updateUserCards({tableId: data.tableId, cards: data.cards}))
 //      if(tableId == data.tableId) {
         /*this.setState({
@@ -212,7 +199,10 @@ class TableContainer extends React.Component{
     this.setState({
       myTables: otherTables
     })
-    
+  }
+
+  onSitOut() {
+    $('.nav-dropdown').css({'left': 0, 'top': 'auto', 'z-index': 100, 'width': '100%'})
   }
 
   render() {
@@ -223,6 +213,7 @@ class TableContainer extends React.Component{
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
         dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)} tableLeave={this.tableLeave.bind(this)}
+        sitOutTable={this.onSitOut.bind(this)}
         />
       </div>
     );

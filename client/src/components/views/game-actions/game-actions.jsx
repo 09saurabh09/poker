@@ -8,26 +8,24 @@ export default class GameActions extends React.Component{
     super(props);
     this.state = {value: this.props.range.value || 0};
   }
-  onHalfClick() {
-    this.setState({
-      value: (this.props.range.max - this.props.range.min )/2
-    })
-  }
 
-  onThreeForthClick() {
-    this.setState({
-      value: (this.props.range.max - this.props.range.min ) * 0.75
-    })
-  }
+  onHotKeyPress(key) {
+    let hotKeyValue;
+    let value;
+    hotKeyValue = parseFloat(parseFloat(this.props.userData[this.props.flopState][key]).toFixed(2));
+    if(this.props.flopState == 'preFlop') {
+      value = hotKeyValue * this.props.bbValue;
+    } else {
+       value = hotKeyValue * this.props.range.potValue / 100;
+    }
 
-  onPotClick() {
     this.setState({
-      value: this.props.range.potValue
+      value : parseFloat(parseFloat(value).toFixed(2))
     })
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({value: parseFloat(parseFloat(event.target.value || 0).toFixed(2))});
   }
 
   onUpdate(val) {
@@ -37,22 +35,37 @@ export default class GameActions extends React.Component{
     }
   }
 
+  minusRaise() {
+    let newValue = parseFloat(parseFloat(this.state.value).toFixed(2)) - this.props.range.step;
+    this.setState({value: newValue }); 
+  }
+
+  plusRaise() {
+    let newValue = parseFloat(parseFloat(this.state.value).toFixed(2)) + this.props.range.step;
+    this.setState({value: newValue });
+  }
+
+
   render() {
+    let { userData, flopState } = this.props;
+    let hotKey1 = userData && userData[flopState] && userData[flopState].hotKey1,
+    hotKey2 = userData && userData[flopState] && userData[flopState].hotKey2,
+    hotKey3 = userData && userData[flopState] && userData[flopState].hotKey3;
     return (
       <div className="game-actions">
         <form action="#">
           <div className="values space-between">
             <div className="button-container">
-              <a onClick={this.onHalfClick.bind(this)} className="button">1/2</a>
+              <a onClick={this.onHotKeyPress.bind(this, 'hotKey1')} className="button">{hotKey1}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onThreeForthClick.bind(this)} className="button">3/4</a>
+              <a onClick={this.onHotKeyPress.bind(this, 'hotKey2')} className="button">{hotKey2}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.onPotClick.bind(this)} className="button">Pot</a>
+              <a onClick={this.onHotKeyPress.bind(this, 'hotKey3')} className="button">{hotKey3}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={this.props.onAction.bind(null, "allIn", this.state.value)} className="button">Max</a>
+              <a onClick={e => this.props.onAction(e, "allIn", this.state.value)} className="button">Max</a>
             </div>
             <div className="input-container">
               <input type="text" id="call-value" name="call-value" step={this.props.range.step} 
@@ -64,14 +77,14 @@ export default class GameActions extends React.Component{
           <div id="slider-range" className="range-field">
             <RangeSlider
               range={{min: this.props.range.min, max: this.props.range.max}}
-              start={[parseFloat(this.state.value)]}
+              start={[parseFloat(parseFloat(this.state.value).toFixed(2))]}
               connect={[true, false]}
               behaviour='tap'
               step={this.props.range.step}
               onUpdate={this.onUpdate.bind(this)}
             />
-            <div className="minus indicator">-</div>
-            <div className="plus indicator">+</div>
+            <div className="minus indicator" onClick={this.minusRaise.bind(this)}>-</div>
+            <div className="plus indicator" onClick={this.plusRaise.bind(this)}>+</div>
           </div>
           <div className="actions space-between">
             <div className="button-container">
@@ -79,7 +92,7 @@ export default class GameActions extends React.Component{
             </div>
             <div className="button-container">
               <button type="button" onClick={(event) => {this.props.onAction(event, "callOrCheck", this.props.callValue)}} className="button">
-                <span>{this.props.callValue ? `Call ${this.props.callValue}`: 'Check'}</span>
+                <span>{this.props.callValue != 0 ? `Call ${this.props.callValue}`: 'Check'}</span>
               </button>
             </div>
             <div className="button-container">

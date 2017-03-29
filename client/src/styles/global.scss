@@ -6,6 +6,30 @@
 	     url('assets/fonts/ProximaNova-Reg-webfont.svg#webfont') format('svg');
 }
 
+@font-face {
+    font-family: 'ProximaNova-Bold';
+    src: url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf') format('svg');
+}
+
+@font-face {
+    font-family: 'ProximaNova-Semibold';
+    src: url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf') format('svg');
+}
+
+@font-face {
+    font-family: 'ProximaNova-Thin';
+    src: url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('svg');
+}
+
 body {
     font-family: ProximaNova;
     background-color: black;
@@ -70,6 +94,10 @@ input:focus {
     border-radius: 40px;
     background-color: #3c3c3c;
     &.active {
+        background-color: #3de689;
+        color: #191919;
+    }
+    &:active{
         background-color: #3de689;
         color: #191919;
     }
@@ -184,12 +212,13 @@ input:focus {
     color: white;
     text-align: center;
     border: solid 1.4px #3b3b44;
+    box-sizing: border-box;
 }
 .settings-icon-container {
-    width: 16.3%;
+    width: 16.256%;
     margin: 0 auto;
-    transform: translateY(-50%);
-  position: relative;
+    transform: translateY(-25%);
+    position: relative;
 }
 .form-container {
   width: 95%;

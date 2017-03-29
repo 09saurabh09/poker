@@ -7,7 +7,7 @@ export default class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeElapsed: parseInt((Date.now() - this.props.player.timerStarted)/1000),
+      timeElapsed: 0,
       turnTimerFinished: false 
     }
   }
@@ -42,6 +42,11 @@ export default class Player extends React.Component {
         })  
       }
     }*/
+    if(nextProps.player.seat - 1 == nextProps.turnPos) {
+      this.setState({
+        timeElapsed: parseInt((Date.now() - nextProps.player.timerStarted)/1000)
+      })
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -70,7 +75,6 @@ export default class Player extends React.Component {
     let totalTime = this.state.turnTimerFinished ? this.props.player.timeBank : this.props.player.timer;
     let activeClassName = (this.props.player.seat - 1 == this.props.turnPos) ? 'active' : '';
     let onTableClassName = this.props.player.hasDone === false ? 'on-table' : '';
-    console.log(this.props.player.cards);
     let showCardClass = this.props.player.cards ? 'show-cards' : '';
     let timerTopWidth, timerRightHeight, timerBottomWidth, timerLeftHeight ;
     if(this.props.player.seat - 1 !== this.props.turnPos) {
@@ -107,7 +111,7 @@ export default class Player extends React.Component {
       <div className='player'>
         <div className={'sitting-player ' + ' '+ onTableClassName}>
           {this.props.showCards ? <div className={'player-card-wrapper ' + showCardClass}>
-            <PlayerCards cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
+            <PlayerCards fold={this.props.player.lastAction == 'fold'} cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
           </div>: null}
           <div className="player-container">
             <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
@@ -127,10 +131,10 @@ export default class Player extends React.Component {
                 </div>
                 <div className='player-money'>
                   <div className='player-balance'>
-                    {this.props.player.chips}
+                    {this.props.player.chips && parseInt(this.props.player.chips)}
                   </div>
                   <div className='player-bb'>
-                    BB <span className='bb-value'> {this.props.player.chips/this.props.bigBlind} </span>
+                    BB <span className='bb-value'> {this.props.player.chips && this.props.bigBlind && parseInt(this.props.player.chips/this.props.bigBlind)} </span>
                   </div>
                 </div>
                 <div className='player-game-style'>
