@@ -194,6 +194,10 @@ class TableContainer extends React.Component{
     $('.nav-dropdown').css({'left': 0, 'top': 'auto', 'z-index': 100, 'width': '100%'})
   }
 
+  sitInTable() {
+   $('.nav-dropdown').css({'left': -9999, 'top': 'auto', 'z-index': 0, 'width': '100%'}) 
+  }
+
   render() {
     return (
       <div id="table-container">
@@ -202,7 +206,7 @@ class TableContainer extends React.Component{
         <GameTable tableId={this.props.params.id} gameData={this.state.gameData} userData={this.props.userData}
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
         dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)} tableLeave={this.tableLeave.bind(this)}
-        sitOutTable={this.onSitOut.bind(this)}
+        sitOutTable={this.onSitOut.bind(this)} sitInTable={this.sitInTable.bind(this)}
         />
       </div>
     );

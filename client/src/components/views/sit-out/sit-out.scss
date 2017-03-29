@@ -10,10 +10,15 @@
 	    border-radius: 0;
 	    background-color: black;
 	}
+	.modal-dialog {
+		width: 100%;
+	}
+	.modal-container {
+		height: 100vh;
+		text-align: center;
+	}
 	.play-icon-container {
-		width: 15%;
+		width: 34%;
 	    margin: 0 auto;
-	    padding-top: 18%;
-	    height: 100vh;
 	}
 }

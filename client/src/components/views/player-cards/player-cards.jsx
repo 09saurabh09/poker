@@ -29,13 +29,17 @@ const carBack = {
 export default class PlayerCards extends React.Component{
 
   render() {
+    let spacing = 33;
+    if(this.props.gameType == 'holdem') {
+      spacing = 100;
+    }
     let backCard = this.props.noCards ? null : <div className="card-back-container">
           <img className="card-back-wrapper icon-wrapper" src={carBack[this && this.props.gameType] && carBack[this && this.props.gameType][this && this.props.cardBackTheme]} />
         </div>;
     return (
       <div className="player-cards">
         {this.props.cards && !this.props.noCards? this.props.cards.map((element, index)=> 
-          <div key={index} className="player-cards-container" style={{left: index*100 + '%'}}>
+          <div key={index} className="player-cards-container" style={{left: index*spacing + '%'}}>
             <Card card={element}/>
           </div>
           ) : 

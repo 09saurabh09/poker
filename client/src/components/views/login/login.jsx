@@ -123,6 +123,7 @@ export default class Login extends React.Component {
     if(this.expand) {
       $('.sign-up-form').animate({height:160, opacity: 1}, 1000);
        $('.sign-up-form').css('visibility', 'visible');
+       $('.bottom-button-container').hide();
     } else {
       $('.sign-up-form').animate({height:0, opacity: 0}, 0);
       $('.sign-up-form').css('visibility', 'hidden');

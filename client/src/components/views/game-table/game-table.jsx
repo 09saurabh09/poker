@@ -145,7 +145,15 @@ export default class GameTable extends React.Component{
   }
 
   isPlayerSitOut() {
-    return false;
+    let { players } = this.state;
+    let isSitOut = false;
+    players.forEach((player, index)=>{
+      if(player && this.props.userData && player.id == this.props.userData.id && player.hasSitOut) {
+        isSitOut = true;
+      }
+    })
+    
+    return isSitOut;
   }
 
   rotateIfPlaying(players, userId) {
@@ -321,6 +329,19 @@ export default class GameTable extends React.Component{
     this.props.dispatch(updateTimeBankInUse({timeBankInUse, tableId: this.props.tableId}));
   }
 
+  sitIn() {
+    utils.closeModal('sit-out');
+    let payload = {
+      tableId : this.props.tableId,
+      playerInfo: {
+        call: 'sitIn'
+      }
+    }
+    console.log('Event emited game-preference-update with payload ', payload)
+    this.props.authorizedSocket.emit('game-preference-update', payload);
+    this.props.sitInTable();
+  }
+
   render() {
     let {gameState : game, players} = this.state;
     let winHandName;
@@ -403,7 +424,7 @@ export default class GameTable extends React.Component{
            {players.map((player, index)=> 
             <div key={index} className={'game-player ' + 'player' + index}>
               {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
-                                          player={player} bigBlind={game.bigBlind} 
+                                          player={player} bigBlind={game.bigBlind} round={game.round}
                                           winner={winnerPlayerIndex == index} showCards={game.round !== undefined && game.round != 'idle'}
                                           gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
                                           lastTurnAt={game.lastTurnAt} actionTime={game.actionTime} updateTimeBankInUse={this.updateTimeBank.bind(this)}
@@ -420,7 +441,7 @@ export default class GameTable extends React.Component{
                                                         bankroll={this.props.userData.currentBalance} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
         <Login postLogin={this.postLoginStaff.bind(this)} dispatch={this.props.dispatch}/>
-        <SitOut open={this.isPlayerSitOut()}/>
+        <SitOut open={this.isPlayerSitOut()} sitin={this.sitIn.bind(this)}/>
       </div>
     );
   }

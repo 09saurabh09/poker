@@ -22,6 +22,12 @@
         top: auto;
         z-index: 100; 
         width: 100%; */
+        &.hide-dropdown {
+          left: 0;
+          top: auto;
+          z-index: 100; 
+          width: 100%;
+        }
     }
     #top-drawer {
         height: 10px;

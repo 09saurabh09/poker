@@ -46,10 +46,10 @@ export default class Player extends React.Component {
       let actionTimerFinished = (Date.now() - new Date(nextProps.lastTurnAt).getTime() - nextProps.actionTime * 1000) > 0;
       let totalTime = actionTimerFinished ? nextProps.player.timeBank : nextProps.actionTime;
       let timeElapsed = parseInt((Date.now() - new Date(nextProps.lastTurnAt).getTime())/1000);
-      if(timeElapsed > totalTime) {
+      /*if(timeElapsed > totalTime) {
         timeElapsed = totalTime;
         actionTimerFinished = false;
-      }
+      }*/
       if(actionTimerFinished !== this.state.actionTimerFinished) {
         this.props.updateTimeBankInUse(actionTimerFinished);  
       }
@@ -119,6 +119,10 @@ export default class Player extends React.Component {
         timerBottomWidth = coveredPerimeter - ((2*activePlayerHeight) + activePlayerWidth);
       }  
     }
+    let count = totalTime - this.state.timeElapsed;
+    if(count < 0) {
+      count = 0;
+    }
     
     return (
       <div className='player'>
@@ -129,7 +133,7 @@ export default class Player extends React.Component {
           <div className="player-container">
             <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
             <div className={'player-wrapper ' + activeClassName}>
-              <div className="timer-count">{totalTime - this.state.timeElapsed}</div>
+              {count ? <div className="timer-count">{count}</div> : null }
               <div className='timer timer-top' style={{width: timerTopWidth}}></div>
               <div className='timer timer-right' style={{height: timerRightHeight}}></div>
               <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>

@@ -6,12 +6,12 @@ class Utils extends UrlUtils{
 
 	openModal(modalId) {
 		var modal = document.getElementById(modalId);
-    	modal.style.display = 'block';
+    	modal ? modal.style.display = 'block' : null;
 	}
 
 	closeModal(modalId) {
 		var modal = document.getElementById(modalId);
-    	modal.style.display = 'none';	
+    	modal ? modal.style.display = 'none' : null;
 	}
 }
 

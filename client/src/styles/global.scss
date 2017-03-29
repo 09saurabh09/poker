@@ -101,6 +101,10 @@ input:focus {
         background-color: #3de689;
         color: #191919;
     }
+    &:hover {
+        background-color: #3de689;
+        color: #191919;   
+    }
 }
 .hide {
     display: none !important;
