@@ -1,5 +1,6 @@
 $display-color: #494949;
 #buyin-pref {
+  background-color: rgba(0, 0, 0, 0.87);
   .form-horizontal {
     padding: 0 3.602% 4% 7.719%;
   }
@@ -79,11 +80,11 @@ $display-color: #494949;
     justify-content: space-between;
     align-items: center;
   }
-  .set-button-container {
-    text-align: right;
-    margin-top: 4%;
-    .button {
-      padding: 8px 30px;
-    }
+}
+.set-button-container {
+  text-align: right;
+  margin-top: 4%;
+  .button {
+    padding: 8px 30px;
   }
 }

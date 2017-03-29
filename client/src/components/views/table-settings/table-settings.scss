@@ -1,15 +1,21 @@
 #table-settings {
+  .modal-content {
+      margin: 8.627% auto;
+  }
+  .form-horizontal {
+    padding: 0 4% 1%;
+  }
   .form-container .col-lg-12 {
-    margin-bottom: 20px;
+    margin-bottom: 4%;
   }
   .card-theme-container{
     width: 100%;
     display: flex;
-    margin-bottom: 42px;
+    margin: 0 0 4% 4%;
   }
   .card-theme-icon-container {
-    width: 10%;
-    padding: 1% 2%;
+    width: 6.4%;
+    padding: 1% 1%;
     margin-right: 10%;
     border-radius: 8px;
     border: solid 1px #595959;
@@ -22,22 +28,20 @@
     } */
   } 
   .card-back-theme-icon-wrapper {
-    margin-top: 10px;
-  }
-  .card-front-theme-icon-wrapper {
-    margin-top: 8px;
+    margin-top: 10%;
   }
   .card-front-theme-icon-container-0 {
-    width: 15%;
+    width: 6%;
   }
   .card-front-theme-icon-container-1 {
-    width: 40%;
+    width: 16%;
+    margin-right: 16%;
   }
   .set-button-container {
-    text-align: right;
+    margin-top: 2%;
   }
   .input-wrapper .form-control {
-    width: 25%;
+    width: 75%;
     padding: 6px 12px;
     border-radius: 12px;
     margin-top: 10px;
