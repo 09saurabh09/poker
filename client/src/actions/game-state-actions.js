@@ -20,3 +20,10 @@ export function removeGameAction(payload) {
     payload
   };
 }
+
+export function updateTimeBankInUse(payload) {
+  return {
+    type: types.UPDATE_TIMEBANK_INUSE,
+    payload
+  };
+}

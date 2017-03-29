@@ -47,7 +47,11 @@ export default class Player extends React.Component {
       let totalTime = actionTimerFinished ? nextProps.player.timeBank : nextProps.actionTime;
       let timeElapsed = parseInt((Date.now() - new Date(nextProps.lastTurnAt).getTime())/1000);
       if(timeElapsed > totalTime) {
-        timeElapsed = totalTime
+        timeElapsed = totalTime;
+        actionTimerFinished = false;
+      }
+      if(actionTimerFinished !== this.state.actionTimerFinished) {
+        this.props.updateTimeBankInUse(actionTimerFinished);  
       }
       this.setState({
         timeElapsed,
@@ -58,6 +62,7 @@ export default class Player extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if(!nextState.actionTimerFinished && nextProps.actionTime == nextState.timeElapsed) {
+      this.props.updateTimeBankInUse(true);
       clearTimeout(this.timerId);
       setTimeout(()=>{
         this.setState({
@@ -68,6 +73,7 @@ export default class Player extends React.Component {
     }
     else if(nextState.actionTimerFinished && nextProps.player.timeBank == nextState.timeElapsed) {
       clearTimeout(this.timerId);
+      this.props.updateTimeBankInUse(false);
       this.timerId = setTimeout(()=>{
         this.setState({
           timeElapsed: 0,
@@ -118,7 +124,7 @@ export default class Player extends React.Component {
       <div className='player'>
         <div className={'sitting-player ' + ' '+ onTableClassName}>
           {this.props.showCards ? <div className={'player-card-wrapper ' + showCardClass}>
-            <PlayerCards fold={this.props.player.lastAction == 'fold'} cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
+            <PlayerCards noCards={this.props.player.lastAction == 'fold' || this.props.player.idleForHand} cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
           </div>: null}
           <div className="player-container">
             <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
@@ -153,7 +159,6 @@ export default class Player extends React.Component {
             </div>
           </div>  
         </div>
-        
       </div>
     );
   }

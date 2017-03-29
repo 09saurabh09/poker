@@ -20,10 +20,6 @@ $skew-angle : -6deg;
   .player-wrapper {
     transform: skew($skew-angle);
   }
-  .time-bank {
-    position: absolute;
-    width: 100%;
-  }
 }
 .player-wrapper {
   position: absolute;
