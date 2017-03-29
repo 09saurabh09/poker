@@ -38,9 +38,9 @@ export default class TopNavContainer extends React.Component{
                       <div className="plus-icon"></div>
                     </Link>
                   </div>
-                  <div className="setting-icon-container" onClick={utils.openModal.bind(this, 'table-settings')}>
-                    <img className="setting-icon-wrapper icon-wrapper" src="../../../../assets/img/game/setting.svg" />
-                  </div>
+                </div>
+                <div className="setting-icon-container" onClick={utils.openModal.bind(this, 'table-settings')}>
+                  <img className="setting-icon-wrapper icon-wrapper" src="../../../../assets/img/game/setting.svg" />
                 </div>
               </div>
             </div>
