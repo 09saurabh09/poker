@@ -29,12 +29,12 @@ const carBack = {
 export default class PlayerCards extends React.Component{
 
   render() {
-    let backCard = this.props.fold ? null : <div className="card-back-container">
+    let backCard = this.props.noCards ? null : <div className="card-back-container">
           <img className="card-back-wrapper icon-wrapper" src={carBack[this && this.props.gameType] && carBack[this && this.props.gameType][this && this.props.cardBackTheme]} />
         </div>;
     return (
       <div className="player-cards">
-        {this.props.cards && !this.props.fold? this.props.cards.map((element, index)=> 
+        {this.props.cards && !this.props.noCards? this.props.cards.map((element, index)=> 
           <div key={index} className="player-cards-container" style={{left: index*100 + '%'}}>
             <Card card={element}/>
           </div>
