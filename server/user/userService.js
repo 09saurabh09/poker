@@ -1,10 +1,12 @@
 "use strict";
-let UserModel = DB_MODELS.User;
 let responseMessage = require("../utils/responseMessage");
 let userManager = require("../utils/userManager");
 let jwt = require("jsonwebtoken");
 const uuidV4 = require('uuid/v4');
 let userConfig = require('./userConfig');
+
+let UserModel = DB_MODELS.User;
+let PokerTable = DB_MODELS.PokerTable;
 
 module.exports = {
     create: function (params, callback) {
@@ -133,49 +135,77 @@ module.exports = {
 
     getSessionHistory: function (params, user, callback) {
         let response;
-        let userGameQuery = {
-            sessionKey: "daa8812d-b20b-428b-ba03-53b575819edc"
-        }
 
-        if (params.tableId) {
-            _.assign(userGameQuery, { pokerTableId: params.tableId });
-        }
-        UserModel.findOne({
+        PokerTable.findOne({
             where: {
-                id: user.id
-            },
-            attributes: {
-                exclude: ['password']
-            },
-            // include: [DB_MODELS.Game]
-            include: [{
-                model: DB_MODELS.Game,
-                attributes: ['pokerTableId'],
-                // as: 'games',
-                through: {
-                    where: userGameQuery
-                },
-                include: {
-                    model: DB_MODELS.GameHistory,
-                    attributes: ['gameState', 'createdAt'],
-                    order: ['createdAt']
+                id: params.tableId
+            }, raw: true
+        }).then(function (table) {
+            if (table) {
+                let player = table.gameState.players.filter(function (pl) {
+                    if(pl) {
+                        return pl.id == user.id;
+                    } 
+                    return;
+                    
+                })[0];
+
+                if (player) {
+                    let userGameQuery = {
+                        sessionKey: player.sessionKey,
+                        pokerTableId: params.tableId
+                    }
+                    return UserModel.findOne({
+                        where: {
+                            id: user.id
+                        },
+                        // attributes: {
+                        //     exclude: ['password']
+                        // },
+                        attributes: ['id'],
+                        // include: [DB_MODELS.Game]
+                        include: [{
+                            model: DB_MODELS.Game,
+                            attributes: ['pokerTableId'],
+                            // as: 'games',
+                            through: {
+                                where: userGameQuery
+                            },
+                            include: {
+                                model: DB_MODELS.GameHistory,
+                                attributes: ['gameState', 'createdAt'],
+                                order: ['createdAt']
+                            }
+                        }
+
+                        ]
+                    }).then(function (userGames) {
+                        response = new responseMessage.GenericSuccessMessage();
+                        userGames.Games.forEach(function(userGame) {
+                            userGame.players.forEach(function(player) {
+                                if(player && !player.showCards) {
+                                    delete player.cards;
+                                }
+                            });
+                        });
+                        response.data = userGames;
+                        callback(null, response, response.code);
+                    })
+                } else {
+                    console.log(`ERROR ::: Player ${user.id} not playing on table ${table.id}`);
+                    response = responseMessage.dataNotPresent;
+                    callback(null, response, response.code);
                 }
+            } else {
+                console.log(`ERROR ::: Table not found with id ${table.id}`);
+                response = responseMessage.dataNotPresent;
+                callback(null, response, response.code);
             }
-
-            ]
+        }).catch(function (err) {
+            console.log(`ERROR ::: Unable to get table details for user: ${user.id}, error: ${err.message}, stack: ${err.stack}`);
+            response = new responseMessage.GenericFailureMessage();
+            callback(null, response, response.code);
         })
-
-
-            .then(function (userGames) {
-                response = new responseMessage.GenericSuccessMessage();
-                response.data = userGames;
-                callback(null, response, response.code);
-            })
-            .catch(function (err) {
-                console.log(`ERROR ::: Unable to get table details for user: ${user.id}, error: ${err.message}, stack: ${err.stack}`);
-                response = new responseMessage.GenericFailureMessage();
-                callback(null, response, response.code);
-            })
     }
 
 }

@@ -184,7 +184,7 @@ module.exports = {
             currentPot: gameState.currentPot,
             players: [],
             lastTurnAt: gameState.lastTurnAt,
-            timerDuration: gameState.timerDuration
+            actionTime: gameState.actionTime
         };
 
         gameState.players = gameState.players || Array.apply(null, Array(gameState.maxPlayer));
