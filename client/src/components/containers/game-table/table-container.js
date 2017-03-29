@@ -191,11 +191,11 @@ class TableContainer extends React.Component{
   }
 
   onSitOut() {
-    $('.nav-dropdown').css({'left': 0, 'top': 'auto', 'z-index': 100, 'width': '100%'})
+    $('.nav-dropdown').addClass('hide-dropdown');
   }
 
   sitInTable() {
-   $('.nav-dropdown').css({'left': -9999, 'top': 'auto', 'z-index': 0, 'width': '100%'}) 
+   $('.nav-dropdown').removeClass('hide-dropdown');
   }
 
   render() {

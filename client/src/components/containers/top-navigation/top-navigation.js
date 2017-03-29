@@ -20,29 +20,6 @@ export default class TopNavContainer extends React.Component{
       <div className="top-nav-container">
         <div id="top-drawer">
           <div className="nav-dropdown">
-            {/*<div className="top-row">
-              <div className="user-container">
-                <div className="user-details">
-                  <div className="play-icon nav-link">
-                    <Svg className="play-icon-wrapper icon-wrapper" markup={PlayIcon} />
-                  </div>
-                  <div id="dp-container" className="profile-photo">
-                    <img id="dp" className="photo" src=""/>
-                  </div>
-                  <div className="name-balance">
-                    <div className="user-name">
-                      {this.props.userData.name}
-                    </div>
-                    <div className="balance">
-                      {`Balance : ${this.props.userData.currentBalance}`}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="money-wrapper">
-                <MoneyContainer />
-              </div>
-            </div>*/}
             <div className="bottom-row">
               <div className="bottom-row-detail">
                 <Link to="/cash-game" className="loby-link">
