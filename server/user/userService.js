@@ -69,7 +69,7 @@ module.exports = {
                             if (isPasswordMatched) {
 
                                 delete user.password;
-                                user.sessionKey = uuidV4();
+                                // user.sessionKey = uuidV4();
                                 var token = jwt.sign(user, GlobalConstant.tokenSecret, {
                                     expiresIn: GlobalConstant.tokenValidity // expires depend on env
                                 });

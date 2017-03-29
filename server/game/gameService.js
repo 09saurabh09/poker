@@ -182,7 +182,9 @@ module.exports = {
             minAmount: gameState.minAmount,
             maxAmount: gameState.maxAmount,
             currentPot: gameState.currentPot,
-            players: []
+            players: [],
+            lastTurnAt: gameState.lastTurnAt,
+            timerDuration: gameState.timerDuration
         };
 
         gameState.players = gameState.players || Array.apply(null, Array(gameState.maxPlayer));

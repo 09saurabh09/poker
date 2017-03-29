@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         currentBalance: {
             type: DataTypes.BIGINT,
-            defaultValue: 0
+            defaultValue: 10000000 // For testing only
         },
         preferences: {
             type: DataTypes.JSONB
@@ -36,11 +36,11 @@ module.exports = function (sequelize, DataTypes) {
         },
         cardBackTheme: {
             type: DataTypes.STRING,
-            default: "royal"
+            defaultValue: "royal"
         },
         cardFrontTheme: {
             type: DataTypes.STRING,
-            default: "twoColor"
+            defaultValue: "twoColor"
         },
         buyInPreference: {
             type: DataTypes.BIGINT
