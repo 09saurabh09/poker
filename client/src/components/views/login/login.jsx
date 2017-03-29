@@ -19,6 +19,7 @@ export default class Login extends React.Component {
       resendRemainingTime: 30,
       resendText: ''
     };
+    this.expand = false;
 	}
   componentDidMount() {
     $(document).ready(()=>{
@@ -113,87 +114,101 @@ export default class Login extends React.Component {
   expandSignup() {
     $('#login .form-group').toggleClass('sign-up-form-group');
     $('#login .play-icon-container').toggleClass('sign-up-form-group');
-    $('.sign-up-form').toggleClass('expand');
+    /*$('.sign-up-form').toggleClass('expand');*/
+    $('.forget-password').toggleClass('hide');
+    //setTimeout(()=>{
+      //$('.sign-up-form').toggleClass('expand');
+    //},1)
+    this.expand = !this.expand;
+    if(this.expand) {
+      $('.sign-up-form').animate({height:160, opacity: 1}, 1000);
+       $('.sign-up-form').css('visibility', 'visible');
+    } else {
+      $('.sign-up-form').animate({height:0, opacity: 0}, 0);
+      $('.sign-up-form').css('visibility', 'hidden');
+    }
+    
   }
 
 	render() {
 		return (
 			<div className="modal fade-scale" id="login" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div className="vertical-alignment-helper">
-            <div className="modal-dialog vertical-align-center">
-                <div id="login-content" className="modal-content">
-                    <div className="modal-body">
-                      <div className="modal-container">
-                        <div className="play-icon-container">
-                          <img src={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
+        <div className="modal-dialog">
+          <div id="login-content" className="modal-content">
+            <div className="modal-body">
+              <div className="modal-container">
+                <div className="play-icon-container">
+                  <img src={PlayIcon} className="play-icon-wrapper icon-wrapper"/>
+                </div>
+                <form className="form-horizontal">
+                  <div className="form-group">
+                    <label htmlFor="inputUsername" className="sr-only">User name</label>
+                    <div className="">
+                      <input autoComplete="off" type="text" className="form-control" id="inputUsername" placeholder="User name" 
+                      value={this.state.username} onChange={this.onUserNameChange.bind(this)}/>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="inputPassword" className="sr-only">Password</label>
+                    <div className="login-action-container">
+                      <input type="password" className="form-control" id="inputPassword" placeholder="Password" 
+                      value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
+                      <div className="login-action login-button" onClick={this.login.bind(this)}>
+                        <div className="login-icon-container">
+                          <img src={LoginIcon} className="login-icon-wrapper icon-wrapper" />
                         </div>
-                        <form className="form-horizontal form-container">
-                          <div className="form-group">
-                            <label htmlFor="inputUsername" className="sr-only">User name</label>
-                            <div className="">
-                              <input autoComplete="off" type="text" className="form-control" id="inputUsername" placeholder="User name" 
-                              value={this.state.username} onChange={this.onUserNameChange.bind(this)}/>
-                            </div>
-                          </div>
-                          <div className="form-group">
-                            <label htmlFor="inputPassword" className="sr-only">Password</label>
-                            <div className="login-action-container">
-                              <input type="password" className="form-control" id="inputPassword" placeholder="Password" 
-                              value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
-                              <div className="login-action login-button" onClick={this.login.bind(this)}>
-                                <div className="login-icon-container">
-                                  <img src={LoginIcon} className="login-icon-wrapper icon-wrapper" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="sign-up-form">
-                            <div className="form-group">
-                              <label htmlFor="inputUserEmail" className="sr-only">Email Id</label>
-                              <div className="">
-                                <input autoComplete="off" type="email" className="form-control" id="inputUserEmail" placeholder="Email" 
-                                value={this.state.email} onChange={this.onEmailChange.bind(this)}/>
-                              </div>
-                            </div>
-                            <div className="form-group">
-                              
-                              <div className="login-action-container">
-                                <div className="mobile-otp">
-                                  <div className="mobile-container">
-                                    <label htmlFor="inputUserPhone" className="sr-only">Phone Number</label>
-                                    <input autoComplete="off" type="number" className="form-control" id="inputUserNumber" placeholder="Phone Number" 
-                                    value={this.state.mobileNumber} onChange={this.onMobileChange.bind(this)}/>
-                                  </div>
-                                  <div className="otp-container">
-                                    <input autoComplete="off" type="number" className="form-control" id="inputOtp" placeholder="Enter OTP" 
-                                    value={this.state.otp} onChange={this.onOTPChange.bind(this)}/>
-                                    {!this.state.resendText ? <span className="resend-box">00:{this.state.resendRemainingTime}</span> : null }
-                                    {!!this.state.resendText ? <span className="resend-box"> {this.state.resendText}</span> : null }
-                                  </div>
-                                </div>
-                                <div className="login-action otp-button" onClick={this.sendOtp.bind(this)}>
-                                  <div className="otp-icon-container">
-                                    <img src={LoginIcon} className="otp-icon-wrapper icon-wrapper" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="bottom-button-container">
-                            <div className="sign-up-button-container" onClick={this.expandSignup.bind(this)}>
-                              <button id="sign-up" type="button" className="btn btn-block" data-dismiss="modal">Sign up</button>  
-                            </div>
-                            <div className="facebook-login-button-container">
-                              <button id="facebook-login" type="button" className="btn btn-block">Facebook login</button>
-                            </div>
-                          </div>
-                        </form>
                       </div>
                     </div>
-                </div>
+                    <div className="forget-password">
+                      Forgot password?
+                    </div>
+                  </div>
+                  <div className="sign-up-form">
+                    <div className="form-group">
+                      <label htmlFor="inputUserEmail" className="sr-only">Email Id</label>
+                      <div className="">
+                        <input autoComplete="off" type="email" className="form-control" id="inputUserEmail" placeholder="Email" 
+                        value={this.state.email} onChange={this.onEmailChange.bind(this)}/>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      
+                      <div className="login-action-container">
+                        <div className="mobile-otp">
+                          <div className="mobile-container">
+                            <label htmlFor="inputUserPhone" className="sr-only">Phone Number</label>
+                            <input autoComplete="off" type="number" className="form-control" id="inputUserNumber" placeholder="Phone Number" 
+                            value={this.state.mobileNumber} onChange={this.onMobileChange.bind(this)}/>
+                          </div>
+                          <div className="otp-container">
+                            <input autoComplete="off" type="number" className="form-control" id="inputOtp" placeholder="Enter OTP" 
+                            value={this.state.otp} onChange={this.onOTPChange.bind(this)}/>
+                            {!this.state.resendText ? <span className="resend-box">00:{this.state.resendRemainingTime}</span> : null }
+                            {!!this.state.resendText ? <span className="resend-box"> {this.state.resendText}</span> : null }
+                          </div>
+                        </div>
+                        <div className="login-action otp-button" onClick={this.sendOtp.bind(this)}>
+                          <div className="otp-icon-container">
+                            <img src={LoginIcon} className="otp-icon-wrapper icon-wrapper" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bottom-button-container">
+                    <div className="sign-up-button-container" onClick={this.expandSignup.bind(this)}>
+                      <button id="sign-up" type="button" className="button" data-dismiss="modal">Sign up</button>  
+                    </div>
+                    <div className="facebook-login-button-container">
+                      <button id="facebook-login" type="button" className="button">Facebook login</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 		)
 	}
 }
