@@ -15,11 +15,6 @@ export default class TopNavContainer extends React.Component{
     super(props);
   }
 
-  onRowClick() {
-    //utils.closeModal('sit-out')
-    $('.nav-dropdown').removeClass('hide-dropdown');
-  }
-
   render() {
     return (
       <div className="top-nav-container">
@@ -55,8 +50,7 @@ export default class TopNavContainer extends React.Component{
                 </Link>
                 <div className="playing-tables">
                   {this.props.myTables.map((table, index)=>
-                    <div key={index} className={table.id == this.props.tableId ? 'active play-card' : 'play-card'} 
-                    onClick={this.onRowClick.bind(this)}>
+                    <div key={index} className={table.id == this.props.tableId ? 'active play-card' : 'play-card'} >
                        <Link to={`/cash-game/play/${table.id}`} className="table-link">
                         <PlayerCards cards={table.userCards}/>
                       </Link>  
