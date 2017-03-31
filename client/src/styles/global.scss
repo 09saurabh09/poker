@@ -101,10 +101,6 @@ input:focus {
         background-color: #3de689;
         color: #191919;
     }
-    &:hover {
-        background-color: #3de689;
-        color: #191919;   
-    }
 }
 .hide {
     display: none !important;
@@ -221,7 +217,7 @@ input:focus {
 .settings-icon-container {
     width: 16.256%;
     margin: 0 auto;
-    transform: translateY(-25%);
+    transform: translateY(-10%);
     position: relative;
 }
 .form-container {

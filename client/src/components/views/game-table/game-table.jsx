@@ -194,6 +194,16 @@ export default class GameTable extends React.Component{
     return false;
   }
 
+  isCardPresent(players, id) {
+    let cardPresent = false;
+    players.forEach((player)=>{
+      if(player && id && player.id == id && player.cards && player.cards.length > 0) {
+        cardPresent = true;
+      }
+    })
+    return cardPresent;
+  } 
+
   isMyTurn() {
     let myTurn = false;
     this.state.players.forEach((player)=>{
@@ -375,6 +385,7 @@ export default class GameTable extends React.Component{
     if(game.bigBlind) {
       step = parseFloat(game.bigBlind)/2;
     }
+    let isCardPresent = this.isCardPresent(players, this.props.userData.id);
     return (
       <div className='game-table' id="game-table">
         <div className='game-controls-container primary'>
@@ -388,7 +399,7 @@ export default class GameTable extends React.Component{
             <img className="time-bank-icon-wrapper icon-wrapper" src={TimeBankIcon} />
           </div>
         </div> : null}
-        {game.round !== undefined && game.round !== 'idle' ?
+        {isCardPresent ?
         <div className="game-actions-container">
           <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
                                 potValue: game.currentPot, step}}
@@ -417,7 +428,7 @@ export default class GameTable extends React.Component{
               )}
               { winHandName ? <div className="winner-hand"> {winHandName} </div> : null }
             </div>
-            {game.round !== undefined && game.round != 'idle' ? 
+            {isCardPresent ? 
             <div className={`dealer-button-postion max-${game.maxPlayer} dealer-${dealerPos}`}>
               <div className="dealer-button">D</div>
             </div> : null }

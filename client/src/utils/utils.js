@@ -13,6 +13,7 @@ class Utils extends UrlUtils{
 		var modal = document.getElementById(modalId);
     	modal ? modal.style.display = 'none' : null;
 	}
+
 }
 
 const utils = new Utils();

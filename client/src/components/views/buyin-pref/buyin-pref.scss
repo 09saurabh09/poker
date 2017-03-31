@@ -2,14 +2,14 @@ $display-color: #494949;
 #buyin-pref {
   background-color: rgba(0, 0, 0, 0.87);
   .form-horizontal {
-    padding: 0 3.602% 4% 7.719%;
+    padding: 0 3.602% 3% 7.719%;
   }
   .game-desc {
     font-family: ProximaNova-Semibold;
     font-size: 22.5px;
     font-weight: 600;
     text-align: center;
-    margin: 0% 0 3.701%;
+    margin: 0% 0 1.701%;
   }
   #error-message {
     color: red;
@@ -17,7 +17,7 @@ $display-color: #494949;
   }
   .range-buyin-pref {
     position: relative;
-    margin: 6.5% 0;
+    margin: 4.5% 0 7%;
     .bb-value{
       position: absolute;
       margin-top: 14px;
