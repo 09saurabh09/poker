@@ -49,7 +49,7 @@ export default class GameActions extends React.Component{
     setTimeout(this.updateRangeValue.bind(this, value), 1000);
   }
 
-  onUpdate(val) {
+  onChange(val) {
     let value = parseInt(val[0]);
     if(value != this.state.rangeValue) {
       this.setState({
@@ -138,7 +138,7 @@ export default class GameActions extends React.Component{
               connect={[true, false]}
               behaviour='tap'
               step={this.props.range.step}
-              onUpdate={this.onUpdate.bind(this)}
+              onChange={this.onChange.bind(this)}
             />
             <div className="minus indicator" onClick={this.minusRaise.bind(this)}>-</div>
             <div className="plus indicator" onClick={this.plusRaise.bind(this)}>+</div>
