@@ -13,7 +13,10 @@ class Utils extends UrlUtils{
 		var modal = document.getElementById(modalId);
     	modal ? modal.style.display = 'none' : null;
 	}
-
+	isNumber(str) {
+    	var pattern = /^[0-9.]+$/;
+    	return pattern.test(str);  // returns a boolean
+  	}
 }
 
 const utils = new Utils();

@@ -10,7 +10,7 @@ export default (props) => {
   return (
     <div className="money-container">
       <div className="money">
-        <div className="money-icon-container">
+        <div className="money-icon-container on-table">
           <img className="money-icon-wrapper icon-wrapper" src={RealMoneyIcon} />
         </div>
         <span className="text">On Table:</span> <span className="text value">$784</span>

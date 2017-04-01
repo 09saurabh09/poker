@@ -79,17 +79,14 @@ export default class GameTable extends React.Component{
           console.log('achieved ratio');
         }
         let currentRatio = $('#game-table').width() / 720;
-        $('.player-name').css({ 'font-size': `${9.6 * currentRatio}px` });
-        $('.player-money').css({ 'font-size': `${10.8 * currentRatio}px` });
-        $('.join-text').css({ 'font-size': `${10 * currentRatio}px` });
-        $('.timer-count').css({ 'font-size': `${10 * currentRatio}px` });
-        $('.game-actions .indicator').css({ 'font-size': `${21.5 * currentRatio}px` });
-        $('.game-actions .values .button').css({ 'font-size': `${10.4 * currentRatio}px` });
-        $('.game-actions .actions .button').css({ 'font-size': `${12 * currentRatio}px` });
-        $('.game-actions .values .form-control').css({ 'font-size': `${13.5 * currentRatio}px` });
-        $('.game-table .dealer-button').css({ 'font-size': `${7.6 * currentRatio}px` });
-        $('.player-wrapper .timer-count').css({ 'font-size': `${10 * currentRatio}px` });
-        
+        let potHeight = 41.5, potSide = 20, potWidth = 30;
+        $('body').css({ 'font-size': `${14 * currentRatio}px` });
+        $('.pot .triangle-bottomleft').css({'border-bottom-width': `${potHeight * currentRatio}px`})
+        $('.pot .triangle-bottomleft').css({'border-right-width': `${potSide * currentRatio}px`})
+        $('.pot .pot-container').css({'border-top-width': `${potHeight * currentRatio}px`})
+        $('.pot .pot-container').css({'border-left-width': `${potSide * currentRatio}px`})
+        $('.pot .pot-container').css({'border-right-width': `${potSide * currentRatio}px`})
+        $('.pot .pot-container').css({'width': `${potWidth * currentRatio}px`})
       }).resize();
     });
   }
@@ -447,7 +444,7 @@ export default class GameTable extends React.Component{
            
         </div>
         {game.minAmount != game.maxAmount ? <BuyinPref bbValue={{min:game.minAmount/game.bigBlind, max:game.maxAmount/game.bigBlind, 
-                                                        value: this.props.userData.defaultBB || ((game.maxAmount+game.minAmount)/2)/game.bigBlind, step:game.bigBlind}} 
+                                                        value: this.props.userData.defaultBB || ((game.maxAmount+game.minAmount)*0.6)/game.bigBlind, step:game.bigBlind}} 
                                                         bigBlind={game.bigBlind} avgStack={game.avgStack || 0}
                                                         bankroll={this.props.userData.currentBalance} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }

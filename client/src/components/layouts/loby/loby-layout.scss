@@ -19,7 +19,7 @@
 	    background-color: #1d1d1d;
 	}
 	.money-container {
-	    margin-top: 6%;
+	    
 	}	
 	.game-type-name {
 	    text-transform: uppercase;
@@ -69,7 +69,17 @@
         width: 10%;
 	}
 	.filter-icon {
-	   	width: 75%;
+	   	width: 69.45%;
+	}
+	.bankroll-value {
+	    font-family: ProximaNova-Bold;
+	    font-size: 1.1428571429em;
+	    font-weight: bold;
+	    letter-spacing: 0.4px;
+	    padding: 3% 2%;
+	}
+	.name-balance-review {
+	    width: 80%;
 	}
 }
 .padding-right-10 {

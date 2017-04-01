@@ -1,6 +1,6 @@
 import React from 'react';
 //import './game-actions.scss';
-
+import utils from '../../../utils/utils';
 import RangeSlider from '../range-slide/range-slide.jsx';
 
 export default class GameActions extends React.Component{
@@ -10,11 +10,6 @@ export default class GameActions extends React.Component{
       inputValue: this.props.range.value || this.props.range.min,
       rangeValue: this.props.range.value || this.props.range.min
     };
-  }
-
-  isNumber(str) {
-    var pattern = /^[0-9.]+$/;
-    return pattern.test(str);  // returns a boolean
   }
 
   onHotKeyPress(key) {
@@ -43,7 +38,7 @@ export default class GameActions extends React.Component{
 
   handleChange(event) {
     let value = event.target.value;
-    if(this.isNumber(value)) {
+    if(utils.isNumber(value)) {
       value = parseInt(value);
     } else {
       value = '';

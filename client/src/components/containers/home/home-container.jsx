@@ -26,22 +26,8 @@ class Home extends React.Component {
       let aspectRatio = ($('#main').width())/($('#main').height());
       $(window).resize(function() {
         $('#dp-container').height($('#dp-container').width());
-        /*let currentAspectRatio = $('#main').width() / $('#main').height();
-        if(currentAspectRatio > aspectRatio) {
-          $('#main').width(aspectRatio * $('#main').height());
-        } else {
-          $('#main').height($('#main').width() / aspectRatio );  
-        }*/
-        //$('.upper-section').height($('#main').height() * 0.43);
-        //$('.lower-section').height($('#main').height() * 0.5);
-        
-        /*if($('.main-table').height() <= ($(window).height() * .60) || $('.main-table').width() >= $(window).width() * .75 ){
-          $('.main-table').width( $(window).width() * .70 );
-          $('.main-table').height( $('.main-table').width() * 0.45 );
-        } else {
-          $('.main-table').height( $(window).height() * .65);
-          $('.main-table').width( $('.main-table').height() * 2.22 );
-        }*/
+        let currentRatio = $('#root').width() / 720;
+        $('body').css({ 'font-size': `${14 * currentRatio}px` });
       }).resize();
     });
     this.props.dispatch(connectUnauthorizedSocket());
@@ -95,7 +81,30 @@ class Home extends React.Component {
                       {this.props.userData && this.props.userData.name || 'Guest User'}
                     </div>
                     <div className="balance">
-                      {`Balance : ${this.props.userData && this.props.userData.currentBalance || 0}`}
+                      <div className="money-balance">
+                        <div className="balance-value">
+                          $8295
+                        </div>
+                        <div className="balance-type">
+                          WALLET
+                        </div>
+                      </div>
+                      <div className="money-balance bankroll-money-balance">
+                        <div className="balance-value bankroll-balance-value">
+                          $345
+                        </div>
+                        <div className="balance-type">
+                          BANKROLL
+                        </div>
+                      </div>
+                      <div className="money-balance">
+                        <div className="balance-value">
+                          $7895
+                        </div>
+                        <div className="balance-type">
+                          KARMA
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="review-icon-container">
