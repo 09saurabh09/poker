@@ -26,8 +26,8 @@ export default (props) => {
                 <div className="user-name">
                   {props.userData && props.userData.name || 'Guest User'}
                 </div>
-                <div className="balance">
-                  {`Balance : ${props.userData && props.userData.currentBalance || 0}`}
+                <div className="bankroll-value">
+                  {`Bankroll : ${props.userData && props.userData.currentBalance || 0}`}
                 </div>
               </div>
             </div>

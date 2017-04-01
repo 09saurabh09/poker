@@ -1,9 +1,8 @@
 #table-settings {
-  .modal-content {
-      margin: 8.627% auto;
-  }
   .form-horizontal {
-    padding: 0 4% 1%;
+    padding: 0 4% 1px;
+    font-size: 0.9642857143em;
+    font-family: ProximaNova-Semibold;
   }
   .form-container .col-lg-12 {
     margin-bottom: 4%;
@@ -42,9 +41,9 @@
   }
   .input-wrapper .form-control {
     width: 75%;
-    padding: 6px 12px;
-    border-radius: 12px;
+    padding: 0.4285714286em 0.8571428571em;
+    border-radius: 0.8571428571em;
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 0.9285714286em;
   }
 }

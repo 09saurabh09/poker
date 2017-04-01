@@ -2,26 +2,28 @@ $display-color: #494949;
 #buyin-pref {
   background-color: rgba(0, 0, 0, 0.87);
   .form-horizontal {
-    padding: 0 3.602% 4% 7.719%;
+    padding: 0 3.602% 3% 7.719%;
+    font-size: 1.1428571429em;
+    font-family: ProximaNova-Semibold;
   }
   .game-desc {
     font-family: ProximaNova-Semibold;
-    font-size: 22.5px;
+    font-size: 1.6071428571em;
     font-weight: 600;
     text-align: center;
-    margin: 0% 0 3.701%;
+    margin: 0% 0 1.701%;
   }
   #error-message {
     color: red;
-    font-size: 11px;
+    font-size: 0.7857142857em;
+    text-align: right;
   }
   .range-buyin-pref {
     position: relative;
-    margin: 6.5% 0;
+    margin: 4.5% 0 7%;
     .bb-value{
       position: absolute;
-      margin-top: 14px;
-      font-size: 13.5px;
+      margin-top: 1em;
       font-weight: 600;
       color: #717171;
       &.min {
@@ -37,12 +39,10 @@ $display-color: #494949;
     background-color: #f7f7f7;
     color: black;
     padding: 1% 0;
-    font-size: 13.5px;
     font-weight: 600;
     text-align: center;
     width: 45%;
     float: left;
-    font-family: ProximaNova-Semibold;
   }
   .display-bb {
     padding: 2% 6%;
@@ -51,14 +51,11 @@ $display-color: #494949;
     display: inline-block;
     float: right;
     color: white;
-    font-size: 13.5px;
-    font-family: ProximaNova-Semibold;
   }
   .display-bankroll {
-    padding: 10px 20px;
+    padding: 0.7142857143em 1.4285714286em;
     background-color: $display-color;
     border-radius: 52px;
-    font-size: 13.5px;
     font-weight: 600;
     color: #000000;
     display: inline-block;
@@ -71,7 +68,6 @@ $display-color: #494949;
     margin-bottom: 2%;  
   }
   .pref-label {
-    font-size: 16px;
     font-weight: 600;
     color: #ffffff;
   }
@@ -85,6 +81,6 @@ $display-color: #494949;
   text-align: right;
   margin-top: 4%;
   .button {
-    padding: 8px 30px;
+    padding: 0.5714285714em 2.1428571429em;
   }
 }

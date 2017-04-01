@@ -6,13 +6,17 @@ class Utils extends UrlUtils{
 
 	openModal(modalId) {
 		var modal = document.getElementById(modalId);
-    	modal.style.display = 'block';
+    	modal ? modal.style.display = 'block' : null;
 	}
 
 	closeModal(modalId) {
 		var modal = document.getElementById(modalId);
-    	modal.style.display = 'none';	
+    	modal ? modal.style.display = 'none' : null;
 	}
+	isNumber(str) {
+    	var pattern = /^[0-9.]+$/;
+    	return pattern.test(str);  // returns a boolean
+  	}
 }
 
 const utils = new Utils();

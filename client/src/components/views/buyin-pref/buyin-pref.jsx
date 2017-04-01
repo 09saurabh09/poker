@@ -4,7 +4,7 @@ import React from 'react';
 import RangeSlider from '../range-slide/range-slide.jsx';
 import CheckboxElement from '../checkbox-element/checkbox-element';
 const TournamentLogo = '../../../../assets/img/game/tournament-logo.svg';
-
+import utils from '../../../utils/utils';
 import wNumb from 'wnumb';
 
 export default class BuyinPref extends React.Component {
@@ -12,7 +12,7 @@ export default class BuyinPref extends React.Component {
     super(props);
     this.state = {
       value: this.props.bbValue.value,
-      inputValue: this.props.bbValue.value * this.props.bigBlind,
+      inputValue: this.props.bbValue.value * this.props.bigBlind || '',
       straddle: true,
       maintainStack: true,
       autoPost: true
@@ -34,9 +34,15 @@ export default class BuyinPref extends React.Component {
   }
 
   handleChange(event) {
-    let {value} = event.target;
-    let inputValue = value ? parseInt(value) : 0;
-    this.setState({inputValue});
+    let value = event.target.value;
+    if(utils.isNumber(value)) {
+      value = parseInt(value);
+    } else {
+      value = '';
+    }
+    this.setState({
+      inputValue: value
+    });
   }
 
   onChange(val) {
@@ -64,19 +70,38 @@ export default class BuyinPref extends React.Component {
     })
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('set-buy-in').click();
+  }
+
+  handleFocus(e) {
+    this.setState({
+      inputValue: ''
+    });
+  }
+
+  handleOnBlur() {
+    if(this.state.inputValue == '') {
+      this.setState({
+        inputValue: this.state.value*this.props.bigBlind
+      });
+    }
+  }
+
   render() {
     let errorMessage;
     let { inputValue } = this.state;
-    inputValue = parseInt(inputValue);
-    if(inputValue < this.props.bbValue.min * this.props.bigBlind) {
+    let inInputValue = parseInt(inputValue);
+    if(inInputValue < this.props.bbValue.min * this.props.bigBlind) {
       errorMessage = 'Less than Minimum';
     }
-    if(inputValue > this.props.bbValue.max * this.props.bigBlind) {
+    if(inInputValue > this.props.bbValue.max * this.props.bigBlind) {
       errorMessage = 'More than Maximum';
     }
     let bankroll = parseInt(this.props.bankroll);
     let insufficient = false;
-    if(bankroll < inputValue) {
+    if(bankroll < inInputValue) {
       insufficient = true;
       errorMessage = 'Bankroll Insufficient';
     }
@@ -93,7 +118,7 @@ export default class BuyinPref extends React.Component {
                   <img className="tournament-logo-icon-wrapper icon-wrapper" src={TournamentLogo} />
                 </div>
                 <div className="game-desc">{`${parseFloat((this.props.bigBlind/2).toFixed(2))}/${this.props.bigBlind} Hold'em`}</div>
-                <form className="form-horizontal">
+                <form className="form-horizontal" onSubmit={this.handleSubmit.bind(this)}>
                   <div className="col-lg-12 pref-input-container">
                     <div className="col-lg-6">
                       <label className="pref-label">Big Blind Preference</label>
@@ -103,7 +128,8 @@ export default class BuyinPref extends React.Component {
                       min={this.props.bbValue.min*this.props.bigBlind} 
                       max={this.props.bbValue.max*this.props.bigBlind} 
                       onChange={this.handleChange.bind(this)}
-                      value={inputValue} />
+                      value={inputValue} onFocus={this.handleFocus.bind(this)}
+                      onBlur={this.handleOnBlur.bind(this)}/>
                       <span className="display-bb">{inputValue / this.props.bigBlind}BB</span>
                     </div>
                   </div>
@@ -167,7 +193,7 @@ export default class BuyinPref extends React.Component {
                     </div>
                   </div>
                   <div className="set-button-container">
-                    <button type="button" className="button text-uppercase active" 
+                    <button type="button" className="button text-uppercase active" id="set-buy-in"
                     onClick={this.props.onSet.bind(null, inputValue, this.state.maintainStack, this.state.autoPost)}> {insufficient ?'Deposit' :'Set'} </button>
                   </div>
                 </form>

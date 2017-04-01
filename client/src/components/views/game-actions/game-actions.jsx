@@ -1,12 +1,15 @@
 import React from 'react';
 //import './game-actions.scss';
-
+import utils from '../../../utils/utils';
 import RangeSlider from '../range-slide/range-slide.jsx';
 
 export default class GameActions extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {value: this.props.range.value || 0};
+    this.state = {
+      inputValue: this.props.range.value || this.props.range.min,
+      rangeValue: this.props.range.value || this.props.range.min
+    };
   }
 
   onHotKeyPress(key) {
@@ -18,31 +21,85 @@ export default class GameActions extends React.Component{
     } else {
        value = hotKeyValue * this.props.range.potValue / 100;
     }
-
+    value = parseInt(value);
     this.setState({
-      value : parseFloat(parseFloat(value).toFixed(2))
+      inputValue : value,
+      rangeValue: value
     })
   }
 
-  handleChange(event) {
-    this.setState({value: parseFloat(parseFloat(event.target.value || 0).toFixed(2))});
+  updateRangeValue(value) {
+    if(value && this.state.inputValue == value) {
+      this.setState({
+        rangeValue: value
+      });
+    }
   }
 
-  onUpdate(val) {
-    let value = val[0];
-    if(value != this.state.value) {
-      this.setState({value}); 
+  handleChange(event) {
+    let value = event.target.value;
+    if(utils.isNumber(value)) {
+      value = parseInt(value);
+    } else {
+      value = '';
+    }
+    this.setState({
+      inputValue: value
+    });
+    setTimeout(this.updateRangeValue.bind(this, value), 1000);
+  }
+
+  onChange(val) {
+    let value = parseInt(val[0]);
+    if(value != this.state.rangeValue) {
+      this.setState({
+        inputValue : value,
+        rangeValue: value
+      }); 
     }
   }
 
   minusRaise() {
-    let newValue = parseFloat(parseFloat(this.state.value).toFixed(2)) - this.props.range.step;
-    this.setState({value: newValue }); 
+    let step = this.props.range.step;
+    if(step < 1) {
+      step = 1
+    }
+    let newValue = parseInt(parseFloat(parseFloat(this.state.inputValue).toFixed(2)) - step);
+    this.setState({
+      inputValue: newValue,
+      rangeValue: newValue
+    }); 
   }
 
   plusRaise() {
-    let newValue = parseFloat(parseFloat(this.state.value).toFixed(2)) + this.props.range.step;
-    this.setState({value: newValue });
+    let step = this.props.range.step;
+    if(step < 1) {
+      step = 1
+    }
+    let newValue = parseInt(parseFloat(parseFloat(this.state.inputValue).toFixed(2)) + step);
+    this.setState({
+      inputValue: newValue,
+      rangeValue: newValue
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('raise-button').click();
+  }
+
+  handleFocus(e) {
+    this.setState({
+      inputValue: ''
+    });
+  }
+
+  handleOnBlur() {
+    if(this.state.inputValue == '') {
+      this.setState({
+        inputValue: this.state.rangeValue
+      });
+    }
   }
 
 
@@ -53,7 +110,7 @@ export default class GameActions extends React.Component{
     hotKey3 = userData && userData[flopState] && userData[flopState].hotKey3;
     return (
       <div className="game-actions">
-        <form action="#">
+        <form action="#" onSubmit={this.handleSubmit.bind(this)}>
           <div className="values space-between">
             <div className="button-container">
               <a onClick={this.onHotKeyPress.bind(this, 'hotKey1')} className="button">{hotKey1}{flopState=='preFlop' && 'x' || '%'}</a>
@@ -65,23 +122,23 @@ export default class GameActions extends React.Component{
               <a onClick={this.onHotKeyPress.bind(this, 'hotKey3')} className="button">{hotKey3}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={e => this.props.onAction(e, "allIn", this.state.value)} className="button">Max</a>
+              <a onClick={e => this.props.onAction(e, "allIn", this.state.inputValue)} className="button">Max</a>
             </div>
             <div className="input-container">
               <input type="text" id="call-value" name="call-value" step={this.props.range.step} 
-              min={this.props.range.min} max={this.props.range.max} value={this.state.value} 
-              onChange={this.handleChange.bind(this)} className="form-control"/>
+              min={this.props.range.min} max={this.props.range.max} value={this.state.inputValue} 
+              onChange={this.handleChange.bind(this)} className="form-control" onFocus={this.handleFocus.bind(this)}
+              onBlur={this.handleOnBlur.bind(this)}/>
             </div>
           </div>
-          {/*<RangeSlide range={this.props.range} value={this.state.value} handleChange={this.handleChange.bind(this)} onUpdate={this.onUpdate.bind(this)} />*/}
           <div id="slider-range" className="range-field">
             <RangeSlider
               range={{min: this.props.range.min, max: this.props.range.max}}
-              start={[parseFloat(parseFloat(this.state.value).toFixed(2))]}
+              start={[parseInt(this.state.rangeValue)]}
               connect={[true, false]}
               behaviour='tap'
               step={this.props.range.step}
-              onUpdate={this.onUpdate.bind(this)}
+              onChange={this.onChange.bind(this)}
             />
             <div className="minus indicator" onClick={this.minusRaise.bind(this)}>-</div>
             <div className="plus indicator" onClick={this.plusRaise.bind(this)}>+</div>
@@ -96,7 +153,7 @@ export default class GameActions extends React.Component{
               </button>
             </div>
             <div className="button-container">
-              <button type="button" onClick={(event) => {this.props.onAction(event, "raise", this.state.value)}} className="button">Raise</button>
+              <button type="button" id="raise-button" onClick={(event) => {this.props.onAction(event, "raise", this.state.inputValue)}} className="button">Raise</button>
             </div>
           </div>
         </form>

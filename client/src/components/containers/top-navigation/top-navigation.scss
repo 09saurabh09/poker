@@ -22,9 +22,15 @@
         top: auto;
         z-index: 100; 
         width: 100%; */
+        &.hide-dropdown {
+          left: 0;
+          top: auto;
+          z-index: 100; 
+          width: 100%;
+        }
     }
     #top-drawer {
-        height: 10px;
+        height: 1.4285714286em;
         width: 100%;
     }
     #top-drawer:hover .nav-dropdown {
@@ -71,10 +77,11 @@
       margin-top: 1.264%;
       height: 100%;
       display: flex;
+      position: relative;
     }
 
     .left-arrow {
-      font-size: 14px;
+      font-size: 1em;
       font-weight: bold;
       color: white;
       width: 13.75%;
@@ -82,7 +89,7 @@
       text-align: center;
       &:before {
         content: "<";
-        margin-right: 10px;
+        margin-right: 0.7142857143em;
       }
     }
     .table-link {
@@ -92,9 +99,9 @@
     .playing-tables {
       overflow-x: scroll;
       width: 100%;
-      display: flex;
+      display: -webkit-inline-box;
       position: relative;
-      margin-left: 2.292%;
+      margin: 0 6% 0 2.292%;
     }
     .play-card {
       width: 12.643%;
@@ -106,7 +113,6 @@
       position: relative;
       border: solid 1px #a0b2b9;
       border-bottom: initial;
-      display: inline-block;
       padding: 1.933% 0;
       box-sizing: border-box;
       &.active {

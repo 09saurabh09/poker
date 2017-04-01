@@ -19,10 +19,10 @@ input[type="radio"] {
 
 [type="radio"]:not(:checked)+label,[type="radio"]:checked+label {
     position: relative;
-    padding-left: 32px;
+    padding-left: 2.2857142857em;
     cursor: pointer;
     display: flex;
-    font-size: 15px;
+    font-size: 1.0714285714em;
     transition: .28s ease;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -35,8 +35,8 @@ input[type="radio"] {
     position: absolute;
     left: 0;
     top: 0;
-    width: 15px;
-    height: 15px;
+    width: 1.0714285714em;
+    height: 1.0714285714em;
     z-index: 0;
     transition: .28s ease
 }
@@ -108,5 +108,5 @@ input[type="radio"] {
 }
 .radio-icon-container {
     width: 25%;
-    margin-right: 10px;
+    margin-right: 0.7142857143em;
 }

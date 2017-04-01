@@ -46,8 +46,12 @@ export default class Player extends React.Component {
       let actionTimerFinished = (Date.now() - new Date(nextProps.lastTurnAt).getTime() - nextProps.actionTime * 1000) > 0;
       let totalTime = actionTimerFinished ? nextProps.player.timeBank : nextProps.actionTime;
       let timeElapsed = parseInt((Date.now() - new Date(nextProps.lastTurnAt).getTime())/1000);
-      if(timeElapsed > totalTime) {
-        timeElapsed = totalTime
+      /*if(timeElapsed > totalTime) {
+        timeElapsed = totalTime;
+        actionTimerFinished = false;
+      }*/
+      if(actionTimerFinished !== this.state.actionTimerFinished) {
+        this.props.updateTimeBankInUse(actionTimerFinished);  
       }
       this.setState({
         timeElapsed,
@@ -58,6 +62,7 @@ export default class Player extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if(!nextState.actionTimerFinished && nextProps.actionTime == nextState.timeElapsed) {
+      this.props.updateTimeBankInUse(true);
       clearTimeout(this.timerId);
       setTimeout(()=>{
         this.setState({
@@ -68,6 +73,7 @@ export default class Player extends React.Component {
     }
     else if(nextState.actionTimerFinished && nextProps.player.timeBank == nextState.timeElapsed) {
       clearTimeout(this.timerId);
+      this.props.updateTimeBankInUse(false);
       this.timerId = setTimeout(()=>{
         this.setState({
           timeElapsed: 0,
@@ -113,17 +119,21 @@ export default class Player extends React.Component {
         timerBottomWidth = coveredPerimeter - ((2*activePlayerHeight) + activePlayerWidth);
       }  
     }
+    let count = totalTime - this.state.timeElapsed;
+    if(count < 0) {
+      count = 0;
+    }
     
     return (
       <div className='player'>
         <div className={'sitting-player ' + ' '+ onTableClassName}>
-          {this.props.showCards ? <div className={'player-card-wrapper ' + showCardClass}>
-            <PlayerCards fold={this.props.player.lastAction == 'fold'} cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
-          </div>: null}
+          <div className={'player-card-wrapper ' + showCardClass}>
+            <PlayerCards noCards={!this.props.showCards || this.props.player.lastAction == 'fold' || this.props.player.idleForHand} cards={this.props.player.cards} gameType={this.props.gameType} cardBackTheme={this.props.cardBackTheme}/>
+          </div>
           <div className="player-container">
             <img src="../../../../assets/img/game/basic-user-card.svg" className="basic-user-card-wrapper icon-wrapper" />
             <div className={'player-wrapper ' + activeClassName}>
-              <div className="timer-count">{totalTime - this.state.timeElapsed}</div>
+              {count ? <div className="timer-count">{count}</div> : null }
               <div className='timer timer-top' style={{width: timerTopWidth}}></div>
               <div className='timer timer-right' style={{height: timerRightHeight}}></div>
               <div className='timer timer-bottom' style={{width: timerBottomWidth}}></div>
@@ -140,9 +150,9 @@ export default class Player extends React.Component {
                   <div className='player-balance'>
                     {this.props.player.chips && parseInt(this.props.player.chips)}
                   </div>
-                  <div className='player-bb'>
+                  {this.props.player.hasSitOut ? <div className='player-bb'>Sit out</div> : <div className='player-bb'>
                     BB <span className='bb-value'> {this.props.player.chips && this.props.bigBlind && parseInt(this.props.player.chips/this.props.bigBlind)} </span>
-                  </div>
+                  </div>}
                 </div>
                 <div className='player-game-style'>
                   <div className='hands-played'></div>
@@ -153,7 +163,6 @@ export default class Player extends React.Component {
             </div>
           </div>  
         </div>
-        
       </div>
     );
   }
