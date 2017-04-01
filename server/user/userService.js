@@ -14,20 +14,24 @@ module.exports = {
         params.password = userManager.cryptPassword(params.password.toString())
             .then(function (hash) {
                 params.password = hash;
-                UserModel.create(params)
+                return UserModel.create(params)
                     .then(function (user) {
+                        user = user.toJSON();
+                        delete user.password;
+                        var token = jwt.sign(user, GlobalConstant.tokenSecret, {
+                            expiresIn: GlobalConstant.tokenValidity // expires depend on env
+                        });
+                        user.token = token;
+
                         response = new responseMessage.GenericSuccessMessage();
-                        callback(null, response, response.code);
-                    })
-                    .catch(function (err) {
-                        console.log(`ERROR ::: Unable to create user, error: ${err.message}, stack: ${err.stack}`);
-                        response = new responseMessage.GenericFailureMessage();
+                        response.data = user;
                         callback(null, response, response.code);
                     })
             })
             .catch(function (err) {
                 console.log(`ERROR ::: Unable to create password hash, error: ${err.message}, stack: ${err.stack}`);
                 response = new responseMessage.GenericFailureMessage();
+                response.errors = err.errors;
                 callback(null, response, response.code);
             })
 
@@ -60,7 +64,7 @@ module.exports = {
         let response
         UserModel.findOne({
             where: {
-                email: params.email
+                userName: params.userName
             },
             raw: true
         })
@@ -143,11 +147,11 @@ module.exports = {
         }).then(function (table) {
             if (table) {
                 let player = table.gameState.players.filter(function (pl) {
-                    if(pl) {
+                    if (pl) {
                         return pl.id == user.id;
-                    } 
+                    }
                     return;
-                    
+
                 })[0];
 
                 if (player) {
@@ -181,9 +185,9 @@ module.exports = {
                         ]
                     }).then(function (userGames) {
                         response = new responseMessage.GenericSuccessMessage();
-                        userGames.Games.forEach(function(userGame) {
-                            userGame.players.forEach(function(player) {
-                                if(player && !player.showCards) {
+                        userGames.Games.forEach(function (userGame) {
+                            userGame.players.forEach(function (player) {
+                                if (player && !player.showCards) {
                                     delete player.cards;
                                 }
                             });

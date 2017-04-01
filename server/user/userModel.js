@@ -7,6 +7,13 @@ module.exports = function (sequelize, DataTypes) {
         name: {
             type: DataTypes.STRING
         },
+        userName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -61,10 +68,12 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.BOOLEAN
         },
         preFlop: {
-            type: DataTypes.JSONB
+            type: DataTypes.JSONB,
+            defaultValue: { "hotKey1": 2, "hotKey2": 4, "hotKey3": 5 }
         },
         postFlop: {
-            type: DataTypes.JSONB
+            type: DataTypes.JSONB,
+            defaultValue: { "hotKey1": 25, "hotKey2": 75, "hotKey3": 90 }
         }
     }, {
             classMethods: {
