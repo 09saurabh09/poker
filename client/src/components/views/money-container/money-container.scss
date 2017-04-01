@@ -9,13 +9,13 @@
         background-color: rgba(255, 255, 255, 0.14);
         display: flex;
         align-items: center;
-        padding: 0 6px;
+        padding: 0 0.4285714286em;
         .text {
             text-transform: uppercase;
             font-size: 0.7857142857em;
             font-weight: 300;
             letter-spacing: 0.3px;
-            padding: 6px;
+            padding: 0.4285714286em;
             font-family: ProximaNova-Light;
         }
         .value {

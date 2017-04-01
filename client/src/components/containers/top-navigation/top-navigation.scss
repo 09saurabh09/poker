@@ -30,7 +30,7 @@
         }
     }
     #top-drawer {
-        height: 10px;
+        height: 1.4285714286em;
         width: 100%;
     }
     #top-drawer:hover .nav-dropdown {
@@ -81,7 +81,7 @@
     }
 
     .left-arrow {
-      font-size: 14px;
+      font-size: 1em;
       font-weight: bold;
       color: white;
       width: 13.75%;
@@ -89,7 +89,7 @@
       text-align: center;
       &:before {
         content: "<";
-        margin-right: 10px;
+        margin-right: 0.7142857143em;
       }
     }
     .table-link {

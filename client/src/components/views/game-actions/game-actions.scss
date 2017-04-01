@@ -13,11 +13,11 @@
     }
     .plus {
       right: -1%;
-      transform: translate(100%, -15%);
+      transform: translate(100%, -20%);
     }
     .minus {
       left: -2%;
-      transform: translate(-100%, -25%);
+      transform: translate(-100%, -33%);
     }
     input {
       width: 100%;  
@@ -34,7 +34,7 @@
     .form-control {
       border-radius: 52px;
       width: 100%;
-      padding: 4px 0px;
+      padding: 0.2857142857em 0px;
       text-align: center;
       background-color: #f7f7f7;
       font-size: 0.9642857143em;

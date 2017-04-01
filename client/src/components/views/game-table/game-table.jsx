@@ -79,14 +79,7 @@ export default class GameTable extends React.Component{
           console.log('achieved ratio');
         }
         let currentRatio = $('#game-table').width() / 720;
-        let potHeight = 41.5, potSide = 20, potWidth = 30;
         $('body').css({ 'font-size': `${14 * currentRatio}px` });
-        $('.pot .triangle-bottomleft').css({'border-bottom-width': `${potHeight * currentRatio}px`})
-        $('.pot .triangle-bottomleft').css({'border-right-width': `${potSide * currentRatio}px`})
-        $('.pot .pot-container').css({'border-top-width': `${potHeight * currentRatio}px`})
-        $('.pot .pot-container').css({'border-left-width': `${potSide * currentRatio}px`})
-        $('.pot .pot-container').css({'border-right-width': `${potSide * currentRatio}px`})
-        $('.pot .pot-container').css({'width': `${potWidth * currentRatio}px`})
       }).resize();
     });
   }
@@ -123,22 +116,7 @@ export default class GameTable extends React.Component{
   }
 
   tick() {
-    /*if(this.game.potValue >= 100) {
-      clearInterval(this.timerID);
-      return;
-    }
-    let tableCards = this.game.tableCards;//[{suit: 'diams', value: 'A'},{suit: 'hearts', value: 'Q'},{suit: 'diams', value: 3},{suit: 'diams', value: 2}, {suit: 'diams', value: 10}];
-    if (this.game.potValue <= 50) {
-      tableCards = [];
-    } else if(this.game.potValue >= 75 && this.game.potValue <99) {
-      tableCards.splice(3, 1);
-    } else if(this.game.potValue >= 50 && this.game.potValue < 75) {
-      tableCards.splice(2, 2);
-    } 
-    this.setState({
-      potValue: this.game.potValue + 1,
-      communityCards: tableCards
-    });*/
+
   }
 
   isPlayerSitOut() {
@@ -249,9 +227,9 @@ export default class GameTable extends React.Component{
         return player;
       }
     })
-    this.setState({
+/*    this.setState({
       players : this.rotatePlayers(allPlayers, seat)
-    })
+    })*/
     utils.closeModal('buyin-pref');
     let payload = {
       tableId: this.props.tableId,
