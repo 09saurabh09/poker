@@ -374,7 +374,7 @@ export default class GameTable extends React.Component{
         </div> : null }
         <div className='main-table'>
             <GamePot potValue={game.potValue} totalPot={game.currentPot}/>
-            {game.currentPot > 0 ? 
+            {game.currentPot > 0 && game.round !== 'deal'? 
             <div className="pot-chips">
               <div className="coin-icon-container">
                 <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />

@@ -150,9 +150,9 @@ export default class Player extends React.Component {
                   <div className='player-balance'>
                     {this.props.player.chips && parseInt(this.props.player.chips)}
                   </div>
-                  <div className='player-bb'>
+                  {this.props.player.hasSitOut ? <div className='player-bb'>Sit out</div> : <div className='player-bb'>
                     BB <span className='bb-value'> {this.props.player.chips && this.props.bigBlind && parseInt(this.props.player.chips/this.props.bigBlind)} </span>
-                  </div>
+                  </div>}
                 </div>
                 <div className='player-game-style'>
                   <div className='hands-played'></div>
