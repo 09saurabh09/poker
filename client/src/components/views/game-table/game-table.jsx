@@ -219,7 +219,7 @@ export default class GameTable extends React.Component{
     allPlayers = players.map((player, index) => {
       if(index == seat) {
         return {
-          name : this.props.userData.name,
+          name : this.props.userData.userName,
           balance : balance,
           bbValue: balance/game.bigBlind
         }

@@ -76,13 +76,15 @@ export default class Login extends React.Component {
   sendOtp() {
     if(this.state.otp) {
       this.props.dispatch(userApi.signup({
-        name: this.state.username,
+        userName: this.state.username,
         email: this.state.email,
         password: this.state.password,
         mobileNumber: this.state.mobileNumber
       })).then((data)=>{
         if(data.status == 200) {
           utils.closeModal('login');
+          let token = data.data.data.token;
+          localStorage.setItem('userToken', token);
         }
       });
     } else {
@@ -112,23 +114,12 @@ export default class Login extends React.Component {
   }
 
   expandSignup() {
-    $('#login .form-group').toggleClass('sign-up-form-group');
-    $('#login .play-icon-container').toggleClass('sign-up-form-group');
-    /*$('.sign-up-form').toggleClass('expand');*/
-    $('.forget-password').toggleClass('hide');
-    //setTimeout(()=>{
-      //$('.sign-up-form').toggleClass('expand');
-    //},1)
-    this.expand = !this.expand;
-    if(this.expand) {
-      $('.sign-up-form').animate({height:125, opacity: 1}, 1000);
-       $('.sign-up-form').css('visibility', 'visible');
-       $('.bottom-button-container').hide();
-    } else {
-      $('.sign-up-form').animate({height:0, opacity: 0}, 0);
-      $('.sign-up-form').css('visibility', 'hidden');
-    }
-    
+    $('#login .form-group').addClass('sign-up-form-group');
+    $('#login .play-icon-container').addClass('sign-up-form-group');
+    $('.forget-password').hide();
+    $('.sign-up-form').animate({height:125, opacity: 1}, 1000);
+    $('.sign-up-form').css('visibility', 'visible');
+    $('.bottom-button-container').hide();  
   }
 
 	render() {
