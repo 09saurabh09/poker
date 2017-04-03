@@ -7,7 +7,7 @@ export default class PlayerChips extends React.Component{
 
   render() {
     return (
-      <div className="player-chips">
+      <div className={`${this.props.className} player-chips`}>
        <div className="chips">
         <div className="coin-icon-container">
           <img className="coin-icon-wrapper icon-wrapper" src={CoinIcon} />

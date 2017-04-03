@@ -54,10 +54,41 @@ export default class GameTable extends React.Component{
     if(!game || Object.keys(game).length == 0) {
       return;
     }
+    let {gameData : oldGame} = this.props;
+    if(game.round != 'deal' && game.round != 'showdown' && game.round != oldGame.round) {
+      game.roundChanged = true;
+      this.moveAllChipsToPot();
+    }
     this.setState({
       players : this.rotateIfPlaying(game.players, nextProps.userData.id),
       gameState : Object.assign({}, game)
     })
+  }
+
+  moveAllChipsToPot() {
+    $('.player-chips').addClass(`move-to-pot`);
+    setTimeout(()=>{
+      let players = this.state.players.slice(0);
+      players.forEach((player)=>{
+        if(player) {
+          player.betForLastRound = 0;
+        }
+      })
+      this.setState({
+        players,
+        gameState: Object.assign({}, this.state.gameState, {roundChanged : false}) 
+      })
+      $('.player-chips').removeClass(`move-to-pot`);
+    }, 1000)
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    /*let {gameState : oldGame} = this.state;
+    let {gameState : newGame} = nextState;
+    if(newGame.round != oldGame.round) {
+      this.movingChips = true;
+      this.moveAllChipsToPot();
+    }*/
   }
 
   componentWillMount() {
@@ -123,7 +154,7 @@ export default class GameTable extends React.Component{
     let { players } = this.state;
     let isSitOut = false;
     players.forEach((player, index)=>{
-      if(player && this.props.userData && player.id == this.props.userData.id && player.hasSitOut) {
+      if(player && this.props.userData && player.id == this.props.userData.id && player.hasSitOut && player.idleForHand) {
         isSitOut = true;
       }
     })
@@ -399,15 +430,20 @@ export default class GameTable extends React.Component{
               <div className="dealer-button">D</div>
             </div> : null }
            {players.map((player, index)=> 
-            <div key={index} className={'game-player ' + 'player' + index}>
-              {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
-                                          player={player} bigBlind={game.bigBlind} round={game.round}
-                                          winner={winnerPlayerIndex == index} showCards={game.round !== undefined && game.round != 'idle'}
-                                          gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
-                                          lastTurnAt={game.lastTurnAt} actionTime={game.actionTime} updateTimeBankInUse={this.updateTimeBank.bind(this)}
-                                          /> : null }
-              {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
-              {player && player.betForRound ? <PlayerChips chipsValue={parseFloat(parseFloat(player.betForRound).toFixed(2))} />: null }
+            <div key={index} className="seat">
+              <div className={'game-player ' + 'player' + index}>
+                {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
+                                            player={player} bigBlind={game.bigBlind} round={game.round}
+                                            winner={winnerPlayerIndex == index} showCards={game.round !== undefined && game.round != 'idle'}
+                                            gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}
+                                            lastTurnAt={game.lastTurnAt} actionTime={game.actionTime} updateTimeBankInUse={this.updateTimeBank.bind(this)}
+                                            /> : null }
+                {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
+              </div>
+              {player && (player.betForRound || game.roundChanged)?
+                <PlayerChips className={`player-${index}-chips`} 
+                chipsValue={parseFloat(parseFloat(player.betForRound || player.betForLastRound).toFixed(2))} />
+                : null }
             </div>
             )}
            

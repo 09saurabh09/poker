@@ -128,6 +128,42 @@
       transform: translateX(-50%);
     }
   }
+  .player-0-chips {
+    top: 70%;
+    left: 50%;
+  }
+  .player-1-chips {
+    top: 67%;
+    left: 25%;
+  }
+  .player-2-chips {
+    top: 48%;
+    left: 13%;
+  }
+  .player-3-chips {
+    top: 20%;
+    left: 16%;
+  }
+  .player-4-chips {
+    top: 9%;
+    left: 30%;
+  }
+  .player-5-chips {
+    top: 9%;
+    left: 65%;
+  }
+  .player-6-chips {
+    top: 15%;
+    left: 75%;
+  }
+  .player-7-chips {
+    top: 52%;
+    left: 75%;
+  }
+  .player-8-chips {
+    top: 67%;
+    left: 74%;
+  }
   .player1 {
     position: absolute;
     bottom: -8.43%;
@@ -207,6 +243,10 @@
       left: 25%;
     }
   }
+/*   .move-to-pot {
+    top: 18%;
+    left: 44%;
+  } */
   .dealer-button-postion {
     position: absolute;
     z-index: 11;
@@ -217,7 +257,7 @@
         left: 62%;
       }
       &.dealer-1 {
-        bottom: 17%;
+        bottom: 15%;
         left: 29%;
       }
       &.dealer-2 {
@@ -268,4 +308,9 @@
     width: 4%;
     margin: 0 1.25%;
   }
+  /* .move-to-pot.move-to-pot-active {
+    top: 18%;
+    left: 44%;
+    transition: all .5s ease-in;
+  } */
 }

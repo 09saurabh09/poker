@@ -1,8 +1,13 @@
 .player-chips {
 	position: absolute;
 	color: white;
+	transition: 1s all linear;
+	&.move-to-pot {
+		top: 18%;
+    	left: 44%;
+	}
 	.chips {
-        width: 75%;
+        width: 4em;
 	    display: inline-flex;
 	    box-sizing: content-box;
 	    border-radius: 10px;
@@ -11,12 +16,15 @@
 	.coin-icon-container {
 	  /* width: 20px;
 	  padding: 0 8px; */
-	  width: 100%;
+	  /* width: 100%; */
+	  width: 1.3em;
 	}
 	.chips-value {
 		font-size: 0.7142857143em;
 	    font-weight: 600;
 	    letter-spacing: 0.3px;
-	    padding: 7% 14%;
+	    /* padding: 7% 14%; */
+	    padding-left: 1em;
+    line-height: 2em;
 	}
 }

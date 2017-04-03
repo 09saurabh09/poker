@@ -12,6 +12,13 @@ export default class GameActions extends React.Component{
     };
   }
 
+  componentWillReceiveProps() {
+    this.setState({
+      inputValue: this.props.range.value || this.props.range.min,
+      rangeValue: this.props.range.value || this.props.range.min
+    });
+  }
+
   onHotKeyPress(key) {
     let hotKeyValue;
     let value;
