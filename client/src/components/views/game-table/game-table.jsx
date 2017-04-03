@@ -55,28 +55,28 @@ export default class GameTable extends React.Component{
       return;
     }
     let {gameData : oldGame} = this.props;
-    if(game.round != 'deal' && game.round != 'showdown' && game.round != oldGame.round) {
-      game.roundChanged = true;
+    let newGame = Object.assign({}, game);
+    if(newGame.round != 'idle' && newGame.round != 'deal' && newGame.round != 'showdown' && newGame.round != oldGame.round) {
       this.moveAllChipsToPot();
     }
     this.setState({
-      players : this.rotateIfPlaying(game.players, nextProps.userData.id),
-      gameState : Object.assign({}, game)
+      players : this.rotateIfPlaying(newGame.players, nextProps.userData.id),
+      gameState : newGame
     })
   }
 
   moveAllChipsToPot() {
     $('.player-chips').addClass(`move-to-pot`);
+    let self = this;
     setTimeout(()=>{
-      let players = this.state.players.slice(0);
+      let players = self.state.players.slice(0);
       players.forEach((player)=>{
         if(player) {
           player.betForLastRound = 0;
         }
       })
-      this.setState({
-        players,
-        gameState: Object.assign({}, this.state.gameState, {roundChanged : false}) 
+      self.setState({
+        players
       })
       $('.player-chips').removeClass(`move-to-pot`);
     }, 1000)
@@ -440,9 +440,9 @@ export default class GameTable extends React.Component{
                                             /> : null }
                 {player === null ? <OpenSeat onJoinSeat={this.openBuyinPref.bind(this, index)}/> : null }
               </div>
-              {player && (player.betForRound || game.roundChanged)?
+              {player && (player.betForRound || player.betForLastRound)?
                 <PlayerChips className={`player-${index}-chips`} 
-                chipsValue={parseFloat(parseFloat(player.betForRound || player.betForLastRound || 0).toFixed(2))} />
+                chipsValue={parseFloat(parseFloat(player.betForRound || player.betForLastRound).toFixed(2))} />
                 : null }
             </div>
             )}
