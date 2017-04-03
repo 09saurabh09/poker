@@ -442,7 +442,7 @@ export default class GameTable extends React.Component{
               </div>
               {player && (player.betForRound || game.roundChanged)?
                 <PlayerChips className={`player-${index}-chips`} 
-                chipsValue={parseFloat(parseFloat(player.betForRound || player.betForLastRound).toFixed(2))} />
+                chipsValue={parseFloat(parseFloat(player.betForRound || player.betForLastRound || 0).toFixed(2))} />
                 : null }
             </div>
             )}
