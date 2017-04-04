@@ -35,6 +35,14 @@ export default class GameActions extends React.Component{
     })
   }
 
+  onMaxPress() {
+    let value = this.props.range.max;
+    this.setState({
+      inputValue : value,
+      rangeValue: value
+    })
+  }
+
   updateRangeValue(value) {
     if(value && this.state.inputValue == value) {
       this.setState({
@@ -129,7 +137,7 @@ export default class GameActions extends React.Component{
               <a onClick={this.onHotKeyPress.bind(this, 'hotKey3')} className="button">{hotKey3}{flopState=='preFlop' && 'x' || '%'}</a>
             </div>
             <div className="button-container">
-              <a onClick={e => this.props.onAction(e, "allIn", this.state.inputValue)} className="button">Max</a>
+              <a onClick={this.onMaxPress.bind(this)} className="button">Max</a>
             </div>
             <div className="input-container">
               <input type="text" id="call-value" name="call-value" step={this.props.range.step} 

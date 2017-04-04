@@ -56,11 +56,19 @@ export default class GameTable extends React.Component{
     }
     let {gameData : oldGame} = this.props;
     let newGame = Object.assign({}, game);
-    if(newGame.round != 'idle' && newGame.round != 'deal' && newGame.round != 'showdown' && newGame.round != oldGame.round) {
+    let players = newGame.players;
+    
+    if(newGame.round != undefined && newGame.round != 'idle' && newGame.round != 'deal' && newGame.round != 'showdown' && newGame.round != oldGame.round) {
+      players.forEach((player, index)=>{
+        if(player) {
+          let oldPlayers = oldGame.players;
+          player.betForLastRound = oldPlayers && oldPlayers[index] && oldPlayers[index].betForRound || 0;
+        }
+      })
       this.moveAllChipsToPot();
     }
     this.setState({
-      players : this.rotateIfPlaying(newGame.players, nextProps.userData.id),
+      players : this.rotateIfPlaying(players, nextProps.userData.id),
       gameState : newGame
     })
   }
@@ -401,6 +409,7 @@ export default class GameTable extends React.Component{
           <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
                                 potValue: game.currentPot, step}}
                         callValue={expectedCallValue} onAction={this.onGameAction.bind(this)} 
+                        bbValue={game.bigBlind}
                         flopState={game.round == 'deal' ? 'preFlop' : 'postFlop'} userData={this.props.userData}/>
         </div> : null }
         <div className='main-table'>
