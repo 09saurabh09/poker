@@ -102,13 +102,13 @@ export default class GameTable extends React.Component{
     );*/
     $(document).ready(function() {
       $(window).resize(function() {
-        if($('#game-table').height() * aspectRatio  < $('#game-table').width()) {
+        /*if($('#game-table').height() * aspectRatio  < $('#game-table').width()) {
           $('#game-table').width($('#game-table').height() * aspectRatio);
         } else if($('#game-table').height() * aspectRatio  > $('#game-table').width()) {
           $('#game-table').height($('#game-table').width() / aspectRatio);
         } else {
           console.log('achieved ratio');
-        }
+        }*/
         let currentRatio = $('#game-table').width() / 720;
         $('body').css({ 'font-size': `${14 * currentRatio}px` });
       }).resize();
