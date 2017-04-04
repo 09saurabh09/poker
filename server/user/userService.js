@@ -18,7 +18,7 @@ module.exports = {
                     .then(function (user) {
                         user = user.toJSON();
                         delete user.password;
-                        var token = jwt.sign({id: user.id}, GlobalConstant.tokenSecret, {
+                        var token = jwt.sign({ id: user.id }, GlobalConstant.tokenSecret, {
                             expiresIn: GlobalConstant.tokenValidity // expires depend on env
                         });
                         user.token = token;
@@ -76,7 +76,7 @@ module.exports = {
 
                                 delete user.password;
                                 // user.sessionKey = uuidV4();
-                                var token = jwt.sign({id: user.id}, GlobalConstant.tokenSecret, {
+                                var token = jwt.sign({ id: user.id }, GlobalConstant.tokenSecret, {
                                     expiresIn: GlobalConstant.tokenValidity // expires depend on env
                                 });
                                 user.token = token;
@@ -186,22 +186,25 @@ module.exports = {
                     }).then(function (userGames) {
                         response = new responseMessage.GenericSuccessMessage();
                         userGames.Games.forEach(function (userGame) {
-                            userGame.players.forEach(function (player) {
-                                if (player && !player.showCards) {
-                                    delete player.cards;
-                                }
+                            userGame.GameHistories.forEach(function (gameHistory) {
+                                gameHistory.gameState.players.forEach(function (player) {
+                                    if (player && !player.showCards) {
+                                        delete player.cards;
+                                    }
+                                });
+
                             });
                         });
                         response.data = userGames;
                         callback(null, response, response.code);
                     })
                 } else {
-                    console.log(`ERROR ::: Player ${user.id} not playing on table ${table.id}`);
+                    console.log(`ERROR ::: Player ${user.id} not playing on table ${params.tableId}`);
                     response = responseMessage.dataNotPresent;
                     callback(null, response, response.code);
                 }
             } else {
-                console.log(`ERROR ::: Table not found with id ${table.id}`);
+                console.log(`ERROR ::: Table not found with id ${params.tableId}`);
                 response = responseMessage.dataNotPresent;
                 callback(null, response, response.code);
             }
