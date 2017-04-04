@@ -18,7 +18,7 @@ module.exports = {
                     .then(function (user) {
                         user = user.toJSON();
                         delete user.password;
-                        var token = jwt.sign(user, GlobalConstant.tokenSecret, {
+                        var token = jwt.sign({id: user.id}, GlobalConstant.tokenSecret, {
                             expiresIn: GlobalConstant.tokenValidity // expires depend on env
                         });
                         user.token = token;
@@ -76,7 +76,7 @@ module.exports = {
 
                                 delete user.password;
                                 // user.sessionKey = uuidV4();
-                                var token = jwt.sign(user, GlobalConstant.tokenSecret, {
+                                var token = jwt.sign({id: user.id}, GlobalConstant.tokenSecret, {
                                     expiresIn: GlobalConstant.tokenValidity // expires depend on env
                                 });
                                 user.token = token;

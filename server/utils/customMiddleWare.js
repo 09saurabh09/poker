@@ -2,6 +2,8 @@
 
 let jwt = require("jsonwebtoken");
 
+let UserModel = DB_MODELS.User;
+
 module.exports = {
     authenticate: function (req, res, next) {
         let token = req.headers['x-access-token'];
@@ -14,8 +16,28 @@ module.exports = {
                     return res.status(401).send({ success: false, message: 'Failed to authenticate token' });
                 } else {
                     // if everything is good, save to request for use in other routes
-                    req.user = user;
-                    next();
+                    UserModel.findOne({
+                        where: {
+                            id: user.id
+                        },
+                        attributes: { exclude: ['password'] }
+                    }).then(function (user) {
+                        if (user) {
+                            req.user = user;
+                            next();
+                        } else {
+                            return res.status(404).send({
+                                success: false,
+                                message: 'User not present'
+                            });
+                        }
+                    }).catch(function (err) {
+                        console.log(`ERROR ::: Unable to authenticate user, error: ${err.message}, stack: ${err.stack}`);
+                        return res.status(401).send({
+                            success: false,
+                            message: 'User authentication failed'
+                        });
+                    })
                 }
             });
 
