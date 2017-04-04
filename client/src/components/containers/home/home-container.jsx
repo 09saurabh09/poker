@@ -34,6 +34,16 @@ class Home extends React.Component {
     this.props.dispatch(connectAuthorizedSocket(localStorage.getItem('userToken')));
   }
 
+  openLogin() {
+    utils.openModal('login'); 
+    $('.sign-up-form').animate({height:0, opacity: 0}, 0);
+    $('.sign-up-form').css('visibility', 'hidden');
+    $('#login .form-group').removeClass('sign-up-form-group');
+    $('#login .play-icon-container').removeClass('sign-up-form-group');
+    $('.forget-password').show();
+    $('.bottom-button-container').show();
+  }
+
   render() {
     return (
       <div className="home">
@@ -62,7 +72,7 @@ class Home extends React.Component {
               <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/settings.svg" />
             </div>
           </Link>
-          <Link className="nav-link" to="/" id="logout-link" onClick={utils.openModal.bind(this, 'login')}>
+          <Link className="nav-link" to="/" id="logout-link" onClick={this.openLogin.bind(this)}>
             <div className="logout-icon">
               <img className="other-icon-wrapper icon-wrapper" src="../../../../assets/img/home/svg/logout.svg"/>
             </div>
@@ -78,7 +88,7 @@ class Home extends React.Component {
                 <div className="name-balance-review">
                   <div className="name-balance-container">
                     <div className="user-name">
-                      {this.props.userData && this.props.userData.name || 'Guest User'}
+                      {this.props.userData && this.props.userData.userName || 'Guest User'}
                     </div>
                     <div className="balance">
                       <div className="money-balance">

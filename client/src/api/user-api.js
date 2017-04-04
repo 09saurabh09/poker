@@ -7,10 +7,10 @@ import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/s
  * Authenticate user login
  */
 
-export function login(email, password) {
+export function login(userName, password) {
   return dispatch => {
     return axios.post(utils.getAuthenticateUserUrl(), {
-      user: {email, password}
+      user: {userName, password}
     })
     .then(response => {
       dispatch(connectAuthorizedSocket(response.data.data.token));
@@ -30,7 +30,8 @@ export function signup(user) {
       user
     })
     .then(response => {
-      dispatch(signupUserSuccess(response.data));
+      dispatch(connectAuthorizedSocket(response.data.data.token));
+      dispatch(authenticateUserSuccess(response.data.data));
       return response;
     });
   }

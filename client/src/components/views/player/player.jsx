@@ -142,7 +142,7 @@ export default class Player extends React.Component {
                 <div className='player-dp'>
                   <img src='' />
                 </div>
-                <div className='player-name'>{this.props.player.name}</div>
+                <div className='player-name'>{this.props.player.userName || this.props.player.name}</div>
                 <div className='player-color-container'>
                   <div className='color-dot'></div>
                 </div>
