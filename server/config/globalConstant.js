@@ -47,7 +47,7 @@ global.POKER_QUEUE = {};
 GlobalConstant.bullQueueRedisConnectionOptions = {
     // host: DB_CREDENTIALS.REDIS_HOST,
     // port: DB_CREDENTIALS.REDIS_PORT,
-    keyPrefix: 'bullPokerQueue',
+    // keyPrefix: 'bullPokerQueue',
     retryStrategy: function (options) {
         if (options.error && options.error.code === 'ECONNREFUSED') {
             // End reconnecting on a specific error and flush all commands with a individual error

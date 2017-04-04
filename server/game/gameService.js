@@ -193,6 +193,7 @@ module.exports = {
                 let pl = {
                     id: player.id,
                     name: player.name,
+                    userName: player.userName,
                     seat: player.seat,
                     chips: player.chips,
                     bet: player.bet,
