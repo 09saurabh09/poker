@@ -271,9 +271,22 @@ module.exports = {
                     tableName: params.name
                 },
                 raw: true
-            }), tournamentTables: TournamentModel.findOne({
+            }),
+            tournamentTables: TournamentModel.findOne({
                 where: {
                     tournamentName: params.name
+                },
+                attributes: {
+                    includes: ['id']
+                },
+                include: [{
+                    model: DB_MODELS.PokerTable
+                }
+                ]
+            }),
+            userTables: UserModel.findOne({
+                where: {
+                    name: params.name
                 },
                 attributes: {
                     includes: ['id']
@@ -290,6 +303,9 @@ module.exports = {
                 let tables = result.tables;
                 result.tournamentTables.PokerTables.forEach(function (tournamentTable) {
                     tables.push(tournamentTable.toJSON());
+                });
+                result.userTables.PokerTables.forEach(function (userTable) {
+                    tables.push(userTable.toJSON());
                 });
                 tables.forEach(function (table) {
                     table.currentTotalPlayer = table.gameState.currentTotalPlayer;
