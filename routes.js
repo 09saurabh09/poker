@@ -10,6 +10,7 @@ let gameRoute = require("./server/game/gameRoute").router;
 let gamePublicRoute = require("./server/game/gameRoute").publicRouter;
 let userRoute = require("./server/user/userRoute").router;
 let userPublicRoute = require("./server/user/userRoute").publicRouter;
+let tournamentRoute = require("./server/tournament/tournamentRoute").router;
 
 module.exports = function(app) {
 
@@ -21,6 +22,8 @@ module.exports = function(app) {
     app.use('/api/public/user', userPublicRoute);
 
     app.use('/api/user', [customMiddleWare.authenticate], userRoute);
+
+    app.use('/api/tournament', [customMiddleWare.authenticate], tournamentRoute);
     //app.use('/healthcheck', healthCheck);
 
 };

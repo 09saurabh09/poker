@@ -1,0 +1,5 @@
+{
+    "basicType": ["fixedStartTime", "fixedPlayers"],
+    "ruleWiseTypes": ["freezeOut", "knockOut", "reBuy", "reEntry"],
+    "prizeWiseTypes": ["satellite", "guaranteed"]
+}

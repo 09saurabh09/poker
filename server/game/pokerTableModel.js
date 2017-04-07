@@ -20,6 +20,9 @@ module.exports = function (sequelize, DataTypes) {
         parentType: {
             type: DataTypes.STRING
         },
+        tournamentId: {
+            type: DataTypes.INTEGER
+        },
         tableType: {
             type: DataTypes.STRING
         },
@@ -96,6 +99,9 @@ module.exports = function (sequelize, DataTypes) {
                         through: "UserPokerTables"
                     });
                     PokerTable.hasMany(models.Game, {foreignKey: 'pokerTableId'});
+
+                    PokerTable.belongsTo(models.Tournament, {foreignKey: 'tournamentId'});
+
                 }
             },
 
