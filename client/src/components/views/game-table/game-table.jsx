@@ -251,7 +251,7 @@ export default class GameTable extends React.Component{
     
   }
 
-  joinSeat(balance, maintainStack, autoPost) {
+  joinSeat(balance, straddle, isMaintainChips, autoPost) {
     let {gameState : game, players} = this.state;
     let seat = this.selectedSeat;
     let allPlayers;
@@ -266,20 +266,25 @@ export default class GameTable extends React.Component{
         return player;
       }
     })
-/*    this.setState({
-      players : this.rotatePlayers(allPlayers, seat)
-    })*/
+
     utils.closeModal('buyin-pref');
     let payload = {
       tableId: this.props.tableId,
       playerInfo: {
           chips: balance,
-          isMaintainChips: maintainStack,
-          seat: seat + 1
+          isMaintainChips,
+          seat: seat + 1,
+          autoPost,
+          straddle
       }
     };
-    this.props.authorizedSocket.emit('table-join', payload );
-    console.log('Event emited table-join with payload ', payload)
+    if(this.isHePlaying()) {
+      this.props.authorizedSocket.emit('table-buy-in', payload );
+      console.log('Event emited table-buy-in with payload ', payload)
+    } else {
+      this.props.authorizedSocket.emit('table-join', payload );
+      console.log('Event emited table-join with payload ', payload)
+    }
   }
 
   onGameAction(event, call, amount) {
@@ -350,7 +355,10 @@ export default class GameTable extends React.Component{
   }
 
   updateTimeBank(timeBankInUse) {
-    this.props.dispatch(updateTimeBankInUse({timeBankInUse, tableId: this.props.tableId}));
+    if(this.state.gameState.timeBankInUse != timeBankInUse) {
+      timeBankInUse = !!timeBankInUse;
+      this.props.dispatch(updateTimeBankInUse({timeBankInUse, tableId: this.props.tableId}));
+    }
   }
 
   sitIn() {
@@ -388,7 +396,7 @@ export default class GameTable extends React.Component{
     let expectedCallValue = this.myExpectedCallValue(players, this.props.userData.id);
     let step = 1;
     if(game.bigBlind) {
-      step = parseFloat(game.bigBlind)/2;
+      step = parseInt(game.bigBlind);
     }
     let isCardPresent = this.isCardPresent(players, this.props.userData.id);
     return (
@@ -441,7 +449,7 @@ export default class GameTable extends React.Component{
            {players.map((player, index)=> 
             <div key={index} className="seat">
               <div className={'game-player ' + 'player' + index}>
-                {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos} 
+                {player !== null ? <Player  playerIndex={index} turnPos={game.turnPos}
                                             player={player} bigBlind={game.bigBlind} round={game.round}
                                             winner={winnerPlayerIndex == index} showCards={game.round !== undefined && game.round != 'idle'}
                                             gameType={game.gameType || 'holdem'} cardBackTheme={this.props.userData.cardBackTheme || 'royal'}

@@ -33,23 +33,10 @@ export default class Player extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextState){
-    /*if(!nextProps.player.active) {
-      clearTimeout(this.timerId);
-      this.timerId = undefined;
-      if(this.state.timeElapsed != 0) {
-        this.setState({
-          timeElapsed: 0
-        })  
-      }
-    }*/
     if(nextProps.player.seat - 1 == nextProps.turnPos) {
-      let actionTimerFinished = (Date.now() - new Date(nextProps.lastTurnAt).getTime() - nextProps.actionTime * 1000) > 0;
+      let actionTimerFinished = (Date.now() - nextProps.lastTurnAt - nextProps.actionTime * 1000) > 0;
       let totalTime = actionTimerFinished ? nextProps.player.timeBank : nextProps.actionTime;
-      let timeElapsed = parseInt((Date.now() - new Date(nextProps.lastTurnAt).getTime())/1000);
-      /*if(timeElapsed > totalTime) {
-        timeElapsed = totalTime;
-        actionTimerFinished = false;
-      }*/
+      let timeElapsed = parseInt((Date.now() - nextProps.lastTurnAt)/1000);
       if(actionTimerFinished !== this.state.actionTimerFinished) {
         this.props.updateTimeBankInUse(actionTimerFinished);  
       }

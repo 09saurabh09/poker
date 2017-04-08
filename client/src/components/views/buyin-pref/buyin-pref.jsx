@@ -194,7 +194,7 @@ export default class BuyinPref extends React.Component {
                   </div>
                   <div className="set-button-container">
                     <button type="button" className="button text-uppercase active" id="set-buy-in"
-                    onClick={this.props.onSet.bind(null, inputValue, this.state.maintainStack, this.state.autoPost)}> {insufficient ?'Deposit' :'Set'} </button>
+                    onClick={this.props.onSet.bind(null, inputValue, this.state.straddle, this.state.maintainStack, this.state.autoPost)}> {insufficient ?'Deposit' :'Set'} </button>
                   </div>
                 </form>
               </div>

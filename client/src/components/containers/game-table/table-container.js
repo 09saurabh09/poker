@@ -67,7 +67,7 @@ class TableContainer extends React.Component{
               component.setState({
                 gameData
               })
-            }, 500 * (counter));
+            }, 2000 * (counter));
           })(this, gameHistories[j].gameState)
         }
       }
@@ -112,19 +112,12 @@ class TableContainer extends React.Component{
     socket.on('player-joined', (data)=>{
       console.log( socket.nsp, ' Player joined', data);
       let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
-      /*this.setState({
-        gameData: {[data.tableId]: newGameState}
-      })*/
       this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
     });
 
     socket.on('turn-completed', (data)=>{
       console.log( socket.nsp,' turn-completed', data);
-      //update timer as soon as we get the new game state
       let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
-      /*this.setState({
-        gameData: {[data.tableId]: newGameState}
-      })*/
       this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
     });
 
@@ -132,12 +125,7 @@ class TableContainer extends React.Component{
       console.log(socket.nsp, 'game started cards ', data);
       let newGameState = this.addCardsToPlayer(this.props.gameData[data.tableId], data.cards);
       this.props.dispatch(updateUserCards({tableId: data.tableId, cards: data.cards}))
-//      if(tableId == data.tableId) {
-        /*this.setState({
-          gameData: {[data.tableId]: newGameState}
-        })*/
-        this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
-//      }
+      this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
     });
   }
 
