@@ -279,8 +279,8 @@ export default class GameTable extends React.Component{
       }
     };
     if(this.isHePlaying()) {
-      this.props.authorizedSocket.emit('game-buy-in', payload );
-      console.log('Event emited game-buy-in with payload ', payload)
+      this.props.authorizedSocket.emit('table-buy-in', payload );
+      console.log('Event emited table-buy-in with payload ', payload)
     } else {
       this.props.authorizedSocket.emit('table-join', payload );
       console.log('Event emited table-join with payload ', payload)
