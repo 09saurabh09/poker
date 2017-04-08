@@ -309,10 +309,10 @@ module.exports = {
         PROMISE.props(tablePromise)
             .then(function (result) {
                 let tables = result.tables;
-                result.tournamentTables.PokerTables.forEach(function (tournamentTable) {
+                result.tournamentTables && result.tournamentTables.PokerTables.forEach(function (tournamentTable) {
                     tables.push(tournamentTable.toJSON());
                 });
-                result.userTables.PokerTables.forEach(function (userTable) {
+                result.userTables && result.userTables.PokerTables.forEach(function (userTable) {
                     tables.push(userTable.toJSON());
                 });
                 tables.forEach(function (table) {
