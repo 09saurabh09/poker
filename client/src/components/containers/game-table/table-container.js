@@ -210,6 +210,10 @@ class TableContainer extends React.Component{
       this.props.dispatch(updateUserCards({tableId: data.tableId, cards: data.cards}))
       this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
     });
+
+    socket.on('disconnect', (data)=>{
+      console.log(socket.nsp, 'Disconnected ', data);
+    })
   }
 
   socketOnConnect(socket, tableId) {

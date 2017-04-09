@@ -33,7 +33,7 @@ export default class GameTable extends React.Component{
       players : [],
       gameState: {
         tableId: 0,
-        turnPos: 0,
+        turnPos: -1,
         minAmount: 0,
         maxAmount: 0,
         minRaise: 0,
@@ -46,7 +46,8 @@ export default class GameTable extends React.Component{
         players: [],
         actionTime: 0,
         lastTurnAt: 0,
-        timeBankInUse: false
+        timeBankInUse: false,
+        dealerPos: -1
       }
     };
   }
