@@ -160,7 +160,7 @@ class TableContainer extends React.Component{
     let {unAuthorizedSocket, authorizedSocket} = this.props.socket;
     // in case the user reload page or logs in before join seat
     if(!socket.authorizedSocket && authorizedSocket) {
-      this.socketOnConnect(authorizedSocket, tableId);   
+      this.socketOnConnect(authorizedSocket, tableId);
     }
     // in case the user reload page
     if(!socket.unAuthorizedSocket && unAuthorizedSocket) {
@@ -196,6 +196,9 @@ class TableContainer extends React.Component{
     });
 
     socket.on('turn-completed', (data)=>{
+      if(data.timestamp == this.state.gameData.timestamp) {
+        return;
+      }
       console.log( socket.nsp,' turn-completed', data);
       let newGameState = this.addCardsToPlayer(data, this.props.userCards[tableId]);
       this.props.dispatch(getGameStateSuccess({[data.tableId]: newGameState}));
