@@ -64,7 +64,6 @@
       justify-content: center;
       width: 8%;
       position: absolute;
-      z-index: 11;
       left: 50%;
       bottom: 76%;
       transform: translateX(-50%);
@@ -155,7 +154,7 @@
   }
   .player-5-chips {
     top: 9%;
-    left: 65%;
+    left: 67%;
   }
   .player-6-chips {
     top: 15%;
@@ -274,11 +273,11 @@
         left: 17%;
       }
       &.dealer-4 {
-        top: 6%;
+        top: 10%;
         left: 41%;
       }
       &.dealer-5 {
-        top: 6%;
+        top: 10%;
         right: 41%;
       }
       &.dealer-6 {

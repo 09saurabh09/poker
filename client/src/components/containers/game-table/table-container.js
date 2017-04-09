@@ -18,7 +18,8 @@ class TableContainer extends React.Component{
       gameData : this.props.gameData,
       myTables: this.props.myTables,
       currentGameIndex: 0,
-      currentGameStateIndex: 0
+      currentGameStateIndex: 0,
+      playState: false
     }
   }
 
@@ -71,12 +72,20 @@ class TableContainer extends React.Component{
   onPlay() {
     if(!this.replayTimerId) {
       this.replayTimerId = setInterval(
-        this.replayGameState.bind(this), 1000
+        this.replayGameState.bind(this, true), 1000
       )
     }
   }
 
-  replayGameState() {
+  onPause() {
+    clearInterval(this.replayTimerId);
+    this.replayTimerId = undefined;
+    this.setState({
+      playState: false
+    })
+  }
+
+  replayGameState(playState) {
     let { gameHistory } = this.props;
     let {currentGameIndex, currentGameStateIndex} = this.state;
     currentGameStateIndex++;
@@ -89,11 +98,11 @@ class TableContainer extends React.Component{
       this.setState({
         gameData: nextGameData,
         currentGameIndex,
-        currentGameStateIndex
+        currentGameStateIndex,
+        playState
       })
     } else {
-      clearInterval(this.replayTimerId);
-      this.replayTimerId = undefined;
+      this.onPause();
     }
   }
 
@@ -129,8 +138,7 @@ class TableContainer extends React.Component{
       case 'handRestart':  currentGameIndex = this.state.currentGameIndex;
                     currentGameStateIndex = 0;
                     break;
-      case 'pause': clearInterval(this.replayTimerId);
-                    this.replayTimerId = undefined;
+      case 'pause': this.onPause();
                     break;
       case 'play' : this.onPlay();
                     break;
@@ -267,7 +275,9 @@ class TableContainer extends React.Component{
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
         dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)} tableLeave={this.tableLeave.bind(this)}
         sitOutTable={this.onSitOut.bind(this)} sitInTable={this.sitInTable.bind(this)}
-        isReplay={this.props.params.playAction == 'replay'} replayAction={this.takeReplayAction.bind(this)}/>
+        isReplay={this.props.params.playAction == 'replay'} replayAction={this.takeReplayAction.bind(this)}
+        playState={this.state.playState}
+        />
       </div>
     );
   }

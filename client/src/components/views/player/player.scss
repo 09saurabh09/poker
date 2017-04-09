@@ -173,6 +173,7 @@ $skew-angle : -6deg;
   .winner-text {
     color: #3de689;
     position: absolute;
-    bottom: -27px;
+    bottom: -5%;
+    transform: translateY(100%);
   }
 }

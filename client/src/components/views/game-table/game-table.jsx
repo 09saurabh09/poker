@@ -91,12 +91,6 @@ export default class GameTable extends React.Component{
   }
 
   componentWillUpdate(nextProps, nextState) {
-    /*let {gameState : oldGame} = this.state;
-    let {gameState : newGame} = nextState;
-    if(newGame.round != oldGame.round) {
-      this.movingChips = true;
-      this.moveAllChipsToPot();
-    }*/
   }
 
   componentWillMount() {
@@ -104,19 +98,8 @@ export default class GameTable extends React.Component{
   }
 
   componentDidMount() {
-    /*this.timerID = setInterval(
-      () => this.tick(),
-      20000
-    );*/
     $(document).ready(function() {
       $(window).resize(function() {
-        /*if($('#game-table').height() * aspectRatio  < $('#game-table').width()) {
-          $('#game-table').width($('#game-table').height() * aspectRatio);
-        } else if($('#game-table').height() * aspectRatio  > $('#game-table').width()) {
-          $('#game-table').height($('#game-table').width() / aspectRatio);
-        } else {
-          console.log('achieved ratio');
-        }*/
         let currentRatio = $('#game-table').width() / 720;
         $('body').css({ 'font-size': `${14 * currentRatio}px` });
       }).resize();
@@ -124,7 +107,7 @@ export default class GameTable extends React.Component{
   }
 
   componentWillUnmount() {
-    //clearInterval(this.timerID);
+    
   }
 
   myExpectedCallValue(players, id) {
@@ -150,7 +133,7 @@ export default class GameTable extends React.Component{
       authorizedSocket.emit('player-turn', game.payload);
       $('.game-actions button').removeClass('active');
       this.props.dispatch(removeGameAction(game.payload));
-      this.props.dispatch(updateTimeBankInUse({false, tableId: this.props.tableId}));
+
     }
   }
 
@@ -296,7 +279,6 @@ export default class GameTable extends React.Component{
     if(this.isMyTurn()) {
       console.log('Event emited player-turn with payload ', payload)
       this.props.authorizedSocket.emit('player-turn', payload);
-      this.props.dispatch(updateTimeBankInUse({false, tableId: this.props.tableId}));
     } else {
       let { gameState: game } = this.state;
       if(game.payload && game.payload.call == call) {
@@ -422,7 +404,7 @@ export default class GameTable extends React.Component{
         </div> : null }
         { this.props.isReplay ?
           <div className="game-actions-container">
-            <ReplayActions replayAction={this.props.replayAction}/>
+            <ReplayActions replayAction={this.props.replayAction} playState={this.props.playState}/>
           </div> : null
         }
         <div className='main-table'>
@@ -476,7 +458,7 @@ export default class GameTable extends React.Component{
                                                         bankroll={this.props.userData.currentBalance} onSet={this.joinSeat.bind(this)}/> 
                                                     : null }
         <Login postLogin={this.postLoginStaff.bind(this)} dispatch={this.props.dispatch}/>
-        <SitOut open={this.isPlayerSitOut()} sitin={this.sitIn.bind(this)}/>
+        <SitOut open={!this.props.isReplay && this.isPlayerSitOut()} sitin={this.sitIn.bind(this)}/>
       </div>
     );
   }

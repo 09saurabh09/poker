@@ -5,9 +5,6 @@ import utils from '../../../utils/utils';
 export default class ReplayActions extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
-      play: false
-    }
   }
 
   handleSubmit() {
@@ -15,7 +12,7 @@ export default class ReplayActions extends React.Component{
   }
 
   render() {
-    let playAction = this.state.play? 'play' : 'pause';
+    let playAction = this.props.playState? 'pause' : 'play';
     return (
       <div className="replay-actions">
         <form action="#">
@@ -31,7 +28,7 @@ export default class ReplayActions extends React.Component{
             </div>
             <div className="button-container">
               <button type="button" className="button" 
-                onClick={(e)=>{this.props.replayAction(playAction); this.setState({play: !this.state.play})}}>
+                onClick={this.props.replayAction.bind(null, playAction)}>
                 {playAction}
               </button>
             </div>
