@@ -188,7 +188,7 @@ module.exports = {
                         userGames.Games.forEach(function (userGame) {
                             userGame.GameHistories.forEach(function (gameHistory) {
                                 gameHistory.gameState.players.forEach(function (player) {
-                                    if (player && !player.showCards) {
+                                    if (player && !player.showCards && (player.id != user.id)) {
                                         delete player.cards;
                                     }
                                 });
