@@ -29,7 +29,7 @@ export default class GameTable extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      chatHidden: true,
+      chatHidden: false,
       players : [],
       gameState: {
         tableId: 0,

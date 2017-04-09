@@ -36,6 +36,7 @@
     z-index: 1;
     &.open {
       width: 91%;
+      transition: 0.25s width ease-in-out;
     }
   }
   .analytics-chat-container {
@@ -334,6 +335,7 @@
   .expand-icon-container {
     width: 8.35%;
     float: right;
+    cursor: pointer;
     &.collapse {
       width: 41.7%;
       transform: rotate(180deg);  
