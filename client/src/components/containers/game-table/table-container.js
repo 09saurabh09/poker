@@ -16,7 +16,9 @@ class TableContainer extends React.Component{
     super(props);
     this.state = {
       gameData : this.props.gameData,
-      myTables: this.props.myTables
+      myTables: this.props.myTables,
+      currentGameIndex: 0,
+      currentGameStateIndex: 0
     }
   }
 
@@ -56,21 +58,87 @@ class TableContainer extends React.Component{
         myTables: nextProps.myTables
       })
     } else if(nextProps.params.id && nextProps.params.playAction == 'replay') {
-      let counter = 0;
-      for(var i = 0 ; i< nextProps.gameHistory.length ; i++) {
-        let gameHistories = nextProps.gameHistory[i].GameHistories;
-        for(var j = 0; j < gameHistories.length; j++) {
-          counter++;
-          (function(component, gameData){
-            setTimeout(function(){
-              console.log(gameData);
-              component.setState({
-                gameData
-              })
-            }, 2000 * (counter));
-          })(this, gameHistories[j].gameState)
-        }
-      }
+      let currentGameIndex = 0, currentGameStateIndex = 0;
+      this.setState({
+        gameData: this.getGameState(nextProps.gameHistory, currentGameIndex, currentGameStateIndex),
+        currentGameIndex,
+        currentGameStateIndex
+      })
+      this.onPlay();
+    }
+  }
+
+  onPlay() {
+    this.replayTimerId = setInterval(
+      this.replayGameState.bind(this), 1000
+    )
+  }
+
+  replayGameState() {
+    let { gameHistory } = this.props;
+    let {currentGameIndex, currentGameStateIndex} = this.state;
+    currentGameStateIndex++;
+    if(gameHistory[currentGameIndex].length == currentGameStateIndex) {
+      currentGameIndex++;
+      currentGameStateIndex = 0;
+    }
+    let nextGameData = this.getGameState(gameHistory, currentGameIndex, currentGameStateIndex);
+    if(nextGameData) {
+      this.setState({
+        gameData: nextGameData,
+        currentGameIndex,
+        currentGameStateIndex
+      })
+    } else {
+      clearInterval(this.replayTimerId);
+    }
+  }
+
+  getGameState(gameHistory, gameIndex, gameStateIndex) {
+    if(gameIndex <0 || gameHistory.length <= gameIndex) {
+      return null;
+    }
+    let { GameHistories } = gameHistory[gameIndex];
+    if(gameStateIndex < 0 || GameHistories.length <= gameStateIndex) {
+      return null;
+    }
+    let { gameState } = GameHistories[gameStateIndex];
+    console.log(gameState);
+    return gameState;
+  }
+
+  takeReplayAction(action) {
+    console.log(action);
+    let {currentGameIndex, currentGameStateIndex, gameData} = this.state;
+    switch(action) {
+      case 'next':  currentGameIndex = this.state.currentGameIndex;
+                    currentGameStateIndex = this.state.currentGameStateIndex + 1;
+                    break;
+      case 'previous':  currentGameIndex = this.state.currentGameIndex;
+                    currentGameStateIndex = this.state.currentGameStateIndex - 1;
+                    break;
+      case 'nextHand':  currentGameIndex = this.state.currentGameIndex + 1;
+                    currentGameStateIndex = 0;
+                    break;
+      case 'previousHand':  currentGameIndex = this.state.currentGameIndex - 1;
+                    currentGameStateIndex = 0;
+                    break;
+      case 'handRestart':  currentGameIndex = this.state.currentGameIndex;
+                    currentGameStateIndex = 0;
+                    break;
+      case 'pause': clearInterval(this.replayTimerId);
+                    break;
+      case 'play' : this.onPlay();
+                    break;
+
+    }
+    let nextGameData = this.getGameState(this.props.gameHistory, currentGameIndex, currentGameStateIndex);
+    if(nextGameData) {
+      this.setState({
+        gameData: nextGameData,
+        currentGameIndex,
+        currentGameStateIndex
+      })
     }
   }
 
@@ -195,7 +263,7 @@ class TableContainer extends React.Component{
         unAuthorizedSocket={this.props.socket.unAuthorizedSocket} authorizedSocket={this.props.socket.authorizedSocket} 
         dispatch={this.props.dispatch} onReplayClick={this.onReplay.bind(this)} tableLeave={this.tableLeave.bind(this)}
         sitOutTable={this.onSitOut.bind(this)} sitInTable={this.sitInTable.bind(this)}
-        />
+        isReplay={this.props.params.playAction == 'replay'} replayAction={this.takeReplayAction.bind(this)}/>
       </div>
     );
   }

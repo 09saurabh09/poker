@@ -16,7 +16,7 @@ import GameControlsSecondary from '../game-controls/game-controls-secondary.jsx'
 import GameActions from '../game-actions/game-actions.jsx';
 import PlayerChips from '../player-chips/player-chips.jsx';
 import Card from '../card/card.jsx';
-//import DealerButton from '../dealerButton/dealerButton.jsx';
+import ReplayActions from '../replay-actions/replay-actions.jsx';
 import Login from '../login/login.jsx';
 import SitOut from '../sit-out/sit-out.jsx';
 
@@ -355,7 +355,7 @@ export default class GameTable extends React.Component{
   }
 
   updateTimeBank(timeBankInUse) {
-    if(this.state.gameState.timeBankInUse != timeBankInUse) {
+    if(!this.props.isReplay && this.state.gameState.timeBankInUse != timeBankInUse) {
       timeBankInUse = !!timeBankInUse;
       this.props.dispatch(updateTimeBankInUse({timeBankInUse, tableId: this.props.tableId}));
     }
@@ -412,7 +412,7 @@ export default class GameTable extends React.Component{
             <img className="time-bank-icon-wrapper icon-wrapper" src={TimeBankIcon} />
           </div>
         </div> : null}
-        {isCardPresent ?
+        {isCardPresent && !this.props.isReplay?
         <div className="game-actions-container">
           <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
                                 potValue: game.currentPot, step}}
@@ -420,6 +420,11 @@ export default class GameTable extends React.Component{
                         bbValue={game.bigBlind}
                         flopState={game.round == 'deal' ? 'preFlop' : 'postFlop'} userData={this.props.userData}/>
         </div> : null }
+        { this.props.isReplay ?
+          <div className="game-actions-container">
+            <ReplayActions replayAction={this.props.replayAction}/>
+          </div> : null
+        }
         <div className='main-table'>
             <GamePot potValue={game.potValue} totalPot={game.currentPot}/>
             {game.currentPot > 0 && game.round !== 'deal'? 
