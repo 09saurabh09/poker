@@ -103,7 +103,11 @@ export default class GameTable extends React.Component{
     $(document).ready(function() {
       $(window).resize(function() {
         let currentRatio = $('#game-table').width() / 720;
-        $('body').css({ 'font-size': `${14 * currentRatio}px` });
+        let fontSize = 14 * currentRatio;
+        if(fontSize < 14) {
+          fontSize = 14;
+        }
+        $('body').css({ 'font-size': `${fontSize}px` });
       }).resize();
     });
   }
