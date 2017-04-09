@@ -124,55 +124,59 @@ export default class GameActions extends React.Component{
     hotKey2 = userData && userData[flopState] && userData[flopState].hotKey2,
     hotKey3 = userData && userData[flopState] && userData[flopState].hotKey3;
     return (
-      <div className="game-actions">
-        <form action="#" onSubmit={this.handleSubmit.bind(this)}>
-          <div className="values space-between">
-            <div className="button-container">
-              <a onClick={this.onHotKeyPress.bind(this, 'hotKey1')} className="button">{hotKey1}{flopState=='preFlop' && 'x' || '%'}</a>
+      <form action="#" onSubmit={this.handleSubmit.bind(this)}>
+        <div className="game-actions">
+          <div className="top-part">
+            <div className="values space-between">
+              <div className="button-container">
+                <a onClick={this.onHotKeyPress.bind(this, 'hotKey1')} className="button">{hotKey1}{flopState=='preFlop' && 'x' || '%'}</a>
+              </div>
+              <div className="button-container">
+                <a onClick={this.onHotKeyPress.bind(this, 'hotKey2')} className="button">{hotKey2}{flopState=='preFlop' && 'x' || '%'}</a>
+              </div>
+              <div className="button-container">
+                <a onClick={this.onHotKeyPress.bind(this, 'hotKey3')} className="button">{hotKey3}{flopState=='preFlop' && 'x' || '%'}</a>
+              </div>
+              <div className="button-container">
+                <a onClick={this.onMaxPress.bind(this)} className="button">Max</a>
+              </div>
+              <div className="input-container">
+                <input type="text" id="call-value" name="call-value" step={this.props.range.step} 
+                min={this.props.range.min} max={this.props.range.max} value={this.state.inputValue} 
+                onChange={this.handleChange.bind(this)} className="form-control" onFocus={this.handleFocus.bind(this)}
+                onBlur={this.handleOnBlur.bind(this)}/>
+              </div>
             </div>
-            <div className="button-container">
-              <a onClick={this.onHotKeyPress.bind(this, 'hotKey2')} className="button">{hotKey2}{flopState=='preFlop' && 'x' || '%'}</a>
-            </div>
-            <div className="button-container">
-              <a onClick={this.onHotKeyPress.bind(this, 'hotKey3')} className="button">{hotKey3}{flopState=='preFlop' && 'x' || '%'}</a>
-            </div>
-            <div className="button-container">
-              <a onClick={this.onMaxPress.bind(this)} className="button">Max</a>
-            </div>
-            <div className="input-container">
-              <input type="text" id="call-value" name="call-value" step={this.props.range.step} 
-              min={this.props.range.min} max={this.props.range.max} value={this.state.inputValue} 
-              onChange={this.handleChange.bind(this)} className="form-control" onFocus={this.handleFocus.bind(this)}
-              onBlur={this.handleOnBlur.bind(this)}/>
-            </div>
-          </div>
-          <div id="slider-range" className="range-field">
-            <RangeSlider
-              range={{min: this.props.range.min, max: this.props.range.max}}
-              start={[parseInt(this.state.rangeValue)]}
-              connect={[true, false]}
-              behaviour='tap'
-              step={this.props.range.step}
-              onChange={this.onChange.bind(this)}
-            />
-            <div className="minus indicator" onClick={this.minusRaise.bind(this)}>-</div>
-            <div className="plus indicator" onClick={this.plusRaise.bind(this)}>+</div>
-          </div>
-          <div className="actions space-between">
-            <div className="button-container">
-              <button type="button" onClick={(event) => {this.props.onAction(event, "fold", 0)}} className="button">Fold</button>
-            </div>
-            <div className="button-container">
-              <button type="button" onClick={(event) => {this.props.onAction(event, "callOrCheck", this.props.callValue)}} className="button">
-                <span>{this.props.callValue != 0 ? `Call ${this.props.callValue}`: 'Check'}</span>
-              </button>
-            </div>
-            <div className="button-container">
-              <button type="button" id="raise-button" onClick={(event) => {this.props.onAction(event, "raise", this.state.inputValue)}} className="button">Raise</button>
+            <div id="slider-range" className="range-field">
+              <RangeSlider
+                range={{min: this.props.range.min, max: this.props.range.max}}
+                start={[parseInt(this.state.rangeValue)]}
+                connect={[true, false]}
+                behaviour='tap'
+                step={this.props.range.step}
+                onChange={this.onChange.bind(this)}
+              />
+              <div className="minus indicator" onClick={this.minusRaise.bind(this)}>-</div>
+              <div className="plus indicator" onClick={this.plusRaise.bind(this)}>+</div>
             </div>
           </div>
-        </form>
-      </div>
+          <div className="bottom-part">
+            <div className="actions space-between">
+              <div className="button-container">
+                <button type="button" onClick={(event) => {this.props.onAction(event, "fold", 0)}} className="button">Fold</button>
+              </div>
+              <div className="button-container">
+                <button type="button" onClick={(event) => {this.props.onAction(event, "callOrCheck", this.props.callValue)}} className="button">
+                  <span>{this.props.callValue != 0 ? `Call ${this.props.callValue}`: 'Check'}</span>
+                </button>
+              </div>
+              <div className="button-container">
+                <button type="button" id="raise-button" onClick={(event) => {this.props.onAction(event, "raise", this.state.inputValue)}} className="button">Raise</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     );
   }
 }

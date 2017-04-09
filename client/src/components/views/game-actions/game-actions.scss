@@ -1,3 +1,18 @@
+.game-actions-container.open {
+  .game-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-part {
+    width: 50%;
+  }
+  .bottom-part {
+    width: 44%;
+    margin: 0 auto;
+  }
+}
 .game-actions {
   .range-field {
     width: 85%;

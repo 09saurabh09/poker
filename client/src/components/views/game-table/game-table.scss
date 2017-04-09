@@ -34,6 +34,19 @@
     margin: 0 2% 0.76% 0;
     width: 40.695%;
     z-index: 1;
+    &.open {
+      width: 91%;
+    }
+  }
+  .analytics-chat-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0 0% 2% 0;
+    width: 7%;
+    &.open {
+      width: 34.9%;
+    }
   }
   .main-table {
     position: relative;
@@ -85,7 +98,8 @@
       }
       &.moved-to-player3 {
         left: 20%;
-        transform: translateX(-60%);
+        transform: translateX(-50%);
+        bottom: 80%;
       }
       &.moved-to-player4 {
         bottom: 90%;
@@ -317,4 +331,12 @@
     left: 44%;
     transition: all .5s ease-in;
   } */
+  .expand-icon-container {
+    width: 8.35%;
+    float: right;
+    &.collapse {
+      width: 41.7%;
+      transform: rotate(180deg);  
+    }    
+  }
 }

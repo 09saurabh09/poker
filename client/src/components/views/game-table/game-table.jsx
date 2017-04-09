@@ -6,6 +6,7 @@ import utils from '../../../utils/utils';
 
 const CoinIcon = '../../../../assets/img/game/coin.svg';
 const TimeBankIcon = '../../../../assets/img/game/time-bank.svg';
+const ExpandIcon = '../../../../assets/img/game/expand.svg';
 
 import BuyinPref from '../buyin-pref/buyin-pref.jsx';
 import OpenSeat from '../open-seat/open-seat.jsx';
@@ -28,6 +29,7 @@ export default class GameTable extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
+      chatHidden: true,
       players : [],
       gameState: {
         tableId: 0,
@@ -395,13 +397,29 @@ export default class GameTable extends React.Component{
           </div>
         </div> : null}
         {isCardPresent && !this.props.isReplay?
-        <div className="game-actions-container">
-          <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
-                                potValue: game.currentPot, step}}
-                        callValue={expectedCallValue} onAction={this.onGameAction.bind(this)} 
-                        bbValue={game.bigBlind}
-                        flopState={game.round == 'deal' ? 'preFlop' : 'postFlop'} userData={this.props.userData}/>
-        </div> : null }
+          <div>
+            <div className={`game-actions-container${this.state.chatHidden ? ' open': ''}`} >
+              <GameActions range={{min: parseInt(game.minRaise), max: parseInt(game.maxRaise) || parseInt(game.minRaise) + 1, 
+                                    potValue: game.currentPot, step}}
+                            callValue={expectedCallValue} onAction={this.onGameAction.bind(this)} 
+                            bbValue={game.bigBlind}
+                            flopState={game.round == 'deal' ? 'preFlop' : 'postFlop'} userData={this.props.userData}/>
+            </div>
+            <div className={`analytics-chat-container ${this.state.chatHidden ? 'closed': 'open'}`}>
+              {this.state.chatHidden ? 
+                <div className="expand-icon-container collapse" onClick={(e)=>{this.setState({chatHidden: false})}}>
+                  <img className="expand-icon-wrapper icon-wrapper" src={ExpandIcon} />
+                </div>
+                : 
+                <div className="chatbox">
+                CHAT AND ANALYTICS PORTION
+                <div className="expand-icon-container" onClick={(e)=>{this.setState({chatHidden: true})}}>
+                  <img className="expand-icon-wrapper icon-wrapper" src={ExpandIcon} />
+                </div>
+                </div>
+              }
+            </div> 
+          </div> : null }
         { this.props.isReplay ?
           <div className="game-actions-container">
             <ReplayActions replayAction={this.props.replayAction} playState={this.props.playState}/>
@@ -429,7 +447,7 @@ export default class GameTable extends React.Component{
               )}
               { winHandName ? <div className="winner-hand"> {winHandName} </div> : null }
             </div>
-            {isCardPresent ? 
+            {dealerPos > -1 ? 
             <div className={`dealer-button-postion max-${game.maxPlayer} dealer-${dealerPos}`}>
               <div className="dealer-button">D</div>
             </div> : null }
