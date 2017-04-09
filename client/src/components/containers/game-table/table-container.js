@@ -69,16 +69,18 @@ class TableContainer extends React.Component{
   }
 
   onPlay() {
-    this.replayTimerId = setInterval(
-      this.replayGameState.bind(this), 1000
-    )
+    if(!this.replayTimerId) {
+      this.replayTimerId = setInterval(
+        this.replayGameState.bind(this), 1000
+      )
+    }
   }
 
   replayGameState() {
     let { gameHistory } = this.props;
     let {currentGameIndex, currentGameStateIndex} = this.state;
     currentGameStateIndex++;
-    if(gameHistory[currentGameIndex].length == currentGameStateIndex) {
+    if(gameHistory[currentGameIndex].GameHistories.length == currentGameStateIndex) {
       currentGameIndex++;
       currentGameStateIndex = 0;
     }
@@ -91,6 +93,7 @@ class TableContainer extends React.Component{
       })
     } else {
       clearInterval(this.replayTimerId);
+      this.replayTimerId = undefined;
     }
   }
 
@@ -127,6 +130,7 @@ class TableContainer extends React.Component{
                     currentGameStateIndex = 0;
                     break;
       case 'pause': clearInterval(this.replayTimerId);
+                    this.replayTimerId = undefined;
                     break;
       case 'play' : this.onPlay();
                     break;
