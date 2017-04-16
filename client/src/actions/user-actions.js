@@ -1,22 +1,43 @@
 import * as types from '../actions/action-types';
 
-export function getUsersSuccess(users) {
+export function authenticateUserSuccess(data) {
   return {
-    type: types.GET_USERS_SUCCESS,
-    users
+    type: types.AUTHENTICATE_USER_SUCCESS,
+    user: data
   };
 }
 
-export function deleteUserSuccess(userId) {
+export function signupUserSuccess(data) {
   return {
-    type: types.DELETE_USER_SUCCESS,
-    userId
+    type: types.SIGNUP_USER_SUCCESS,
+    code: data.code
   };
 }
 
-export function userProfileSuccess(userProfile) {
+export function updateUserCards(data) {
   return {
-    type: types.USER_PROFILE_SUCCESS,
-    userProfile
+    type: types.UPDATE_USER_CARDS,
+    data
+  };
+}
+
+export function UserInfoSuccess(userInfo) {
+  return {
+    type: types.USER_INFO_SUCCESS,
+    userInfo
+  };
+}
+
+export function ListMyTablesSuccess(myTables) {
+  return {
+    type: types.LIST_MYTABLES_SUCCESS,
+    myTables
+  };
+}
+
+export function GameHistorySuccess(data) {
+  return {
+    type: types.GAME_HISTORY_SUCCESS,
+    data
   };
 }

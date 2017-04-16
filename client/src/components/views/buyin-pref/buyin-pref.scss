@@ -1,0 +1,86 @@
+$display-color: #494949;
+#buyin-pref {
+  background-color: rgba(0, 0, 0, 0.87);
+  .form-horizontal {
+    padding: 0 3.602% 3% 7.719%;
+    font-size: 1.1428571429em;
+    font-family: ProximaNova-Semibold;
+  }
+  .game-desc {
+    font-family: ProximaNova-Semibold;
+    font-size: 1.6071428571em;
+    font-weight: 600;
+    text-align: center;
+    margin: 0% 0 1.701%;
+  }
+  #error-message {
+    color: red;
+    font-size: 0.7857142857em;
+    text-align: right;
+  }
+  .range-buyin-pref {
+    position: relative;
+    margin: 4.5% 0 7%;
+    .bb-value{
+      position: absolute;
+      margin-top: 1em;
+      font-weight: 600;
+      color: #717171;
+      &.min {
+        left: 0;
+      }
+      &.max {
+        right: 0;
+      }
+    }
+  }
+  .pref-input{
+    border-radius: 52px;
+    background-color: #f7f7f7;
+    color: black;
+    padding: 1% 0;
+    font-weight: 600;
+    text-align: center;
+    width: 45%;
+    float: left;
+  }
+  .display-bb {
+    padding: 2% 6%;
+    background-color: $display-color;
+    border-radius: 52px;
+    display: inline-block;
+    float: right;
+    color: white;
+  }
+  .display-bankroll {
+    padding: 0.7142857143em 1.4285714286em;
+    background-color: $display-color;
+    border-radius: 52px;
+    font-weight: 600;
+    color: #000000;
+    display: inline-block;
+    color: white;
+  }
+  .pref-input-container {
+    margin-bottom: 4%;
+  }
+  .average-stack-container {
+    margin-bottom: 2%;  
+  }
+  .pref-label {
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .user-settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.set-button-container {
+  text-align: right;
+  margin-top: 4%;
+  .button {
+    padding: 0.5714285714em 2.1428571429em;
+  }
+}

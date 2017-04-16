@@ -1,0 +1,209 @@
+.home {
+    height: 100%;
+    nav{    
+        width: 7%;
+        float: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #232323;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+    section#main{
+        float: left;
+        margin: 0;
+        padding: 0;
+        display: inline;
+        width: 93%; 
+        height: 100%;
+    }
+    .nav-link {
+        display: block;
+        margin: 0 auto;
+        width: 30%;
+        .active {
+            position: absolute;
+            width: 3px;
+            left: 0;
+            height: 15%;
+            border-radius: 50px;
+            background-color: #3de689;
+            top: 17%;
+        }
+    }
+    .play-icon {
+        width: 35%;
+        padding-top: 20%;
+    }
+    .other-icon-wrapper {
+        
+    }
+    .user-detail-section {
+        width: 50%;
+    }
+    
+    .video-section {
+        width: 50%;
+    }
+    .name-balance-container {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+    }
+    .review-icon-container {
+        width: 25%;
+        box-sizing: border-box;
+    }
+    .user-name {
+        padding: 3% 2%;
+        font-size: 1.2857142857em;
+        letter-spacing: 0.5px;
+    }
+    .name-balance-review {
+        width: 80%;
+        display: flex;
+    }
+    .balance {
+        padding: 3% 2%;
+        font-size: 0.7857142857em;
+        font-weight: 300;
+        font-family: ProximaNova-Light;
+        display: flex;
+        justify-content: space-between;
+        .bankroll-money-balance {
+            border-right: solid 0.5px #3a3a3a;
+            border-left: solid 0.5px #3a3a3a;
+            padding: 0 8%;
+        }
+        .bankroll-balance-value {
+            font-size: 0.8571428571em;
+            font-weight: bold;
+            text-align: center;
+            color: #3de689;
+            font-family: ProximaNova-Bold;
+        }
+    }
+    .money-search-container {
+        display: flex;
+        box-sizing: border-box;
+        background-color: #1b1b1b;
+        flex-direction: column;
+    }
+    .search-container {
+        display: flex;
+        padding: 0 3% 3%;
+         .form-group{
+            position: relative;
+            width: 100%;
+        }
+    }
+    #search-input {
+        border-radius: 100px;
+        background-color: #000000;
+        border: solid 2px #3b3b44;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 2% 10% 2% 3%;
+        font-family: ProximaNova-Light;
+        font-size: 0.8571428571em;
+        font-weight: 300;
+        letter-spacing: 0.3px;
+    }
+    .search-icon-wrapper {
+        padding-bottom: 50%;
+    }
+    .search-icon {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3%;
+        padding-top: 1%;
+    }
+    .upper-section {
+        display: flex;
+        justify-content: flex-start;
+        height: 40%;
+    }
+    .lower-section {
+        display: flex;
+        flex-direction: column;
+        height: 60%;
+        overflow: hidden;
+        width: 100%;
+    }
+    .lower-top {
+        height: 100%;
+        margin: 2%;
+        margin-right: 0;
+    }
+    .lower-bottom {
+        height: 100%;
+        margin: 0 0 2% 2%;
+    }
+    .width-49 {
+        width: 49%;
+    }
+    a.game-section {
+        text-decoration: none;
+    }
+
+    .game-icon-container {
+        /* padding: 24px 0 16px 0px; */
+        height: 100%;
+        padding: 25%;
+        box-sizing: border-box;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    .cash-game-icon-container {
+        background-image: linear-gradient(42deg, #27bd25, #17eb98);
+    }
+    .tournament-icon-container {
+        background-image: linear-gradient(41deg, #5983ff, #fb68f8);
+    }
+    .sit-game-icon-container {
+        background-image: linear-gradient(41deg, #547bf3, #38dbfd);
+    }
+    .mytourn-game-icon-container {
+        background-image: linear-gradient(41deg, #ff599e, #ffab68);
+    }
+    .game-icon-wrapper {
+        mix-blend-mode: luminosity;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .game {
+        display: flex;
+        height: 100%;
+    }
+    .game-box {
+        padding-left: 5%;
+    }
+    .game-icon {
+        width: 30%;
+    }
+    .game-text {
+        width: 67%;
+        display: flex;
+        align-items: center;
+        color: white;
+        border-radius: 5px;
+        background-color: #232327;
+    }
+    .game-title {
+        font-size: 1.7142857143em;
+        font-weight: 100;
+        margin-bottom: 10%;
+        font-family: ProximaNova-Thin;
+    }
+    .play-with-friends {
+        font-family: ProximaNova;
+        font-size: 0.9285714286em;
+    }
+}

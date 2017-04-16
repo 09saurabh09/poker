@@ -3,6 +3,7 @@ logs
 *.log
 npm-debug.log*
 
+.idea
 # Runtime data
 pids
 *.pid
@@ -48,6 +49,13 @@ jspm_packages
 
 #build files
 build
+dist
 
 
+DS_Store
+/.DS_Store
+/.vscode/
+server/.DS_Store
+server/utils/.DS_Store
+server/webpack-assets.json
 

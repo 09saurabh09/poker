@@ -1,0 +1,53 @@
+.card {
+  //display: inline-block;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid #666;
+  border-radius: .3em;
+  padding: .25em;
+  text-align: center;
+  font-size: 1.2em;
+  position: relative;
+  background-color: #fff; */
+  box-shadow: 0.2em 0.2em 0.5em #333;
+  .card-icon-wrapper {
+    width: 100%;
+  }
+  /* .rank, .suit {
+    display: block;
+    line-height: 1;
+    text-align: left;
+    transform: rotate(1deg);
+    font-family: ProductSans;
+    font-size: 9.6px;
+    color: #343f44;
+  }
+  .suit{
+    line-height: .7;
+    &:after {
+      top: 4px;
+      left: 0px;
+      position: relative;
+    }
+  }
+  &.d .suit:after{
+    content: "\2666";
+    color: red;
+  }
+  .big-suit:after {
+    font-size: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+  }
+  &.h .suit:after {
+    content: "\2665";
+    color: red;
+  }
+  &.s .suit:after {
+    content: "\2660";
+  }
+  &.c .suit:after {
+    content: "\2663";
+  } */
+}

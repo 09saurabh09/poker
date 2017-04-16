@@ -1,0 +1,59 @@
+$pot-height: 2.9642857143em;
+$pot-side: 1.4285714286em;
+$pot-width: 2.1428571429em;
+.pot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%; 
+  .triangle-bottomleft {
+    position: absolute;
+    z-index: 10;
+    width: 0;
+    height: 0;
+    border-bottom: $pot-height solid #020503;
+    border-right: $pot-side solid transparent;
+  }
+  .pot-filled {
+    border-top: $pot-height solid rgba(61, 230, 137, 0.04);
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
+    height: 0;
+    width: 0px;
+    border-top-left-radius: 2.5px;
+    border-top-right-radius: 2.5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .pot-container {
+    border-top: $pot-height solid #38383b;
+    border-left: $pot-side solid #020503;
+    border-right: $pot-side solid #020503;
+    height: 0;
+    width: $pot-width;
+    border-top-left-radius: 2.5px;
+    border-top-right-radius: 2.5px;
+  }
+  .pot-text{
+    position: absolute;
+    left: 50%;
+    top: 1px;
+    color: white;
+    text-align: center;
+    font-size: 0.7142857143em;
+    transform: translateX(-50%);
+    width: 100%;
+    .pot-value {
+      padding-top: 0.5714285714em;
+      letter-spacing: 0.02142857143em;
+      color: #3de689;
+    }
+    .pot-percentage {
+      padding-top: 4px;
+      font-family: ProximaNovaT;
+      font-weight: 100;
+    }
+  }
+}

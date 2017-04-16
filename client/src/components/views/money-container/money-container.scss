@@ -1,0 +1,34 @@
+.money-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 4% 3%;
+    .money {
+        width: 47%;
+        box-sizing: border-box;
+        border-radius: 100px;
+        background-color: rgba(255, 255, 255, 0.14);
+        display: flex;
+        align-items: center;
+        padding: 0 0.4285714286em;
+        .text {
+            text-transform: uppercase;
+            font-size: 0.7857142857em;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            padding: 0.4285714286em;
+            font-family: ProximaNova-Light;
+        }
+        .value {
+            font-weight: 600;
+            font-family: ProximaNova-Semibold;
+        }
+    }
+    .money-icon-container {
+        width: 9.5%;
+        &.on-table {
+            width: 10%;
+        }
+    }
+    .money-icon-wrapper {
+    }
+}

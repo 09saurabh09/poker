@@ -1,0 +1,49 @@
+#table-settings {
+  .form-horizontal {
+    padding: 0 4% 1px;
+    font-size: 0.9642857143em;
+    font-family: ProximaNova-Semibold;
+  }
+  .form-container .col-lg-12 {
+    margin-bottom: 4%;
+  }
+  .card-theme-container{
+    width: 100%;
+    display: flex;
+    margin: 0 0 4% 4%;
+  }
+  .card-theme-icon-container {
+    width: 6.4%;
+    padding: 1% 1%;
+    margin-right: 10%;
+    border-radius: 8px;
+    border: solid 1px #595959;
+    cursor: pointer;
+    &.active-card-theme {
+      border: solid 1px #fe2a57;
+    }
+    /* &:hover {
+      border: solid 1px #34904d;
+    } */
+  } 
+  .card-back-theme-icon-wrapper {
+    margin-top: 10%;
+  }
+  .card-front-theme-icon-container-0 {
+    width: 6%;
+  }
+  .card-front-theme-icon-container-1 {
+    width: 16%;
+    margin-right: 16%;
+  }
+  .set-button-container {
+    margin-top: 2%;
+  }
+  .input-wrapper .form-control {
+    width: 75%;
+    padding: 0.4285714286em 0.8571428571em;
+    border-radius: 0.8571428571em;
+    margin-top: 10px;
+    font-size: 0.9285714286em;
+  }
+}

@@ -1,0 +1,154 @@
+.top-nav-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 101;
+    .nav-dropdown {
+        margin: -5px auto;  
+        position: absolute;
+        height:0;
+        left: -9999px; /* Hides the drop down */  
+        text-align:left;  
+        padding: 0;  
+        border-top: 0;
+        width: 100%;
+        background:#333;
+        color: #f2f2f2;
+        border-bottom: 10px solid #25272a;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        transition: height 1s ease-in;
+        /* left: 0;
+        top: auto;
+        z-index: 100; 
+        width: 100%; */
+        &.hide-dropdown {
+          left: 0;
+          top: auto;
+          z-index: 100; 
+          width: 100%;
+        }
+    }
+    #top-drawer {
+        height: 1.4285714286em;
+        width: 100%;
+    }
+    #top-drawer:hover .nav-dropdown {
+        left: 0;
+        top: auto;
+        z-index: 100; 
+        width: 100%;
+    }
+    .loby-link {
+      margin-left: 2.085%;
+      margin-top: 1%;
+    }
+    .top-row {
+      width: 100%;
+      float: left;
+      background-color: #1d1d1d;
+    }
+    .bottom-row {
+      width: 100%;
+      float: left;
+      background-color: #19191a;
+    }
+    .user-container{
+        width: 50%;
+        float: left;
+    }
+    
+    .play-icon {
+      width: 15%;
+      padding-top: 0;
+    }
+    .user-details, .name-balance {
+      display: flex;
+      .profile-photo {
+        width: 12.5%;
+      }
+    }
+    .money-wrapper {
+      width: 50%;
+      float: left;
+      padding: 16px 0;
+    }
+    .bottom-row-detail {
+      margin-top: 1.264%;
+      height: 100%;
+      display: flex;
+      position: relative;
+    }
+
+    .left-arrow {
+      font-size: 1em;
+      font-weight: bold;
+      color: white;
+      width: 13.75%;
+      float: left;
+      text-align: center;
+      &:before {
+        content: "<";
+        margin-right: 0.7142857143em;
+      }
+    }
+    .table-link {
+      display: block;
+      height: 100%;
+    }
+    .playing-tables {
+      overflow-x: scroll;
+      width: 100%;
+      display: -webkit-inline-box;
+      position: relative;
+      margin: 0 6% 0 2.292%;
+    }
+    .play-card {
+      width: 12.643%;
+      background-color: #2e2e30;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      margin-right: 10px;
+      overflow: hidden;
+      position: relative;
+      border: solid 1px #a0b2b9;
+      border-bottom: initial;
+      padding: 1.933% 0;
+      box-sizing: border-box;
+      &.active {
+        border: solid 1px #3de689;
+        border-bottom: initial;
+      }
+      .player-cards {
+        position: absolute;
+        left: 33%;
+        transform: translateX(-50%);
+        top: 16.8%;
+        width: 45.76%;
+        height: 100%;
+      }
+    }
+    .plus-game {
+      opacity: 0.5;
+    }
+    .plus-icon:before {
+      content: "+";
+      color: white;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .full-width-height {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .setting-icon-container {
+      width: 2.6%;
+      padding: 0 2.14%;
+      position: absolute;
+      right: 0;
+      bottom: 35%;
+    }
+}

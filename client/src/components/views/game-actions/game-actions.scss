@@ -1,0 +1,85 @@
+.game-actions-container.open {
+  .game-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-part {
+    width: 50%;
+  }
+  .bottom-part {
+    width: 44%;
+    margin: 0 auto;
+  }
+}
+.game-actions {
+  .range-field {
+    width: 85%;
+    margin: 5.807% 8%;
+    position: relative;
+    .indicator {
+      position: absolute;
+      top: -50%;
+      padding: 0 4%;
+      font-size: 1.5357142857em;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .plus {
+      right: -1%;
+      transform: translate(100%, -20%);
+    }
+    .minus {
+      left: -2%;
+      transform: translate(-100%, -33%);
+    }
+    input {
+      width: 100%;  
+    }
+  }
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+  }
+  .values{
+    .input-container {
+      width: 18.9%;
+    }
+    .form-control {
+      border-radius: 52px;
+      width: 100%;
+      padding: 0.2857142857em 0px;
+      text-align: center;
+      background-color: #f7f7f7;
+      font-size: 0.9642857143em;
+      font-weight: 600;
+      color: #000000;
+      border: solid 0.4px #3b3b44;
+    }
+    .button-container{
+      display: table;
+      width: 14.5%
+    }
+    .button {
+      padding: 7% 0;
+      width: 100%;
+      display: table-cell;
+      font-size: 0.7428571429em;
+    }
+  }
+    
+  .actions {
+    .button-container{
+      display: table;
+      width: 27.7%;
+    }
+    .button {
+      padding: 11% 0;
+      width: 100%;
+      display: table-cell;
+      font-size: 0.8571428571em;
+    }
+  }
+
+}

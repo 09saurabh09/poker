@@ -1,83 +1,130 @@
 import axios from 'axios';
-import store from '../store';
-import { getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actions/user-actions';
+import utils from '../utils/utils';
+import { authenticateUserSuccess, signupUserSuccess, ListMyTablesSuccess, UserInfoSuccess, GameHistorySuccess } from '../actions/user-actions';
+import { connectUnauthorizedSocket, connectAuthorizedSocket } from '../actions/socket-actions';
 
 /**
- * Get all users
+ * Authenticate user login
  */
 
-export function getUsers() {
-  return axios.get('http://localhost:3001/users')
+export function login(userName, password) {
+  return dispatch => {
+    return axios.post(utils.getAuthenticateUserUrl(), {
+      user: {userName, password}
+    })
     .then(response => {
-      store.dispatch(getUsersSuccess(response.data));
+      dispatch(connectAuthorizedSocket(response.data.data.token));
+      dispatch(authenticateUserSuccess(response.data.data));
+      return response;
+    });
+  }
+}
+
+/**
+ * User Sign up
+ */
+
+export function signup(user) {
+  return dispatch => {
+    return axios.post(utils.getPublicUserUrl(), {
+      user
+    })
+    .then(response => {
+      dispatch(connectAuthorizedSocket(response.data.data.token));
+      dispatch(authenticateUserSuccess(response.data.data));
+      return response;
+    });
+  }
+} 
+
+/**
+  * User info
+  */
+
+export function getUserInfo(responseGroup) {
+  return dispatch => {
+    let token = localStorage.getItem('userToken');
+    if(!token) {
+      return;
+    }
+    return axios({
+      method: 'get',
+      url: utils.getUserInfoUrl(responseGroup),
+      headers: {
+          'X-Access-Token' : token
+        }
+      })
+    .then(response => {
+      let userInfo = response && response.data && response.data.data;
+      let storedUserDataItem = localStorage.getItem('userData')
+      let storedUserData = null;
+      try {
+        storedUserData = JSON.parse(storedUserDataItem)
+      } catch(e) {
+        storedUserData = null;
+      }
+      let oldUserData = storedUserData && storedUserData[userInfo.id];
+      let resultUserData = oldUserData && Object.assign({}, userInfo, oldUserData) || userInfo;
+      dispatch(UserInfoSuccess(resultUserData));
+      return response;
+    });
+  }
+} 
+
+
+export function getMyTables() {
+  return dispatch => {
+    let token = localStorage.getItem('userToken');
+    if(!token) {
+      return;
+    }
+    return axios({
+      method: 'get',
+      url: utils.getListMyTablesUrl(),
+      headers: {
+        'X-Access-Token' : token
+      }
+    })
+    .then(response => {
+      dispatch(ListMyTablesSuccess(response.data && response.data.data));
+      return response;
+    });
+  }
+}
+
+export function getGameHistory(dispatch, tableId) {
+  let token = localStorage.getItem('userToken');
+  if(!token) {
+    return;
+  }
+  return axios({
+    method: 'get',
+    url: utils.getGameHistoryUrl(tableId),
+    headers: {
+        'X-Access-Token' : token
+      }
+    })
+    .then(response => {
+      dispatch(GameHistorySuccess(response.data && response.data.data));
       return response;
     });
 }
 
-/**
- * Search users
- */
-
-export function searchUsers(query = '') {
-  return axios.get('http://localhost:3001/users?q='+ query)
+export function updateUserInfo(data, userData) {
+  let token = localStorage.getItem('userToken');
+  if(!token) {
+    return;
+  }
+  return axios({
+    method: 'PUT',
+    url: utils.getUserUrl(),
+    headers: {
+        'X-Access-Token' : token
+      },
+    data
+    })
     .then(response => {
-      store.dispatch(getUsersSuccess(response.data));
+      localStorage.setItem('userData', JSON.stringify(Object.assign({}, {[userData.id]: userData})))
       return response;
     });
-}
-
-/**
- * Delete a user
- */
-
-export function deleteUser(userId) {
-  return axios.delete('http://localhost:3001/users/' + userId)
-    .then(response => {
-      store.dispatch(deleteUserSuccess(userId));
-      return response;
-    });
-}
-
-/**
- * getProfile() is much more complex because it has to make
- * three XHR requests to get all the profile info.
- */
-
-export function getProfile(userId) {
-
-  // Start with an empty profile object and build it up
-  // from multiple XHR requests.
-  let profile = {};
-
-  // Get the user data from our local database.
-  return axios.get('http://localhost:3001/users/' + userId)
-    .then(response => {
-
-      let user = response.data;
-      profile.name = user.name;
-      profile.twitter = user.twitter;
-      profile.worksOn = user.worksOn;
-
-      // Then use the github attribute from the previous request to
-      // sent two XHR requests to GitHub's API. The first for their
-      // general user info, and the second for their repos.
-      return Promise.all([
-        axios.get('https://api.github.com/users/' + user.github),
-        axios.get('https://api.github.com/users/' + user.github + '/repos')
-      ]).then(results => {
-
-        let githubProfile = results[0].data;
-        let githubRepos = results[1].data;
-
-        profile.imageUrl = githubProfile.avatar_url;
-        profile.repos = githubRepos;
-
-        store.dispatch(userProfileSuccess(profile));
-
-        return;
-
-      });
-
-    });
-
 }

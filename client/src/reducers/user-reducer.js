@@ -1,28 +1,44 @@
 import * as types from '../actions/action-types';
-import _ from 'lodash';
 
 const initialState = {
-  users: [],
-  userProfile: {
-    repos: []
-  }
+  userToken: null,
+  userData: {},
+  userCards: {},
+  myTables: [],
+  gameHistory: []
 };
 
 const userReducer = function(state = initialState, action) {
 
   switch(action.type) {
 
-    case types.GET_USERS_SUCCESS:
-      return Object.assign({}, state, { users: action.users });
+    case types.AUTHENTICATE_USER_SUCCESS:
+      let {token: userToken} = action.user;
+      return Object.assign({}, state, { userToken, userData: action.user });
 
-    case types.DELETE_USER_SUCCESS:
+    case types.SIGNUP_USER_SUCCESS: 
+      return Object.assign({}, state, {});
+      
+    case types.LIST_MYTABLES_SUCCESS:
+      let userCards = {};
+      let myTables = action.myTables;
+      myTables.forEach((table)=>{
+        let tableId = table.id;
+        userCards[tableId] = table.userCards;
+      })
+      return Object.assign({}, state, { myTables, userCards });
 
-      // Use lodash to create a new user array without the user we want to remove
-      const newUsers = _.filter(state.users, user => user.id != action.userId);
-      return Object.assign({}, state, { users: newUsers });
+    case types.UPDATE_USER_CARDS:
 
-    case types.USER_PROFILE_SUCCESS:
-      return Object.assign({}, state, { userProfile: action.userProfile });
+      return Object.assign({}, state, { userCards: {
+        [action.data.tableId] : action.data.cards
+      } });
+
+    case types.USER_INFO_SUCCESS:
+      return Object.assign({}, state, { userData: Object.assign({}, state.userData, action.userInfo) });
+
+    case types.GAME_HISTORY_SUCCESS:
+      return Object.assign({}, state, { gameHistory: action.data.Games });  
 
   }
 

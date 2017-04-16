@@ -1,0 +1,260 @@
+@font-face {
+    font-family: 'ProximaNova';
+    src: url('assets/fonts/ProximaNova-Reg-webfont.ttf');
+	src: url('assets/fonts/ProximaNova-Reg-webfont.woff') format('woff'),
+	     url('assets/fonts/ProximaNova-Reg-webfont.ttf') format('truetype'),
+	     url('assets/fonts/ProximaNova-Reg-webfont.svg#webfont') format('svg');
+}
+
+@font-face {
+    font-family: 'ProximaNova-Bold';
+    src: url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_bold_macroman/ProximaNova-Bold-webfont.ttf') format('svg');
+}
+
+@font-face {
+    font-family: 'ProximaNova-Semibold';
+    src: url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_semibold_macroman/ProximaNova-Sbold-webfont.ttf') format('svg');
+}
+
+@font-face {
+    font-family: 'ProximaNova-Thin';
+    src: url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_thin_macroman/ProximaNova-Thin-webfont.ttf') format('svg');
+}
+@font-face {
+    font-family: 'ProximaNova-Light';
+    src: url('assets/fonts/ProximaNova/proximanova_light_macroman/ProximaNova-Light-webfont.ttf');
+    src: url('assets/fonts/ProximaNova/proximanova_light_macroman/ProximaNova-Light-webfont.ttf') format('woff'),
+         url('assets/fonts/ProximaNova/proximanova_light_macroman/ProximaNova-Light-webfont.ttf') format('truetype'),
+         url('assets/fonts/ProximaNova/proximanova_light_macroman/ProximaNova-Light-webfont.ttf') format('svg');
+}
+
+body {
+    font-family: ProximaNova;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+#root {
+    height: 51.25vw;
+    width: 100vw;
+    max-height: 100vh;
+    /* max-width: 161vh; */
+    & > div {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.icon-wrapper {
+    margin: 0 auto;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+input:focus {
+	border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+.button {
+    border: none;
+    font-family: ProximaNova;
+    font-size: 0.8571428571em;
+    font-weight: 600;
+    color: #ffffff;
+    display: inline-block;
+    padding: 12px 24px;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0;
+    text-decoration: none;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+    border-radius: 40px;
+    background-color: #3c3c3c;
+    &.active {
+        background-color: #3de689;
+        color: #191919;
+    }
+    &:active{
+        background-color: #3de689;
+        color: #191919;
+    }
+    &:hover {
+        background-color: #3de689;
+        color: #191919;   
+    }
+}
+.hide {
+    display: none !important;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+.row {
+    width: 100%;
+    float: left;
+}
+.col-lg-1 {
+    float: left;
+    width: 9%;
+}
+.col-lg-2 {
+    float: left;
+    width: 18%;
+}
+.col-lg-3 {
+    float: left;
+    width: 25%;
+}
+.col-lg-4 {
+    float: left;
+    width: 33.33%;
+}
+.col-lg-5 {
+    float: left;
+    width: 41%;
+}
+.col-lg-6 {
+    float: left;
+    width: 50%;
+}
+.col-lg-7 {
+    float: left;
+    width: 59%;
+}
+.col-lg-8 {
+    float: left;
+    width: 66.66%;
+}
+.col-lg-9 {
+    float: left;
+    width: 75%;
+}
+.col-lg-10 {
+    float: left;
+    width: 82%;
+}
+.col-lg-11 {
+    float: left;
+    width: 91%;
+}
+.col-lg-12 {
+    display: flex;
+}
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+.valign-wrapper {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.valign-wrapper .valign {
+    display: block;
+}
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+.center, .center-align {
+    text-align: center;
+}
+
+.margin-b-48 {
+    margin-bottom : 48px;
+}
+
+.margin-b-32 {
+    margin-bottom : 32px;
+}
+
+.margin-b-16 {
+    margin-bottom : 16px;
+}
+
+.margin-20 {
+    margin: 20px 0;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.form-control {
+    padding: 16px 0;
+    width: 100%;
+    border-radius: 70px;
+    background-color: #151515;
+    color: white;
+    text-align: center;
+    border: solid 1.4px #3b3b44;
+    box-sizing: border-box;
+}
+.settings-icon-container {
+    width: 16.256%;
+    margin: 0 auto;
+    transform: translateY(-20%);
+    position: relative;
+}
+.form-container {
+  width: 95%;
+  margin: 0 auto;
+}
+.display-flex {
+    display: flex;
+}
+.user-detail-container {
+    display: flex;
+    background-color: #1d1d1d;
+}
+.profile-photo {
+    width: 20%;
+}
+.photo {
+    width: 100%;
+    height: 100%;
+}
+.user-name {
+    padding: 3% 2%;
+    font-size: 1.2857142857em;
+    letter-spacing: 0.5px;
+}

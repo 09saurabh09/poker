@@ -1,116 +1,117 @@
-const path = require('path');
-const merge = require('webpack-merge');
-const validate = require('webpack-validator');
+var path = require('path')
+var webpack = require('webpack')
+var AssetsPlugin = require('assets-webpack-plugin')
+const isoTools = require('./config/isomorphic.tools');
+/*const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');*/
 
-const parts = require('./libs/parts');
+var DEBUG = !(process.env.NODE_ENV === 'production')
 
-const TARGET = process.env.npm_lifecycle_event;
-const ENABLE_POLLING = process.env.ENABLE_POLLING;
-const PATHS = {
-  app: path.join(__dirname, 'client/src/'),
-  style: [
-    path.join(__dirname, 'client', 'src', 'main.css')
-  ],
-  build: path.join(__dirname, 'build'),
-  test: path.join(__dirname, 'tests')
-};
-
-process.env.BABEL_ENV = TARGET;
-
-const common = merge(
-  {
-    // Entry accepts a path or an object of entries.
-    // We'll be using the latter form given it's
-    // convenient with more complex configurations.
-    entry: {
-      app: PATHS.app
-    },
-    output: {
-      path: PATHS.build,
-      filename: '[name].js'
-      // TODO: Set publicPath to match your GitHub project name
-      // E.g., '/kanban-demo/'. Webpack will alter asset paths
-      // based on this. You can even use an absolute path here
-      // or even point to a CDN.
-      //publicPath: ''
-    },
-    resolve: {
-      extensions: ['', '.js', '.jsx']
-    }
-  },
-  parts.indexTemplate({
-    title: 'Play',
-    appMountId: 'root'
-  }),
-  parts.loadOtherModules(),
-  parts.loadJquery(),
-  parts.loadJSX(PATHS.app),
-  parts.lintJSX(PATHS.app)
-);
-
-var config;
-
-// Detect how npm is run and branch based on that
-switch(TARGET) {
-  case 'build':
-  case 'stats':
-    config = merge(
-      common,
-      {
-        devtool: 'source-map',
-        entry: {
-          style: PATHS.style
-        },
-        output: {
-          path: PATHS.build,
-          filename: '[name].[chunkhash].js',
-          chunkFilename: '[chunkhash].js'
-        }
-      },
-      parts.clean(PATHS.build),
-      parts.setFreeVariable(
-        'process.env.NODE_ENV',
-        'production'
-      ),
-      parts.extractBundle({
-        name: 'vendor',
-        entries: ['react', 'react-dom']
-      }),
-      parts.extractCSS(PATHS.style),
-      parts.minify()
-    );
-    break;
-  case 'test':
-  case 'test:tdd':
-    config = merge(
-      common,
-      {
-        devtool: 'inline-source-map'
-      },
-      parts.loadIsparta(PATHS.app),
-      parts.loadJSX(PATHS.test)
-    );
-    break;
-  default:
-    config = merge(
-      common,
-      {
-        devtool: 'eval-source-map',
-        entry: {
-          style: PATHS.style
-        }
-      },
-      parts.devServer({
-        // Customize host/port here if needed
-        host: process.env.HOST,
-        port: process.env.PORT,
-        poll: ENABLE_POLLING
-      }),
-      parts.enableReactPerformanceTools(),
-      parts.npmInstall()
-    );
+if (DEBUG) {
+  require('dotenv').config()
 }
 
-module.exports = validate(config, {
-  quiet: true
-});
+var config = {
+  devtool: DEBUG ? 'cheap-module-eval-source-map' : false,
+  entry: {
+    app: './client/src/index',
+    vendor: [
+      'react',
+      'react-router',
+      'redux',
+      'react-redux',
+      'react-router-redux',
+      'react-dom',
+      'history',
+      'redux-thunk',
+      'axios',
+      'jquery'
+    ]
+  },
+  resolve: {
+    modules: [ path.join(__dirname, 'client/src'), 'node_modules' ]
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js'
+  },
+  plugins: [
+    isoTools.plugin(),
+    new webpack.EnvironmentPlugin(['NODE_ENV', 'API_BASE_URL']),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        WEBPACK: true
+      }
+    })/*,
+    new ExtractTextPlugin('main.css')*/
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(jsx|js)$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        include: __dirname
+      },/*{
+        test: /\.css$/,
+        exclude: [/\/plugin\//],
+        loader: "style-loader!css-loader"
+      }, {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass!autoprefixer'),
+        include: path.resolve(__dirname, 'client')
+      },*/ {
+        test: [/ProximaNova-\/[a-zA-Z]*-webfont\.ttf/],
+        loader: 'file?name=fonts/[name].[ext]'
+      }, {
+        test: [/\.(woff|woff2|eot|ttf)$/],
+        loader: 'url-loader?limit=100000'
+      }, {
+        test: /\.svg$/,
+        include: [/client\/assets/],
+        loaders: ['svg-inline-loader']
+      }
+    ]
+  }
+}
+
+
+if (DEBUG) {
+  config.entry.dev = [
+    'webpack-dev-server/client?http://localhost:7000',
+    'webpack/hot/only-dev-server',
+  ]
+
+  config.plugins = config.plugins.concat([
+    
+    
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filname: 'vendor.js'
+    })
+  ])
+  config.output.publicPath = 'http://localhost:7000/static/'
+  config.module.rules[0].options = {
+    "env": {
+      "development": {
+        "presets": ["react-hmre"]
+      }
+    }
+  }
+} else {
+  config.plugins = config.plugins.concat([
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filname: '[name].[chunkhash].js'
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+  ])
+}
+
+module.exports = config

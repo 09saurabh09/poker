@@ -1,0 +1,125 @@
+#login {
+    #login-content {
+	    background-color: #1b1b1b;
+	}
+	.form-control {
+		padding: 4.19% 0;
+    	font-size: 1.1428em;
+	}
+	.modal-container {
+	    padding: 4% 0 4%;
+	}
+	.forget-password {
+		font-size: 0.8214285714em;
+	    color: #a5a5a5;
+	    padding-top: 3%;
+	}
+	.sign-up-form {
+		visibility: hidden;
+		opacity: 0;
+		height:0;
+		&.expand {
+			visibility: visible;
+			opacity: 1;
+			height:100%;
+			transition: all 1s ease-in-out;
+		}
+	}
+	.play-icon-container {
+		margin: 0 auto;
+        width: 13%;
+    	margin-bottom: 5%;
+        &.sign-up-form-group {
+	    	width: 10%;
+	        margin-bottom: 3%;
+	        transition: all 1s ease-in-out;
+	    }
+	}
+	.bottom-button-container {
+		
+	}
+
+	#sign-up, #facebook-login {
+		border-radius: 50px;
+		background-color: #262626;
+		color: white;
+	}
+	.form-group {
+		width: 52.122%;
+		margin: 0 auto;
+	    margin-bottom: 6.5%;
+	    &.sign-up-form-group {
+	    	margin-bottom: 2%;
+	    	transition: all 1s ease-in-out;
+	    }
+	}
+	.mobile-otp {
+		overflow: hidden;
+	    width: 100%;
+	}
+	.mobile-container {
+		width: 100%;
+	}
+	.otp-container {
+		display: none;
+	}
+	.otp-icon-container, .login-icon-container {
+	    width: 50%;
+	    margin: 0 auto;
+	}
+	.show-otp {
+		.mobile-container {
+			width: 0;
+			transition: all 1s ease-in-out;
+			#inputUserNumber {
+				transition: all 1s ease-in-out;
+			}
+		}
+		.otp-container {
+			width: 100%;
+			display: block;
+			transition: all 1s ease-in-out;
+		}
+	}
+	.resend-box {
+		position: absolute;
+		top: 50%;
+		right: -8px;
+		transform: translate(100%, -50%);
+		color: #3de689;
+		letter-spacing: 0.3px;
+		font-size: 0.8571428571em;
+		font-weight: 600;
+	}
+
+	.login-action {
+   		position: absolute;
+	    top: 50%;
+	    right: 0;
+	    transform: translateY(-50%);
+	    background-color: #3de689;
+	    padding: 4% 0;
+	    border-radius: 70px;
+	    width: 12.81%;
+	    border: 1px solid #3de689;
+	}
+
+	.btn.focus, .btn:focus, .btn:hover {
+		background-color: #3de689 !important;
+	    color: white !important;
+	}
+	.sign-up-form-group .login-button {
+		display: none;
+	}
+
+	.login-action-container {
+		position: relative;
+	}
+	.bottom-button-container {
+	    width: 52.122%;
+    	margin: 0 auto;
+		display: flex;
+    	justify-content: space-between;
+	}
+	
+}
