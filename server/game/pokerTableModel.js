@@ -27,7 +27,8 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
         state: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            defaultValue: "idle"
         },
         moneyType: {
             type: DataTypes.STRING,
@@ -134,7 +135,8 @@ module.exports = function (sequelize, DataTypes) {
                         "rakeX": table.rakeX,
                         "rakeY": table.rakeY,
                         "rakeZ": table.rakeZ,
-                        "actionTime": table.actionTime
+                        "actionTime": table.actionTime,
+                        "timeBank": table.timeBank.timeGiven
                     }
                     table.set('gameState', gameState);
                 }

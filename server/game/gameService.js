@@ -186,7 +186,8 @@ module.exports = {
             players: [],
             lastTurnAt: gameState.lastTurnAt,
             actionTime: gameState.actionTime,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            oldPlayers: gameState.oldPlayers
         };
 
         gameState.players = gameState.players || Array.apply(null, Array(gameState.maxPlayer));
