@@ -33,7 +33,7 @@ export default class GameTable extends React.Component{
       players : [],
       gameState: {
         tableId: 0,
-        turnPos: 0,
+        turnPos: -1,
         minAmount: 0,
         maxAmount: 0,
         minRaise: 0,
@@ -46,7 +46,8 @@ export default class GameTable extends React.Component{
         players: [],
         actionTime: 0,
         lastTurnAt: 0,
-        timeBankInUse: false
+        timeBankInUse: false,
+        dealerPos: -1
       }
     };
   }
@@ -103,7 +104,11 @@ export default class GameTable extends React.Component{
     $(document).ready(function() {
       $(window).resize(function() {
         let currentRatio = $('#game-table').width() / 720;
-        $('body').css({ 'font-size': `${14 * currentRatio}px` });
+        let fontSize = 14 * currentRatio;
+        if(fontSize < 14) {
+          fontSize = 14;
+        }
+        $('body').css({ 'font-size': `${fontSize}px` });
       }).resize();
     });
   }
@@ -308,9 +313,7 @@ export default class GameTable extends React.Component{
   sitOutTable() {
     let payload = {
       tableId : this.props.tableId,
-      playerInfo: {
-        call: 'sitOut'
-      }
+      call: 'sitOut'
     }
     console.log('Event emited game-preference-update with payload ', payload)
     this.props.authorizedSocket.emit('game-preference-update', payload);
@@ -349,9 +352,7 @@ export default class GameTable extends React.Component{
     utils.closeModal('sit-out');
     let payload = {
       tableId : this.props.tableId,
-      playerInfo: {
-        call: 'sitIn'
-      }
+      call: 'sitIn'
     }
     console.log('Event emited game-preference-update with payload ', payload)
     this.props.authorizedSocket.emit('game-preference-update', payload);

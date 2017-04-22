@@ -27,7 +27,11 @@ class Home extends React.Component {
       $(window).resize(function() {
         $('#dp-container').height($('#dp-container').width());
         let currentRatio = $('#root').width() / 720;
-        $('body').css({ 'font-size': `${14 * currentRatio}px` });
+        let fontSize = 14 * currentRatio;
+        if(fontSize < 14) {
+          fontSize = 14;
+        }
+        $('body').css({ 'font-size': `${fontSize}px` });
       }).resize();
     });
     this.props.dispatch(connectUnauthorizedSocket());
@@ -93,7 +97,7 @@ class Home extends React.Component {
                     <div className="balance">
                       <div className="money-balance">
                         <div className="balance-value">
-                          $8295
+                          0
                         </div>
                         <div className="balance-type">
                           WALLET
@@ -101,7 +105,7 @@ class Home extends React.Component {
                       </div>
                       <div className="money-balance bankroll-money-balance">
                         <div className="balance-value bankroll-balance-value">
-                          $345
+                          {this.props.userData && this.props.userData.currentBalance || 0}
                         </div>
                         <div className="balance-type">
                           BANKROLL
@@ -109,7 +113,7 @@ class Home extends React.Component {
                       </div>
                       <div className="money-balance">
                         <div className="balance-value">
-                          $7895
+                          0
                         </div>
                         <div className="balance-type">
                           KARMA

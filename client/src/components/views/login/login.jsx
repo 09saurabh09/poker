@@ -117,7 +117,7 @@ export default class Login extends React.Component {
     $('#login .form-group').addClass('sign-up-form-group');
     $('#login .play-icon-container').addClass('sign-up-form-group');
     $('.forget-password').hide();
-    $('.sign-up-form').animate({height:125, opacity: 1}, 1000);
+    $('.sign-up-form').animate({height:'8em', opacity: 1}, 1000);
     $('.sign-up-form').css('visibility', 'visible');
     $('.bottom-button-container').hide();  
   }
